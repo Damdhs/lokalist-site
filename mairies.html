@@ -3,537 +3,509 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lokalist pour les Mairies — Boostez l'économie locale</title>
-  <meta name="description" content="Lokalist donne aux mairies les outils pour distribuer des bons aux habitants, gérer les marchés et stimuler le commerce local." />
+  <title>Lokalist pour les Mairies — Dynamisez l'économie locale de votre commune</title>
+  <meta name="description" content="Lokalist est l'outil numérique des mairies pour distribuer des bons aux habitants, gérer les marchés et mesurer l'impact réel sur le commerce local. Sans compétence technique requise." />
+  <meta name="keywords" content="mairie numérique, commerce local, bons habitants, fidélité locale, gestion marchés, économie locale, politique locale, élu municipal" />
+  <meta property="og:title" content="Lokalist pour les Mairies — Dynamisez l'économie locale" />
+  <meta property="og:description" content="Un outil municipal simple et puissant pour soutenir vos commerçants et récompenser vos habitants." />
   <link rel="canonical" href="https://lokalist.fr/mairies" />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --green: #1D9E75;
-      --green-dark: #0F6E56;
-      --green-light: #E1F5EE;
-      --green-mid: #A7F3D0;
-      --gold: #F0A500;
-      --gold-light: #FEF3C7;
-      --bg: #F7F8F4;
-      --dark: #0F1A16;
-      --text: #1A2E26;
-      --muted: #5C7268;
-      --surface: #FFFFFF;
-      --border: #D8E8E2;
-    }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      padding: 18px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      background: rgba(247,248,244,0.9); backdrop-filter: blur(16px);
-      border-bottom: 1px solid rgba(29,158,117,0.1);
-    }
-    .nav-logo { font-family: 'Bricolage Grotesque', sans-serif; font-size: 22px; font-weight: 800; color: var(--green); text-decoration: none; }
-    .nav-logo span { color: var(--gold); }
-    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
-    .nav-links a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--green); }
-    .nav-cta { background: var(--green); color: #fff !important; padding: 10px 22px; border-radius: 100px; font-weight: 600 !important; font-size: 13px !important; transition: background 0.2s !important; }
-    .nav-cta:hover { background: var(--green-dark) !important; }
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .logo{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:var(--g);text-decoration:none;letter-spacing:-.5px}
+    .logo span{color:var(--a)}
+    .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--g)}
+    .nav-cta{background:var(--g)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--gd)!important;transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open{display:flex}
+    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
 
-    /* HERO MAIRIES */
-    .hero {
-      padding: 140px 40px 100px;
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-    }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--green-light); border: 1px solid var(--green-mid);
-      color: var(--green-dark); font-size: 12px; font-weight: 600;
-      padding: 6px 16px; border-radius: 100px; margin-bottom: 24px;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-    .hero h1 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(38px, 4.5vw, 60px);
-      font-weight: 800; line-height: 1.05;
-      letter-spacing: -1.5px; color: var(--dark);
-      margin-bottom: 20px;
-    }
-    .hero h1 span { color: var(--green); }
-    .hero-sub { font-size: 17px; color: var(--muted); line-height: 1.7; font-weight: 300; margin-bottom: 36px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn-main {
-      background: var(--green); color: #fff;
-      padding: 14px 28px; border-radius: 100px;
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 14px; font-weight: 700;
-      text-decoration: none; border: none; cursor: pointer;
-      transition: all 0.25s;
-      box-shadow: 0 8px 24px rgba(29,158,117,0.25);
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-main:hover { background: var(--green-dark); transform: translateY(-2px); }
-    .btn-outline {
-      background: transparent; color: var(--text);
-      padding: 13px 24px; border-radius: 100px;
-      font-size: 14px; font-weight: 500;
-      text-decoration: none; border: 1.5px solid var(--border);
-      transition: all 0.25s;
-      display: inline-flex; align-items: center; gap: 8px;
-    }
-    .btn-outline:hover { border-color: var(--green); color: var(--green); }
+    /* HERO */
+    .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);color:var(--gd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--g)}
+    .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:480px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
+    .btn-g:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 12px 32px rgba(29,158,117,.38)}
+    .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
+    .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+    .hero-trust{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800}
 
     /* DASHBOARD PREVIEW */
-    .dashboard-preview {
-      background: var(--dark);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.2);
-      animation: fadeUp 0.8s ease both;
-    }
-    .dash-topbar {
-      display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
-    }
-    .dash-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dash-title { font-size: 12px; color: rgba(255,255,255,0.4); margin-left: 8px; font-family: monospace; }
-    .dash-kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 16px; }
-    .dash-kpi {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; padding: 16px;
-    }
-    .dash-kpi-val {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 26px; font-weight: 800; color: #fff;
-    }
-    .dash-kpi-val.green { color: var(--green); }
-    .dash-kpi-val.gold { color: var(--gold); }
-    .dash-kpi-label { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 3px; }
-    .dash-bar {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px; padding: 16px;
-    }
-    .dash-bar-title { font-size: 11px; color: rgba(255,255,255,0.4); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.8px; }
-    .dash-bars { display: flex; gap: 6px; align-items: flex-end; height: 60px; }
-    .dash-bar-item {
-      flex: 1; background: var(--green);
-      border-radius: 4px; opacity: 0.7;
-      transition: opacity 0.2s;
-    }
-    .dash-bar-item:hover { opacity: 1; }
-    .dash-notif {
-      margin-top: 10px;
-      background: rgba(29,158,117,0.15);
-      border: 1px solid rgba(29,158,117,0.3);
-      border-radius: 10px; padding: 12px 14px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .dash-notif-icon { font-size: 18px; }
-    .dash-notif-text { font-size: 12px; color: rgba(255,255,255,0.7); }
-    .dash-notif-text strong { color: #fff; display: block; font-size: 12px; margin-bottom: 1px; }
+    .dash-preview{background:var(--dark);border-radius:20px;padding:24px;box-shadow:0 48px 96px rgba(0,0,0,.28),0 0 0 1px rgba(29,158,117,.2)}
+    .dash-topbar{display:flex;align-items:center;gap:6px;margin-bottom:18px}
+    .dash-dot{width:9px;height:9px;border-radius:50%}
+    .dash-label{font-size:11px;color:rgba(255,255,255,.3);margin-left:8px;font-family:monospace}
+    .dash-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+    .dash-kpi{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px}
+    .dash-kpi-v{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff}
+    .dash-kpi-v.g{color:var(--g)}
+    .dash-kpi-v.a{color:var(--a)}
+    .dash-kpi-l{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+    .dash-chart{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px;margin-bottom:10px}
+    .dash-chart-lbl{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px}
+    .dash-bars{display:flex;gap:5px;align-items:flex-end;height:52px}
+    .db{flex:1;background:var(--g);border-radius:3px;opacity:.65;transition:opacity .2s}
+    .db:hover{opacity:1}
+    .dash-notif{background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px}
+    .dash-notif-txt{font-size:11.5px;color:rgba(255,255,255,.65)}
+    .dash-notif-txt strong{color:#fff;display:block;margin-bottom:2px}
 
-    /* CHIFFRES */
-    .chiffres {
-      background: var(--green);
-      padding: 60px 40px;
-    }
-    .chiffres-inner {
-      max-width: 1200px; margin: 0 auto;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
-      text-align: center;
-    }
-    .chiffre-val {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 44px; font-weight: 800; color: #fff;
-    }
-    .chiffre-label { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; font-weight: 400; }
+    /* CONVICTION STRIP */
+    .conviction{background:var(--g);padding:64px 5%}
+    .conv-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:36px;text-align:center}
+    .conv-val{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:#fff;line-height:1}
+    .conv-lbl{font-size:12px;color:rgba(255,255,255,.72);margin-top:6px;font-weight:400}
 
-    /* FEATURES */
-    .features {
-      padding: 100px 40px;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .section-label { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
-    .section-title {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(30px, 4vw, 48px);
-      font-weight: 800; color: var(--dark);
-      line-height: 1.1; letter-spacing: -1px; margin-bottom: 16px;
-    }
-    .section-sub { font-size: 17px; color: var(--muted); max-width: 540px; line-height: 1.7; font-weight: 300; margin-bottom: 60px; }
+    /* ARGUMENTS ELUS */
+    .args{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:52px;max-width:500px}
+    .args-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .arg-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+    .arg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .arg-card:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(29,158,117,.09);border-color:var(--gm)}
+    .arg-card:hover::before{transform:scaleX(1)}
+    .arg-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .arg-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .arg-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
 
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .feature-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 32px 28px;
-      transition: all 0.3s;
-    }
-    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(29,158,117,0.08); border-color: var(--green-mid); }
-    .feature-card-icon {
-      width: 52px; height: 52px; border-radius: 14px;
-      background: var(--green-light);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px; margin-bottom: 20px;
-    }
-    .feature-card h3 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
-    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    /* STRATEGIE */
+    .strat{background:var(--dark);padding:90px 5%;position:relative;overflow:hidden}
+    .strat::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 80% 40%,rgba(29,158,117,.12) 0%,transparent 55%)}
+    .strat-in{max-width:1280px;margin:0 auto;position:relative}
+    .strat .sec-tag{color:var(--gm)}
+    .strat .sec-h{color:#fff}
+    .strat .sec-p{color:rgba(255,255,255,.45)}
+    .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:52px}
+    .strat-steps{display:flex;flex-direction:column;gap:0}
+    .strat-step{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.06);position:relative}
+    .strat-step:last-child{border-bottom:none}
+    .strat-num{width:40px;height:40px;border-radius:50%;background:var(--g);color:#fff;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 0 5px rgba(29,158,117,.2)}
+    .strat-content h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+    .strat-content p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+    .strat-visual{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px}
+    .strat-kpi-row{display:flex;gap:12px;margin-bottom:16px}
+    .strat-kpi{flex:1;background:rgba(255,255,255,.06);border-radius:12px;padding:16px;text-align:center}
+    .strat-kpi-v{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+    .strat-kpi-l{font-size:10px;color:rgba(255,255,255,.4);margin-top:3px}
+    .strat-flow{display:flex;flex-direction:column;gap:8px}
+    .strat-flow-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:12px 14px}
+    .strat-flow-ico{font-size:18px;flex-shrink:0}
+    .strat-flow-txt{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4}
+    .strat-flow-txt strong{color:#fff;display:block;margin-bottom:1px}
+    .strat-flow-arrow{margin-left:auto;color:rgba(29,158,117,.6);font-size:14px}
 
     /* WORKFLOW */
-    .workflow {
-      background: var(--dark); padding: 100px 40px;
-    }
-    .workflow-inner { max-width: 1200px; margin: 0 auto; }
-    .workflow .section-label { color: var(--green-mid); }
-    .workflow .section-title { color: #fff; }
-    .workflow .section-sub { color: rgba(255,255,255,0.5); }
-    .workflow-steps {
-      display: flex; gap: 0; margin-top: 60px;
-      position: relative;
-    }
-    .workflow-steps::before {
-      content: '';
-      position: absolute; top: 28px; left: 28px; right: 28px; height: 2px;
-      background: linear-gradient(90deg, var(--green) 0%, rgba(29,158,117,0.2) 100%);
-    }
-    .workflow-step {
-      flex: 1; text-align: center; padding: 0 16px;
-      position: relative;
-    }
-    .ws-num {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--green); color: #fff;
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 20px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 20px; position: relative; z-index: 1;
-      box-shadow: 0 0 0 6px rgba(29,158,117,0.2);
-    }
-    .ws-icon { font-size: 28px; margin-bottom: 12px; }
-    .ws-title { font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
-    .ws-desc { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.6; }
+    .workflow{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .wf-steps{display:flex;gap:0;margin-top:52px;position:relative}
+    .wf-steps::before{content:'';position:absolute;top:27px;left:28px;right:28px;height:2px;background:linear-gradient(90deg,var(--g) 0%,rgba(29,158,117,.15) 100%)}
+    .wf-step{flex:1;text-align:center;padding:0 14px;position:relative}
+    .wf-n{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;font-family:'Syne',sans-serif;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;position:relative;z-index:1;box-shadow:0 0 0 5px rgba(29,158,117,.18)}
+    .wf-ico{font-size:26px;margin-bottom:10px}
+    .wf-ttl{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px}
+    .wf-desc{font-size:12px;color:var(--muted);line-height:1.6}
 
-    /* TARIFS APERÇU */
-    .tarifs {
-      padding: 100px 40px;
-      max-width: 1200px; margin: 0 auto;
-      text-align: center;
-    }
-    .tarif-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 24px; padding: 40px 36px;
-      max-width: 480px; margin: 48px auto 0;
-      position: relative;
-    }
-    .tarif-badge-top {
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: var(--gold); color: var(--dark);
-      font-size: 11px; font-weight: 700; padding: 4px 16px;
-      border-radius: 100px; text-transform: uppercase; letter-spacing: 0.8px;
-      white-space: nowrap;
-    }
-    .tarif-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 8px; }
-    .tarif-price {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 14px; color: var(--muted); font-weight: 400;
-      margin-bottom: 8px;
-    }
-    .tarif-price strong { font-size: 48px; color: var(--dark); font-weight: 800; }
-    .tarif-sub { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
-    .tarif-features { list-style: none; display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 32px; }
-    .tarif-features li { font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-    .tarif-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    /* TARIF */
+    .tarif-section{background:var(--gl);padding:90px 5%}
+    .tarif-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .tarif-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:40px;position:relative}
+    .tarif-top-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--a);color:var(--dark);font-size:11px;font-weight:700;padding:5px 18px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+    .tarif-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px}
+    .tarif-price{font-family:'Syne',sans-serif;margin-bottom:6px}
+    .tarif-price strong{font-size:52px;font-weight:800;color:var(--dark)}
+    .tarif-price span{font-size:18px;color:var(--muted)}
+    .tarif-sub{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+    .tarif-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+    .tarif-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px}
+    .tarif-feats li::before{content:'✓';color:var(--g);font-weight:800}
+    .tarif-content .sec-h{margin-bottom:16px}
+    .tarif-content .sec-p{margin-bottom:24px}
+    .tarif-points{display:flex;flex-direction:column;gap:12px}
+    .tarif-point{display:flex;gap:12px;align-items:flex-start;padding:14px;background:var(--surf);border:1px solid var(--bdr);border-radius:12px}
+    .tarif-point-ico{font-size:20px;flex-shrink:0}
+    .tarif-point h4{font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:2px}
+    .tarif-point p{font-size:12px;color:var(--muted);line-height:1.5}
 
-    /* CTA FINAL */
-    .cta-final {
-      background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%);
-      padding: 100px 40px; text-align: center;
-      position: relative; overflow: hidden;
-    }
-    .cta-final::before {
-      content: '🏛️';
-      font-size: 300px; position: absolute;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
-      opacity: 0.04; pointer-events: none;
-    }
-    .cta-final-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
-    .cta-final h2 {
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: clamp(32px, 4vw, 52px);
-      font-weight: 800; color: #fff;
-      letter-spacing: -1px; line-height: 1.1; margin-bottom: 16px;
-    }
-    .cta-final p { font-size: 17px; color: rgba(255,255,255,0.75); margin-bottom: 40px; font-weight: 300; }
-    .btn-white {
-      background: #fff; color: var(--green);
-      padding: 16px 36px; border-radius: 100px;
-      font-family: 'Bricolage Grotesque', sans-serif;
-      font-size: 15px; font-weight: 800;
-      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-      transition: all 0.25s; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    }
-    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 16px 48px rgba(0,0,0,0.2); }
-    .cta-reassurance { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 16px; }
+    /* TEMOIGNAGE FICTIF */
+    .temoignage{padding:80px 5%;max-width:1280px;margin:0 auto;text-align:center}
+    .temo-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:48px;max-width:720px;margin:0 auto;position:relative}
+    .temo-card::before{content:'"';font-family:'Syne',sans-serif;font-size:120px;color:var(--gl);position:absolute;top:-20px;left:32px;line-height:1}
+    .temo-quote{font-size:18px;color:var(--dark);line-height:1.7;font-weight:400;font-style:italic;margin-bottom:24px;position:relative}
+    .temo-author{display:flex;align-items:center;justify-content:center;gap:12px}
+    .temo-avatar{width:44px;height:44px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:20px}
+    .temo-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark)}
+    .temo-role{font-size:12px;color:var(--muted)}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg,var(--dark) 0%,#1A3028 100%);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'🏛️';font-size:280px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:620px;margin:0 auto}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,52px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2 span{color:var(--a)}
+    .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
+    .btn-w{background:#fff;color:var(--g);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
+    .cta-reassure{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
 
     /* FOOTER */
-    footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); padding: 40px; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .footer-logo { font-family: 'Bricolage Grotesque', sans-serif; font-size: 18px; font-weight: 800; color: var(--green); }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--green); }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); }
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-logo{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--g)}
+    .foot-logo span{color:var(--a)}
+    .foot-links{display:flex;gap:22px}
+    .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
 
-    /* ANIMATIONS */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    /* ANIM */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
 
     /* RESPONSIVE */
-    @media (max-width: 900px) {
-      nav { padding: 16px 20px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; gap: 40px; padding: 120px 20px 60px; }
-      .chiffres-inner { grid-template-columns: repeat(2, 1fr); }
-      .features-grid { grid-template-columns: 1fr; }
-      .workflow-steps { flex-direction: column; gap: 32px; }
-      .workflow-steps::before { display: none; }
-      .features, .tarifs { padding: 60px 20px; }
-      .workflow, .cta-final { padding: 60px 20px; }
+    @media(max-width:960px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .hero,.strat-grid,.tarif-in{grid-template-columns:1fr}
+      .hero{gap:40px;padding:110px 5% 60px}
+      .conv-in{grid-template-columns:1fr 1fr}
+      .args-grid{grid-template-columns:1fr}
+      .wf-steps{flex-direction:column;gap:24px}
+      .wf-steps::before{display:none}
+    }
+    @media(max-width:640px){
+      .conv-in{grid-template-columns:1fr 1fr}
+      .args-grid{grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="/" class="nav-logo">Lokal<span>ist</span></a>
+<nav id="nav">
+  <a href="/" class="logo">Lokal<span>ist</span></a>
   <ul class="nav-links">
     <li><a href="/mairies" class="active">Mairies</a></li>
     <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
     <li><a href="/tarifs">Tarifs</a></li>
-    <li><a href="/contact" class="nav-cta">Nous contacter</a></li>
+    <li><a href="/contact" class="nav-cta">Demander une démo</a></li>
   </ul>
+  <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="mob" id="mob">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <a href="/contact" style="color:var(--g);font-weight:700;border:none">Demander une démo →</a>
+</div>
 
 <!-- HERO -->
-<section style="background: var(--bg);">
+<section style="background:var(--bg)">
   <div class="hero">
-    <div>
-      <div class="hero-badge">🏛️ Pour les collectivités</div>
-      <h1>Dynamisez<br /><span>l'économie locale</span><br />de votre commune</h1>
-      <p class="hero-sub">
-        Lokalist donne à votre mairie les outils pour distribuer des bons aux habitants, gérer vos marchés et mesurer l'impact réel sur le commerce local.
-      </p>
-      <div class="hero-actions">
-        <a href="/contact" class="btn-main">📞 Demander une démo</a>
-        <a href="https://dashboard.lokalist.fr" class="btn-outline" target="_blank">Accéder au dashboard →</a>
+    <div style="animation:fadeUp .6s ease both">
+      <div class="hero-badge">🏛️ Pour les collectivités territoriales</div>
+      <h1>Dynamisez<br/><em>l'économie locale</em><br/>de votre commune</h1>
+      <p class="hero-sub">Lokalist donne à votre mairie les outils concrets pour soutenir vos commerçants, récompenser vos habitants et gérer vos marchés — sans compétence technique requise.</p>
+      <div class="hero-btns">
+        <a href="/contact" class="btn btn-g">📞 Demander une démo gratuite</a>
+        <a href="/contact?demo=mairie" class="btn btn-o">🖥️ Voir une démo du dashboard →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">Sans engagement</div>
+        <div class="trust-item">Réponse sous 24h</div>
+        <div class="trust-item">Déploiement en 48h</div>
       </div>
     </div>
-    <div class="dashboard-preview">
+    <div class="dash-preview" style="animation:fadeUp .7s .1s ease both">
       <div class="dash-topbar">
         <div class="dash-dot" style="background:#EF4444"></div>
         <div class="dash-dot" style="background:#F59E0B"></div>
         <div class="dash-dot" style="background:#22C55E"></div>
-        <span class="dash-title">dashboard.lokalist.fr · Mairie de Fécamp</span>
+        <span class="dash-label">dashboard.lokalist.fr · Exemple — Mairie de Fécamp</span>
       </div>
       <div class="dash-kpis">
-        <div class="dash-kpi">
-          <div class="dash-kpi-val green">342</div>
-          <div class="dash-kpi-label">Bons distribués</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dash-kpi-val gold">78%</div>
-          <div class="dash-kpi-label">Taux d'utilisation</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dash-kpi-val">14</div>
-          <div class="dash-kpi-label">Marchands actifs</div>
-        </div>
-        <div class="dash-kpi">
-          <div class="dash-kpi-val green">3 420€</div>
-          <div class="dash-kpi-label">Injecté en local</div>
-        </div>
+        <div class="dash-kpi"><div class="dash-kpi-v g">342</div><div class="dash-kpi-l">Bons distribués</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-v a">78%</div><div class="dash-kpi-l">Taux d'utilisation</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-v">14</div><div class="dash-kpi-l">Marchands actifs</div></div>
+        <div class="dash-kpi"><div class="dash-kpi-v g">3 420€</div><div class="dash-kpi-l">Injecté en local</div></div>
       </div>
-      <div class="dash-bar">
-        <div class="dash-bar-title">Bons utilisés ce mois</div>
+      <div class="dash-chart">
+        <div class="dash-chart-lbl">Bons utilisés ce mois</div>
         <div class="dash-bars">
-          <div class="dash-bar-item" style="height:30%"></div>
-          <div class="dash-bar-item" style="height:55%"></div>
-          <div class="dash-bar-item" style="height:45%"></div>
-          <div class="dash-bar-item" style="height:70%"></div>
-          <div class="dash-bar-item" style="height:60%"></div>
-          <div class="dash-bar-item" style="height:90%"></div>
-          <div class="dash-bar-item" style="height:75%"></div>
+          <div class="db" style="height:30%"></div>
+          <div class="db" style="height:55%"></div>
+          <div class="db" style="height:45%"></div>
+          <div class="db" style="height:72%"></div>
+          <div class="db" style="height:60%"></div>
+          <div class="db" style="height:92%"></div>
+          <div class="db" style="height:78%"></div>
         </div>
       </div>
       <div class="dash-notif">
-        <div class="dash-notif-icon">🔔</div>
-        <div class="dash-notif-text">
+        <span style="font-size:18px">🔔</span>
+        <div class="dash-notif-txt">
           <strong>Campagne "Bons Printemps 2026" lancée</strong>
           200 bons × 10€ distribués · Notification push envoyée
         </div>
       </div>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--muted);font-style:italic">📊 Exemple de tableau de bord — les chiffres et la commune sont fictifs</div>
     </div>
   </div>
 </section>
 
-<!-- CHIFFRES -->
-<section class="chiffres">
-  <div class="chiffres-inner">
-    <div class="reveal">
-      <div class="chiffre-val">100%</div>
-      <div class="chiffre-label">Budget dépensé localement</div>
+<!-- CONVICTION -->
+<section class="conviction">
+  <div class="conv-in">
+    <div class="reveal"><div class="conv-val">100%</div><div class="conv-lbl">Budget dépensé localement</div></div>
+    <div class="reveal"><div class="conv-val">90j</div><div class="conv-lbl">Validité des bons</div></div>
+    <div class="reveal"><div class="conv-val">2 min</div><div class="conv-lbl">Pour lancer une campagne</div></div>
+    <div class="reveal"><div class="conv-val">0€</div><div class="conv-lbl">Pour les habitants</div></div>
+  </div>
+</section>
+
+<!-- ARGUMENTS ÉLUS -->
+<section class="args">
+  <p class="sec-tag reveal">Pourquoi Lokalist</p>
+  <h2 class="sec-h reveal">Les arguments qui<br/>convainquent les élus</h2>
+  <p class="sec-p reveal">Lokalist n'est pas un gadget numérique. C'est un outil de politique économique locale, mesurable et transparent.</p>
+  <div class="args-grid">
+    <div class="arg-card reveal">
+      <div class="arg-ico">💰</div>
+      <h3>Budget maîtrisé, impact mesurable</h3>
+      <p>Chaque euro dépensé est traçable. Vous savez combien a été distribué, combien a été utilisé, et chez quels commerçants. Fini les actions non mesurables.</p>
     </div>
-    <div class="reveal">
-      <div class="chiffre-val">90j</div>
-      <div class="chiffre-label">Validité des bons</div>
+    <div class="arg-card reveal">
+      <div class="arg-ico">🗳️</div>
+      <h3>Un argument électoral concret</h3>
+      <p>Montrez à vos administrés une action tangible pour le commerce local. Des bons reçus sur leur téléphone, c'est plus parlant qu'un discours.</p>
     </div>
-    <div class="reveal">
-      <div class="chiffre-val">2 min</div>
-      <div class="chiffre-label">Pour lancer une campagne</div>
+    <div class="arg-card reveal">
+      <div class="arg-ico">🏪</div>
+      <h3>Soutien direct aux commerçants</h3>
+      <p>Les bons ne peuvent être utilisés que chez les commerçants partenaires de votre commune. Chaque euro reste dans l'économie locale.</p>
     </div>
-    <div class="reveal">
-      <div class="chiffre-val">0€</div>
-      <div class="chiffre-label">Pour les habitants</div>
+    <div class="arg-card reveal">
+      <div class="arg-ico">📱</div>
+      <h3>Toucher les habitants là où ils sont</h3>
+      <p>Notifications push géolocalisées, bons sur smartphone — vous communiquez directement avec vos administrés, sans intermédiaire.</p>
+    </div>
+    <div class="arg-card reveal">
+      <div class="arg-ico">⚡</div>
+      <h3>Déploiement immédiat</h3>
+      <p>Pas de mois de développement. En 48h, votre commune dispose de son dashboard, de ses commerçants référencés et peut lancer sa première campagne.</p>
+    </div>
+    <div class="arg-card reveal">
+      <div class="arg-ico">🔒</div>
+      <h3>Sécurité & conformité RGPD</h3>
+      <p>Espace mairie totalement isolé, données hébergées en Europe, conformité RGPD assurée. Vos administrés sont protégés.</p>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
-<section class="features">
-  <p class="section-label reveal">Ce qu'on vous offre</p>
-  <h2 class="section-title reveal">Tout ce dont votre<br />mairie a besoin</h2>
-  <p class="section-sub reveal">Un outil complet, simple à prendre en main, sans compétence technique requise.</p>
-
-  <div class="features-grid">
-    <div class="feature-card reveal">
-      <div class="feature-card-icon">📣</div>
-      <h3>Campagnes de bons</h3>
-      <p>Créez une campagne en 2 clics. Définissez la valeur, le nombre de bons et le message. La distribution et les notifications push sont automatiques.</p>
-    </div>
-    <div class="feature-card reveal">
-      <div class="feature-card-icon">🏪</div>
-      <h3>Gestion des marchés</h3>
-      <p>Planifiez vos marchés, gérez les emplacements en plan interactif, suivez les paiements des marchands et générez les QR codes d'entrée.</p>
-    </div>
-    <div class="feature-card reveal">
-      <div class="feature-card-icon">📊</div>
-      <h3>Dashboard en temps réel</h3>
-      <p>Visualisez en temps réel les bons émis, utilisés et le montant injecté dans l'économie locale. Transparence totale sur l'usage du budget.</p>
-    </div>
-    <div class="feature-card reveal">
-      <div class="feature-card-icon">🔔</div>
-      <h3>Notifications push</h3>
-      <p>Touchez directement les habitants sur leur téléphone. Chaque campagne envoie automatiquement une notification personnalisée.</p>
-    </div>
-    <div class="feature-card reveal">
-      <div class="feature-card-icon">🔒</div>
-      <h3>Espace sécurisé</h3>
-      <p>Accès dédié par commune, session isolée de l'app grand public. Vos données restent strictement privées.</p>
-    </div>
-    <div class="feature-card reveal">
-      <div class="feature-card-icon">💳</div>
-      <h3>Remboursements simplifiés</h3>
-      <p>Suivez les bons utilisés par commerce et gérez les remboursements aux marchands depuis votre dashboard.</p>
+<!-- STRATEGIE -->
+<section class="strat">
+  <div class="strat-in">
+    <p class="sec-tag reveal">Stratégie communale</p>
+    <h2 class="sec-h reveal">Comment Lokalist s'intègre<br/>dans votre politique locale</h2>
+    <p class="sec-p reveal">Un outil qui renforce vos actions existantes et crée de nouvelles opportunités de dialogue avec vos commerçants et habitants.</p>
+    <div class="strat-grid">
+      <div class="strat-steps">
+        <div class="strat-step reveal">
+          <div class="strat-num">1</div>
+          <div class="strat-content">
+            <h4>Définissez votre budget partenariat</h4>
+            <p>Vous décidez du montant annuel alloué aux bons Lokalist. Lokalist prend 45% en commission, 55% est intégralement distribué aux habitants sous forme de bons valables uniquement dans votre commune.</p>
+          </div>
+        </div>
+        <div class="strat-step reveal">
+          <div class="strat-num">2</div>
+          <div class="strat-content">
+            <h4>Référencez vos commerçants</h4>
+            <p>Vos commerçants locaux rejoignent Lokalist. Ils peuvent encaisser les bons de vos habitants et bénéficient de la visibilité de l'app.</p>
+          </div>
+        </div>
+        <div class="strat-step reveal">
+          <div class="strat-num">3</div>
+          <div class="strat-content">
+            <h4>Lancez des campagnes ciblées</h4>
+            <p>Fête de la musique, braderie, Noël, rentrée — créez des campagnes thématiques et touchez vos habitants avec des bons personnalisés.</p>
+          </div>
+        </div>
+        <div class="strat-step reveal">
+          <div class="strat-num">4</div>
+          <div class="strat-content">
+            <h4>Mesurez l'impact et communiquez</h4>
+            <p>Présentez en conseil municipal les chiffres concrets : bons distribués, taux d'utilisation, montant injecté dans l'économie locale.</p>
+          </div>
+        </div>
+      </div>
+      <div class="strat-visual reveal">
+        <div class="strat-kpi-row">
+          <div class="strat-kpi"><div class="strat-kpi-v" style="color:var(--g)">55%</div><div class="strat-kpi-l">Distribué aux habitants</div></div>
+          <div class="strat-kpi"><div class="strat-kpi-v" style="color:var(--a)">45%</div><div class="strat-kpi-l">Commission Lokalist</div></div>
+        </div>
+        <div class="strat-flow">
+          <div class="strat-flow-item">
+            <div class="strat-flow-ico">🏛️</div>
+            <div class="strat-flow-txt"><strong>Mairie verse le budget</strong>Ex: 10 000€ budget campagne (exemple indicatif)</div>
+            <div class="strat-flow-arrow">↓</div>
+          </div>
+          <div class="strat-flow-item">
+            <div class="strat-flow-ico">⚙️</div>
+            <div class="strat-flow-txt"><strong>Lokalist distribue</strong>5 500€ en bons distribués aux habitants (55%)</div>
+            <div class="strat-flow-arrow">↓</div>
+          </div>
+          <div class="strat-flow-item">
+            <div class="strat-flow-ico">👥</div>
+            <div class="strat-flow-txt"><strong>Habitants utilisent</strong>Bons valables uniquement en local</div>
+            <div class="strat-flow-arrow">↓</div>
+          </div>
+          <div class="strat-flow-item">
+            <div class="strat-flow-ico">🏪</div>
+            <div class="strat-flow-txt"><strong>Commerçants encaissent</strong>Remboursés par Lokalist · Suivi temps réel</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- WORKFLOW -->
 <section class="workflow">
-  <div class="workflow-inner">
-    <p class="section-label reveal">Workflow mairie</p>
-    <h2 class="section-title reveal">De la décision<br />à la distribution</h2>
-    <p class="section-sub reveal">En quelques minutes, votre budget municipal se transforme en pouvoir d'achat local.</p>
-    <div class="workflow-steps">
-      <div class="workflow-step reveal">
-        <div class="ws-num">1</div>
-        <div class="ws-icon">🤝</div>
-        <div class="ws-title">Contrat partenariat</div>
-        <div class="ws-desc">Définissez le budget annuel alloué aux bons Lokalist.</div>
-      </div>
-      <div class="workflow-step reveal">
-        <div class="ws-num">2</div>
-        <div class="ws-icon">⚙️</div>
-        <div class="ws-title">Créez une campagne</div>
-        <div class="ws-desc">Nom, valeur des bons, nombre, message de notification.</div>
-      </div>
-      <div class="workflow-step reveal">
-        <div class="ws-num">3</div>
-        <div class="ws-icon">📲</div>
-        <div class="ws-title">Distribution automatique</div>
-        <div class="ws-desc">Les bons sont envoyés aux habitants + notif push instantanée.</div>
-      </div>
-      <div class="workflow-step reveal">
-        <div class="ws-num">4</div>
-        <div class="ws-icon">📊</div>
-        <div class="ws-title">Suivi & reporting</div>
-        <div class="ws-desc">Visualisez l'impact réel sur le commerce local en temps réel.</div>
-      </div>
+  <p class="sec-tag reveal">De la décision à la distribution</p>
+  <h2 class="sec-h reveal">En 4 étapes,<br/>votre budget crée de l'impact</h2>
+  <p class="sec-p reveal">Pas de développement, pas de formation longue. Votre commune peut lancer sa première campagne en moins de 48h.</p>
+  <div class="wf-steps">
+    <div class="wf-step reveal">
+      <div class="wf-n">1</div>
+      <div class="wf-ico">🤝</div>
+      <div class="wf-ttl">Partenariat signé</div>
+      <div class="wf-desc">Définissez votre budget annuel. Nous créons votre espace mairie en 24h.</div>
+    </div>
+    <div class="wf-step reveal">
+      <div class="wf-n">2</div>
+      <div class="wf-ico">⚙️</div>
+      <div class="wf-ttl">Campagne créée</div>
+      <div class="wf-desc">Nom, montant, nombre de bons, message personnalisé — en 2 minutes.</div>
+    </div>
+    <div class="wf-step reveal">
+      <div class="wf-n">3</div>
+      <div class="wf-ico">📲</div>
+      <div class="wf-ttl">Distribution auto</div>
+      <div class="wf-desc">Bons envoyés aux habitants + notification push géolocalisée instantanée.</div>
+    </div>
+    <div class="wf-step reveal">
+      <div class="wf-n">4</div>
+      <div class="wf-ico">📊</div>
+      <div class="wf-ttl">Suivi & reporting</div>
+      <div class="wf-desc">Dashboard temps réel. Chiffres prêts pour votre prochain conseil municipal.</div>
     </div>
   </div>
 </section>
 
 <!-- TARIF -->
-<section class="tarifs">
-  <p class="section-label reveal">Tarification</p>
-  <h2 class="section-title reveal">Une offre sur mesure<br />pour chaque commune</h2>
-  <p class="section-sub reveal" style="margin: 0 auto 0;">Le tarif est négocié selon la taille de votre commune et votre budget partenariat.</p>
-  <div class="tarif-card reveal">
-    <div class="tarif-badge-top">🏛️ Ville Partenaire</div>
-    <div class="tarif-label">Commission Lokalist</div>
-    <div class="tarif-price"><strong>45</strong>% du budget</div>
-    <div class="tarif-sub">Le reste (55%) est intégralement distribué en bons aux habitants</div>
-    <ul class="tarif-features">
-      <li>Dashboard mairie dédié et sécurisé</li>
-      <li>Campagnes de bons illimitées</li>
-      <li>Notifications push incluses</li>
-      <li>Gestion des marchés complète</li>
-      <li>Support prioritaire</li>
-      <li>Reporting mensuel</li>
-    </ul>
-    <a href="/contact" class="btn-main" style="width:100%;justify-content:center;">Demander un devis →</a>
+<section class="tarif-section">
+  <div class="tarif-in">
+    <div>
+      <p class="sec-tag reveal">Tarification transparente</p>
+      <h2 class="sec-h reveal">Une offre simple,<br/>sans surprise</h2>
+      <p class="sec-p reveal">Pas d'abonnement mensuel. Pas de frais cachés. Lokalist se rémunère uniquement sur le budget que vous choisissez d'allouer.</p>
+      <div class="tarif-points">
+        <div class="tarif-point reveal">
+          <div class="tarif-point-ico">✅</div>
+          <div>
+            <h4>Aucun abonnement fixe</h4>
+            <p>Vous ne payez que quand vous lancez une campagne. Zéro coût en dehors.</p>
+          </div>
+        </div>
+        <div class="tarif-point reveal">
+          <div class="tarif-point-ico">📊</div>
+          <div>
+            <h4>Transparence totale</h4>
+            <p>Chaque euro tracé. Vous voyez exactement ce qui est distribué et utilisé.</p>
+          </div>
+        </div>
+        <div class="tarif-point reveal">
+          <div class="tarif-point-ico">🤝</div>
+          <div>
+            <h4>Sur mesure selon votre commune</h4>
+            <p>Budget minimum, fréquence des campagnes, communes de 500 à 50 000 habitants.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tarif-card reveal">
+      <div class="tarif-top-badge">🏛️ Ville Partenaire Lokalist</div>
+      <div class="tarif-lbl">Commission Lokalist</div>
+      <div class="tarif-price"><strong>45</strong><span>% du budget campagne</span></div>
+      <div class="tarif-sub">Le reste — soit 55% — est intégralement distribué en bons aux habitants de votre commune, utilisables uniquement chez vos commerçants partenaires.</div>
+      <ul class="tarif-feats">
+        <li>Dashboard mairie dédié & sécurisé</li>
+        <li>Campagnes de bons illimitées</li>
+        <li>Notifications push incluses</li>
+        <li>Gestion des marchés complète</li>
+        <li>Support prioritaire dédié</li>
+        <li>Reporting mensuel pour conseil municipal</li>
+        <li>Déploiement en 48h</li>
+      </ul>
+      <a href="/contact" class="btn btn-g" style="width:100%;justify-content:center">Demander un devis gratuit →</a>
+    </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section class="cta-final">
-  <div class="cta-final-inner">
-    <h2 reveal>Prêt à booster<br />votre commerce local ?</h2>
-    <p>Rejoignez Lokalist et offrez à vos habitants un outil concret de soutien au commerce de proximité.</p>
-    <a href="/contact" class="btn-white">📞 Demander une démo gratuite</a>
-    <p class="cta-reassurance">Sans engagement · Réponse sous 24h · contact@lokalist.fr</p>
+
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in">
+    <h2>Prêt à booster<br/><span>votre commerce local ?</span></h2>
+    <p>Rejoignez les communes pionnières de Lokalist. Démo gratuite, sans engagement, réponse sous 24h.</p>
+    <a href="/contact" class="btn-w">📞 Demander une démo gratuite</a>
+    <p class="cta-reassure">Sans engagement · Déploiement en 48h · contact@lokalist.fr</p>
   </div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Lokalist</div>
-    <div class="footer-links">
+  <div class="foot-in">
+    <div class="foot-logo">Lokal<span>ist</span></div>
+    <div class="foot-links">
       <a href="/">Accueil</a>
       <a href="/commercants">Commerçants</a>
+      <a href="/artisans">Artisans</a>
       <a href="/tarifs">Tarifs</a>
       <a href="/contact">Contact</a>
       <a href="https://dashboard.lokalist.fr" target="_blank">Dashboard</a>
     </div>
-    <div class="footer-copy">© 2026 Lokalist</div>
+    <div class="foot-copy">© 2026 Lokalist</div>
   </div>
 </footer>
 
 <script>
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*70);obs.unobserve(e.target)}})},{threshold:0.08})
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')})
 </script>
 </body>
 </html>
