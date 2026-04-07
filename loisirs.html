@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokalist Loisirs — Cinéma, bowling, escape game et activités locales</title>
+  <meta name="description" content="Lokalist référence les lieux de loisirs locaux — cinéma, bowling, escape game, karting, cours de yoga, ateliers. Cumulez des points fidélité et utilisez vos bons mairie."/>
+  <meta name="keywords" content="loisirs locaux, cinéma local, bowling, escape game, activités famille, cours yoga, atelier cuisine, fidélité loisirs, bons mairie loisirs"/>
+  <link rel="canonical" href="https://lokalist.fr/loisirs"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--p:#8B5CF6;--pl:#F5F3FF;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .nav-links{display:flex;align-items:center;gap:22px;list-style:none}
+    .nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--g)}
+    .nav-cta{background:var(--g)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--gd)!important;transform:translateY(-1px)}
+    
+    .nav-dash{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important}
+    .nav-dash:hover{background:var(--gl)!important}
+    .foot-legal{display:flex;gap:16px;flex-wrap:wrap}
+    .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+    .foot-legal a:hover{color:var(--g)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open{display:flex}
+    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
+    .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
+    .btn-p{background:var(--p);color:#fff;box-shadow:0 8px 24px rgba(139,92,246,.28)}
+    .btn-p:hover{background:#7C3AED;transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
+    .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:500px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* HERO */
+    .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pl);border:1px solid #DDD6FE;color:#5B21B6;font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--p)}
+    .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:480px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .hero-trust{display:flex;gap:24px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800}
+
+    /* PREVIEW CARDS */
+    .preview{display:flex;flex-direction:column;gap:10px}
+    .prev-card{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:14px;transition:all .2s;animation:fadeUp .6s ease both}
+    .prev-card:hover{transform:translateX(4px);border-color:#DDD6FE;box-shadow:0 8px 24px rgba(139,92,246,.08)}
+    .prev-card.boost{border-color:var(--a);background:linear-gradient(135deg,#FFFBEB,#fff)}
+    .prev-ava{width:48px;height:48px;border-radius:13px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .prev-info{flex:1}
+    .prev-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark)}
+    .prev-meta{font-size:11.5px;color:var(--muted);margin-top:2px}
+    .prev-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+    .boost-tag{font-size:10px;font-weight:700;color:var(--a);background:rgba(239,159,39,.12);border-radius:5px;padding:3px 8px}
+    .prev-note{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:var(--a)}
+    .pts-tag{font-size:10px;font-weight:700;color:var(--g);background:var(--gl);border-radius:5px;padding:3px 8px}
+
+    /* CATS */
+    .cats-section{padding:80px 5%;background:var(--dark);position:relative;overflow:hidden}
+    .cats-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 70% 40%,rgba(139,92,246,.1) 0%,transparent 55%)}
+    .cats-in{max-width:1280px;margin:0 auto;position:relative}
+    .cats-section .sec-tag{color:#C4B5FD}
+    .cats-section .sec-h{color:#fff}
+    .cats-section .sec-p{color:rgba(255,255,255,.45)}
+    .cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}
+    .cat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:20px 16px;text-align:center;transition:all .2s;cursor:default}
+    .cat-card:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);transform:translateY(-3px)}
+    .cat-ico{font-size:32px;margin-bottom:10px}
+    .cat-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+    .cat-ex{font-size:11px;color:rgba(255,255,255,.4)}
+
+    /* AVANTAGES */
+    .avantages{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .av-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .av-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+    .av-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--p);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .av-card:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(139,92,246,.09);border-color:#DDD6FE}
+    .av-card:hover::before{transform:scaleX(1)}
+    .av-ico{width:48px;height:48px;border-radius:13px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .av-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .av-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+    /* FIDELITE */
+    .fidelite{background:linear-gradient(135deg,var(--p),#6D28D9);padding:80px 5%}
+    .fid-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .fidelite h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+    .fidelite p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:28px}
+    .fid-steps{display:flex;flex-direction:column;gap:14px}
+    .fid-step{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px}
+    .fid-n{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--p);font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .fid-txt h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+    .fid-txt p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5;margin:0}
+    .fid-visual{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:28px}
+    .fid-pts{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:#fff;line-height:1;margin-bottom:6px}
+    .fid-pts-lbl{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px}
+    .fid-bar-wrap{background:rgba(255,255,255,.15);border-radius:100px;height:10px;margin-bottom:8px;overflow:hidden}
+    .fid-bar{height:100%;background:var(--a);border-radius:100px;width:72%}
+    .fid-bar-lbl{font-size:11px;color:rgba(255,255,255,.5);margin-bottom:20px}
+    .fid-paliers{display:flex;flex-direction:column;gap:8px}
+    .fid-palier{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 14px}
+    .fid-palier-name{font-size:12px;color:rgba(255,255,255,.7);font-weight:500}
+    .fid-palier-val{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--a)}
+
+    /* REJOINDRE STEPS */
+    .steps-sect{padding:90px 5%;background:var(--bg);max-width:1280px;margin:0 auto}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+    .step{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;text-align:center;transition:all .3s}
+    .step:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(139,92,246,.08);border-color:#DDD6FE}
+    .step-n{width:52px;height:52px;border-radius:50%;background:var(--p);color:#fff;font-family:'Syne',sans-serif;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+    .step-i{font-size:26px;margin-bottom:10px}
+    .step h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .step p{font-size:13px;color:var(--muted);line-height:1.6}
+
+    /* TARIF */
+    .tarif-sect{background:var(--pl);padding:90px 5%}
+    .tarif-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .tarif-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:40px;position:relative}
+    .tarif-top{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--p);color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+    .tarif-main{font-family:'Syne',sans-serif;margin-bottom:6px}
+    .tarif-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+    .tarif-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px}
+    .tarif-feats li::before{content:'✓';color:var(--g);font-weight:800}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg,var(--dark),#1A1A2E);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'🎳';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2 em{font-style:normal;color:#C4B5FD}
+    .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
+    .btn-w{background:#fff;color:var(--p);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
+    .cta-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
+
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:18px;flex-wrap:wrap}
+    .foot-links a{font-size:12px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--g)}
+    .foot-legal{display:flex;gap:14px;flex-wrap:wrap}
+    .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none}
+    .foot-legal a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+
+    @media(max-width:960px){
+      .nav-links{display:none}.hamburger{display:flex}
+      .hero,.fid-in,.tarif-in{grid-template-columns:1fr}
+      .hero{gap:40px;padding:110px 5% 60px}
+      .cats-grid{grid-template-columns:repeat(3,1fr)}
+      .av-grid,.steps{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){.cats-grid{grid-template-columns:repeat(2,1fr)}}
+  </style>
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none"><div style="width:36px;height:36px;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg"
+shape-rendering="geometricPrecision"
+width="36" height="36" viewBox="0 0 1024 1024">
+  
+
+<path d="
+M 409.546 519.454
+C 410.387 521.179 406.554 519.714 406.32 520.634
+C 406.229 520.991 406.585 521.646 406.651 522.025
+C 406.957 523.79 407.483 525.455 407.993 527.168
+C 409.669 532.795 411.883 538.432 413.998 543.915
+C 417.926 554.097 422.026 564.261 427.002 573.991
+C 430.731 581.285 435.237 588.166 439.446 595.163
+C 447.057 607.819 455.152 620.308 465.024 631.324
+C 472.102 639.223 479.394 646.69 487.812 653.185
+C 490.398 655.181 492.926 657.489 495.835 659.016
+C 495.9 659.517 495.967 659.999 495.988 660.504
+C 495.492 672.623 495.868 684.871 495.99 696.996
+C 496.177 715.729 496.03 734.483 496.023 753.211
+C 496.02 760.858 496.202 768.514 495.875 776.156
+C 495.791 778.111 495.777 780.068 495.729 782.024
+C 495.712 782.725 495.464 783.775 495.978 784.317
+C 491.35 784.178 488.098 780.285 485.456 776.94
+C 479.762 769.731 474.258 762.36 468.644 755.086
+C 445.258 724.789 421.085 695.068 397.932 664.597
+C 389.232 653.148 380.34 641.864 371.805 630.289
+C 354.153 606.35 336.933 581.993 322.16 556.142
+C 314.027 541.913 306.205 527.598 299.879 512.464
+C 289.244 487.021 283.79 459.057 284.555 431.491
+C 284.812 422.211 285.444 412.95 287.153 403.806
+C 289.703 390.159 293.172 376.563 298.483 363.708
+C 305.544 346.618 314.354 330.215 325.633 315.504
+C 346.127 288.777 373.63 266.53 404.531 252.918
+C 458.306 229.23 522.651 228.903 575.342 255.971
+C 593.552 265.326 610.717 277.244 625.341 291.619
+C 628.872 295.09 632.325 298.684 635.514 302.473
+C 636.555 303.71 638.569 305.36 639.033 306.911
+C 636.591 306.523 634.153 305.549 631.704 305.035
+C 625.201 303.67 618.558 302.702 611.945 302.049
+C 593.946 300.272 576.025 301.53 558.406 305.54
+C 548.682 307.752 538.729 310.638 529.779 315.077
+C 528.892 315.356 528.04 314.827 527.243 314.47
+C 525.511 313.693 523.694 313.048 521.877 312.496
+C 515.08 310.431 508.037 308.754 500.957 308.028
+C 479.014 305.78 457.688 308.941 437.436 317.748
+C 427.458 322.087 418.126 328.03 409.778 334.976
+C 397.694 345.031 387.371 357.488 380.032 371.416
+C 360.654 408.192 361.564 454.104 383.423 489.617
+C 388.345 497.612 394.184 505.046 400.85 511.664
+C 403.567 514.361 406.402 517.254 409.546 519.454 Z"
+opacity="1" fill="rgb(22,62,125)" fill-rule="evenodd" />
+<path d="
+M 409.546 519.454
+C 413.755 522.706 418.09 525.693 422.649 528.447
+C 424.762 529.724 427.246 530.667 429.16 532.219
+C 430.911 535.251 431.625 539.193 432.936 542.457
+C 436.097 550.325 439.883 557.956 443.927 565.403
+C 456.495 588.55 475.267 607.721 496.534 622.979
+C 497.462 623.491 498.381 624.051 499.183 624.748
+C 498.927 625.741 498.172 625.971 497.276 626.074
+C 497.03 626.102 496.091 626.012 495.997 626.392
+C 495.177 629.721 495.915 634.071 495.937 637.495
+C 495.981 644.664 495.651 651.854 495.835 659.016
+C 492.926 657.489 490.398 655.181 487.812 653.185
+C 479.394 646.69 472.102 639.223 465.024 631.324
+C 455.152 620.308 447.057 607.819 439.446 595.163
+C 435.237 588.166 430.731 581.285 427.002 573.991
+C 422.026 564.261 417.926 554.097 413.998 543.915
+C 411.883 538.432 409.669 532.795 407.993 527.168
+C 407.483 525.455 406.957 523.79 406.651 522.025
+C 406.585 521.646 406.229 520.991 406.32 520.634
+C 406.554 519.714 410.387 521.179 409.546 519.454 Z"
+opacity="1" fill="rgb(22,58,115)" fill-rule="evenodd" />
+<path d="
+M 434.966 466.102
+C 437.013 441.671 443.604 417.608 456.374 396.498
+C 470.147 373.73 488.444 354.205 510.989 339.905
+C 563.411 306.656 632.861 307.928 684.233 342.417
+C 696.7 350.787 708.901 360.887 718.258 372.727
+C 732.219 390.391 742.952 409.341 749.574 430.929
+C 755.144 449.086 757.742 468.996 756.062 487.969
+C 753.787 513.671 746.845 538.4 733.524 560.657
+C 723.136 578.012 709.691 592.854 693.985 605.522
+C 641.844 647.581 562.625 651.375 507.236 613.194
+C 487.058 599.285 469.543 581.659 457.112 560.435
+C 451.222 550.379 446.693 539.603 442.837 528.63
+C 435.928 508.97 433.226 486.878 434.966 466.102 Z
+M 474.469 471.116
+C 473.028 499.06 481.02 526.985 497.963 549.36
+C 501.507 554.039 505.21 558.48 509.313 562.688
+C 511.924 565.366 514.653 568.205 518.283 569.442
+C 521.642 570.586 526.074 569.154 529.468 568.652
+C 538.028 567.386 546.478 565.515 555.039 564.284
+C 557.304 572.138 559.56 580.116 562.302 587.825
+C 563.609 591.501 566.231 594.667 570.488 594.553
+C 575.489 594.42 577.626 589.203 579.66 585.376
+C 584.635 576.015 589.55 566.358 595.294 557.445
+C 598.321 559.314 599.902 564.378 601.569 567.407
+C 604.178 572.146 606.815 576.878 609.313 581.677
+C 611.014 584.943 612.576 588.402 614.722 591.408
+C 615.401 592.36 616.184 593.277 617.127 593.979
+C 622.625 598.071 627.675 592.438 629.43 587.58
+C 630.49 584.645 631.259 581.599 632.178 578.618
+C 633.561 574.131 634.923 569.636 636.265 565.139
+C 644.918 566.371 653.444 568.552 662.115 569.705
+C 665.498 570.155 670.052 571.197 673.356 570.036
+C 676.173 569.047 678.735 566.453 680.832 564.405
+C 685.567 559.78 689.978 554.552 693.989 549.293
+C 715.204 521.475 722.138 484.055 714.682 450.13
+C 710.952 433.156 703.549 417.213 693.23 403.23
+C 662.537 361.638 605.368 345.137 556.813 361.555
+C 535.554 368.744 516.704 382.049 502.303 399.194
+C 489.999 413.841 481.25 431.603 477.274 450.338
+C 475.803 457.271 475.467 464.147 474.469 471.116 Z"
+opacity="1" fill="rgb(251,179,33)" fill-rule="evenodd" />
+<path d="
+M 485.426 470.605
+C 486.376 465.485 486.342 460.222 487.497 455.104
+C 491.535 437.223 499.03 420.396 510.898 406.303
+C 526.78 387.445 548.736 373.87 572.967 368.837
+C 619.903 359.089 670.754 381.471 693.377 424.144
+C 706.138 448.214 709.432 476.132 703.392 502.61
+C 700.924 513.428 697.011 524.108 691.024 533.507
+C 686.968 539.874 682.688 546.135 677.37 551.534
+C 675.75 553.179 673.957 555.537 671.942 556.672
+C 670.175 555.281 668.953 553.002 667.576 551.242
+C 664.052 546.736 660.837 541.962 657.461 537.343
+C 651.578 529.292 645.629 521.215 639.488 513.358
+C 637.635 510.987 634.484 509.009 633.064 506.389
+C 632.227 504.845 632.089 502.455 631.651 500.743
+C 630.84 497.577 630.153 494.384 629.383 491.209
+C 628.963 489.474 628.295 487.63 628.324 485.834
+C 630.07 483.205 632.765 481.21 635.063 479.089
+C 639.14 475.327 643.182 471.496 647.143 467.611
+C 650.031 464.779 653.469 461.585 652.716 457.148
+C 651.777 451.619 646.637 451.09 642.039 450.57
+C 635.846 449.869 629.642 449.259 623.448 448.522
+C 620.676 448.192 617.613 448.138 614.934 447.335
+C 613.145 444.994 612.239 441.389 611.129 438.663
+C 608.387 431.932 606.011 424.801 602.563 418.397
+C 599.989 413.617 594.386 411.54 590.225 415.951
+C 588.179 418.12 587.151 421.018 585.99 423.702
+C 583.727 428.931 581.472 434.164 579.176 439.379
+C 578.264 441.45 577.332 443.513 576.404 445.577
+C 576.117 446.216 575.783 447.298 575.103 447.583
+C 567.705 448.411 560.306 449.086 552.912 449.994
+C 549.589 450.402 545.836 450.264 542.63 451.257
+C 538.279 452.604 536.047 457.663 538.011 461.794
+C 539.381 464.678 542.184 466.753 544.474 468.874
+C 548.511 472.614 552.45 476.458 556.532 480.149
+C 558.428 481.865 561.578 483.799 562.683 486.149
+C 562.816 487.249 562.208 488.489 561.928 489.542
+C 561.322 491.825 560.833 494.152 560.323 496.457
+C 559.577 499.836 559.053 504.088 557.544 507.204
+C 556.924 508.482 555.333 509.131 554.292 510.027
+C 552.46 511.606 550.953 513.588 549.441 515.466
+C 543.249 523.153 537.693 531.339 531.551 539.064
+C 528.605 542.769 525.968 546.722 523.09 550.481
+C 521.886 552.053 520.659 554.585 519.044 555.713
+C 515.821 553.369 513.265 550.274 510.76 547.219
+C 507.824 543.639 504.913 540.127 502.434 536.201
+C 490.232 516.882 483.604 493.557 485.426 470.605 Z"
+opacity="1" fill="rgb(251,179,35)" fill-rule="evenodd" />
+<path d="
+M 499.183 624.748
+C 500.22 625.265 501.296 625.996 502.163 626.765
+C 500.969 626.904 500.667 628.004 501.072 628.991
+C 501.756 630.662 504.063 631.993 505.263 633.32
+C 505.57 633.66 506.726 635.299 507.242 635.234
+C 507.589 635.19 507.551 634.265 507.77 634.046
+C 508.042 633.773 508.478 634.301 508.79 634.112
+C 509.578 633.633 508.61 633.381 508.885 633.04
+C 509.342 632.473 510.933 632.151 510.051 631.413
+C 528.367 641.301 547.669 648.332 568.285 651.591
+C 580.011 653.445 591.755 653.62 603.593 653.814
+C 602.76 656.645 599.986 659.142 598.217 661.448
+C 594.07 666.851 589.767 672.175 585.464 677.453
+C 585.748 676.466 584.349 675.744 583.582 675.813
+C 582.151 675.875 583.785 674.638 582.986 674.587
+C 579.588 674.37 576.112 674.945 572.688 674.765
+C 562.349 674.221 551.989 673.268 541.705 672.064
+C 535.48 671.335 529.255 670.835 523.103 669.55
+C 515.937 668.054 509.116 665.275 502.451 662.321
+C 501.171 661.754 497.01 658.877 495.988 660.504
+C 495.967 659.999 495.9 659.517 495.835 659.016
+C 495.651 651.854 495.981 644.664 495.937 637.495
+C 495.915 634.071 495.177 629.721 495.997 626.392
+C 496.091 626.012 497.03 626.102 497.276 626.074
+C 498.172 625.971 498.927 625.741 499.183 624.748 Z"
+opacity="1" fill="rgb(52,101,170)" fill-rule="evenodd" />
+<path d="
+M 495.988 660.504
+C 497.01 658.877 501.171 661.754 502.451 662.321
+C 509.116 665.275 515.937 668.054 523.103 669.55
+C 529.255 670.835 535.48 671.335 541.705 672.064
+C 551.989 673.268 562.349 674.221 572.688 674.765
+C 576.112 674.945 579.588 674.37 582.986 674.587
+C 583.785 674.638 582.151 675.875 583.582 675.813
+C 584.349 675.744 585.748 676.466 585.464 677.453
+C 564.413 704.581 542.537 731.086 521.604 758.311
+C 517.111 764.155 512.456 769.885 508.05 775.793
+C 504.868 780.059 501.735 784.147 495.978 784.317
+C 495.464 783.775 495.712 782.725 495.729 782.024
+C 495.777 780.068 495.791 778.111 495.875 776.156
+C 496.202 768.514 496.02 760.858 496.023 753.211
+C 496.03 734.483 496.177 715.729 495.99 696.996
+C 495.868 684.871 495.492 672.623 495.988 660.504 Z"
+opacity="1" fill="rgb(82,143,218)" fill-rule="evenodd" />
+<path d="
+M 502.163 626.765
+C 504.858 628.136 507.425 629.902 510.051 631.413
+C 510.933 632.151 509.342 632.473 508.885 633.04
+C 508.61 633.381 509.578 633.633 508.79 634.112
+C 508.478 634.301 508.042 633.773 507.77 634.046
+C 507.551 634.265 507.589 635.19 507.242 635.234
+C 506.726 635.299 505.57 633.66 505.263 633.32
+C 504.063 631.993 501.756 630.662 501.072 628.991
+C 500.667 628.004 500.969 626.904 502.163 626.765 Z"
+opacity="1" fill="rgb(38,78,140)" fill-rule="evenodd" />
+<path d="
+M 532.278 556.7
+C 538.03 549.218 543.547 541.493 549.242 533.948
+C 552.212 530.013 554.946 525.532 558.445 522.053
+C 560.583 523.585 561.747 525.424 564.535 525.879
+C 568.268 526.488 571.452 524.355 574.491 522.492
+C 578.847 519.822 583.339 517.36 587.656 514.626
+C 589.57 513.414 591.419 512.102 593.33 510.89
+C 594.094 510.405 595.047 509.647 595.989 509.595
+C 598.07 509.479 600.958 512.416 602.664 513.457
+C 607.59 516.464 612.577 519.374 617.487 522.407
+C 621.095 524.636 625.797 527.592 630.142 525.385
+C 631.122 524.887 631.833 523.928 632.563 523.137
+C 633.39 523.417 633.9 524.536 634.419 525.201
+C 635.773 526.935 637.143 528.666 638.411 530.465
+C 642.921 536.861 647.514 543.251 652.239 549.492
+C 653.765 551.507 655.255 553.503 656.62 555.632
+C 656.764 555.857 657.904 557.424 657.831 557.567
+C 655.757 557.712 653.101 556.637 651.044 556.239
+C 646.311 555.321 641.554 554.475 636.785 553.771
+C 634.305 553.405 630.653 552.238 628.636 554.243
+C 627.366 555.506 627.056 557.627 626.532 559.277
+C 625.284 563.211 624.21 567.209 622.892 571.12
+C 622.283 572.925 621.912 574.942 621.101 576.663
+C 620.896 577.098 620.509 578.721 620.155 578.391
+C 614.883 567.367 608.523 556.893 602.998 545.997
+C 601.186 542.422 597.672 537.121 593.077 540.378
+C 590.013 542.549 588.57 546.451 586.78 549.605
+C 583.305 555.729 579.875 561.87 576.461 568.028
+C 575.055 570.565 573.68 573.094 572.206 575.594
+C 571.921 576.077 571.187 577.834 570.67 577.979
+C 568.937 571.727 566.874 565.458 564.723 559.331
+C 563.995 557.259 563.797 554.112 561.583 553.018
+C 559.557 552.016 556.014 553.084 553.838 553.3
+C 549.078 553.774 544.332 554.746 539.618 555.547
+C 537.218 555.954 534.718 556.697 532.278 556.7 Z"
+opacity="1" fill="rgb(250,178,35)" fill-rule="evenodd" />
+<path d="
+M 552.831 461.463
+C 555.192 460.343 558.487 460.486 561.057 460.277
+C 565.716 459.897 570.344 459.32 574.987 458.788
+C 577.719 458.475 581.404 458.39 583.645 456.599
+C 585.761 454.906 586.444 451.441 587.394 449.024
+C 589.073 444.753 590.788 440.489 592.64 436.29
+C 593.505 434.33 594.206 431.896 595.522 430.203
+C 596.081 431.696 597.018 433.062 597.639 434.543
+C 599.74 439.558 601.786 444.588 603.844 449.621
+C 604.909 452.226 605.999 456.093 608.605 457.57
+C 610.685 458.749 613.651 458.705 615.973 458.979
+C 620.189 459.477 624.403 459.967 628.628 460.385
+C 631.267 460.647 634.253 460.68 636.702 461.759
+C 636.89 462.25 636.044 462.883 635.71 463.201
+C 634.401 464.447 633.118 465.718 631.788 466.947
+C 628.415 470.065 625.147 473.312 621.69 476.336
+C 620.104 477.722 617.382 479.823 616.725 481.897
+C 615.902 484.493 617.046 487.753 617.724 490.26
+C 619.089 495.307 620.317 500.414 621.419 505.525
+C 621.857 507.557 623.122 510.237 622.748 512.318
+C 621.909 512.432 621.174 511.746 620.479 511.357
+C 618.924 510.488 617.399 509.555 615.88 508.624
+C 611.688 506.054 607.358 503.671 603.27 500.936
+C 600.98 499.404 598.422 497.362 595.552 497.321
+C 592.734 497.281 589.856 499.855 587.589 501.314
+C 583.642 503.854 579.558 506.169 575.593 508.676
+C 573.516 509.989 570.944 512.089 568.467 512.388
+C 567.93 511.799 568.12 510.877 568.278 510.122
+C 568.659 508.296 569.258 506.528 569.747 504.731
+C 570.992 500.15 571.877 495.47 572.991 490.855
+C 573.587 488.386 574.67 485.605 574.311 483.036
+C 573.916 480.212 570.235 477.518 568.233 475.762
+C 565.021 472.945 562.002 469.896 558.826 467.034
+C 556.828 465.235 554.523 463.562 552.831 461.463 Z"
+opacity="1" fill="rgb(251,179,36)" fill-rule="evenodd" />
+
+</svg></div><span style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span></a>
+  <ul class="nav-links">
+    <li><a href="/mairies">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/loisirs">Loisirs</a></li>
+    <li><a href="/agences">Immo & Courtiers</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="https://dashboard.lokalist.fr" target="_blank" class="nav-dash">🏛️ Dashboard</a></li>
+    <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/loisirs">🎳 Loisirs & Activités</a>
+  <a href="/agences">🏠 Immo & Courtiers</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <a href="https://dashboard.lokalist.fr" target="_blank">⚙️ Dashboard Mairie</a>
+  <a href="/contact" style="color:var(--g);font-weight:700;border:none">Nous rejoindre →</a>
+</div>
+
+<!-- HERO -->
+<section style="background:var(--bg)">
+  <div class="hero">
+    <div style="animation:fadeUp .6s ease both">
+      <div class="hero-badge">🎳 Loisirs & Activités locales</div>
+      <h1>Vos activités locales<br/><em>récompensées</em></h1>
+      <p class="hero-sub">Cinéma, bowling, escape game, yoga, ateliers — Lokalist référence les lieux de loisirs de votre commune. Vos clients cumulent des points et utilisent leurs bons mairie chez vous.</p>
+      <div class="hero-btns">
+        <a href="/contact" class="btn btn-p">🎳 Rejoindre comme partenaire loisirs</a>
+        <a href="#avantages" class="btn btn-o">Découvrir les avantages →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">Points fidélité pour vos clients</div>
+        <div class="trust-item">Bons mairie acceptés</div>
+        <div class="trust-item">3 mois offerts</div>
+      </div>
+    </div>
+    <div style="animation:fadeUp .7s .1s ease both">
+      <div class="preview">
+        <div class="prev-card boost">
+          <div class="prev-ava">🎳</div>
+          <div class="prev-info">
+            <div class="prev-name">Bowling de Fécamp</div>
+            <div class="prev-meta">Loisirs · Centre-ville · ⭐ 4.8</div>
+          </div>
+          <div class="prev-right">
+            <div class="boost-tag">⚡ Boost actif</div>
+            <div class="pts-tag">+50 pts/visite</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-ava">🎭</div>
+          <div class="prev-info">
+            <div class="prev-name">Escape Game Normandie</div>
+            <div class="prev-meta">Loisirs · 1,4 km · ⭐ 4.9</div>
+          </div>
+          <div class="prev-right">
+            <div class="pts-tag">+80 pts/visite</div>
+          </div>
+        </div>
+        <div class="prev-card">
+          <div class="prev-ava">🧘</div>
+          <div class="prev-info">
+            <div class="prev-name">Studio Yoga Fécamp</div>
+            <div class="prev-meta">Bien-être · 0,8 km · ⭐ 4.7</div>
+          </div>
+          <div class="prev-right">
+            <div class="pts-tag">+40 pts/séance</div>
+          </div>
+        </div>
+        <div style="background:var(--gl);border:1px solid var(--gm);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--gd);font-weight:600;margin-top:4px">
+          <span>🎟️</span> Bons mairie acceptés chez tous les partenaires
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats-section">
+  <div class="cats-in">
+    <p class="sec-tag reveal">Toutes les activités</p>
+    <h2 class="sec-h reveal" style="color:#fff">Un loisir pour chaque envie,<br/>partout en France</h2>
+    <p class="sec-p reveal">Des sorties en famille aux cours du soir — si c'est un loisir local, c'est sur Lokalist.</p>
+    <div class="cats-grid">
+      <div class="cat-card reveal">
+        <div class="cat-ico">🎳</div>
+        <div class="cat-name">Bowling</div>
+        <div class="cat-ex">Loisirs famille</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🎭</div>
+        <div class="cat-name">Escape Game</div>
+        <div class="cat-ex">Team & famille</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🎬</div>
+        <div class="cat-name">Cinéma</div>
+        <div class="cat-ex">Salles locales</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🏎️</div>
+        <div class="cat-name">Karting</div>
+        <div class="cat-ex">Sensations fortes</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🧘</div>
+        <div class="cat-name">Yoga & Pilates</div>
+        <div class="cat-ex">Bien-être</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🍳</div>
+        <div class="cat-name">Atelier cuisine</div>
+        <div class="cat-ex">Cours culinaires</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🎨</div>
+        <div class="cat-name">Ateliers créatifs</div>
+        <div class="cat-ex">Peinture, poterie...</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🎸</div>
+        <div class="cat-name">Cours de musique</div>
+        <div class="cat-ex">Guitare, piano...</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🏊</div>
+        <div class="cat-name">Sports & Fitness</div>
+        <div class="cat-ex">Salles, piscines...</div>
+      </div>
+      <div class="cat-card reveal">
+        <div class="cat-ico">🎯</div>
+        <div class="cat-name">Laser Game</div>
+        <div class="cat-ex">Action & fun</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVANTAGES -->
+<section class="avantages" id="avantages">
+  <p class="sec-tag reveal">Pourquoi Lokalist</p>
+  <h2 class="sec-h reveal">Ce que Lokalist apporte<br/>à votre lieu de loisirs</h2>
+  <p class="sec-p reveal">Fidélisez vos visiteurs, acceptez les bons mairie et gagnez en visibilité locale — sans changer votre organisation.</p>
+  <div class="av-grid">
+    <div class="av-card reveal">
+      <div class="av-ico">📲</div>
+      <h3>QR Code fidélité</h3>
+      <p>Vos visiteurs scannent votre QR code à chaque visite. Ils cumulent des points Lokalist utilisables dans toute la commune. Zéro terminal, zéro carte.</p>
+    </div>
+    <div class="av-card reveal">
+      <div class="av-ico">🎟️</div>
+      <h3>Bons mairie acceptés</h3>
+      <p>Les habitants reçoivent des bons de leur mairie valables chez tous les partenaires Lokalist — y compris les loisirs. Vous encaissez et êtes remboursé.</p>
+    </div>
+    <div class="av-card reveal">
+      <div class="av-ico">🗺️</div>
+      <h3>Visible sur la carte</h3>
+      <p>Votre fiche apparaît sur la carte interactive Lokalist et dans la liste filtrée par catégorie. Vos futurs clients vous trouvent naturellement.</p>
+    </div>
+    <div class="av-card reveal">
+      <div class="av-ico">⚡</div>
+      <h3>Boost de visibilité</h3>
+      <p>2 boosts de 12h offerts par mois. Votre fiche passe en tête de la rubrique loisirs dans votre secteur. Idéal pour les événements ou week-ends.</p>
+    </div>
+    <div class="av-card reveal">
+      <div class="av-ico">📊</div>
+      <h3>Dashboard analytics</h3>
+      <p>Nombre de visites scannées, points distribués, bons encaissés — toutes vos stats en temps réel dans votre espace pro Lokalist.</p>
+    </div>
+    <div class="av-card reveal">
+      <div class="av-ico">⭐</div>
+      <h3>Avis vérifiés (à venir)</h3>
+      <p>Vos visiteurs pourront bientôt laisser un avis vérifié sur votre fiche. Une note authentique qui rassure les nouveaux clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FIDELITE -->
+<section class="fidelite">
+  <div class="fid-in">
+    <div class="reveal">
+      <h2>Vos clients fidèles<br/>encore plus fidèles</h2>
+      <p>Chaque visite rapporte des points. Chaque point rapproche d'un bon de réduction. Lokalist crée un cercle vertueux qui fait revenir vos clients.</p>
+      <div class="fid-steps">
+        <div class="fid-step">
+          <div class="fid-n">1</div>
+          <div class="fid-txt">
+            <h4>Le client visite votre établissement</h4>
+            <p>Il scanne votre QR code avec l'app Lokalist. Les points s'ajoutent instantanément.</p>
+          </div>
+        </div>
+        <div class="fid-step">
+          <div class="fid-n">2</div>
+          <div class="fid-txt">
+            <h4>Il cumule des points fidélité</h4>
+            <p>Chaque visite lui rapporte des points. Plus il revient, plus il progresse dans les paliers.</p>
+          </div>
+        </div>
+        <div class="fid-step">
+          <div class="fid-n">3</div>
+          <div class="fid-txt">
+            <h4>Il revient dépenser ses récompenses</h4>
+            <p>Ses points se transforment en bons de réduction utilisables chez vous et chez tous les partenaires.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fid-visual reveal">
+      <div class="fid-pts">480</div>
+      <div class="fid-pts-lbl">Points fidélité · Sophie M.</div>
+      <div class="fid-bar-wrap"><div class="fid-bar"></div></div>
+      <div class="fid-bar-lbl">72% vers le palier 500 pts — Bon 5€</div>
+      <div class="fid-paliers">
+        <div class="fid-palier">
+          <span class="fid-palier-name">🥉 250 pts</span>
+          <span class="fid-palier-val">Bon 2,50€</span>
+        </div>
+        <div class="fid-palier" style="background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25)">
+          <span class="fid-palier-name">🥈 500 pts · Prochain</span>
+          <span class="fid-palier-val">Bon 5€</span>
+        </div>
+        <div class="fid-palier">
+          <span class="fid-palier-name">🥇 1000 pts</span>
+          <span class="fid-palier-val">Bon 12€</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REJOINDRE -->
+<section class="steps-sect">
+  <p class="sec-tag reveal">Démarrage simple</p>
+  <h2 class="sec-h reveal">Rejoindre Lokalist<br/>en 3 étapes</h2>
+  <p class="sec-p reveal">En moins de 48h, votre fiche est en ligne et vos clients peuvent commencer à cumuler des points.</p>
+  <div class="steps">
+    <div class="step reveal">
+      <div class="step-n">1</div>
+      <div class="step-i">📝</div>
+      <h3>Créez votre fiche</h3>
+      <p>Nom, catégorie, description, photos, adresse. Votre fiche est prête en 10 minutes depuis le formulaire de contact.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-n">2</div>
+      <div class="step-i">📲</div>
+      <h3>QR code fourni</h3>
+      <p>Vous recevez votre QR code unique à afficher en caisse ou à l'entrée. Vos clients commencent à scanner.</p>
+    </div>
+    <div class="step reveal">
+      <div class="step-n">3</div>
+      <div class="step-i">📊</div>
+      <h3>Pilotez votre activité</h3>
+      <p>Accédez à votre dashboard dans l'app. Stats, boosts, bons mairie — tout en temps réel.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TARIF -->
+<section class="tarif-sect">
+  <div class="tarif-in">
+    <div>
+      <p class="sec-tag reveal">Tarification</p>
+      <h2 class="sec-h reveal">Simple, transparent,<br/>sans commission</h2>
+      <p class="sec-p reveal">Lokalist ne prend aucune commission sur vos entrées ou recettes. Vous payez un abonnement fixe et gardez 100% de vos revenus.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal">
+          <span style="font-size:13.5px;font-weight:500;color:var(--text)">📲 QR code fidélité</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal">
+          <span style="font-size:13.5px;font-weight:500;color:var(--text)">🗺️ Fiche sur la carte + liste loisirs</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal">
+          <span style="font-size:13.5px;font-weight:500;color:var(--text)">🎟️ Encaissement bons mairie</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal">
+          <span style="font-size:13.5px;font-weight:500;color:var(--text)">⚡ 2 boosts 12h offerts/mois</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal">
+          <span style="font-size:13.5px;font-weight:500;color:var(--text)">⭐ Commission sur vos revenus</span>
+          <span style="font-family:'Syne',sans-serif;font-weight:700;color:#10B981">0%</span>
+        </div>
+      </div>
+    </div>
+    <div class="tarif-card reveal">
+      <div class="tarif-top">🎳 Partenaire Loisirs Lokalist</div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Abonnement</div>
+      <div style="background:var(--al);border-radius:8px;padding:6px 12px;display:inline-block;font-size:11px;font-weight:700;color:#92400E;margin-bottom:12px">🎁 3 mois offerts à l'inscription</div>
+      <div class="tarif-main" style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">19<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px">ou <strong style="color:var(--p)">179,10€/an</strong> — 3 mois offerts inclus</div>
+      <ul class="tarif-feats">
+        <li>Fiche loisirs complète avec photos</li>
+        <li>Catégorie dédiée sur la carte</li>
+        <li>QR code fidélité unique</li>
+        <li>Encaissement bons mairie</li>
+        <li>2 boosts 12h offerts/mois</li>
+        <li>Dashboard analytics temps réel</li>
+        <li>Mise en ligne en 48h</li>
+      </ul>
+      <a href="/contact" class="btn btn-p" style="width:100%;justify-content:center;margin-bottom:10px">🎁 Commencer — 3 mois offerts</a>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1;text-align:center;background:var(--pl);border:1px solid #DDD6FE;border-radius:10px;padding:10px 8px">
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--p)">19,90€</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">/mois</div>
+        </div>
+        <div style="flex:1;text-align:center;background:var(--al);border:1px solid #FCD34D;border-radius:10px;padding:10px 8px">
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--a)">179,10€</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">/an · 3 mois offerts</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in">
+    <h2>Prêt à rejoindre<br/><em>Lokalist Loisirs ?</em></h2>
+    <p>Référencez votre lieu de loisirs et commencez à fidéliser vos visiteurs locaux dès aujourd'hui.</p>
+    <a href="/contact" class="btn-w">🎳 Rejoindre comme partenaire loisirs</a>
+    <p class="cta-note">3 mois offerts · 19,90€/mois ensuite · contact@lokalist.fr</p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg"
+shape-rendering="geometricPrecision"
+width="28" height="28" viewBox="0 0 1024 1024">
+  
+
+<path d="
+M 409.546 519.454
+C 410.387 521.179 406.554 519.714 406.32 520.634
+C 406.229 520.991 406.585 521.646 406.651 522.025
+C 406.957 523.79 407.483 525.455 407.993 527.168
+C 409.669 532.795 411.883 538.432 413.998 543.915
+C 417.926 554.097 422.026 564.261 427.002 573.991
+C 430.731 581.285 435.237 588.166 439.446 595.163
+C 447.057 607.819 455.152 620.308 465.024 631.324
+C 472.102 639.223 479.394 646.69 487.812 653.185
+C 490.398 655.181 492.926 657.489 495.835 659.016
+C 495.9 659.517 495.967 659.999 495.988 660.504
+C 495.492 672.623 495.868 684.871 495.99 696.996
+C 496.177 715.729 496.03 734.483 496.023 753.211
+C 496.02 760.858 496.202 768.514 495.875 776.156
+C 495.791 778.111 495.777 780.068 495.729 782.024
+C 495.712 782.725 495.464 783.775 495.978 784.317
+C 491.35 784.178 488.098 780.285 485.456 776.94
+C 479.762 769.731 474.258 762.36 468.644 755.086
+C 445.258 724.789 421.085 695.068 397.932 664.597
+C 389.232 653.148 380.34 641.864 371.805 630.289
+C 354.153 606.35 336.933 581.993 322.16 556.142
+C 314.027 541.913 306.205 527.598 299.879 512.464
+C 289.244 487.021 283.79 459.057 284.555 431.491
+C 284.812 422.211 285.444 412.95 287.153 403.806
+C 289.703 390.159 293.172 376.563 298.483 363.708
+C 305.544 346.618 314.354 330.215 325.633 315.504
+C 346.127 288.777 373.63 266.53 404.531 252.918
+C 458.306 229.23 522.651 228.903 575.342 255.971
+C 593.552 265.326 610.717 277.244 625.341 291.619
+C 628.872 295.09 632.325 298.684 635.514 302.473
+C 636.555 303.71 638.569 305.36 639.033 306.911
+C 636.591 306.523 634.153 305.549 631.704 305.035
+C 625.201 303.67 618.558 302.702 611.945 302.049
+C 593.946 300.272 576.025 301.53 558.406 305.54
+C 548.682 307.752 538.729 310.638 529.779 315.077
+C 528.892 315.356 528.04 314.827 527.243 314.47
+C 525.511 313.693 523.694 313.048 521.877 312.496
+C 515.08 310.431 508.037 308.754 500.957 308.028
+C 479.014 305.78 457.688 308.941 437.436 317.748
+C 427.458 322.087 418.126 328.03 409.778 334.976
+C 397.694 345.031 387.371 357.488 380.032 371.416
+C 360.654 408.192 361.564 454.104 383.423 489.617
+C 388.345 497.612 394.184 505.046 400.85 511.664
+C 403.567 514.361 406.402 517.254 409.546 519.454 Z"
+opacity="1" fill="rgb(22,62,125)" fill-rule="evenodd" />
+<path d="
+M 409.546 519.454
+C 413.755 522.706 418.09 525.693 422.649 528.447
+C 424.762 529.724 427.246 530.667 429.16 532.219
+C 430.911 535.251 431.625 539.193 432.936 542.457
+C 436.097 550.325 439.883 557.956 443.927 565.403
+C 456.495 588.55 475.267 607.721 496.534 622.979
+C 497.462 623.491 498.381 624.051 499.183 624.748
+C 498.927 625.741 498.172 625.971 497.276 626.074
+C 497.03 626.102 496.091 626.012 495.997 626.392
+C 495.177 629.721 495.915 634.071 495.937 637.495
+C 495.981 644.664 495.651 651.854 495.835 659.016
+C 492.926 657.489 490.398 655.181 487.812 653.185
+C 479.394 646.69 472.102 639.223 465.024 631.324
+C 455.152 620.308 447.057 607.819 439.446 595.163
+C 435.237 588.166 430.731 581.285 427.002 573.991
+C 422.026 564.261 417.926 554.097 413.998 543.915
+C 411.883 538.432 409.669 532.795 407.993 527.168
+C 407.483 525.455 406.957 523.79 406.651 522.025
+C 406.585 521.646 406.229 520.991 406.32 520.634
+C 406.554 519.714 410.387 521.179 409.546 519.454 Z"
+opacity="1" fill="rgb(22,58,115)" fill-rule="evenodd" />
+<path d="
+M 434.966 466.102
+C 437.013 441.671 443.604 417.608 456.374 396.498
+C 470.147 373.73 488.444 354.205 510.989 339.905
+C 563.411 306.656 632.861 307.928 684.233 342.417
+C 696.7 350.787 708.901 360.887 718.258 372.727
+C 732.219 390.391 742.952 409.341 749.574 430.929
+C 755.144 449.086 757.742 468.996 756.062 487.969
+C 753.787 513.671 746.845 538.4 733.524 560.657
+C 723.136 578.012 709.691 592.854 693.985 605.522
+C 641.844 647.581 562.625 651.375 507.236 613.194
+C 487.058 599.285 469.543 581.659 457.112 560.435
+C 451.222 550.379 446.693 539.603 442.837 528.63
+C 435.928 508.97 433.226 486.878 434.966 466.102 Z
+M 474.469 471.116
+C 473.028 499.06 481.02 526.985 497.963 549.36
+C 501.507 554.039 505.21 558.48 509.313 562.688
+C 511.924 565.366 514.653 568.205 518.283 569.442
+C 521.642 570.586 526.074 569.154 529.468 568.652
+C 538.028 567.386 546.478 565.515 555.039 564.284
+C 557.304 572.138 559.56 580.116 562.302 587.825
+C 563.609 591.501 566.231 594.667 570.488 594.553
+C 575.489 594.42 577.626 589.203 579.66 585.376
+C 584.635 576.015 589.55 566.358 595.294 557.445
+C 598.321 559.314 599.902 564.378 601.569 567.407
+C 604.178 572.146 606.815 576.878 609.313 581.677
+C 611.014 584.943 612.576 588.402 614.722 591.408
+C 615.401 592.36 616.184 593.277 617.127 593.979
+C 622.625 598.071 627.675 592.438 629.43 587.58
+C 630.49 584.645 631.259 581.599 632.178 578.618
+C 633.561 574.131 634.923 569.636 636.265 565.139
+C 644.918 566.371 653.444 568.552 662.115 569.705
+C 665.498 570.155 670.052 571.197 673.356 570.036
+C 676.173 569.047 678.735 566.453 680.832 564.405
+C 685.567 559.78 689.978 554.552 693.989 549.293
+C 715.204 521.475 722.138 484.055 714.682 450.13
+C 710.952 433.156 703.549 417.213 693.23 403.23
+C 662.537 361.638 605.368 345.137 556.813 361.555
+C 535.554 368.744 516.704 382.049 502.303 399.194
+C 489.999 413.841 481.25 431.603 477.274 450.338
+C 475.803 457.271 475.467 464.147 474.469 471.116 Z"
+opacity="1" fill="rgb(251,179,33)" fill-rule="evenodd" />
+<path d="
+M 485.426 470.605
+C 486.376 465.485 486.342 460.222 487.497 455.104
+C 491.535 437.223 499.03 420.396 510.898 406.303
+C 526.78 387.445 548.736 373.87 572.967 368.837
+C 619.903 359.089 670.754 381.471 693.377 424.144
+C 706.138 448.214 709.432 476.132 703.392 502.61
+C 700.924 513.428 697.011 524.108 691.024 533.507
+C 686.968 539.874 682.688 546.135 677.37 551.534
+C 675.75 553.179 673.957 555.537 671.942 556.672
+C 670.175 555.281 668.953 553.002 667.576 551.242
+C 664.052 546.736 660.837 541.962 657.461 537.343
+C 651.578 529.292 645.629 521.215 639.488 513.358
+C 637.635 510.987 634.484 509.009 633.064 506.389
+C 632.227 504.845 632.089 502.455 631.651 500.743
+C 630.84 497.577 630.153 494.384 629.383 491.209
+C 628.963 489.474 628.295 487.63 628.324 485.834
+C 630.07 483.205 632.765 481.21 635.063 479.089
+C 639.14 475.327 643.182 471.496 647.143 467.611
+C 650.031 464.779 653.469 461.585 652.716 457.148
+C 651.777 451.619 646.637 451.09 642.039 450.57
+C 635.846 449.869 629.642 449.259 623.448 448.522
+C 620.676 448.192 617.613 448.138 614.934 447.335
+C 613.145 444.994 612.239 441.389 611.129 438.663
+C 608.387 431.932 606.011 424.801 602.563 418.397
+C 599.989 413.617 594.386 411.54 590.225 415.951
+C 588.179 418.12 587.151 421.018 585.99 423.702
+C 583.727 428.931 581.472 434.164 579.176 439.379
+C 578.264 441.45 577.332 443.513 576.404 445.577
+C 576.117 446.216 575.783 447.298 575.103 447.583
+C 567.705 448.411 560.306 449.086 552.912 449.994
+C 549.589 450.402 545.836 450.264 542.63 451.257
+C 538.279 452.604 536.047 457.663 538.011 461.794
+C 539.381 464.678 542.184 466.753 544.474 468.874
+C 548.511 472.614 552.45 476.458 556.532 480.149
+C 558.428 481.865 561.578 483.799 562.683 486.149
+C 562.816 487.249 562.208 488.489 561.928 489.542
+C 561.322 491.825 560.833 494.152 560.323 496.457
+C 559.577 499.836 559.053 504.088 557.544 507.204
+C 556.924 508.482 555.333 509.131 554.292 510.027
+C 552.46 511.606 550.953 513.588 549.441 515.466
+C 543.249 523.153 537.693 531.339 531.551 539.064
+C 528.605 542.769 525.968 546.722 523.09 550.481
+C 521.886 552.053 520.659 554.585 519.044 555.713
+C 515.821 553.369 513.265 550.274 510.76 547.219
+C 507.824 543.639 504.913 540.127 502.434 536.201
+C 490.232 516.882 483.604 493.557 485.426 470.605 Z"
+opacity="1" fill="rgb(251,179,35)" fill-rule="evenodd" />
+<path d="
+M 499.183 624.748
+C 500.22 625.265 501.296 625.996 502.163 626.765
+C 500.969 626.904 500.667 628.004 501.072 628.991
+C 501.756 630.662 504.063 631.993 505.263 633.32
+C 505.57 633.66 506.726 635.299 507.242 635.234
+C 507.589 635.19 507.551 634.265 507.77 634.046
+C 508.042 633.773 508.478 634.301 508.79 634.112
+C 509.578 633.633 508.61 633.381 508.885 633.04
+C 509.342 632.473 510.933 632.151 510.051 631.413
+C 528.367 641.301 547.669 648.332 568.285 651.591
+C 580.011 653.445 591.755 653.62 603.593 653.814
+C 602.76 656.645 599.986 659.142 598.217 661.448
+C 594.07 666.851 589.767 672.175 585.464 677.453
+C 585.748 676.466 584.349 675.744 583.582 675.813
+C 582.151 675.875 583.785 674.638 582.986 674.587
+C 579.588 674.37 576.112 674.945 572.688 674.765
+C 562.349 674.221 551.989 673.268 541.705 672.064
+C 535.48 671.335 529.255 670.835 523.103 669.55
+C 515.937 668.054 509.116 665.275 502.451 662.321
+C 501.171 661.754 497.01 658.877 495.988 660.504
+C 495.967 659.999 495.9 659.517 495.835 659.016
+C 495.651 651.854 495.981 644.664 495.937 637.495
+C 495.915 634.071 495.177 629.721 495.997 626.392
+C 496.091 626.012 497.03 626.102 497.276 626.074
+C 498.172 625.971 498.927 625.741 499.183 624.748 Z"
+opacity="1" fill="rgb(52,101,170)" fill-rule="evenodd" />
+<path d="
+M 495.988 660.504
+C 497.01 658.877 501.171 661.754 502.451 662.321
+C 509.116 665.275 515.937 668.054 523.103 669.55
+C 529.255 670.835 535.48 671.335 541.705 672.064
+C 551.989 673.268 562.349 674.221 572.688 674.765
+C 576.112 674.945 579.588 674.37 582.986 674.587
+C 583.785 674.638 582.151 675.875 583.582 675.813
+C 584.349 675.744 585.748 676.466 585.464 677.453
+C 564.413 704.581 542.537 731.086 521.604 758.311
+C 517.111 764.155 512.456 769.885 508.05 775.793
+C 504.868 780.059 501.735 784.147 495.978 784.317
+C 495.464 783.775 495.712 782.725 495.729 782.024
+C 495.777 780.068 495.791 778.111 495.875 776.156
+C 496.202 768.514 496.02 760.858 496.023 753.211
+C 496.03 734.483 496.177 715.729 495.99 696.996
+C 495.868 684.871 495.492 672.623 495.988 660.504 Z"
+opacity="1" fill="rgb(82,143,218)" fill-rule="evenodd" />
+<path d="
+M 502.163 626.765
+C 504.858 628.136 507.425 629.902 510.051 631.413
+C 510.933 632.151 509.342 632.473 508.885 633.04
+C 508.61 633.381 509.578 633.633 508.79 634.112
+C 508.478 634.301 508.042 633.773 507.77 634.046
+C 507.551 634.265 507.589 635.19 507.242 635.234
+C 506.726 635.299 505.57 633.66 505.263 633.32
+C 504.063 631.993 501.756 630.662 501.072 628.991
+C 500.667 628.004 500.969 626.904 502.163 626.765 Z"
+opacity="1" fill="rgb(38,78,140)" fill-rule="evenodd" />
+<path d="
+M 532.278 556.7
+C 538.03 549.218 543.547 541.493 549.242 533.948
+C 552.212 530.013 554.946 525.532 558.445 522.053
+C 560.583 523.585 561.747 525.424 564.535 525.879
+C 568.268 526.488 571.452 524.355 574.491 522.492
+C 578.847 519.822 583.339 517.36 587.656 514.626
+C 589.57 513.414 591.419 512.102 593.33 510.89
+C 594.094 510.405 595.047 509.647 595.989 509.595
+C 598.07 509.479 600.958 512.416 602.664 513.457
+C 607.59 516.464 612.577 519.374 617.487 522.407
+C 621.095 524.636 625.797 527.592 630.142 525.385
+C 631.122 524.887 631.833 523.928 632.563 523.137
+C 633.39 523.417 633.9 524.536 634.419 525.201
+C 635.773 526.935 637.143 528.666 638.411 530.465
+C 642.921 536.861 647.514 543.251 652.239 549.492
+C 653.765 551.507 655.255 553.503 656.62 555.632
+C 656.764 555.857 657.904 557.424 657.831 557.567
+C 655.757 557.712 653.101 556.637 651.044 556.239
+C 646.311 555.321 641.554 554.475 636.785 553.771
+C 634.305 553.405 630.653 552.238 628.636 554.243
+C 627.366 555.506 627.056 557.627 626.532 559.277
+C 625.284 563.211 624.21 567.209 622.892 571.12
+C 622.283 572.925 621.912 574.942 621.101 576.663
+C 620.896 577.098 620.509 578.721 620.155 578.391
+C 614.883 567.367 608.523 556.893 602.998 545.997
+C 601.186 542.422 597.672 537.121 593.077 540.378
+C 590.013 542.549 588.57 546.451 586.78 549.605
+C 583.305 555.729 579.875 561.87 576.461 568.028
+C 575.055 570.565 573.68 573.094 572.206 575.594
+C 571.921 576.077 571.187 577.834 570.67 577.979
+C 568.937 571.727 566.874 565.458 564.723 559.331
+C 563.995 557.259 563.797 554.112 561.583 553.018
+C 559.557 552.016 556.014 553.084 553.838 553.3
+C 549.078 553.774 544.332 554.746 539.618 555.547
+C 537.218 555.954 534.718 556.697 532.278 556.7 Z"
+opacity="1" fill="rgb(250,178,35)" fill-rule="evenodd" />
+<path d="
+M 552.831 461.463
+C 555.192 460.343 558.487 460.486 561.057 460.277
+C 565.716 459.897 570.344 459.32 574.987 458.788
+C 577.719 458.475 581.404 458.39 583.645 456.599
+C 585.761 454.906 586.444 451.441 587.394 449.024
+C 589.073 444.753 590.788 440.489 592.64 436.29
+C 593.505 434.33 594.206 431.896 595.522 430.203
+C 596.081 431.696 597.018 433.062 597.639 434.543
+C 599.74 439.558 601.786 444.588 603.844 449.621
+C 604.909 452.226 605.999 456.093 608.605 457.57
+C 610.685 458.749 613.651 458.705 615.973 458.979
+C 620.189 459.477 624.403 459.967 628.628 460.385
+C 631.267 460.647 634.253 460.68 636.702 461.759
+C 636.89 462.25 636.044 462.883 635.71 463.201
+C 634.401 464.447 633.118 465.718 631.788 466.947
+C 628.415 470.065 625.147 473.312 621.69 476.336
+C 620.104 477.722 617.382 479.823 616.725 481.897
+C 615.902 484.493 617.046 487.753 617.724 490.26
+C 619.089 495.307 620.317 500.414 621.419 505.525
+C 621.857 507.557 623.122 510.237 622.748 512.318
+C 621.909 512.432 621.174 511.746 620.479 511.357
+C 618.924 510.488 617.399 509.555 615.88 508.624
+C 611.688 506.054 607.358 503.671 603.27 500.936
+C 600.98 499.404 598.422 497.362 595.552 497.321
+C 592.734 497.281 589.856 499.855 587.589 501.314
+C 583.642 503.854 579.558 506.169 575.593 508.676
+C 573.516 509.989 570.944 512.089 568.467 512.388
+C 567.93 511.799 568.12 510.877 568.278 510.122
+C 568.659 508.296 569.258 506.528 569.747 504.731
+C 570.992 500.15 571.877 495.47 572.991 490.855
+C 573.587 488.386 574.67 485.605 574.311 483.036
+C 573.916 480.212 570.235 477.518 568.233 475.762
+C 565.021 472.945 562.002 469.896 558.826 467.034
+C 556.828 465.235 554.523 463.562 552.831 461.463 Z"
+opacity="1" fill="rgb(251,179,36)" fill-rule="evenodd" />
+
+</svg></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
+    <div class="foot-links">
+      <a href="/">Accueil</a>
+      <a href="/mairies">Mairies</a>
+      <a href="/commercants">Commerçants</a>
+      <a href="/artisans">Artisans</a>
+      <a href="/loisirs">Loisirs</a>
+      <a href="/agences">Immo & Courtiers</a>
+      <a href="/tarifs">Tarifs</a>
+      <a href="/contact">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">CGV</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cookies">Cookies</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
+  const obs=new IntersectionObserver((e)=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('visible'),i*70);obs.unobserve(el.target)}})},{threshold:0.08})
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')})
+</script>
+</body>
+</html>
