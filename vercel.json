@@ -10,6 +10,7 @@
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/mentions-legales", "destination": "/mentions-legales.html" },
     { "source": "/cgv", "destination": "/cgv.html" },
+    { "source": "/cgu", "destination": "/cgu.html" },
     { "source": "/confidentialite", "destination": "/confidentialite.html" },
     { "source": "/cookies", "destination": "/cookies.html" },
     { "source": "/contact/", "destination": "/contact.html" },
