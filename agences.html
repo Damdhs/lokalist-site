@@ -146,6 +146,8 @@
       .foot-legal{justify-content:center;flex-wrap:wrap;gap:10px}
       .foot-in{flex-wrap:wrap}
     }
+.grid-2-courtiers{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+@media(max-width:768px){.grid-2-courtiers{grid-template-columns:1fr!important;gap:28px!important}}
 </style>
 </head>
 <body>
@@ -220,7 +222,7 @@
   </div>
 </section>
 <section style="padding:60px 5%;background:var(--bl)">
-  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center">
+  <div class="grid-2-courtiers">
     <div>
       <p class="sec-tag reveal" style="color:#1E40AF">Courtiers en financement</p>
       <h2 class="sec-h reveal">Une rubrique dédiée,<br/>indépendante des agences</h2>
@@ -281,5 +283,6 @@
 </script>
 </body>
 </html>
+
 
 
