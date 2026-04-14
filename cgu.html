@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CGU — Lokalist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1A3F7A;
+    --navy-deep: #091D3E;
+    --gold: #F0A500;
+    --green: #1D9E75;
+    --green-dark: #0F6E56;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #f8f9fc; color: #333; line-height: 1.7; }
+
+  header {
+    background: var(--navy-deep);
+    padding: 1.2rem 2rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid var(--gold);
+  }
+  .logo { font-family: 'Bricolage Grotesque', sans-serif; font-size: 1.4rem; font-weight: 800; color: #fff; text-decoration: none; }
+  .logo span { color: var(--gold); }
+  header nav { margin-left: auto; }
+  header nav a { color: rgba(255,255,255,0.6); font-size: 0.85rem; text-decoration: none; margin-left: 1.5rem; }
+  header nav a:hover { color: #fff; }
+
+  .container {
+    max-width: 860px;
+    margin: 3rem auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 24px rgba(26,63,122,0.08);
+    padding: 3rem 4rem;
+  }
+  @media (max-width: 700px) { .container { padding: 2rem 1.5rem; margin: 1rem; } }
+
+  .doc-header { text-align: center; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 2px solid #eef2f8; }
+  .doc-header h1 { font-family: 'Bricolage Grotesque', sans-serif; font-size: 2.2rem; color: var(--navy); margin-bottom: 0.3rem; }
+  .doc-header .subtitle { color: var(--green); font-size: 1rem; font-weight: 500; margin-bottom: 0.2rem; }
+  .doc-header .date { color: #999; font-size: 0.85rem; }
+
+  /* Headings */
+  h1, h2, h3 { font-family: 'Bricolage Grotesque', sans-serif; }
+  h1 {
+    font-size: 1.25rem;
+    color: #fff;
+    background: var(--navy);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    margin: 2.5rem 0 1rem;
+  }
+  h2 {
+    font-size: 1rem;
+    color: var(--green-dark);
+    border-left: 3px solid var(--green);
+    padding-left: 0.7rem;
+    margin: 1.5rem 0 0.6rem;
+  }
+
+  p { margin: 0.6rem 0; font-size: 0.95rem; color: #444; }
+  ul { margin: 0.5rem 0 0.5rem 1.5rem; }
+  li { margin: 0.35rem 0; font-size: 0.92rem; color: #444; }
+  li::marker { color: var(--green); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.88rem; }
+  td, th { border: 1px solid #dde4ee; padding: 0.65rem 1rem; vertical-align: top; }
+  tr:first-child td {
+    background: var(--navy);
+    color: #fff;
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: #f7f9fc; }
+
+  /* Info box (table with 1 col) */
+  table:has(td:only-child) td {
+    background: #eef7f3 !important;
+    color: var(--green-dark) !important;
+    border: 1px solid #c8e6d8 !important;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
+
+  /* Italic/blockquote highlight */
+  em { color: #555; }
+  p > em:only-child {
+    display: block;
+    border-left: 4px solid var(--gold);
+    padding: 0.8rem 1.2rem;
+    margin: 1rem 0;
+    background: #fffbf0;
+    font-style: italic;
+    color: #555;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* Last paragraph (footer doc) */
+  .container > p:last-child {
+    text-align: center;
+    color: #bbb;
+    font-size: 0.82rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+  }
+
+  footer {
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.82rem;
+    margin-top: 3rem;
+  }
+  footer a { color: var(--gold); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://lokalist.fr" class="logo">lo<span>k</span>alist</a>
+  <nav>
+    <a href="https://lokalist.fr">Accueil</a>
+    <a href="https://lokalist.fr/tarifs">Tarifs</a>
+    <a href="https://lokalist.fr/contact">Contact</a>
+  </nav>
+</header>
+
+<div class="container">
+  <div class="doc-header">
+    <div class="subtitle">Lokalist · lokalist.fr</div>
+    <h1>Conditions Générales d'Utilisation</h1>
+    <div class="date">Version en vigueur au 14 avril 2026</div>
+  </div>
+<p><strong>LOKALIST</strong></p><p><strong>Conditions Générales d'Utilisation</strong></p><p><em>Version en vigueur au 14 avril 2026</em></p><table><tr><td><p>Responsable de traitement : Damien Dehais, auto-entrepreneur</p><p>Adresse : Fécamp, Normandie, France</p><p>Email : contact@lokalist.fr</p><p>Site : lokalist.fr  |  Application mobile : Lokalist (iOS &amp; Android)</p></td></tr></table><h1><strong>Article 1 — Objet et champ d'application</strong></h1><p>Les présentes Conditions Générales d'Utilisation (ci-après « CGU ») régissent l'accès et l'utilisation de la plateforme Lokalist, comprenant l'application mobile (iOS et Android) et le site internet lokalist.fr, exploités par Damien Dehais, auto-entrepreneur (ci-après « Lokalist »).</p><p>En créant un compte ou en utilisant l'application, l'utilisateur reconnaît avoir lu, compris et accepté sans réserve les présentes CGU. Si l'utilisateur n'accepte pas ces conditions, il doit s'abstenir d'utiliser la plateforme.</p><h1><strong>Article 2 — Description du service</strong></h1><p>Lokalist est une plateforme de fidélité locale qui connecte :</p><ul><li>Les habitants : programme de points, bons de réduction, alertes municipales, recherche d'artisans et de biens immobiliers</li><li>Les commerçants et artisans : outil de fidélisation, QR code, tableau de bord analytique, leads qualifiés</li><li>Les mairies et collectivités : dashboard de gestion territoriale, campagnes de bons, alertes push, agenda municipal, sondages citoyens</li><li>Les agences immobilières et courtiers : annonces locales, leads qualifiés, gestion des mandats</li></ul><p>L'application est gratuite pour les habitants. Les professionnels accèdent au service via un abonnement selon les tarifs en vigueur sur lokalist.fr/tarifs.</p><h1><strong>Article 3 — Inscription et gestion du compte</strong></h1><h2><strong>3.1 Création du compte</strong></h2><p>L'inscription à Lokalist nécessite la fourniture d'informations exactes et à jour : nom, prénom, adresse email et, selon le profil, un numéro de téléphone mobile. L'utilisateur garantit l'exactitude des informations fournies.</p><p>L'utilisateur doit être âgé d'au moins 18 ans pour créer un compte. Lokalist se réserve le droit de vérifier l'âge et de suspendre tout compte ne respectant pas cette condition.</p><h2><strong>3.2 Sécurité du compte</strong></h2><p>L'utilisateur est seul responsable de la confidentialité de ses identifiants de connexion. Toute utilisation du compte effectuée avec les identifiants de l'utilisateur est réputée faite par lui. En cas de perte, vol ou utilisation non autorisée, l'utilisateur doit immédiatement en informer Lokalist à contact@lokalist.fr.</p><h2><strong>3.3 Résiliation du compte</strong></h2><p>L'utilisateur peut supprimer son compte à tout moment depuis les paramètres de l'application ou en envoyant une demande à contact@lokalist.fr. La suppression entraîne la perte définitive des points et bons non utilisés.</p><h1><strong>Article 4 — Protection des données personnelles et consentement</strong></h1><p>Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679) et à la loi Informatique et Libertés modifiée, Lokalist met en œuvre les mesures suivantes :</p><h2><strong>4.1 Responsable de traitement</strong></h2><table><tr><td><p>Responsable de traitement : Damien Dehais, auto-entrepreneur</p><p>Contact : contact@lokalist.fr</p><p>Base légale principale : exécution du contrat (art. 6.1.b RGPD) + consentement (art. 6.1.a RGPD)</p></td></tr></table><h2><strong>4.2 Données collectées</strong></h2><p>Lokalist collecte les données suivantes lors de l'inscription et de l'utilisation de la plateforme :</p><ul><li>Identité : nom, prénom</li><li>Coordonnées : adresse email, numéro de téléphone mobile</li><li>Données de localisation : position GPS (uniquement lors de l'utilisation active de la carte ou de la recherche d'artisans — non conservée)</li><li>Données d'utilisation : historique des scans, points accumulés, bons obtenus et utilisés</li><li>Données techniques : identifiant de l'appareil, token de notifications push, système d'exploitation</li></ul><h2><strong>4.3 Finalités des traitements</strong></h2><p>Les données personnelles sont traitées pour les finalités suivantes :</p><ul><li>Exécution du contrat : gestion du compte, programme de fidélité, distribution et encaissement des bons — base légale : exécution du contrat</li><li>Communications transactionnelles : confirmations de compte, notifications de points et de bons, alertes de sécurité — base légale : exécution du contrat (aucun consentement publicitaire requis)</li><li>Prospection commerciale par email, SMS et notifications push — base légale : consentement explicite (voir article 4.4)</li><li>Amélioration du service et statistiques anonymisées — base légale : intérêt légitime</li><li>Respect des obligations légales — base légale : obligation légale</li></ul><h2><strong>4.4 Consentement à la prospection commerciale — RGPD &amp; directive ePrivacy</strong></h2><p>Conformément à l'article 7 du RGPD et à la directive 2002/58/CE (ePrivacy), Lokalist ne procède à aucun envoi de communication publicitaire sans le consentement préalable, libre, spécifique, éclairé et univoque de l'utilisateur.</p><p><em>Ce consentement est recueilli lors de l'inscription via une case à cocher optionnelle, non pré-cochée, libellée comme suit : « J'accepte de recevoir des offres, actualités et communications commerciales de Lokalist par email, SMS et notifications push. »</em></p><p>Ce consentement est distinct et indépendant de l'acceptation des présentes CGU. Il n'est pas une condition d'accès au service.</p><p>Les communications couvertes par ce consentement incluent :</p><ul><li>Envois d'emails publicitaires présentant les offres des commerçants partenaires, les nouveautés de la plateforme ou les promotions Lokalist</li><li>Envois de SMS commerciaux ciblés selon la localisation ou le profil de fidélité de l'utilisateur</li><li>Notifications push commerciales envoyées sur l'appareil mobile de l'utilisateur</li></ul><h2><strong>4.5 Droit de retrait du consentement</strong></h2><p>L'utilisateur peut retirer son consentement à la prospection commerciale à tout moment, sans justification et sans frais, par les moyens suivants :</p><ul><li>Depuis l'application : Paramètres → Notifications et communications → désactiver « Offres et communications commerciales »</li><li>En cliquant sur le lien de désabonnement présent dans chaque email commercial</li><li>En répondant STOP à tout SMS commercial reçu</li><li>En envoyant une demande à contact@lokalist.fr</li></ul><p>Le retrait du consentement prend effet dans un délai maximum de 72 heures. Il ne remet pas en cause la licéité des traitements effectués avant ce retrait.</p><p>Le retrait du consentement à la prospection commerciale n'affecte pas l'accès au service ni la réception des communications transactionnelles (points, bons, alertes de sécurité).</p><h2><strong>4.6 Durée de conservation des données</strong></h2><table><tr><td><p><strong>Données</strong></p></td><td><p><strong>Durée de conservation</strong></p></td></tr><tr><td><p>Données de compte</p></td><td><p>Durée du compte + 3 ans après suppression</p></td></tr><tr><td><p>Historique des transactions</p></td><td><p>5 ans (obligations comptables et fiscales)</p></td></tr><tr><td><p>Données de prospection commerciale</p></td><td><p>3 ans à compter du dernier contact ou jusqu'au retrait du consentement</p></td></tr><tr><td><p>Logs techniques</p></td><td><p>12 mois</p></td></tr><tr><td><p>Données de localisation</p></td><td><p>Non conservées — traitement en temps réel uniquement</p></td></tr></table><h2><strong>4.7 Droits des utilisateurs</strong></h2><p>Conformément au RGPD, tout utilisateur dispose des droits suivants sur ses données personnelles :</p><ul><li>Droit d'accès (art. 15) : obtenir la confirmation que ses données sont traitées et en recevoir une copie</li><li>Droit de rectification (art. 16) : faire corriger des données inexactes ou incomplètes</li><li>Droit à l'effacement (art. 17) : demander la suppression de ses données dans les cas prévus par la loi</li><li>Droit à la limitation du traitement (art. 18) : demander la suspension du traitement dans certains cas</li><li>Droit à la portabilité (art. 20) : recevoir ses données dans un format structuré et lisible par machine</li><li>Droit d'opposition (art. 21) : s'opposer à certains traitements, notamment à des fins de prospection</li><li>Droit de retrait du consentement (art. 7.3) : retirer à tout moment un consentement précédemment donné</li></ul><p>Pour exercer ces droits : contact@lokalist.fr — Lokalist s'engage à répondre dans un délai d'un mois maximum.</p><p>En cas de réponse insatisfaisante ou de non-réponse, l'utilisateur peut saisir la CNIL : cnil.fr</p><h2><strong>4.8 Hébergement et sécurité</strong></h2><p>Les données sont hébergées au sein de l'Union Européenne par les prestataires suivants :</p><ul><li>Supabase (base de données et authentification) — données hébergées en UE</li><li>Railway (serveur d'API) — données hébergées en UE</li><li>Expo / EAS (notifications push) — données hébergées aux États-Unis, couvertes par les clauses contractuelles types de la Commission européenne</li></ul><p>Lokalist met en œuvre des mesures techniques et organisationnelles appropriées pour protéger les données contre tout accès non autorisé, perte ou altération.</p><h1><strong>Article 5 — Notifications push</strong></h1><p>L'application Lokalist peut envoyer des notifications push sur l'appareil de l'utilisateur. Ces notifications sont de deux types :</p><h2><strong>5.1 Notifications transactionnelles (sans consentement publicitaire requis)</strong></h2><ul><li>Confirmation de scan et créditation de points</li><li>Disponibilité d'un bon de réduction</li><li>Alertes de sécurité du compte</li><li>Alertes municipales diffusées par la mairie partenaire</li></ul><h2><strong>5.2 Notifications commerciales (consentement requis)</strong></h2><p>L'envoi de notifications push à caractère commercial est soumis au consentement décrit à l'article 4.4. L'utilisateur peut gérer ses préférences de notifications à tout moment depuis les paramètres de l'application ou depuis les paramètres système de son appareil.</p><h1><strong>Article 6 — Propriété intellectuelle</strong></h1><p>L'ensemble des éléments constituant la plateforme Lokalist — code source, design, charte graphique, logo, textes, base de données, algorithmes, architecture logicielle — est la propriété exclusive de Damien Dehais et est protégé par le droit d'auteur, le droit des marques et, le cas échéant, le droit des bases de données.</p><p>Toute reproduction, représentation, modification ou exploitation non autorisée est strictement interdite et pourra faire l'objet de poursuites judiciaires. L'utilisateur s'interdit notamment de procéder au reverse engineering, à la décompilation ou au désassemblage de l'application.</p><h1><strong>Article 7 — Responsabilités et limitations</strong></h1><h2><strong>7.1 Responsabilité de Lokalist</strong></h2><p>Lokalist s'engage à fournir le service avec le soin raisonnable d'un prestataire professionnel. Cependant, Lokalist ne peut garantir une disponibilité ininterrompue de la plateforme et décline toute responsabilité en cas d'interruption temporaire pour maintenance ou en cas de force majeure.</p><p>Lokalist ne saurait être tenu responsable des contenus publiés par les commerçants, artisans ou agences partenaires, ni des transactions commerciales réalisées en dehors de la plateforme.</p><h2><strong>7.2 Responsabilité de l'utilisateur</strong></h2><p>L'utilisateur est seul responsable de l'usage qu'il fait de la plateforme. Il s'engage à ne pas utiliser Lokalist à des fins illicites, frauduleuses ou contraires aux présentes CGU.</p><h1><strong>Article 8 — Abonnements professionnels</strong></h1><p>Les commerçants, artisans, agences immobilières et toute autre entité professionnelle accèdent aux fonctionnalités avancées de Lokalist via un abonnement payant, dont les tarifs sont disponibles sur lokalist.fr/tarifs.</p><p>Les abonnements mensuels sont soumis à un préavis de résiliation de 3 mois. Les abonnements annuels ne sont pas remboursables. Lokalist se réserve le droit de modifier ses tarifs avec un préavis de 30 jours.</p><h1><strong>Article 9 — Cookies et traceurs</strong></h1><p>L'application mobile Lokalist n'utilise pas de cookies. Le site lokalist.fr peut utiliser des cookies techniques nécessaires au fonctionnement du site. Aucun cookie publicitaire tiers n'est déposé sans le consentement de l'utilisateur.</p><h1><strong>Article 10 — Modification des CGU</strong></h1><p>Lokalist se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés de toute modification substantielle par notification dans l'application et/ou par email au moins 15 jours avant leur entrée en vigueur.</p><p>La poursuite de l'utilisation de la plateforme après notification des nouvelles CGU vaut acceptation. En cas de refus, l'utilisateur doit cesser d'utiliser la plateforme et peut supprimer son compte.</p><h1><strong>Article 11 — Droit applicable et juridiction compétente</strong></h1><p>Les présentes CGU sont soumises au droit français. En cas de litige, les parties s'efforceront de trouver une solution amiable. À défaut, le litige sera porté devant les juridictions compétentes du ressort de Fécamp (Normandie), sauf disposition légale contraire applicable aux consommateurs.</p><p>Pour tout litige de consommation non résolu, l'utilisateur peut recourir gratuitement à un médiateur de la consommation conformément aux articles L.616-1 et suivants du Code de la consommation.</p><h1><strong>Article 12 — Contact et réclamations</strong></h1><table><tr><td><p>Damien Dehais — Responsable de traitement Lokalist</p><p>Email : contact@lokalist.fr</p><p>Site : lokalist.fr</p><p>Pour exercer vos droits RGPD : contact@lokalist.fr (réponse sous 1 mois)</p><p>Pour saisir la CNIL : www.cnil.fr</p></td></tr></table><p><em>Document généré le 14 avril 2026 — Lokalist · lokalist.fr</em></p>
+</div>
+
+<footer>
+  Lokalist · contact@lokalist.fr · <a href="https://lokalist.fr">lokalist.fr</a>
+  &nbsp;·&nbsp; Tous droits réservés 2026
+</footer>
+
+</body>
+</html>
