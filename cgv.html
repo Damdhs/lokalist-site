@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Lokalist — Conditions Générales de Vente Professionnelles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2;--red:#DC2626;--redl:#FEF2F2;--redbdr:#FECACA;--orange:#D97706;--orangel:#FFFBEB;--bluedark:#1E40AF;--bluel:#EFF6FF}
+    *{margin:0;padding:0;box-sizing:border-box} html{scroll-behavior:smooth} body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text)}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08)}
+    .nav-links{display:flex;align-items:center;gap:22px;list-style:none} .nav-links a{font-size:13px;font-weight:500;color:#5C7268;text-decoration:none;transition:color .2s} .nav-links a:hover{color:var(--g)}
+    .nav-cta{background:var(--g)!important;color:#fff!important;padding:8px 18px;border-radius:100px;font-weight:700!important}
+    .nav-dash{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px} .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190} .mob.open{display:flex} .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+
+    .content{max-width:820px;margin:0 auto;padding:120px 5% 80px}
+
+    /* Header doc */
+    .doc-hero{background:var(--dark);border-radius:16px;padding:40px;margin-bottom:40px;position:relative;overflow:hidden}
+    .doc-hero::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(29,158,117,.12);pointer-events:none}
+    .doc-hero-label{display:inline-block;background:rgba(29,158,117,.2);color:var(--gm);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px}
+    .doc-hero h1{font-family:'Syne',sans-serif;font-size:clamp(22px,3.5vw,34px);font-weight:800;color:#fff;letter-spacing:-0.5px;margin-bottom:8px}
+    .doc-hero-meta{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:16px}
+    .doc-hero-id{font-size:12px;color:rgba(255,255,255,.3);font-family:monospace}
+
+    /* Alerte importante */
+    .alert-important{background:var(--orangel);border:1.5px solid #FDE68A;border-left:4px solid var(--a);border-radius:10px;padding:16px 20px;margin-bottom:28px}
+    .alert-important strong{display:block;font-size:13px;color:#92400E;margin-bottom:4px}
+    .alert-important p{font-size:13px;color:#78350F;margin:0;line-height:1.7}
+
+    .alert-red{background:var(--redl);border:1.5px solid var(--redbdr);border-left:4px solid var(--red);border-radius:10px;padding:16px 20px;margin:16px 0}
+    .alert-red strong{display:block;font-size:13px;color:#991B1B;margin-bottom:4px}
+    .alert-red p{font-size:13px;color:#7F1D1D;margin:0;line-height:1.7}
+
+    .alert-blue{background:var(--bluel);border:1.5px solid #BFDBFE;border-left:4px solid var(--bluedark);border-radius:10px;padding:16px 20px;margin:16px 0}
+    .alert-blue p{font-size:13px;color:#1E3A8A;margin:0;line-height:1.7}
+
+    /* TOC */
+    .toc{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:24px 28px;margin-bottom:36px}
+    .toc h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:14px}
+    .toc ol{padding-left:18px;display:grid;grid-template-columns:1fr 1fr;gap:4px 24px}
+    .toc li{font-size:13px} .toc a{color:var(--g);text-decoration:none} .toc a:hover{text-decoration:underline}
+    @media(max-width:600px){.toc ol{grid-template-columns:1fr}}
+
+    /* Headings */
+    .content h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin:40px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--bdr);display:flex;align-items:center;gap:10px}
+    .content h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gd);margin:22px 0 10px}
+    .content p{font-size:14.5px;color:var(--muted);line-height:1.85;margin-bottom:12px}
+    .content ul,.content ol{padding-left:20px;margin-bottom:14px}
+    .content li{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:5px}
+    .content a{color:var(--g)}
+    .content strong{color:var(--text)}
+
+    /* Tableaux */
+    .table-wrap{overflow-x:auto;margin:16px 0 20px;border-radius:10px;border:1px solid var(--bdr)}
+    table{width:100%;border-collapse:collapse;font-size:13.5px}
+    th{background:var(--dark);color:#fff;padding:10px 16px;text-align:left;font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.5px}
+    td{padding:11px 16px;border-bottom:1px solid var(--bdr);color:var(--muted);vertical-align:top}
+    tr:last-child td{border-bottom:none}
+    tr:nth-child(even) td{background:#F9FAF8}
+    .badge-req{background:#FEF2F2;color:#991B1B;border:1px solid #FECACA;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+    .badge-opt{background:#F0FDF4;color:#166534;border:1px solid #BBF7D0;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+    .badge-info{background:var(--gl);color:var(--gd);border:1px solid var(--gm);padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
+
+    /* Card pro */
+    .pro-card{background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:20px 24px;margin-bottom:14px}
+    .pro-card-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+    .pro-card-emoji{font-size:24px;width:44px;height:44px;background:var(--gl);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .pro-card-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark)}
+    .pro-card-sub{font-size:12px;color:var(--muted);margin-top:2px}
+    .pro-card ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:6px}
+    .pro-card li{font-size:13.5px;color:var(--muted);display:flex;align-items:flex-start;gap:8px;line-height:1.6}
+    .pro-card li::before{content:'→';color:var(--g);font-weight:700;flex-shrink:0;margin-top:1px}
+    .pro-card li strong{color:var(--text)}
+    .doc-required{margin-top:12px;padding-top:12px;border-top:1px dashed var(--bdr)}
+    .doc-required-title{font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:8px}
+    .doc-tag{display:inline-flex;align-items:center;gap:5px;background:var(--redl);color:var(--red);border:1px solid var(--redbdr);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;margin:2px}
+
+    /* Clause highlight */
+    .clause-box{background:var(--gl);border:1px solid var(--gm);border-radius:10px;padding:16px 20px;margin:16px 0}
+    .clause-box p{font-size:13.5px;color:var(--gd);margin:0;line-height:1.75;font-style:italic}
+
+    /* Article numéroté */
+    .article-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-size:12px;font-weight:700;flex-shrink:0}
+
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:18px;flex-wrap:wrap} .foot-links a{font-size:12px;color:rgba(255,255,255,.38);text-decoration:none} .foot-links a:hover{color:var(--g)}
+    .foot-legal{display:flex;gap:14px;flex-wrap:wrap} .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none} .foot-legal a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+    @media(max-width:960px){.nav-links{display:none}.hamburger{display:flex}}
+    @media(max-width:600px){.doc-hero{padding:24px}}
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 1024 1024"><path d="M 409.546 519.454 C 410.387 521.179 406.554 519.714 406.32 520.634 C 406.229 520.991 406.585 521.646 406.651 522.025 C 406.957 523.79 407.483 525.455 407.993 527.168 C 409.669 532.795 411.883 538.432 413.998 543.915 C 417.926 554.097 422.026 564.261 427.002 573.991 C 430.731 581.285 435.237 588.166 439.446 595.163 C 447.057 607.819 455.152 620.308 465.024 631.324 C 472.102 639.223 479.394 646.69 487.812 653.185 C 490.398 655.181 492.926 657.489 495.835 659.016 C 495.9 659.517 495.967 659.999 495.988 660.504 C 495.492 672.623 495.868 684.871 495.99 696.996 C 496.177 715.729 496.03 734.483 496.023 753.211 C 496.02 760.858 496.202 768.514 495.875 776.156 C 495.791 778.111 495.777 780.068 495.729 782.024 C 495.712 782.725 495.464 783.775 495.978 784.317 C 491.35 784.178 488.098 780.285 485.456 776.94 C 479.762 769.731 474.258 762.36 468.644 755.086 C 445.258 724.789 421.085 695.068 397.932 664.597 C 389.232 653.148 380.34 641.864 371.805 630.289 C 354.153 606.35 336.933 581.993 322.16 556.142 C 314.027 541.913 306.205 527.598 299.879 512.464 C 289.244 487.021 283.79 459.057 284.555 431.491 C 284.812 422.211 285.444 412.95 287.153 403.806 C 289.703 390.159 293.172 376.563 298.483 363.708 C 305.544 346.618 314.354 330.215 325.633 315.504 C 346.127 288.777 373.63 266.53 404.531 252.918 C 458.306 229.23 522.651 228.903 575.342 255.971 C 593.552 265.326 610.717 277.244 625.341 291.619 C 628.872 295.09 632.325 298.684 635.514 302.473 C 636.555 303.71 638.569 305.36 639.033 306.911 C 636.591 306.523 634.153 305.549 631.704 305.035 C 625.201 303.67 618.558 302.702 611.945 302.049 C 593.946 300.272 576.025 301.53 558.406 305.54 C 548.682 307.752 538.729 310.638 529.779 315.077 C 528.892 315.356 528.04 314.827 527.243 314.47 C 525.511 313.693 523.694 313.048 521.877 312.496 C 515.08 310.431 508.037 308.754 500.957 308.028 C 479.014 305.78 457.688 308.941 437.436 317.748 C 427.458 322.087 418.126 328.03 409.778 334.976 C 397.694 345.031 387.371 357.488 380.032 371.416 C 360.654 408.192 361.564 454.104 383.423 489.617 C 388.345 497.612 394.184 505.046 400.85 511.664 C 403.567 514.361 406.402 517.254 409.546 519.454 Z" fill="rgb(22,62,125)" fill-rule="evenodd"/><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)" fill-rule="evenodd"/></svg>
+    <span style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/mairies">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/agences">Immo & Courtiers</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="https://dashboard.lokalist.fr" target="_blank" class="nav-dash">🏛️ Dashboard</a></li>
+    <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mob" id="mob">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/agences">🏠 Immo & Courtiers</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <a href="https://dashboard.lokalist.fr" target="_blank">⚙️ Dashboard Mairie</a>
+  <a href="/contact" style="color:var(--g);font-weight:700;border:none">Nous rejoindre →</a>
+</div>
+
+<div class="content">
+
+  <!-- Hero document -->
+  <div class="doc-hero">
+    <div class="doc-hero-label">Document contractuel</div>
+    <h1>Conditions Générales de Vente<br>Professionnelles</h1>
+    <div class="doc-hero-meta">Version en vigueur au 17 avril 2026 — Applicables à tous les partenaires professionnels</div>
+    <div class="doc-hero-id">Lokalist · Damien DEHAIS · SIRET 804 561 819 000 25 · contact@lokalist.fr</div>
+  </div>
+
+  <div class="alert-important">
+    <strong>⚠️ Lokalist est un intermédiaire technique, pas un prestataire de services.</strong>
+    <p>Lokalist est une plateforme de mise en relation numérique. Elle ne réalise aucune prestation de travaux, de transaction immobilière, de diagnostic technique ou de service commercial au nom du professionnel. Toute relation contractuelle entre le professionnel et ses clients est conclue directement entre eux, sans intervention de Lokalist. Les présentes CGV régissent exclusivement la relation entre Lokalist et les professionnels partenaires.</p>
+  </div>
+
+  <!-- Table des matières -->
+  <div class="toc">
+    <h3>📋 Sommaire</h3>
+    <ol>
+      <li><a href="#art1">Objet et définitions</a></li>
+      <li><a href="#art2">Identité de l'éditeur</a></li>
+      <li><a href="#art3">Qualité d'intermédiaire technique</a></li>
+      <li><a href="#art4">Accès et conditions d'inscription</a></li>
+      <li><a href="#art5">Documents obligatoires par profil</a></li>
+      <li><a href="#art6">Services et tarifs</a></li>
+      <li><a href="#art7">Commande et activation</a></li>
+      <li><a href="#art8">Paiement</a></li>
+      <li><a href="#art9">Durée et résiliation</a></li>
+      <li><a href="#art10">Obligations du professionnel</a></li>
+      <li><a href="#art11">Responsabilités et limitations</a></li>
+      <li><a href="#art12">Suspension et exclusion</a></li>
+      <li><a href="#art13">Propriété intellectuelle</a></li>
+      <li><a href="#art14">Données personnelles</a></li>
+      <li><a href="#art15">Droit applicable et litiges</a></li>
+    </ol>
+  </div>
+
+  <!-- ARTICLE 1 -->
+  <h2 id="art1"><span class="article-num">1</span> Objet et définitions</h2>
+  <p>Les présentes Conditions Générales de Vente (ci-après « CGV Pro ») régissent les relations contractuelles entre <strong>Lokalist</strong>, plateforme numérique de fidélité et de mise en relation locale, et tout <strong>professionnel partenaire</strong> (ci-après « le Professionnel ») souscrivant à l'un des services proposés sur lokalist.fr.</p>
+  <p>On entend par « Professionnel » toute entité juridique ou personne physique agissant dans le cadre de son activité commerciale, artisanale, libérale, ou institutionnelle, incluant sans s'y limiter :</p>
+  <ul>
+    <li><strong>Commerçants</strong> : commerces de proximité, restaurateurs, prestataires de services locaux</li>
+    <li><strong>Artisans</strong> : professionnels du bâtiment, de l'entretien, de la rénovation, des services à la personne</li>
+    <li><strong>Agences immobilières et courtiers</strong> : agences titulaires d'une carte professionnelle, courtiers en financement</li>
+    <li><strong>Collectivités territoriales (Mairies)</strong> : communes et leurs établissements publics</li>
+  </ul>
+  <p>Toute souscription à un service Lokalist vaut acceptation sans réserve des présentes CGV Pro.</p>
+
+  <!-- ARTICLE 2 -->
+  <h2 id="art2"><span class="article-num">2</span> Identité de l'éditeur</h2>
+  <div class="table-wrap">
+    <table>
+      <tr><th>Information</th><th>Détail</th></tr>
+      <tr><td><strong>Raison sociale</strong></td><td>Le Boost Digital — Damien DEHAIS</td></tr>
+      <tr><td><strong>Forme juridique</strong></td><td>Entreprise individuelle (auto-entrepreneur)</td></tr>
+      <tr><td><strong>SIRET</strong></td><td>804 561 819 000 25</td></tr>
+      <tr><td><strong>Siège social</strong></td><td>60 Rue François 1er, 75008 Paris, France</td></tr>
+      <tr><td><strong>Directeur de publication</strong></td><td>Damien DEHAIS</td></tr>
+      <tr><td><strong>Email</strong></td><td>contact@lokalist.fr</td></tr>
+      <tr><td><strong>Site internet</strong></td><td>lokalist.fr</td></tr>
+      <tr><td><strong>Hébergeur</strong></td><td>Vercel Inc. — 340 Pine Street, San Francisco, CA 94104, USA</td></tr>
+    </table>
+  </div>
+
+  <!-- ARTICLE 3 -->
+  <h2 id="art3"><span class="article-num">3</span> Qualité d'intermédiaire technique — Clause essentielle</h2>
+
+  <div class="clause-box">
+    <p>« Lokalist est une plateforme numérique d'intermédiation. Elle agit en qualité d'hébergeur de contenus professionnels au sens de l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'Économie Numérique (LCEN) et en qualité d'intermédiaire de mise en relation au sens du droit commun. Lokalist n'est ni mandataire, ni agent commercial, ni co-contractant des utilisateurs finaux. »</p>
+  </div>
+
+  <h3>3.1 Ce que Lokalist fait</h3>
+  <ul>
+    <li>Met en visibilité les fiches professionnelles auprès des habitants locaux</li>
+    <li>Gère le programme de fidélité (points, bons) entre habitants et commerçants partenaires</li>
+    <li>Héberge les contenus publiés par les Professionnels (photos, descriptions, tarifs)</li>
+    <li>Fournit des outils analytiques (dashboard, statistiques de vues, leads)</li>
+    <li>Transmet des notifications push aux habitants dans un rayon géographique défini</li>
+    <li>Facilite la prise de contact initiale entre les habitants et les Professionnels</li>
+  </ul>
+
+  <h3>3.2 Ce que Lokalist ne fait pas et décline expressément</h3>
+  <div class="alert-red">
+    <strong>🚫 Responsabilités expressément exclues :</strong>
+    <p>Lokalist n'est en aucun cas responsable de : la qualité des prestations réalisées par les Professionnels ; l'exactitude des certifications, diplômes ou habilitations déclarés ; la conformité des travaux réalisés aux normes en vigueur ; la validité des documents réglementaires fournis (assurance, carte T, RGE...) ; les litiges commerciaux entre le Professionnel et ses clients ; les dommages causés à des tiers par le Professionnel dans l'exercice de son activité ; la véracité des Diagnostics de Performance Énergétique (DPE) ou autres rapports techniques publiés sur la plateforme.</p>
+  </div>
+
+  <h3>3.3 Responsabilité des contenus publiés</h3>
+  <p>Le Professionnel est seul et entièrement responsable des contenus qu'il publie sur Lokalist (descriptions, photos, prix, certifications, disponibilités). Il garantit que ces contenus sont exacts, à jour, licites et ne portent pas atteinte aux droits des tiers.</p>
+  <p>Lokalist applique le régime de responsabilité limitée de l'hébergeur prévu par la LCEN : Lokalist ne peut être tenu responsable des contenus illicites publiés par les Professionnels dès lors qu'il n'en avait pas connaissance et qu'il agit promptement pour les retirer dès notification.</p>
+
+  <!-- ARTICLE 4 -->
+  <h2 id="art4"><span class="article-num">4</span> Accès et conditions d'inscription professionnelle</h2>
+
+  <h3>4.1 Conditions préalables</h3>
+  <p>Pour accéder aux services Lokalist en qualité de Professionnel, les conditions suivantes doivent impérativement être remplies :</p>
+  <ul>
+    <li>Être titulaire d'un numéro SIRET actif et valide au moment de l'inscription</li>
+    <li>Exercer légalement l'activité déclarée sur la plateforme</li>
+    <li>Disposer des autorisations, licences, certifications et assurances requises par la réglementation applicable à son activité</li>
+    <li>Être majeur et avoir la capacité juridique pour s'engager contractuellement</li>
+    <li>Ne pas faire l'objet d'une procédure collective (redressement ou liquidation judiciaire)</li>
+  </ul>
+
+  <h3>4.2 Vérification des informations</h3>
+  <p>Lokalist se réserve le droit de vérifier à tout moment, par tout moyen, les informations et documents fournis par le Professionnel. Cette vérification ne saurait engager la responsabilité de Lokalist quant à l'exactitude ou la validité des documents fournis : la responsabilité de l'exactitude repose entièrement sur le Professionnel.</p>
+  <p>En cas de discordance entre les informations déclarées et les documents fournis, ou en cas de suspicion de fraude, Lokalist peut suspendre ou résilier le compte sans préavis ni indemnité.</p>
+
+  <!-- ARTICLE 5 -->
+  <h2 id="art5"><span class="article-num">5</span> Documents obligatoires par profil professionnel</h2>
+
+  <p>Selon le profil du Professionnel, les documents suivants doivent être fournis à Lokalist sur demande et maintenus à jour pendant toute la durée du contrat. Le défaut de fourniture de ces documents dans un délai de <strong>15 jours</strong> suivant la demande de Lokalist constitue un motif de suspension du compte.</p>
+
+  <div class="pro-card">
+    <div class="pro-card-head">
+      <div class="pro-card-emoji">🔧</div>
+      <div>
+        <div class="pro-card-title">Artisans du bâtiment et services</div>
+        <div class="pro-card-sub">Plomberie, électricité, maçonnerie, peinture, rénovation, entretien...</div>
+      </div>
+    </div>
+    <ul>
+      <li><strong>Extrait KBIS ou avis de situation SIRENE</strong> de moins de 3 mois</li>
+      <li><strong>Attestation d'assurance responsabilité civile professionnelle</strong> en cours de validité, couvrant l'activité exercée</li>
+      <li>Pour les activités de construction/rénovation : <strong>attestation d'assurance décennale</strong> (obligation légale, loi Spinetta)</li>
+      <li>Le cas échéant, <strong>qualification professionnelle</strong> (Qualibat, Qualifelec, etc.)</li>
+    </ul>
+    <div class="doc-required">
+      <div class="doc-required-title">⚠️ Si badge RGE affiché</div>
+      <span class="doc-tag">📄 Certificat RGE en cours de validité</span>
+      <span class="doc-tag">📄 Numéro de certification vérifiable</span>
+      <p style="font-size:12px;color:var(--muted);margin-top:8px;margin-bottom:0">La certification RGE (Reconnu Garant Environnement) est déclarée sous la seule responsabilité de l'artisan. Lokalist ne garantit pas la validité de cette certification et ne saurait être tenu responsable en cas de certification expirée, suspendue ou fictive. L'artisan est seul responsable des conséquences pour ses clients (refus d'aides MaPrimeRénov', etc.).</p>
+    </div>
+  </div>
+
+  <div class="pro-card">
+    <div class="pro-card-head">
+      <div class="pro-card-emoji">🏠</div>
+      <div>
+        <div class="pro-card-title">Agences immobilières</div>
+        <div class="pro-card-sub">Transaction, gestion locative, syndic de copropriété</div>
+      </div>
+    </div>
+    <ul>
+      <li><strong>Carte professionnelle T (Transaction)</strong> délivrée par la CCI, en cours de validité — obligation légale loi Hoguet n° 70-9 du 2 janvier 1970</li>
+      <li><strong>Attestation d'habilitation</strong> des collaborateurs amenés à exercer des activités de transaction</li>
+      <li><strong>Attestation d'assurance responsabilité civile professionnelle</strong> en cours de validité</li>
+      <li>Le cas échéant, <strong>garantie financière</strong> si maniement de fonds</li>
+      <li>Numéro d'inscription au <strong>Registre Spécial des Agents Commerciaux (RSAC)</strong> pour les agents commerciaux mandataires</li>
+    </ul>
+    <div class="doc-required">
+      <div class="doc-required-title">⚠️ Concernant les DPE publiés sur la plateforme</div>
+      <p style="font-size:12px;color:var(--muted);margin-top:0;margin-bottom:0">Les Diagnostics de Performance Énergétique (DPE) publiés sur Lokalist sont fournis sous la seule responsabilité de l'agence et du diagnostiqueur certifié. Lokalist n'est pas diagnostiqueur immobilier et ne vérifie pas la conformité technique des DPE. L'agence garantit que les DPE publiés sont réalisés par un diagnostiqueur certifié (certification COFRAC) et sont conformes à la réglementation en vigueur (notamment la réforme DPE du 1er juillet 2021). Lokalist décline toute responsabilité en cas de DPE inexact, erroné ou litigieux.</p>
+    </div>
+  </div>
+
+  <div class="pro-card">
+    <div class="pro-card-head">
+      <div class="pro-card-emoji">🏪</div>
+      <div>
+        <div class="pro-card-title">Commerçants et prestataires locaux</div>
+        <div class="pro-card-sub">Commerces de proximité, restauration, services...</div>
+      </div>
+    </div>
+    <ul>
+      <li><strong>Extrait KBIS ou avis de situation SIRENE</strong> de moins de 3 mois</li>
+      <li><strong>Attestation d'assurance responsabilité civile professionnelle</strong></li>
+      <li>Pour les établissements recevant du public : <strong>autorisation d'exploitation</strong> en cours de validité</li>
+      <li>Pour la restauration : <strong>déclaration sanitaire</strong> auprès de la DDPP</li>
+    </ul>
+    <div class="doc-required">
+      <div class="doc-required-title">⚠️ Concernant les bons MAI- et promotions</div>
+      <p style="font-size:12px;color:var(--muted);margin-top:0;margin-bottom:0">Les promotions et bons de réduction acceptés par le commerçant sont sous sa seule responsabilité. Le commerçant est responsable du respect de la réglementation sur les promotions commerciales (loi Hamon, arrêté du 11 mars 2015 sur les soldes). Lokalist est exclusivement intermédiaire de distribution des bons et ne garantit pas la valeur commerciale de ces bons au-delà de leur valeur faciale.</p>
+    </div>
+  </div>
+
+  <div class="pro-card">
+    <div class="pro-card-head">
+      <div class="pro-card-emoji">🏛️</div>
+      <div>
+        <div class="pro-card-title">Mairies et collectivités territoriales</div>
+        <div class="pro-card-sub">Communes, intercommunalités, établissements publics</div>
+      </div>
+    </div>
+    <ul>
+      <li><strong>Délibération du conseil municipal</strong> autorisant la souscription au service Lokalist et validant le budget alloué</li>
+      <li><strong>Mandat du représentant légal</strong> (maire ou délégataire) habilité à signer les contrats</li>
+      <li><strong>Code INSEE de la commune</strong> et confirmation du numéro SIRET de la collectivité</li>
+    </ul>
+    <div class="doc-required">
+      <div class="doc-required-title">⚠️ Concernant la commission Lokalist sur les campagnes</div>
+      <p style="font-size:12px;color:var(--muted);margin-top:0;margin-bottom:0">La mairie est informée et accepte expressément que Lokalist perçoit une commission de 45% sur le budget de chaque campagne de bons, en rémunération des services de distribution, de gestion technique et de notification push. Cette commission est prélevée avant distribution des bons et ne constitue pas une dépense supplémentaire pour la collectivité au-delà du budget convenu.</p>
+    </div>
+  </div>
+
+  <!-- ARTICLE 6 -->
+  <h2 id="art6"><span class="article-num">6</span> Services et tarifs</h2>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>Profil</th><th>Service</th><th>Tarif mensuel</th><th>Tarif annuel</th><th>Préavis résil.</th></tr>
+      <tr><td><strong>Commerçant</strong></td><td>Fiche vitrine, QR code, bons mairie, dashboard</td><td>19,90 € TTC/mois</td><td>179,10 € TTC/an</td><td>3 mois</td></tr>
+      <tr><td><strong>Artisan</strong></td><td>Fiche géolocalisée, boost visibilité, dashboard pro</td><td>19,90 € TTC/mois</td><td>179,10 € TTC/an</td><td>3 mois</td></tr>
+      <tr><td><strong>Artisan Pro+Agenda</strong></td><td>Artisan + module agenda/RDV en ligne</td><td>24,90 € TTC/mois</td><td>Sur devis</td><td>3 mois</td></tr>
+      <tr><td><strong>Agence Immo — Starter</strong></td><td>Annonces (5 max), leads, tableau de bord</td><td>49,90 € TTC/mois</td><td>Sur devis</td><td>3 mois</td></tr>
+      <tr><td><strong>Agence Immo — Pro</strong></td><td>Annonces (15 max), leads, boosts (2/mois)</td><td>89,90 € TTC/mois</td><td>Sur devis</td><td>3 mois</td></tr>
+      <tr><td><strong>Agence Immo — Premium</strong></td><td>Annonces illimitées, leads, boosts (5/mois), badge premium</td><td>149,90 € TTC/mois</td><td>Sur devis</td><td>3 mois</td></tr>
+      <tr><td><strong>Courtier</strong></td><td>Fiche partenaire, leads qualifiés</td><td>19,90 € TTC/mois</td><td>179,10 € TTC/an</td><td>3 mois</td></tr>
+      <tr><td><strong>Mairie Partenaire</strong></td><td>Dashboard, campagnes bons, alertes, agenda, sondages</td><td colspan="2">Sur devis — commission 45% sur campagnes</td><td>Négociable</td></tr>
+    </table>
+  </div>
+
+  <div class="alert-blue">
+    <p>💡 Les tarifs indiqués sont TTC. Lokalist est soumis au régime de la micro-entreprise et n'est pas assujetti à la TVA (article 293 B du CGI). Les prix sont donc nets de TVA. Lokalist se réserve le droit de modifier ses tarifs avec un préavis de <strong>30 jours</strong> aux clients existants.</p>
+  </div>
+
+  <!-- ARTICLE 7 -->
+  <h2 id="art7"><span class="article-num">7</span> Commande et activation du service</h2>
+  <p>Toute souscription s'effectue via le formulaire disponible sur lokalist.fr/contact ou par contact direct avec l'équipe Lokalist. La commande est confirmée par email de la part de Lokalist après vérification des informations fournies.</p>
+  <p><strong>Aucun service n'est activé sans confirmation écrite de Lokalist.</strong> Le Professionnel reconnaît avoir pris connaissance des présentes CGV Pro et les accepte expressément au moment de la confirmation de commande.</p>
+  <p>L'activation du compte Professionnel est conditionnée à la fourniture des documents requis à l'article 5. Lokalist se réserve un délai de 5 jours ouvrés pour procéder à la vérification des documents et activer le compte.</p>
+
+  <!-- ARTICLE 8 -->
+  <h2 id="art8"><span class="article-num">8</span> Paiement</h2>
+  <p>Le paiement s'effectue par virement bancaire ou par les moyens de paiement communiqués lors de l'activation du compte. Les factures sont émises mensuellement ou annuellement selon la formule choisie.</p>
+  <p>En cas de non-paiement à l'échéance, Lokalist se réserve le droit de suspendre l'accès au service après envoi d'une relance par email restée sans réponse 10 jours. Des pénalités de retard peuvent être appliquées conformément aux articles L.441-10 et suivants du Code de commerce.</p>
+
+  <!-- ARTICLE 9 -->
+  <h2 id="art9"><span class="article-num">9</span> Durée et résiliation</h2>
+
+  <h3>9.1 Abonnements mensuels</h3>
+  <p>Les abonnements mensuels sont résiliables avec un préavis de <strong>3 mois</strong> par email envoyé à contact@lokalist.fr. Le préavis court à compter de la réception de l'email de résiliation par Lokalist. Les sommes déjà versées ne sont pas remboursées.</p>
+
+  <h3>9.2 Abonnements annuels</h3>
+  <p>Les abonnements annuels sont fermes pour la durée d'un an et <strong>non remboursables</strong> en cas de résiliation anticipée, sauf faute de Lokalist dûment établie.</p>
+
+  <h3>9.3 Résiliation par Lokalist</h3>
+  <p>Lokalist se réserve le droit de résilier le contrat de plein droit, avec effet immédiat et sans indemnité, dans les cas suivants :</p>
+  <ul>
+    <li>Non-respect des obligations documentaires (article 5)</li>
+    <li>Manquement grave aux obligations du Professionnel (article 10)</li>
+    <li>Obtention du compte par fraude ou fourniture de documents falsifiés</li>
+    <li>Plainte(s) fondée(s) d'utilisateurs de la plateforme ayant conduit à 3 signalements vérifiés ou plus</li>
+    <li>Cessation d'activité ou ouverture d'une procédure collective</li>
+    <li>Décision judiciaire ou administrative ordonnant la cessation d'activité</li>
+  </ul>
+
+  <!-- ARTICLE 10 -->
+  <h2 id="art10"><span class="article-num">10</span> Obligations du Professionnel</h2>
+
+  <h3>10.1 Obligations générales</h3>
+  <ul>
+    <li>Fournir des informations exactes, complètes et à jour lors de l'inscription et pendant toute la durée du contrat</li>
+    <li>Maintenir à jour les documents réglementaires requis (assurances, certifications, carte professionnelle)</li>
+    <li>Informer Lokalist dans un délai de <strong>15 jours</strong> de tout changement affectant les informations déclarées (changement d'adresse, de statut juridique, expiration d'assurance, retrait de certification...)</li>
+    <li>Ne pas publier de contenus mensongers, trompeurs, illicites ou portant atteinte aux droits des tiers</li>
+    <li>Respecter les règles de déontologie applicables à sa profession</li>
+    <li>Ne pas solliciter directement les utilisateurs de la plateforme à des fins de détournement du service Lokalist</li>
+  </ul>
+
+  <h3>10.2 Obligations spécifiques — Artisans</h3>
+  <ul>
+    <li>Maintenir en vigueur une assurance responsabilité civile professionnelle et, le cas échéant, décennale, pendant toute la durée du contrat</li>
+    <li>Ne revendiquer la certification RGE que si elle est en cours de validité et vérifiable sur le site officiel france-renov.gouv.fr</li>
+    <li>Signaler immédiatement à Lokalist toute suspension, expiration ou retrait de certification</li>
+    <li>Ne pas proposer de prestations pour lesquelles les habilitations requises ne sont pas détenues (électricité : habilitation NF C18-510 ; gaz : qualification QUALIGAZ ou équivalent, etc.)</li>
+  </ul>
+
+  <h3>10.3 Obligations spécifiques — Agences immobilières</h3>
+  <ul>
+    <li>Maintenir en vigueur la carte professionnelle T pendant toute la durée du contrat</li>
+    <li>Ne publier que des annonces conformes à la réglementation sur la publicité immobilière (mention du prix, de la surface, du DPE conformément au décret n° 2022-1154)</li>
+    <li>Garantir que les DPE publiés sont réalisés par un diagnostiqueur certifié et conformes à la réglementation</li>
+    <li>Traiter les leads transmis par Lokalist dans un délai raisonnable et de manière professionnelle</li>
+    <li>Ne pas utiliser les coordonnées des leads Lokalist à des fins autres que la réponse à leur demande initiale</li>
+  </ul>
+
+  <h3>10.4 Obligations spécifiques — Commerçants</h3>
+  <ul>
+    <li>Honorer les bons MAI- présentés par les habitants dans les conditions affichées sur la plateforme</li>
+    <li>Informer Lokalist de tout changement de catégorie d'activité, d'horaires ou de fermeture temporaire/définitive</li>
+    <li>Ne pas afficher de prix ou de promotions trompeuses sur la plateforme</li>
+  </ul>
+
+  <!-- ARTICLE 11 -->
+  <h2 id="art11"><span class="article-num">11</span> Responsabilités et limitations</h2>
+
+  <h3>11.1 Responsabilité de Lokalist</h3>
+  <p>Lokalist s'engage à fournir ses services avec le soin raisonnable d'un prestataire professionnel et à maintenir la disponibilité de la plateforme avec un objectif de 99% de disponibilité mensuelle (hors maintenances planifiées). Cependant, Lokalist ne peut être tenu responsable :</p>
+  <ul>
+    <li>Des interruptions temporaires de service pour maintenance, mise à jour ou cas de force majeure</li>
+    <li>Des dommages indirects (manque à gagner, perte de clientèle, atteinte à la réputation) résultant d'une indisponibilité du service</li>
+    <li>Des actes ou omissions des Professionnels partenaires vis-à-vis de leurs clients</li>
+    <li>De la qualité ou de la conformité des prestations réalisées par les Professionnels</li>
+    <li>Du contenu des avis publiés par les utilisateurs, dès lors que Lokalist agit en qualité d'hébergeur</li>
+  </ul>
+  <p>En tout état de cause, la responsabilité contractuelle de Lokalist envers le Professionnel est limitée au montant des sommes effectivement versées par ce dernier au cours des <strong>12 derniers mois</strong>.</p>
+
+  <h3>11.2 Responsabilité exclusive du Professionnel</h3>
+  <div class="alert-red">
+    <strong>🚫 Le Professionnel est seul responsable de :</strong>
+    <p>
+    — La conformité de son activité à la réglementation applicable (normes, certifications, habilitations)<br/>
+    — La qualité, la sécurité et la conformité de ses prestations ou produits<br/>
+    — L'exactitude des certifications et qualifications affichées (RGE, Qualibat, etc.)<br/>
+    — La validité et la mise à jour de ses assurances (RC pro, décennale)<br/>
+    — La conformité des DPE et diagnostics publiés<br/>
+    — Les litiges avec ses clients, quelle qu'en soit la cause<br/>
+    — Les dommages causés à des tiers dans l'exercice de son activité<br/>
+    — Le respect du droit de la consommation, du droit commercial et de la déontologie professionnelle
+    </p>
+  </div>
+
+  <!-- ARTICLE 12 -->
+  <h2 id="art12"><span class="article-num">12</span> Suspension et exclusion</h2>
+
+  <h3>12.1 Suspension temporaire</h3>
+  <p>Lokalist peut suspendre l'accès au service du Professionnel, sans préavis, dans les cas suivants :</p>
+  <ul>
+    <li>Documents requis non fournis dans les délais (article 5)</li>
+    <li>Signalements répétés d'utilisateurs de la plateforme (3 plaintes vérifiées ou plus)</li>
+    <li>Suspicion fondée de fraude ou d'escroquerie signalée par des utilisateurs</li>
+    <li>Non-paiement de 2 échéances consécutives</li>
+    <li>Publication de contenus manifestement illicites ou trompeurs</li>
+  </ul>
+  <p>La suspension temporaire n'ouvre droit à aucun remboursement. Lokalist informe le Professionnel par email des motifs de la suspension et du délai pour régulariser la situation (maximum 15 jours).</p>
+
+  <h3>12.2 Exclusion définitive</h3>
+  <p>En l'absence de régularisation dans le délai imparti, ou en cas de manquement grave et irrémédiable, Lokalist peut procéder à l'exclusion définitive du Professionnel sans indemnité, avec résiliation immédiate du contrat.</p>
+  <p>Le Professionnel exclu ne pourra pas souscrire un nouveau contrat Lokalist pendant une durée de <strong>2 ans</strong> à compter de la date d'exclusion, sauf autorisation expresse de Lokalist.</p>
+
+  <!-- ARTICLE 13 -->
+  <h2 id="art13"><span class="article-num">13</span> Propriété intellectuelle</h2>
+  <p>L'ensemble des éléments de la plateforme Lokalist (code source, design, charte graphique, logo, base de données, algorithmes) est la propriété exclusive de Damien DEHAIS et est protégé par le droit d'auteur et le droit des marques.</p>
+  <p>Le Professionnel concède à Lokalist, à titre gratuit, une licence non exclusive d'utilisation des contenus qu'il publie (photos, textes, logos) pour les besoins du service, pour la durée du contrat et sur le monde entier.</p>
+  <p>Le Professionnel garantit disposer de tous les droits nécessaires sur les contenus publiés et indemnisera Lokalist de tout recours de tiers fondé sur une violation des droits de propriété intellectuelle.</p>
+
+  <!-- ARTICLE 14 -->
+  <h2 id="art14"><span class="article-num">14</span> Données personnelles</h2>
+  <p>Le traitement des données personnelles des Professionnels et des utilisateurs de la plateforme est régi par la <a href="/confidentialite">Politique de confidentialité</a> de Lokalist, conforme au RGPD (Règlement UE 2016/679).</p>
+  <p>Dans le cadre de la transmission de leads (coordonnées d'utilisateurs intéressés), le Professionnel est informé qu'il devient responsable de traitement pour les données reçues et s'engage à les utiliser uniquement pour répondre à la demande initiale de l'utilisateur, conformément au RGPD.</p>
+
+  <!-- ARTICLE 15 -->
+  <h2 id="art15"><span class="article-num">15</span> Droit applicable et litiges</h2>
+  <p>Les présentes CGV Pro sont soumises au <strong>droit français</strong>. En cas de litige, les parties s'engagent à rechercher une solution amiable avant tout recours judiciaire, par l'envoi d'une lettre recommandée avec accusé de réception décrivant le différend.</p>
+  <p>À défaut de résolution amiable dans un délai de <strong>60 jours</strong> à compter de la notification, le litige sera porté devant les <strong>tribunaux compétents du ressort de Rouen (Normandie)</strong>, sauf disposition légale impérative contraire.</p>
+  <p>Pour les litiges de consommation impliquant un utilisateur final, ce dernier peut recourir gratuitement à un médiateur de la consommation conformément aux articles L.616-1 et suivants du Code de la consommation.</p>
+
+  <div class="clause-box" style="margin-top:40px">
+    <p>« En souscrivant à un service Lokalist, le Professionnel reconnaît avoir lu, compris et accepté sans réserve l'intégralité des présentes CGV Pro, et notamment les clauses relatives à la qualité d'intermédiaire technique de Lokalist (article 3), aux documents obligatoires (article 5) et aux responsabilités (article 11). »</p>
+  </div>
+
+  <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid var(--bdr)">Document mis à jour le 17 avril 2026 — Lokalist · contact@lokalist.fr · SIRET 804 561 819 000 25</p>
+
+</div>
+
+<footer>
+  <div class="foot-in">
+    <div style="display:flex;align-items:center;gap:6px">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)" fill-rule="evenodd"/></svg>
+      <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#1D9E75">Lokalist</span>
+    </div>
+    <div class="foot-links">
+      <a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a>
+      <a href="/artisans">Artisans</a><a href="/agences">Immo & Courtiers</a>
+      <a href="/tarifs">Tarifs</a><a href="/contact">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">CGV</a>
+      <a href="/cgu">CGU</a>
+      <a href="/confidentialite">Confidentialité</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist · SIRET 804 561 819 000 25</div>
+  </div>
+</footer>
+
+</body>
+</html>
