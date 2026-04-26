@@ -564,11 +564,9 @@
     </div>
   </div>
 </section>
-
+  
 <!-- MAIRIE -->
-<!-- MAIRIE -->
-<section id="mairies" style="background:linear-gradient(160deg,#071410 0%,#0D2318 50%,#0B1612 100%);padding:100px 5%;position:relative;overflow:hidden">
-  <!-- Déco fond -->
+<section id="mairies" style="background:linear-gradient(160deg,#071410 0%,#0D2318 50%,#0B1612 100%);padding:90px 5%;position:relative;overflow:hidden">
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 20% 50%,rgba(29,158,117,.12) 0%,transparent 55%),radial-gradient(ellipse 50% 50% at 85% 20%,rgba(239,159,39,.06) 0%,transparent 50%)"></div>
   <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(29,158,117,.4),transparent)"></div>
 
@@ -577,88 +575,91 @@
     <!-- Badge -->
     <div style="display:flex;justify-content:center;margin-bottom:20px">
       <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.25);border-radius:100px;padding:6px 18px">
-        <span style="width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;animation:pulse 2s infinite"></span>
-        <span style="font-size:11px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:1.2px">Pour les collectivités</span>
+        <span style="width:6px;height:6px;border-radius:50%;background:#1D9E75;display:inline-block;animation:pulse 2s infinite"></span>
+        <span style="font-size:11px;font-weight:700;color:#5DCAA5;text-transform:uppercase;letter-spacing:1.2px">Pour les collectivités</span>
       </div>
     </div>
 
-    <!-- Titre central -->
-    <div style="text-align:center;margin-bottom:60px">
-      <h2 style="font-family:'Syne',sans-serif;font-size:clamp(32px,5vw,60px);font-weight:800;color:#fff;letter-spacing:-2px;line-height:1.05;margin-bottom:18px">
-        Votre commune mérite<br/>mieux qu'un <span style="color:rgba(255,255,255,.25);text-decoration:line-through">panneau numérique</span>
+    <!-- Titre -->
+    <div style="text-align:center;margin-bottom:16px">
+      <h2 style="font-family:'Syne',sans-serif;font-size:clamp(28px,4.5vw,56px);font-weight:800;color:#fff;letter-spacing:-2px;line-height:1.05;margin-bottom:16px">
+        Votre commune mérite mieux<br/>qu'un <span style="color:rgba(255,255,255,.2);text-decoration:line-through;font-style:italic">panneau numérique</span>
       </h2>
-      <p style="font-size:clamp(15px,1.8vw,18px);color:rgba(255,255,255,.45);max-width:580px;margin:0 auto;line-height:1.75;font-weight:300">Lokalist transforme votre commune en écosystème vivant — où habitants, commerçants, artisans et élus sont connectés au quotidien.</p>
+      <p style="font-size:clamp(14px,1.6vw,17px);color:rgba(255,255,255,.45);max-width:520px;margin:0 auto;line-height:1.8;font-weight:300">
+        Panneau Pocket affiche. Lokalist <strong style="color:rgba(255,255,255,.75);font-weight:600">connecte</strong> — habitants, commerçants, artisans et élus dans une seule app locale.
+      </p>
     </div>
 
-    <!-- Grille 3 piliers -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px">
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px;transition:all .3s" onmouseenter="this.style.background='rgba(29,158,117,.08)';this.style.borderColor='rgba(29,158,117,.25)'" onmouseleave="this.style.background='rgba(255,255,255,.03)';this.style.borderColor='rgba(255,255,255,.07)'">
-        <div style="width:48px;height:48px;border-radius:14px;background:rgba(29,158,117,.15);border:1px solid rgba(29,158,117,.25);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px">🏘️</div>
-        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Vie locale digitale</div>
-        <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:16px">Alertes push, agenda municipal, sondages citoyens, signalements — tout ce dont vos habitants ont besoin, dans une seule app.</p>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--g);font-weight:800;font-size:11px">✓</span>5 types d'alertes géolocalisées</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--g);font-weight:800;font-size:11px">✓</span>Agenda avec notification push</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--g);font-weight:800;font-size:11px">✓</span>Signalement citoyen avec suivi</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--g);font-weight:800;font-size:11px">✓</span>Sondages & consultations</div>
+    <!-- Comparaison rapide vs Panneau Pocket -->
+    <div style="max-width:680px;margin:40px auto;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.06)">
+        <div style="padding:16px 20px;border-right:1px solid rgba(255,255,255,.06)">
+          <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Affichage classique</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.4)">Panneau Pocket & co.</div>
+        </div>
+        <div style="padding:16px 20px;background:rgba(29,158,117,.06)">
+          <div style="font-size:11px;font-weight:700;color:#5DCAA5;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px">Lokalist</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.6)">Plateforme de vie locale</div>
         </div>
       </div>
-
-      <div style="background:rgba(29,158,117,.08);border:1px solid rgba(29,158,117,.2);border-radius:20px;padding:28px;position:relative;transition:all .3s" onmouseenter="this.style.background='rgba(29,158,117,.14)';this.style.borderColor='rgba(29,158,117,.4)'" onmouseleave="this.style.background='rgba(29,158,117,.08)';this.style.borderColor='rgba(29,158,117,.2)'">
-        <div style="position:absolute;top:16px;right:16px;background:var(--a);color:#fff;font-size:9px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.5px">UNIQUE</div>
-        <div style="width:48px;height:48px;border-radius:14px;background:rgba(29,158,117,.2);border:1px solid rgba(29,158,117,.35);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px">💰</div>
-        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Impact économique réel</div>
-        <p style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:16px">Distribuez des bons à vos habitants, valables uniquement chez les commerçants locaux. Votre budget municipal soutient directement l'économie de votre territoire.</p>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7)"><span style="color:var(--gm);font-weight:800;font-size:11px">✓</span>Bons géolocalisés aux habitants</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7)"><span style="color:var(--gm);font-weight:800;font-size:11px">✓</span>100% dépensé en local</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7)"><span style="color:var(--gm);font-weight:800;font-size:11px">✓</span>Suivi budgétaire transparent</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.7)"><span style="color:var(--gm);font-weight:800;font-size:11px">✓</span>Remboursement traçable</div>
+      ${[
+        ['Informer les habitants','✗ Affichage passif','✓ Push géolocalisé en temps réel'],
+        ['Soutenir les commerces','✗ Aucun lien direct','✓ Bons 100% dépensés en local'],
+        ['Consulter les citoyens','✗ Non disponible','✓ Sondages & signalements'],
+        ['Tableau de bord élu','✗ Inexistant','✓ Stats, budget, campagnes'],
+        ['Coût pour la commune','✗ Abonnement fixe','✓ 0€ fixe — commission sur bons'],
+      ].map(([label, bad, good]) => `
+      <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.04)">
+        <div style="padding:12px 20px;border-right:1px solid rgba(255,255,255,.06)">
+          <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:3px">${label}</div>
+          <div style="font-size:13px;color:rgba(239,68,68,.6)">${bad}</div>
         </div>
-      </div>
-
-      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px;transition:all .3s" onmouseenter="this.style.background='rgba(239,159,39,.06)';this.style.borderColor='rgba(239,159,39,.2)'" onmouseleave="this.style.background='rgba(255,255,255,.03)';this.style.borderColor='rgba(255,255,255,.07)'">
-        <div style="width:48px;height:48px;border-radius:14px;background:rgba(239,159,39,.12);border:1px solid rgba(239,159,39,.2);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px">🏪</div>
-        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:8px">Commerce & territoire</div>
-        <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:16px">Gérez vos marchés, référencez vos commerçants et artisans locaux, et offrez à votre territoire une vitrine numérique complète.</p>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--a);font-weight:800;font-size:11px">✓</span>Gestion marchés & emplacements</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--a);font-weight:800;font-size:11px">✓</span>Commerçants & artisans référencés</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--a);font-weight:800;font-size:11px">✓</span>Immobilier local intégré</div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6)"><span style="color:var(--a);font-weight:800;font-size:11px">✓</span>Dashboard stats en temps réel</div>
+        <div style="padding:12px 20px;background:rgba(29,158,117,.04)">
+          <div style="font-size:11px;color:rgba(255,255,255,.25);margin-bottom:3px">&nbsp;</div>
+          <div style="font-size:13px;color:#5DCAA5;font-weight:600">${good}</div>
         </div>
-      </div>
+      </div>`).join('')}
     </div>
 
-    <!-- Bannière dashboard + CTA -->
-    <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center">
-      <div>
-        <!-- KPIs dashboard -->
-        <div style="font-size:11px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:16px">Ce que voient vos élus dans le dashboard</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
-          <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.2);border-radius:12px;padding:14px;text-align:center">
-            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff">500+</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:3px">Bons distribués</div>
-          </div>
-          <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.2);border-radius:12px;padding:14px;text-align:center">
-            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff">78%</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:3px">Taux utilisation</div>
-          </div>
-          <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.2);border-radius:12px;padding:14px;text-align:center">
-            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff">12</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:3px">Marchands actifs</div>
-          </div>
-          <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.2);border-radius:12px;padding:14px;text-align:center">
-            <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff">48h</div>
-            <div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:3px">Déploiement</div>
-          </div>
+    <!-- 3 piliers verticaux -->
+    <div style="display:flex;flex-direction:column;gap:16px;max-width:720px;margin:0 auto 48px">
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center">
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(29,158,117,.15);border:1px solid rgba(29,158,117,.25);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🏘️</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Vie locale digitale complète</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;margin:0">Alertes push géolocalisées, agenda municipal, sondages citoyens, signalements avec suivi — tout en une seule app, sans rien installer côté mairie.</p>
         </div>
-        <p style="font-size:13px;color:rgba(255,255,255,.35);line-height:1.6">Tarif annuel sur devis, adapté à la taille de votre commune. Aucun engagement caché. Démo gratuite en 48h.</p>
       </div>
-      <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0">
-        <a href="/mairies" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:14px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(29,158,117,.35);white-space:nowrap;transition:all .25s" onmouseenter="this.style.background='var(--gd)';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='var(--g)';this.style.transform='none'">Découvrir l'offre mairie →</a>
-        <a href="/contact?demo=mairie" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);padding:13px 24px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);white-space:nowrap;transition:all .25s" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.06)'">📞 Demander une démo</a>
+
+      <div style="background:rgba(29,158,117,.07);border:1px solid rgba(29,158,117,.2);border-radius:18px;padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;position:relative">
+        <div style="position:absolute;top:14px;right:16px;background:#EF9F27;color:#fff;font-size:9px;font-weight:800;padding:3px 10px;border-radius:100px;letter-spacing:.5px">UNIQUE</div>
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(29,158,117,.2);border:1px solid rgba(29,158,117,.35);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">💰</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Budget municipal 100% local</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.65;margin:0">Distribuez des bons à vos habitants — valables uniquement chez vos commerçants et artisans locaux. Chaque euro dépensé reste sur le territoire. Vous ne payez rien à l'activation, seulement une commission sur les bons utilisés.</p>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:24px 28px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center">
+        <div style="width:52px;height:52px;border-radius:14px;background:rgba(239,159,39,.12);border:1px solid rgba(239,159,39,.2);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">🏪</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Territoire vivant & référencé</div>
+          <p style="font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;margin:0">Marchés, commerçants, artisans, agences immobilières — votre commune devient une vitrine numérique consultée par les habitants au quotidien.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA final -->
+    <div style="text-align:center">
+      <p style="font-size:13px;color:rgba(255,255,255,.3);margin-bottom:24px;line-height:1.7">
+        Tarif annuel sur devis · Adapté à la taille de votre commune<br/>
+        <strong style="color:rgba(255,255,255,.5);font-weight:600">0€ à l'activation</strong> · Démo gratuite sous 48h · Aucun engagement
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="/mairies" style="display:inline-flex;align-items:center;gap:8px;background:#1D9E75;color:#fff;padding:15px 32px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(29,158,117,.35);transition:all .25s" onmouseenter="this.style.background='#0F6E56';this.style.transform='translateY(-2px)'" onmouseleave="this.style.background='#1D9E75';this.style.transform='none'">Découvrir l'offre mairie →</a>
+        <a href="/contact?demo=mairie" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.7);padding:14px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .25s" onmouseenter="this.style.background='rgba(255,255,255,.12)'" onmouseleave="this.style.background='rgba(255,255,255,.06)'">📞 Demander une démo</a>
       </div>
     </div>
 
