@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokalist pour les Mairies — Dynamisez l'économie locale de votre commune</title>
+  <meta name="description" content="Lokalist connecte vos habitants, soutient vos commerces locaux et donne à vos élus un outil de pilotage concret. 0€ à l'activation, tarif annuel sur devis, bons optionnels. France entière."/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bg:#F7F8F4;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.1);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+    .nav-logo span{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#1D9E75;letter-spacing:-.5px}
+    .nav-links{display:flex;align-items:center;gap:24px;list-style:none}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--g)}
+    .nav-cta{background:var(--g)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;font-size:13px!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--gd)!important;transform:translateY(-1px)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open{display:flex}
+    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:10px 0;border-bottom:1px solid var(--bdr)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .section-in{max-width:1200px;margin:0 auto}
+    .section-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;display:block;margin-bottom:12px}
+    .section-h{font-family:'Syne',sans-serif;font-size:clamp(26px,3.5vw,46px);font-weight:800;color:var(--dark);letter-spacing:-1.5px;line-height:1.08;margin-bottom:16px}
+    .section-p{font-size:16px;color:var(--muted);line-height:1.8;font-weight:300;max-width:560px}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:15px 32px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(29,158,117,.3);transition:all .25s;white-space:nowrap}
+    .btn-primary:hover{background:var(--gd);transform:translateY(-2px)}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:14px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s;white-space:nowrap}
+    .btn-outline:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+    .hero{padding:130px 5% 80px;background:var(--bg)}
+    .hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);border-radius:100px;padding:7px 18px;margin-bottom:24px;animation:fadeUp .5s ease both}
+    .hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--g);animation:pulse 2s infinite}
+    .hero-badge span{font-size:11px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:1.2px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(34px,4.2vw,60px);font-weight:800;color:var(--dark);line-height:1.03;letter-spacing:-2px;margin-bottom:22px;animation:fadeUp .6s .08s ease both}
+    .hero h1 em{color:var(--g);font-style:normal}
+    .hero-sub{font-size:clamp(15px,1.4vw,17px);color:var(--muted);line-height:1.8;font-weight:300;max-width:500px;margin-bottom:36px;animation:fadeUp .6s .16s ease both}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s .24s ease both}
+    .hero-trust{display:flex;flex-wrap:wrap;gap:20px;margin-top:28px;padding-top:26px;border-top:1px solid var(--bdr);animation:fadeUp .6s .32s ease both}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800;font-size:12px}
+    .hero-right{animation:fadeUp .7s .12s ease both}
+    .prix-highlight{background:var(--surf);border:1.5px solid var(--bdr);border-radius:24px;padding:32px;box-shadow:0 20px 60px rgba(29,158,117,.08);position:relative;overflow:hidden}
+    .prix-highlight::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--g),#22C98A)}
+    .prix-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+    .prix-ico{width:48px;height:48px;border-radius:14px;background:var(--gl);border:1px solid var(--gm);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+    .prix-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--dark)}
+    .prix-sub{font-size:12px;color:var(--muted);margin-top:2px}
+    .prix-items{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
+    .prix-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--bg);border-radius:12px;border:1px solid var(--bdr)}
+    .prix-item-ico{font-size:20px;flex-shrink:0}
+    .prix-item-title{font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:3px}
+    .prix-item-desc{font-size:12px;color:var(--muted);line-height:1.5}
+    .prix-badge{background:var(--al);border:1px solid rgba(239,159,39,.3);color:#92400E;font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;margin-left:6px}
+    .prix-note{text-align:center;font-size:12px;color:var(--muted);line-height:1.6;padding:12px;background:var(--gl);border-radius:10px}
+    .conviction{background:var(--g);padding:56px 5%}
+    .conv-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
+    .conv-val{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1}
+    .conv-lbl{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:6px}
+    .pourquoi{padding:90px 5%}
+    .args-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+    .arg-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+    .arg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .arg-card:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(29,158,117,.09);border-color:var(--gm)}
+    .arg-card:hover::before{transform:scaleX(1)}
+    .arg-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .arg-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .arg-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+    .budget-section{background:var(--gl);padding:90px 5%}
+    .budget-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    .budget-flow{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:32px;box-shadow:0 12px 40px rgba(29,158,117,.08)}
+    .budget-row{display:flex;align-items:center;gap:12px;padding:16px;border-radius:14px;margin-bottom:10px}
+    .budget-row.mairie{background:var(--dark);color:#fff}
+    .budget-row.bons{background:rgba(29,158,117,.1);border:1.5px solid rgba(29,158,117,.25)}
+    .budget-row.lokalist{background:var(--al);border:1.5px solid rgba(239,159,39,.3)}
+    .budget-row-ico{font-size:22px;flex-shrink:0}
+    .budget-row-main{flex:1}
+    .budget-row-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+    .budget-row.mairie .budget-row-title{color:#fff}
+    .budget-row.bons .budget-row-title{color:var(--gd)}
+    .budget-row.lokalist .budget-row-title{color:#92400E}
+    .budget-row-desc{font-size:12px;margin-top:2px}
+    .budget-row.mairie .budget-row-desc{color:rgba(255,255,255,.55)}
+    .budget-row.bons .budget-row-desc{color:var(--muted)}
+    .budget-row.lokalist .budget-row-desc{color:#92400E;opacity:.7}
+    .budget-row-amount{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;flex-shrink:0}
+    .budget-row.mairie .budget-row-amount{color:#fff}
+    .budget-row.bons .budget-row-amount{color:var(--g)}
+    .budget-row.lokalist .budget-row-amount{color:var(--a)}
+    .budget-arrow{text-align:center;color:var(--muted);font-size:18px;margin:6px 0;opacity:.4}
+    .budget-footer{background:var(--gl);border:1px solid var(--gm);border-radius:12px;padding:14px 16px;margin-top:4px;font-size:12.5px;color:var(--gd);text-align:center;line-height:1.6}
+    .budget-note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;font-style:italic}
+    .budget-points{display:flex;flex-direction:column;gap:20px;padding-top:8px}
+    .bp{display:flex;align-items:flex-start;gap:14px}
+    .bp-ico{width:42px;height:42px;border-radius:12px;background:var(--surf);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
+    .bp h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+    .bp p{font-size:13px;color:var(--muted);line-height:1.65}
+    .steps-section{padding:90px 5%;background:var(--surf)}
+    .steps-grid{display:flex;gap:0;margin-top:52px;position:relative}
+    .steps-grid::before{content:'';position:absolute;top:27px;left:7%;right:7%;height:1px;background:linear-gradient(90deg,var(--g),rgba(29,158,117,.15));z-index:0}
+    .step{flex:1;text-align:center;padding:0 16px;position:relative;z-index:1}
+    .step-num{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 6px var(--gl)}
+    .step-ico{font-size:26px;margin-bottom:10px}
+    .step-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:7px}
+    .step-desc{font-size:12.5px;color:var(--muted);line-height:1.65}
+    .foncts{padding:90px 5%;background:var(--dark);position:relative;overflow:hidden}
+    .foncts::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(29,158,117,.1) 0%,transparent 55%)}
+    .foncts .section-h{color:#fff}
+    .foncts .section-p{color:rgba(255,255,255,.45)}
+    .foncts .section-tag{color:var(--gm)}
+    .foncts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+    .fonct-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:all .3s}
+    .fonct-card:hover{background:rgba(29,158,117,.08);border-color:rgba(29,158,117,.25);transform:translateY(-3px)}
+    .fonct-ico{font-size:30px;margin-bottom:14px;display:block}
+    .fonct-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:7px}
+    .fonct-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7}
+    .tarif-section{padding:90px 5%;background:var(--bg)}
+    .tarif-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+    .tarif-card{background:linear-gradient(135deg,var(--gd) 0%,var(--g) 65%,#22C98A 100%);border-radius:28px;padding:40px;position:relative;overflow:hidden}
+    .tarif-card::before{content:'';position:absolute;top:-70px;right:-70px;width:240px;height:240px;border-radius:50%;background:rgba(255,255,255,.06)}
+    .tarif-inner{position:relative;z-index:1}
+    .tarif-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .tarif-eyebrow span{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1.5px}
+    .tarif-eyebrow .badge{background:var(--a);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px}
+    .tarif-h{font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}
+    .tarif-sub{font-size:14px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:24px}
+    .tarif-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+    .tkpi{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px;text-align:center}
+    .tkpi-v{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1}
+    .tkpi-l{font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;text-transform:uppercase;letter-spacing:.4px}
+    .tarif-feats{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+    .tarif-feat{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.85)}
+    .tarif-feat span:first-child{color:var(--gm);font-weight:800;font-size:12px;flex-shrink:0}
+    .tarif-btns{display:flex;gap:10px;flex-wrap:wrap}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--gd);padding:14px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.15);transition:all .25s}
+    .btn-white:hover{transform:translateY(-2px)}
+    .btn-white-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;padding:13px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.22);transition:all .25s}
+    .btn-white-ghost:hover{background:rgba(255,255,255,.2)}
+    .tarif-right{display:flex;flex-direction:column;gap:16px}
+    .tarif-point{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--surf);border:1px solid var(--bdr);border-radius:16px;transition:all .3s}
+    .tarif-point:hover{border-color:var(--gm);box-shadow:0 8px 28px rgba(29,158,117,.07)}
+    .tarif-point-ico{font-size:24px;flex-shrink:0}
+    .tarif-point h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+    .tarif-point p{font-size:13px;color:var(--muted);line-height:1.6}
+    .faq{padding:80px 5%;background:var(--surf)}
+    .faq-in{max-width:800px;margin:0 auto}
+    .faq-list{margin-top:48px}
+    .faq-item{border-bottom:1px solid var(--bdr)}
+    .faq-q{padding:20px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:15px;font-weight:600;color:var(--dark);transition:color .2s;gap:16px}
+    .faq-q:hover{color:var(--g)}
+    .faq-ico{font-size:20px;color:var(--muted);transition:transform .3s;flex-shrink:0}
+    .faq-a{font-size:14px;color:var(--muted);line-height:1.8;padding-bottom:20px;display:none}
+    .faq-item.open .faq-a{display:block}
+    .faq-item.open .faq-ico{transform:rotate(45deg);color:var(--g)}
+    .faq-item.open .faq-q{color:var(--g)}
+    .cta{background:linear-gradient(135deg,var(--dark),#1A3028);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(29,158,117,.1) 0%,transparent 60%)}
+    .cta-in{max-width:620px;margin:0 auto;position:relative;z-index:1}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
+    .cta h2 span{color:var(--a)}
+    .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300;line-height:1.75}
+    .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+    .cta-reassure{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:20px}
+    .cta-r{font-size:12px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:5px}
+    .cta-r::before{content:'✓';color:var(--g);font-weight:700}
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:20px;flex-wrap:wrap}
+    .foot-links a{font-size:12.5px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.18)}
+    @media(max-width:960px){
+      .nav-links{display:none}.hamburger{display:flex}
+      .hero-in,.budget-in,.tarif-in{grid-template-columns:1fr!important;gap:36px!important}
+      .args-grid,.foncts-grid{grid-template-columns:1fr 1fr}
+      .conv-in{grid-template-columns:1fr 1fr}
+      .steps-grid{flex-wrap:wrap;gap:28px}
+      .steps-grid::before{display:none}
+      .step{flex:0 0 calc(50% - 14px)}
+    }
+    @media(max-width:480px){
+      body{overflow-x:hidden}
+      .hero{padding:96px 4% 52px}
+      .args-grid,.foncts-grid{grid-template-columns:1fr}
+      .conv-in{grid-template-columns:1fr 1fr}
+      .step{flex:0 0 100%}
+      .tarif-kpis{grid-template-columns:1fr 1fr}
+      .cta-btns{flex-direction:column;align-items:center}
+      .foot-in{flex-direction:column;text-align:center}
+      .foot-links{justify-content:center}
+    }
+  </style>
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 1024 1024"><path d="M409.546 519.454c.841 1.725-2.992.26-3.226 1.18-.091.357.265 1.012.331 1.391.306 1.765.832 3.43 1.342 5.143 1.676 5.627 3.89 11.264 6.005 16.747 3.928 10.182 8.028 20.346 13.004 30.076 3.729 7.294 8.235 14.175 12.444 21.172 7.611 12.656 15.706 25.145 25.578 36.161 7.078 7.899 14.37 15.366 22.788 21.861 2.586 1.996 5.114 4.304 8.023 5.831.065.501.132.983.153 1.488-.496 12.119-.12 24.367.002 36.492.187 18.733.04 37.487.033 56.215-.003 7.647.179 15.303-.148 22.945-.084 1.955-.098 3.912-.146 5.868-.017.701-.265 1.751.249 2.293-4.628-.139-7.88-4.032-10.522-7.377-5.694-7.209-11.198-14.58-16.812-21.854-23.386-30.297-47.559-60.018-70.712-90.489-8.7-11.449-17.592-22.733-26.127-34.308-17.652-23.939-34.872-48.296-49.645-74.147-8.133-14.229-15.955-28.544-22.281-43.678-10.635-25.443-16.089-53.407-15.324-80.973.257-9.28.889-18.541 2.598-27.685 2.55-13.647 6.019-27.243 11.33-40.098 7.061-17.09 15.871-33.493 27.15-48.204 20.494-26.727 47.997-48.974 78.898-62.586 53.775-23.688 118.12-24.015 170.811 3.053 18.21 9.355 35.375 21.273 50 35.648 3.531 3.471 6.984 7.065 10.173 10.854 1.041 1.237 3.055 2.887 3.519 4.438-2.442-.388-4.88-1.362-7.329-1.876-6.503-1.365-13.146-2.333-19.759-2.986-17.999-1.777-35.92-.519-53.539 3.491-9.724 2.212-19.677 5.098-28.627 9.537-.887.279-1.739-.25-2.536-.607-1.732-.777-3.549-1.422-5.366-1.974-6.797-2.065-13.84-3.742-20.92-4.468-21.943-2.248-43.269.913-63.521 9.72-9.978 4.339-19.31 10.282-27.658 17.228-12.084 10.055-22.407 22.512-29.746 36.44-19.378 36.776-18.468 82.688 3.391 118.201 4.922 7.995 10.761 15.429 17.427 22.047 2.717 2.697 5.552 5.59 8.696 7.79z" fill="#163e7d"/><path d="M434.966 466.102c2.047-24.431 8.638-48.494 21.408-69.604 13.773-22.768 32.07-42.293 54.615-56.593 52.422-33.249 121.872-31.977 173.244 2.512 12.467 8.37 24.668 18.47 34.025 30.31 13.961 17.664 24.694 36.614 31.316 58.202 5.57 18.157 8.168 38.067 6.488 57.04-2.275 25.702-9.217 50.431-22.538 72.688-10.388 17.355-23.833 32.197-39.539 44.865-52.141 42.059-131.36 45.853-186.749 7.672-20.178-13.909-37.693-31.535-50.124-52.759-5.89-10.056-10.419-20.832-14.275-31.805-6.909-19.66-9.611-41.752-7.871-62.528z" fill="#fbb321"/><path d="M485.426 470.605c.95-5.12.916-10.383 2.071-15.501 4.038-17.881 11.533-34.708 23.401-48.801 15.882-18.858 37.838-32.433 62.069-37.466 46.936-9.748 97.787 12.634 120.41 55.307 12.761 24.07 16.055 52 10.015 78.478-2.468 10.818-6.381 21.498-12.368 30.897-4.056 6.367-8.336 12.628-13.654 18.027-1.62 1.645-3.413 4.003-5.428 5.138-1.767-1.391-2.989-3.67-4.366-5.43-3.524-4.506-6.739-9.28-10.115-13.899-5.883-8.051-11.832-16.128-17.973-23.985-1.853-2.371-5.004-4.349-6.424-6.969-.837-1.544-.975-3.934-1.413-5.646-.811-3.166-1.498-6.359-2.268-9.534-.42-1.735-1.088-3.579-1.059-5.375 1.746-2.629 4.441-4.624 6.739-6.745 4.077-3.762 8.119-7.593 12.08-11.478 2.888-2.832 6.326-6.026 5.573-10.463-.939-5.529-6.079-6.058-10.677-6.578-6.193-.701-12.397-1.311-18.591-2.048-2.772-.33-5.835-.384-8.514-1.187-1.789-2.341-2.695-5.946-3.805-8.672-2.742-6.731-5.118-13.862-8.566-20.266-2.574-4.78-8.177-6.857-12.338-2.446-2.046 2.169-3.074 5.067-4.235 7.751-2.263 5.229-4.518 10.462-6.814 15.677-.912 2.071-1.844 4.134-2.772 6.198-.287.639-.621 1.721-1.301 2.006-7.398.828-14.797 1.503-22.191 2.411-3.323.408-7.076.27-10.282 1.263-4.351 1.347-6.583 6.406-4.619 10.537 1.37 2.884 4.173 4.959 6.463 7.08 4.037 3.74 7.976 7.584 12.058 11.275 1.896 1.716 5.046 3.65 6.151 6 .133 1.1-.475 2.34-.755 3.393-.606 2.283-1.095 4.61-1.605 6.915-.746 3.379-1.27 7.631-2.779 10.747-.62 1.278-2.211 1.927-3.252 2.823-1.832 1.579-3.339 3.561-4.851 5.439-6.192 7.687-11.748 15.873-17.89 23.598-2.946 3.705-5.583 7.658-8.461 11.417-1.204 1.572-2.431 4.104-4.046 5.232-3.223-2.344-5.779-5.439-8.284-8.494-2.936-3.58-5.847-7.092-8.326-11.018-12.202-19.319-18.83-42.644-17.008-65.596z" fill="#fbb323"/></svg>
+    <span>Lokalist</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/">Accueil</a></li>
+    <li><a href="/mairies" class="active">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="/contact?demo=mairie" class="nav-cta">Demander une démo</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="/">Accueil</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/tarifs">Tarifs</a>
+  <a href="/contact?demo=mairie" style="color:var(--g);font-weight:700;border:none">Demander une démo →</a>
+</div>
+
+<section class="hero">
+  <div class="hero-in">
+    <div>
+      <div class="hero-badge"><div class="hero-badge-dot"></div><span>Pour les collectivités territoriales · France entière</span></div>
+      <h1>Votre commune mérite<br/>un outil <em>à la hauteur</em><br/>de ses ambitions.</h1>
+      <p class="hero-sub">Lokalist accompagne les mairies qui souhaitent communiquer autrement, soutenir leur économie locale et rester proches de leurs habitants — sans complexité technique, ni budget fixe imposé.</p>
+      <div class="hero-ctas">
+        <a href="/contact?demo=mairie" class="btn-primary">Demander une démo gratuite →</a>
+        <a href="#fonctionnalites" class="btn-outline">Voir les fonctionnalités</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">0€ à l'activation</div>
+        <div class="trust-item">Déployé en 48h</div>
+        <div class="trust-item">Sans compétence technique</div>
+        <div class="trust-item">Bons de commerce : optionnels</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="prix-highlight">
+        <div class="prix-header">
+          <div class="prix-ico">💶</div>
+          <div><div class="prix-title">Un modèle unique en France</div><div class="prix-sub">Transparence totale · Risque zéro</div></div>
+        </div>
+        <div class="prix-items">
+          <div class="prix-item">
+            <div class="prix-item-ico">📋</div>
+            <div><div class="prix-item-title">Abonnement annuel sur devis</div><div class="prix-item-desc">Adapté à la taille de votre commune. Ni plus, ni moins. Aucun frais caché.</div></div>
+          </div>
+          <div class="prix-item">
+            <div class="prix-item-ico">🎟️</div>
+            <div><div class="prix-item-title">Bons de commerce : 100% optionnels <span class="prix-badge">UNIQUE</span></div><div class="prix-item-desc">Si vous lancez une campagne, Lokalist prend 15% — le reste va directement à vos commerçants locaux. Vous ne payez que ce que vous distribuez réellement.</div></div>
+          </div>
+          <div class="prix-item">
+            <div class="prix-item-ico">🔒</div>
+            <div><div class="prix-item-title">0€ si vous n'utilisez pas les bons</div><div class="prix-item-desc">Alertes, agenda, sondages, signalements... sont compris dans l'abonnement. Les bons sont un outil de plus, pas une obligation.</div></div>
+          </div>
+        </div>
+        <div class="prix-note">Devis gratuit sous 24h · Réponse humaine garantie · Disponible partout en France</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="conviction">
+  <div class="conv-in">
+    <div class="reveal"><div class="conv-val">0€</div><div class="conv-lbl">À l'activation — aucun risque financier</div></div>
+    <div class="reveal"><div class="conv-val">48h</div><div class="conv-lbl">Pour être opérationnel</div></div>
+    <div class="reveal"><div class="conv-val">100%</div><div class="conv-lbl">Des bons dépensés en local</div></div>
+    <div class="reveal"><div class="conv-val">France</div><div class="conv-lbl">Partout, toutes communes</div></div>
+  </div>
+</section>
+
+<section class="pourquoi" id="fonctionnalites">
+  <div class="section-in">
+    <div class="reveal">
+      <span class="section-tag">Ce que ça change concrètement</span>
+      <h2 class="section-h">Des outils qui servent<br/>vraiment les élus.</h2>
+      <p class="section-p">Pas un gadget numérique. Un outil de politique municipale mesurable, simple à utiliser au quotidien.</p>
+    </div>
+    <div class="args-grid">
+      <div class="arg-card reveal"><div class="arg-ico">📣</div><h3>Alertes instantanées aux habitants</h3><p>Travaux, coupure d'eau, événement annulé — notification push géolocalisée en 30 secondes. Plus rapide et ciblé que n'importe quel affichage public.</p></div>
+      <div class="arg-card reveal"><div class="arg-ico">💰</div><h3>Budget municipal qui reste sur place</h3><p>Si vous le souhaitez, distribuez des bons à vos habitants valables uniquement chez vos commerçants locaux. Chaque euro de votre budget renforce votre économie de territoire.</p></div>
+      <div class="arg-card reveal"><div class="arg-ico">📅</div><h3>Agenda municipal interactif</h3><p>Vos événements publiés dans l'app avec rappel push automatique. Marchés, fêtes de village, conseils municipaux — vos habitants ne ratent plus rien.</p></div>
+      <div class="arg-card reveal"><div class="arg-ico">📍</div><h3>Signalements citoyens géolocalisés</h3><p>Nid de poule, lampadaire en panne, dépôt sauvage — vos habitants signalent avec photo. Vous traitez depuis le dashboard, ils sont notifiés de l'avancement.</p></div>
+      <div class="arg-card reveal"><div class="arg-ico">🗳️</div><h3>Sondages & consultations en ligne</h3><p>Consultez vos administrés sur vos projets municipaux. Résultats en temps réel dans votre tableau de bord. Les habitants gagnent des points en participant.</p></div>
+      <div class="arg-card reveal"><div class="arg-ico">📊</div><h3>Dashboard élu : tout en un endroit</h3><p>Activité de votre commune en temps réel : habitants connectés, bons distribués, marchés, signalements ouverts. Export pour vos conseils municipaux.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="budget-section">
+  <div class="budget-in section-in">
+    <div class="reveal">
+      <span class="section-tag" style="color:var(--gd)">Le modèle économique en clair</span>
+      <h2 class="section-h">Vous choisissez.<br/>Vous contrôlez.</h2>
+      <p class="section-p" style="margin-bottom:32px">Les campagnes de bons sont entièrement à votre initiative. Vous décidez du montant, du moment, des commerçants concernés.</p>
+      <div class="budget-flow">
+        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Exemple — campagne de Noël à 2 000€</div>
+        <div class="budget-row mairie"><div class="budget-row-ico">🏛️</div><div class="budget-row-main"><div class="budget-row-title">Mairie verse le budget de campagne</div><div class="budget-row-desc">Vous définissez le montant, Lokalist s'occupe de la distribution</div></div><div class="budget-row-amount">2 000€</div></div>
+        <div class="budget-arrow">↓</div>
+        <div class="budget-row bons"><div class="budget-row-ico">🎟️</div><div class="budget-row-main"><div class="budget-row-title">Bons envoyés à vos habitants</div><div class="budget-row-desc">Géolocalisés · valables uniquement chez vos commerçants</div></div><div class="budget-row-amount">1 700€</div></div>
+        <div class="budget-arrow">↓</div>
+        <div class="budget-row lokalist"><div class="budget-row-ico">⚙️</div><div class="budget-row-main"><div class="budget-row-title">Commission Lokalist (gestion plateforme)</div><div class="budget-row-desc">Uniquement sur les bons réellement utilisés</div></div><div class="budget-row-amount">300€</div></div>
+        <div class="budget-footer">✓ <strong>1 700€ dépensés directement chez vos commerçants locaux</strong><br/>Les bons non utilisés ne sont jamais facturés</div>
+        <div class="budget-note">Chiffres indicatifs · Le montant et la fréquence des campagnes sont entièrement à votre discrétion</div>
+      </div>
+    </div>
+    <div class="budget-points reveal">
+      <div class="bp"><div class="bp-ico">🔑</div><div><h4>Vous êtes toujours décisionnaire</h4><p>Une campagne se lance uniquement quand vous le décidez, au montant que vous choisissez. Aucun prélèvement automatique, aucune reconduction sans validation.</p></div></div>
+      <div class="bp"><div class="bp-ico">📈</div><div><h4>Traçabilité totale pour vos rapports</h4><p>Chaque bon distribué, chaque utilisation, chaque remboursement commerçant est visible en temps réel. Les données sont exportables pour vos conseils municipaux.</p></div></div>
+      <div class="bp"><div class="bp-ico">🤝</div><div><h4>Vos commerçants en bénéficient directement</h4><p>Les bons génèrent du trafic et du chiffre d'affaires additionnel pour vos commerces et artisans partenaires. Un levier économique concret pour votre territoire.</p></div></div>
+      <div class="bp"><div class="bp-ico">📋</div><div><h4>Abonnement annuel clair, sans surprise</h4><p>L'accès à la plateforme complète est compris dans votre abonnement annuel. Les bons sont un module optionnel facturé uniquement à l'utilisation réelle.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="section-in">
+    <div class="reveal" style="text-align:center;max-width:580px;margin:0 auto">
+      <span class="section-tag">Mise en place</span>
+      <h2 class="section-h">Opérationnel en 48h,<br/>sans effort de votre côté.</h2>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step"><div class="step-num">1</div><div class="step-ico">📞</div><div class="step-title">Démo gratuite</div><div class="step-desc">30 minutes en visio ou en présentiel. On vous montre la plateforme, vous posez vos questions.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-ico">📋</div><div class="step-title">Devis personnalisé</div><div class="step-desc">Tarif adapté à la taille de votre commune. Sous 24h. Aucun frais caché, aucune surprise.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-ico">⚙️</div><div class="step-title">Déploiement 48h</div><div class="step-desc">On configure votre dashboard, on intègre vos commerçants, on forme votre équipe. Zéro technique côté mairie.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-ico">🚀</div><div class="step-title">Vous pilotez</div><div class="step-desc">Alertes, agenda, signalements, sondages — tout depuis votre dashboard sécurisé.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="foncts" id="inclus">
+  <div class="section-in">
+    <div class="reveal">
+      <span class="section-tag">Ce qui est inclus dans l'abonnement</span>
+      <h2 class="section-h">Un outil complet,<br/>pas un outil partiel.</h2>
+      <p class="section-p">Toutes les fonctionnalités suivantes sont comprises dans votre abonnement annuel. Les bons sont un module optionnel supplémentaire.</p>
+    </div>
+    <div class="foncts-grid">
+      <div class="fonct-card reveal"><span class="fonct-ico">📣</span><div class="fonct-title">Alertes push géolocalisées</div><div class="fonct-desc">5 types d'alertes (urgence, travaux, météo, info, événement) ciblées par zone. Instantané.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📅</span><div class="fonct-title">Agenda municipal</div><div class="fonct-desc">Événements publiés dans l'app avec notification push automatique et rappel.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📍</span><div class="fonct-title">Signalement citoyen</div><div class="fonct-desc">Photo + localisation. Vous gérez les statuts, le citoyen est notifié à chaque avancement.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🗳️</span><div class="fonct-title">Sondages & consultations</div><div class="fonct-desc">Créez des sondages en quelques clics. Résultats anonymes analysables en temps réel.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🏪</span><div class="fonct-title">Gestion des marchés</div><div class="fonct-desc">Marchés, emplacements, marchands ambulants — tout géré depuis le dashboard.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📊</span><div class="fonct-title">Dashboard élu sécurisé</div><div class="fonct-desc">Accès unique pour votre commune. Stats, rapports exportables pour vos conseils municipaux.</div></div>
+    </div>
+    <div style="margin-top:32px;background:var(--al);border:1px solid rgba(239,159,39,.3);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap" class="reveal">
+      <span style="font-size:28px;flex-shrink:0">🎟️</span>
+      <div style="flex:1"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px">Bons de commerce — module optionnel, unique en France</div><div style="font-size:13px;color:var(--muted);line-height:1.6">Distribuez des bons à vos habitants, valables uniquement chez vos commerçants locaux. Vous l'activez quand vous le souhaitez. Lokalist prend 15% sur les bons <strong>réellement utilisés</strong>.</div></div>
+      <a href="/contact?demo=mairie" style="display:inline-flex;align-items:center;gap:6px;background:var(--a);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .25s" onmouseenter="this.style.background='#D98A1A'" onmouseleave="this.style.background='var(--a)'">En savoir plus →</a>
+    </div>
+  </div>
+</section>
+
+<section class="tarif-section" id="tarif">
+  <div class="tarif-in section-in">
+    <div class="tarif-card reveal">
+      <div class="tarif-inner">
+        <div class="tarif-eyebrow"><span>Offre Mairie Lokalist</span><span class="badge">ANNUEL · SUR DEVIS</span></div>
+        <h3 class="tarif-h">Un partenariat sur mesure.<br/>Aucun engagement caché.</h3>
+        <p class="tarif-sub">L'abonnement est établi sur devis selon la taille de votre commune. Les bons sont un module optionnel, facturé à la performance (15% sur les bons utilisés seulement).</p>
+        <div class="tarif-kpis">
+          <div class="tkpi"><div class="tkpi-v">0€</div><div class="tkpi-l">À l'activation</div></div>
+          <div class="tkpi"><div class="tkpi-v">15%</div><div class="tkpi-l">Commission bons uniquement</div></div>
+          <div class="tkpi"><div class="tkpi-v">48h</div><div class="tkpi-l">Déploiement garanti</div></div>
+          <div class="tkpi"><div class="tkpi-v">∞</div><div class="tkpi-l">Fonctionnalités incluses</div></div>
+        </div>
+        <div class="tarif-feats">
+          <div class="tarif-feat"><span>✓</span>Dashboard mairie dédié & sécurisé</div>
+          <div class="tarif-feat"><span>✓</span>Alertes push géolocalisées illimitées</div>
+          <div class="tarif-feat"><span>✓</span>Agenda municipal avec notifications</div>
+          <div class="tarif-feat"><span>✓</span>Signalements citoyens avec suivi</div>
+          <div class="tarif-feat"><span>✓</span>Sondages & consultations illimités</div>
+          <div class="tarif-feat"><span>✓</span>Gestion des marchés & emplacements</div>
+          <div class="tarif-feat"><span>✓</span>Statistiques & rapports exportables</div>
+          <div class="tarif-feat"><span>✓</span>Support dédié · Accompagnement humain</div>
+        </div>
+        <div class="tarif-btns">
+          <a href="/contact?demo=mairie" class="btn-white">Demander un devis gratuit →</a>
+          <a href="/contact?demo=mairie" class="btn-white-ghost">📞 Prendre rendez-vous</a>
+        </div>
+      </div>
+    </div>
+    <div class="tarif-right reveal">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--dark);margin-bottom:8px">Pourquoi nous faire confiance ?</div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px">Des élus comme vous nous ont posé les mêmes questions. Voici ce qui revient le plus souvent.</p>
+      <div class="tarif-point"><div class="tarif-point-ico">✅</div><div><h4>Aucun frais si vous n'utilisez pas les bons</h4><p>Toutes les fonctionnalités de communication et de pilotage sont dans l'abonnement. Les bons ne sont facturés qu'à l'utilisation réelle.</p></div></div>
+      <div class="tarif-point"><div class="tarif-point-ico">🔒</div><div><h4>Données hébergées en Europe, RGPD respecté</h4><p>Chaque commune a un espace isolé. Vos données et celles de vos habitants ne sont jamais partagées ni revendues.</p></div></div>
+      <div class="tarif-point"><div class="tarif-point-ico">🤝</div><div><h4>Un interlocuteur humain, pas un ticket support</h4><p>Une équipe disponible par téléphone et email. Accompagnement de la démo au pilotage quotidien.</p></div></div>
+      <div class="tarif-point"><div class="tarif-point-ico">📍</div><div><h4>Disponible partout en France</h4><p>Communes rurales, bourgs, villes moyennes — Lokalist s'adapte à toutes les tailles de territoire.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="faq-in">
+    <div class="reveal" style="text-align:center">
+      <span class="section-tag">Questions fréquentes</span>
+      <h2 class="section-h">Ce que les élus nous demandent</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Est-ce que les bons de commerce sont obligatoires ?<span class="faq-ico">+</span></div><div class="faq-a">Non, absolument pas. Les bons de commerce sont un module optionnel que vous activez si et quand vous le souhaitez. L'abonnement annuel couvre toutes les autres fonctionnalités (alertes, agenda, signalements, sondages, marchés, dashboard) sans qu'aucune campagne de bons ne soit requise.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment est calculé le tarif de l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">Le tarif est établi sur devis selon la taille de votre commune (nombre d'habitants, périmètre géographique). Il est annuel et fixe pour toutes les fonctionnalités. Nous vous envoyons un devis gratuit sous 24h après votre demande, sans engagement.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Combien de temps pour mettre en place la plateforme ?<span class="faq-ico">+</span></div><div class="faq-a">48 heures après la signature du partenariat. Nous configurons votre espace mairie, intégrons vos commerçants locaux et formons votre équipe en visio ou en présentiel. Aucune compétence technique n'est nécessaire de votre côté.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Que se passe-t-il si des habitants ne dépensent pas leurs bons ?<span class="faq-ico">+</span></div><div class="faq-a">Les bons non utilisés ne sont jamais facturés. La commission de 15% s'applique uniquement sur les bons effectivement utilisés chez vos commerçants. C'est un modèle entièrement à la performance, sans risque financier pour la commune.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Les données de nos administrés sont-elles sécurisées ?<span class="faq-ico">+</span></div><div class="faq-a">Oui. Les données sont hébergées sur des serveurs européens (RGPD). Chaque commune dispose d'un espace entièrement isolé — aucune donnée n'est partagée entre collectivités, ni revendue. Vous gardez la propriété totale de vos données.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Peut-on résilier l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">L'abonnement est annuel mais n'est pas renouvelé automatiquement — vous décidez à chaque fin d'année si vous souhaitez continuer. Pas de reconduction tacite. Contactez-nous à contact@lokalist.fr pour toute question.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-in">
+    <div class="reveal">
+      <h2>Votre commune, <span>connectée.</span><br/>Vos habitants, engagés.</h2>
+      <p>Une démonstration de 30 minutes suffit pour voir si Lokalist correspond à votre territoire. Gratuit, sans engagement, réponse sous 24h.</p>
+      <div class="cta-btns">
+        <a href="/contact?demo=mairie" class="btn-primary" style="font-size:16px;padding:17px 36px">Demander une démo gratuite →</a>
+        <a href="mailto:contact@lokalist.fr" class="btn-outline" style="color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2)">✉️ Nous écrire directement</a>
+      </div>
+      <div class="cta-reassure">
+        <div class="cta-r">Réponse sous 24h</div>
+        <div class="cta-r">Aucun engagement</div>
+        <div class="cta-r">Disponible partout en France</div>
+        <div class="cta-r">Démo visio ou présentiel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</div>
+    <div class="foot-links"><a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/tarifs">Tarifs</a><a href="/contact">Contact</a></div>
+    <div class="foot-links"><a href="/mentions-legales">Mentions légales</a><a href="/confidentialite">Confidentialité</a></div>
+    <div class="foot-copy">© 2026 Lokalist — Disponible partout en France 🇫🇷</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('visible'),i*80);obs.unobserve(el.target)}})},{threshold:0.07})
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+  function toggleFaq(el){el.closest('.faq-item').classList.toggle('open')}
+  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')})
+</script>
+</body>
+</html>
