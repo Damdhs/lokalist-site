@@ -303,6 +303,7 @@
 #stats-grid-top, #stats-grid-top + div{grid-template-columns:1fr 1fr!important;gap:10px!important}
 #chiffres{padding:60px 4%!important}
 #chiffres h2{letter-spacing:-1px!important}
+      #fondateur-strip{flex-direction:column!important;text-align:center!important;align-items:center!important}
       #stats-grid-top{grid-template-columns:1fr 1fr!important}
       .phones-section{display:none!important}
       .store{width:100%;max-width:260px;justify-content:center}
@@ -880,7 +881,21 @@
     <span class="social-ico">✉️</span> contact@lokalist.fr
   </a>
 </div>
-
+<!-- FONDATEUR -->
+<section style="padding:60px 5%;background:var(--surf);border-top:1px solid var(--bdr)">
+  <div id="fondateur-strip" style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap">
+    <img src="/images/damien.jpg" alt="Damien, fondateur de Lokalist" style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--gm);flex-shrink:0"/>
+    <div style="flex:1;min-width:260px">
+      <div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Le mot du fondateur</div>
+      <p style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);line-height:1.5;margin-bottom:8px">"Lokalist est né d'une conviction simple : l'argent dépensé localement doit rester local. Chaque commune qui nous rejoint renforce son territoire."</p>
+      <div style="font-size:13px;color:var(--muted)">Damien — Fondateur de Lokalist</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;flex-shrink:0">
+      <a href="tel:0633282153" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .25s" onmouseenter="this.style.background='var(--gd)'" onmouseleave="this.style.background='var(--g)'">📞 06 33 28 21 53</a>
+      <a href="mailto:contact@lokalist.fr" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--text);padding:10px 20px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s" onmouseenter="this.style.borderColor='var(--g)';this.style.color='var(--g)'" onmouseleave="this.style.borderColor='var(--bdr)';this.style.color='var(--text)'">✉️ contact@lokalist.fr</a>
+    </div>
+  </div>
+</section>
 <!-- FOOTER -->
 <footer>
   <div class="foot-in">
