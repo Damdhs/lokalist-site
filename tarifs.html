@@ -137,6 +137,7 @@
     .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
 
     @media(max-width:960px){
+      .mairie-feats-grid{grid-template-columns:1fr!important}
       .nav-links{display:none}.hamburger{display:flex}
       .tarif-cards.cols2,.tarif-cards.cols3{grid-template-columns:1fr}
       .mairie-kpis{grid-template-columns:1fr 1fr}
@@ -152,6 +153,8 @@
       .mairie-hero-card{padding:24px 20px}
       .mairie-kpis{grid-template-columns:1fr 1fr}
       .mairie-feats-grid{grid-template-columns:1fr}
+      .mairie-hero-card{padding:20px 16px!important}
+      .mairie-tarif-grid{grid-template-columns:1fr!important}
       .tarif-cards.cols2,.tarif-cards.cols3{grid-template-columns:1fr}
       .options-grid{grid-template-columns:1fr}
       .btn{padding:11px 16px;font-size:13px}
@@ -272,7 +275,7 @@
     </div>
 
     <!-- Ce que Lokalist apporte au territoire -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px" class="mairie-tarif-grid">
 
       <!-- Colonne gauche — fonctionnalités -->
       <div class="mairie-hero-card">
