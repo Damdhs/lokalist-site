@@ -426,7 +426,23 @@
     </div>
   </div>
 </section>
-
+<!-- INTERLOCUTEUR -->
+<section style="padding:60px 5%;background:var(--surf);border-top:1px solid var(--bdr)">
+  <div style="max-width:720px;margin:0 auto;background:var(--bg);border:1.5px solid var(--bdr);border-radius:24px;padding:36px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center">
+    <div style="flex-shrink:0">
+      <img src="/images/damien.jpg" alt="Damien, fondateur de Lokalist" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gm);display:block"/>
+    </div>
+    <div>
+      <div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Votre interlocuteur direct</div>
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:6px">Bonjour, je suis Damien</div>
+      <div style="font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:18px">Fondateur de Lokalist. Je réponds personnellement à chaque mairie — pas un service commercial, pas un formulaire automatique. Appelez-moi ou écrivez-moi directement.</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <a href="tel:0633282153" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .25s" onmouseenter="this.style.background='var(--gd)'" onmouseleave="this.style.background='var(--g)'">📞 06 33 28 21 53</a>
+        <a href="mailto:contact@lokalist.fr" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:10px 20px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s" onmouseenter="this.style.borderColor='var(--g)';this.style.color='var(--g)'" onmouseleave="this.style.borderColor='var(--bdr)';this.style.color='var(--dark)'">✉️ contact@lokalist.fr</a>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="faq">
   <div class="faq-in">
     <div class="reveal" style="text-align:center">
@@ -435,11 +451,13 @@
     </div>
     <div class="faq-list reveal">
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Est-ce que les bons de commerce sont obligatoires ?<span class="faq-ico">+</span></div><div class="faq-a">Non, absolument pas. Les bons de commerce sont un module optionnel que vous activez si et quand vous le souhaitez. L'abonnement annuel couvre toutes les autres fonctionnalités (alertes, agenda, signalements, sondages, marchés, dashboard) sans qu'aucune campagne de bons ne soit requise.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">L'abonnement Lokalist constitue-t-il un marché public ? Faut-il lancer un appel d'offres ?<span class="faq-ico">+</span></div><div class="faq-a">L'abonnement Lokalist est un marché de service. Son montant annuel étant largement inférieur au seuil de 60 000€ HT (en vigueur depuis avril 2026), votre commune bénéficie d'une dispense totale de publicité et de mise en concurrence. Le maire peut signer directement le contrat, sans procédure formalisée ni appel d'offres, à condition de disposer d'une délégation générale du conseil municipal — ce qui est le cas dans la grande majorité des communes. Si vous avez un doute, nous vous recommandons de consulter votre secrétaire général ou votre préfecture.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Faut-il une délibération du conseil municipal pour rejoindre Lokalist ?<span class="faq-ico">+</span></div><div class="faq-a">Pour l'abonnement annuel, si le maire dispose d'une délégation générale du conseil municipal (article L.2122-22 du CGCT), aucune délibération spécifique n'est requise. En revanche, si vous souhaitez lancer des campagnes de bons pour vos habitants (dépense budgétaire), une délibération inscrivant ce crédit au budget est recommandée — c'est une bonne pratique de transparence vis-à-vis de votre conseil. Nous vous fournissons un modèle de délibération sur demande.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Les bons distribués aux habitants constituent-ils un marché public ?<span class="faq-ico">+</span></div><div class="faq-a">Non. Les bons distribués aux habitants sont une dépense d'intérêt public local (soutien à l'économie de territoire), pas un marché public — car la commune ne reçoit aucune prestation en contrepartie. C'est comparable à une aide directe aux habitants, inscrite au budget en section de fonctionnement. La jurisprudence reconnaît le soutien à l'économie locale comme relevant de l'intérêt public communal.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment Lokalist respecte-t-il le RGPD ?<span class="faq-ico">+</span></div><div class="faq-a">Toutes les données sont hébergées sur des serveurs européens (conformité RGPD). Chaque commune dispose d'un espace entièrement isolé des autres — aucune donnée n'est partagée entre collectivités ni revendue à des tiers. Les habitants s'inscrivent sur la base d'un consentement explicite. Un DPA (accord de traitement des données) est fourni lors de la signature du partenariat. Vous gardez la propriété totale de vos données et pouvez en demander la suppression à tout moment.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment est calculé le tarif de l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">Le tarif est établi sur devis selon la taille de votre commune (nombre d'habitants, périmètre géographique). Il est annuel et fixe pour toutes les fonctionnalités. Nous vous envoyons un devis gratuit sous 24h après votre demande, sans engagement.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Combien de temps pour mettre en place la plateforme ?<span class="faq-ico">+</span></div><div class="faq-a">48 heures après la signature du partenariat. Nous configurons votre espace mairie, intégrons vos commerçants locaux et formons votre équipe en visio ou en présentiel. Aucune compétence technique n'est nécessaire de votre côté.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Que se passe-t-il si des habitants ne dépensent pas leurs bons ?<span class="faq-ico">+</span></div><div class="faq-a">Les bons non utilisés ne sont jamais facturés. La commission de 15% s'applique uniquement sur les bons effectivement utilisés chez vos commerçants. C'est un modèle entièrement à la performance, sans risque financier pour la commune.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Les données de nos administrés sont-elles sécurisées ?<span class="faq-ico">+</span></div><div class="faq-a">Oui. Les données sont hébergées sur des serveurs européens (RGPD). Chaque commune dispose d'un espace entièrement isolé — aucune donnée n'est partagée entre collectivités, ni revendue. Vous gardez la propriété totale de vos données.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Peut-on résilier l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">L'abonnement est annuel mais n'est pas renouvelé automatiquement — vous décidez à chaque fin d'année si vous souhaitez continuer. Pas de reconduction tacite. Contactez-nous à contact@lokalist.fr pour toute question.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Peut-on résilier l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">L'abonnement est annuel mais n'est pas renouvelé automatiquement — vous décidez à chaque fin d'année si vous souhaitez continuer. Pas de reconduction tacite. Contactez Damien directement à contact@lokalist.fr pour toute question.</div></div>
     </div>
   </div>
 </section>
