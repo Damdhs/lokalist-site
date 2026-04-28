@@ -180,6 +180,23 @@
     .foot-links a{font-size:12.5px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
     .foot-links a:hover{color:var(--g)}
     .foot-copy{font-size:12px;color:rgba(255,255,255,.18)}
+    .mairie-phones{display:flex;justify-content:center;align-items:flex-end;gap:0;perspective:1000px;padding:20px 0}
+.mairie-phone{border-radius:28px;border:6px solid #1A2E26;background:#fff;position:relative;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.25);flex-shrink:0;transition:transform .4s}
+.mairie-notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:40px;height:14px;background:#1A2E26;border-radius:0 0 8px 8px;z-index:5}
+.mairie-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:120px;height:40px;background:rgba(29,158,117,.22);filter:blur(16px);border-radius:50%}
+.left-phone{width:155px;height:310px;transform:perspective(900px) rotateY(14deg) rotateX(2deg) translateX(22px);z-index:1;opacity:.9}
+.center-phone{width:185px;height:370px;border:7px solid #1A2E26;border-radius:32px;transform:translateY(-20px);z-index:3;box-shadow:0 60px 120px rgba(0,0,0,.3),0 0 0 1px rgba(29,158,117,.25)}
+.left-phone:hover{transform:perspective(900px) rotateY(6deg) rotateX(1deg) translateX(14px) translateY(-6px)}
+.center-phone:hover{transform:translateY(-30px)}
+
+@media(max-width:960px){
+  .mairie-phones{padding:32px 0 0}
+}
+@media(max-width:600px){
+  .mairie-phones{padding:24px 0 0;gap:0}
+  .left-phone{width:115px;height:230px;transform:perspective(900px) rotateY(10deg) rotateX(1deg) translateX(14px)!important}
+  .center-phone{width:145px;height:290px;transform:translateY(-14px)!important}
+}
     @media(max-width:960px){
       .nav-links{display:none}.hamburger{display:flex}
       .hero-in,.budget-in,.tarif-in{grid-template-columns:1fr!important;gap:36px!important}
@@ -259,9 +276,12 @@
 </div>
 
 <section class="hero">
-  <div class="hero-in">
+  <div class="hero-in" style="grid-template-columns:1fr 1fr;gap:56px;align-items:center">
     <div>
-      <div class="hero-badge"><div class="hero-badge-dot"></div><span>Pour les collectivités territoriales · France entière</span></div>
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        <span>Collectivités · France entière</span>
+      </div>
       <h1>Votre commune mérite<br/>un outil <em>à la hauteur</em><br/>de ses ambitions.</h1>
       <p class="hero-sub">Lokalist accompagne les mairies qui souhaitent communiquer autrement, soutenir leur économie locale et rester proches de leurs habitants — sans complexité technique, ni budget fixe imposé.</p>
       <div class="hero-ctas">
@@ -272,30 +292,23 @@
         <div class="trust-item">0€ à l'activation</div>
         <div class="trust-item">Déployé en 48h</div>
         <div class="trust-item">Sans compétence technique</div>
-        <div class="trust-item">Bons de commerce : optionnels</div>
+        <div class="trust-item">Bons optionnels</div>
       </div>
     </div>
-    <div class="hero-right">
-      <div class="prix-highlight">
-        <div class="prix-header">
-          <div class="prix-ico">💶</div>
-          <div><div class="prix-title">Un modèle unique en France</div><div class="prix-sub">Transparence totale · Risque zéro</div></div>
-        </div>
-        <div class="prix-items">
-          <div class="prix-item">
-            <div class="prix-item-ico">📋</div>
-            <div><div class="prix-item-title">Abonnement annuel sur devis</div><div class="prix-item-desc">Adapté à la taille de votre commune. Ni plus, ni moins. Aucun frais caché.</div></div>
-          </div>
-          <div class="prix-item">
-            <div class="prix-item-ico">🎟️</div>
-            <div><div class="prix-item-title">Bons de commerce : 100% optionnels <span class="prix-badge">UNIQUE</span></div><div class="prix-item-desc">Si vous lancez une campagne, Lokalist prend 15% — le reste va directement à vos commerçants locaux. Vous ne payez que ce que vous distribuez réellement.</div></div>
-          </div>
-          <div class="prix-item">
-            <div class="prix-item-ico">🔒</div>
-            <div><div class="prix-item-title">0€ si vous n'utilisez pas les bons</div><div class="prix-item-desc">Alertes, agenda, sondages, signalements... sont compris dans l'abonnement. Les bons sont un outil de plus, pas une obligation.</div></div>
-          </div>
-        </div>
-        <div class="prix-note">Devis gratuit sous 24h · Réponse humaine garantie · Disponible partout en France</div>
+
+    <!-- PHONES 3D -->
+    <div class="hero-right mairie-phones">
+      <div class="mairie-phone left-phone">
+        <div class="mairie-notch"></div>
+        <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-commune.jpg"
+          alt="Infos pratiques commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+        <div class="mairie-glow"></div>
+      </div>
+      <div class="mairie-phone center-phone">
+        <div class="mairie-notch"></div>
+        <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-mairie-home.jpg"
+          alt="Alertes et agenda commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+        <div class="mairie-glow"></div>
       </div>
     </div>
   </div>
