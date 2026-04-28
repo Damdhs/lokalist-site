@@ -232,6 +232,8 @@
   section{padding-left:4%!important;padding-right:4%!important}
   .budget-row{flex-wrap:wrap!important;gap:8px!important}
   .budget-row-amount{width:100%!important;text-align:right!important}
+    .foncts .reveal > div[style*="background:var(--al)"]{flex-direction:column!important}
+.foncts .reveal > div[style*="background:var(--al)"] a{width:100%!important;text-align:center!important;justify-content:center!important}
 }
   </style>
 </head>
@@ -382,8 +384,7 @@
       <div class="fonct-card reveal"><span class="fonct-ico">🏪</span><div class="fonct-title">Gestion des marchés</div><div class="fonct-desc">Marchés, emplacements, marchands ambulants — tout géré depuis le dashboard.</div></div>
       <div class="fonct-card reveal"><span class="fonct-ico">📊</span><div class="fonct-title">Dashboard élu sécurisé</div><div class="fonct-desc">Accès unique pour votre commune. Stats, rapports exportables pour vos conseils municipaux.</div></div>
     </div>
-    <div style="margin-top:32px;background:var(--al);border:1px solid rgba(239,159,39,.3);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap" class="reveal">
-      <span style="font-size:28px;flex-shrink:0">🎟️</span>
+    <div style="margin-top:32px;background:var(--al);border:1px solid rgba(239,159,39,.3);border-radius:16px;padding:24px 28px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap" class="reveal">
       <div style="flex:1"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px">Bons de commerce — module optionnel, unique en France</div><div style="font-size:13px;color:var(--muted);line-height:1.6">Distribuez des bons à vos habitants, valables uniquement chez vos commerçants locaux. Vous l'activez quand vous le souhaitez. Lokalist prend 15% sur les bons <strong>réellement utilisés</strong>.</div></div>
       <a href="/contact?demo=mairie" style="display:inline-flex;align-items:center;gap:6px;background:var(--a);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .25s" onmouseenter="this.style.background='#D98A1A'" onmouseleave="this.style.background='var(--a)'">En savoir plus →</a>
     </div>
