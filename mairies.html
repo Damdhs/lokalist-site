@@ -186,16 +186,18 @@
 .mairie-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:120px;height:40px;background:rgba(29,158,117,.22);filter:blur(16px);border-radius:50%}
 .left-phone{width:155px;height:310px;transform:perspective(900px) rotateY(14deg) rotateX(2deg) translateX(22px);z-index:1;opacity:.9}
 .center-phone{width:185px;height:370px;border:7px solid #1A2E26;border-radius:32px;transform:translateY(-20px);z-index:3;box-shadow:0 60px 120px rgba(0,0,0,.3),0 0 0 1px rgba(29,158,117,.25)}
-.left-phone{width:155px;height:310px;transform:perspective(900px) rotateY(-14deg) rotateX(2deg) translateX(-22px);z-index:1;opacity:.9}
-.left-phone:hover{transform:perspective(900px) rotateY(-6deg) rotateX(1deg) translateX(-14px) translateY(-6px)}
+.left-phone{width:155px;height:310px;transform:perspective(900px) rotateY(14deg) rotateX(2deg) translateX(22px);z-index:1;opacity:.9}
+.left-phone:hover{transform:perspective(900px) rotateY(6deg) rotateX(1deg) translateX(14px) translateY(-6px)}
 .center-phone:hover{transform:translateY(-30px)}
 
 @media(max-width:960px){
   .mairie-phones{padding:32px 0 0}
 }
 @media(max-width:600px){
-  .left-phone{width:115px;height:230px;transform:perspective(900px) rotateY(-10deg) rotateX(1deg) translateX(-14px)!important;opacity:.9!important}
-.center-phone{width:145px;height:290px;transform:translateY(-14px)!important}
+  .hero-right{display:flex!important}
+  .mairie-phones{padding:24px 0 0!important;justify-content:center!important}
+  .left-phone{width:115px;height:230px;transform:perspective(900px) rotateY(10deg) rotateX(1deg) translateX(14px)!important;opacity:.9!important}
+  .center-phone{width:145px;height:290px;transform:translateY(-14px)!important}
 }
     @media(max-width:960px){
       .nav-links{display:none}.hamburger{display:flex}
@@ -226,7 +228,7 @@
   .hero-ctas{flex-direction:column!important;align-items:stretch!important}
   .hero-ctas a,.btn-primary,.btn-outline{width:100%!important;text-align:center!important;justify-content:center!important;box-sizing:border-box!important;white-space:normal!important}
   .hero-trust{gap:10px!important}
-  .hero-right{display:none!important}
+  .hero-right{display:flex!important}
   .conviction{padding:40px 4%!important}
   .conv-in{grid-template-columns:1fr 1fr!important;gap:20px!important}
   .args-grid{grid-template-columns:1fr!important}
@@ -297,14 +299,14 @@
     </div>
 
     <!-- PHONES 3D -->
-    <div class="hero-right mairie-phones">
-      <div class="mairie-phone center-phone">
+   <div class="hero-right mairie-phones">
+      <div class="mairie-phone left-phone">
         <div class="mairie-notch"></div>
         <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-mairie-home.jpg"
           alt="Alertes et agenda commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
         <div class="mairie-glow"></div>
       </div>
-      <div class="mairie-phone left-phone">
+      <div class="mairie-phone center-phone">
         <div class="mairie-notch"></div>
         <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-commune.jpg"
           alt="Infos pratiques commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
