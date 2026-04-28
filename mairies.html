@@ -200,16 +200,16 @@
       .foot-in{flex-direction:column;text-align:center}
       .foot-links{justify-content:center}
     }
-    @media(max-width:600px){
+  @media(max-width:600px){
   .hero{padding:96px 4% 48px!important}
   .hero-in{grid-template-columns:1fr!important;gap:24px!important}
   .hero h1{font-size:clamp(26px,8vw,36px)!important;letter-spacing:-1px!important;line-height:1.05!important}
-  .hero-badge{max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:10px!important;padding:5px 12px!important}
+  .hero-badge{max-width:100%!important;white-space:normal!important;text-overflow:unset!important;font-size:10px!important;padding:5px 12px!important;line-height:1.4!important}
+  .hero-badge span{white-space:normal!important;word-break:break-word!important}
   .hero-ctas{flex-direction:column!important;align-items:stretch!important}
-  .hero-ctas a{text-align:center!important;justify-content:center!important;width:100%!important;box-sizing:border-box!important}
-  .btn-primary,.btn-outline{width:100%!important;text-align:center!important;justify-content:center!important;box-sizing:border-box!important}
+  .hero-ctas a,.btn-primary,.btn-outline{width:100%!important;text-align:center!important;justify-content:center!important;box-sizing:border-box!important;white-space:normal!important}
   .hero-trust{gap:10px!important}
-  .hero-right{display:none}
+  .hero-right{display:none!important}
   .conviction{padding:40px 4%!important}
   .conv-in{grid-template-columns:1fr 1fr!important;gap:20px!important}
   .args-grid{grid-template-columns:1fr!important}
@@ -220,15 +220,18 @@
   .foncts-grid{grid-template-columns:1fr!important}
   .tarif-in{grid-template-columns:1fr!important;gap:28px!important}
   .tarif-kpis{grid-template-columns:1fr 1fr!important}
-  .pricing-feats{grid-template-columns:1fr!important}
   .tarif-card{padding:28px 20px!important}
+  .tarif-btns{flex-direction:column!important}
+  .tarif-btns a{width:100%!important;text-align:center!important;justify-content:center!important;box-sizing:border-box!important}
   .cta-btns{flex-direction:column!important;align-items:center!important}
-  .cta-btns a{width:100%!important;text-align:center!important;justify-content:center!important;box-sizing:border-box!important}
+  .cta-btns a{width:100%!important;text-align:center!important;justify-content:center!important;box-sizing:border-box!important;white-space:normal!important}
   .cta-reassure{flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
   .faq-q{font-size:14px!important}
   .foot-in{flex-direction:column!important;text-align:center!important;gap:16px!important}
   .foot-links{justify-content:center!important;flex-wrap:wrap!important;gap:10px!important}
   section{padding-left:4%!important;padding-right:4%!important}
+  .budget-row{flex-wrap:wrap!important;gap:8px!important}
+  .budget-row-amount{width:100%!important;text-align:right!important}
 }
   </style>
 </head>
