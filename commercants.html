@@ -149,6 +149,8 @@
       .hero-btns{flex-direction:column;align-items:stretch}
       .hero-btns a,.hero-btns .btn{text-align:center;justify-content:center;width:100%}
       .hero-trust{gap:12px;flex-wrap:wrap;margin-top:24px}
+      .hero > div:last-child{flex-direction:column!important;align-items:center!important}
+.hero > div:last-child > div:first-child{width:150px!important;height:300px!important;transform:none!important}
       .sec-h{font-size:clamp(20px,7vw,28px)!important}
       .sec-p{font-size:14px!important;margin-bottom:24px}
       .av-grid,.avantages-grid,.args-grid,.conv-in{grid-template-columns:1fr!important}
@@ -197,7 +199,7 @@
   <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
   <a href="/contact?type=commercant" style="color:var(--g);font-weight:700;border:none">Nous rejoindre →</a>
 </div>
-<section style="background:var(--bg)">
+<section style="background:var(--bg);overflow:hidden">
   <div class="hero">
     <div style="animation:fadeUp .6s ease both">
       <div class="hero-badge">🏪 Pour les commerçants locaux</div>
@@ -211,34 +213,82 @@
         <div class="trust-item">Aucun hardware requis</div>
         <div class="trust-item">QR code fourni</div>
         <div class="trust-item">Bons mairie encaissables</div>
+        <div class="trust-item">Boost 12h disponible</div>
       </div>
     </div>
-    <div class="dash-preview" style="animation:fadeUp .7s .1s ease both">
-      <div class="dash-topbar">
-        <div class="dash-dot" style="background:#EF4444"></div>
-        <div class="dash-dot" style="background:#F59E0B"></div>
-        <div class="dash-dot" style="background:#22C55E"></div>
-        <span class="dash-lbl">Lokalist Pro · Boulangerie Martin</span>
+
+    <!-- DROITE : Phone 3D + Dashboard -->
+    <div style="display:flex;align-items:center;gap:20px;justify-content:center;animation:fadeUp .7s .1s ease both">
+
+      <!-- Phone 3D -->
+      <div style="flex-shrink:0;width:185px;height:370px;border-radius:32px;border:7px solid #1A2E26;background:#fff;position:relative;overflow:hidden;box-shadow:0 60px 120px rgba(0,0,0,.28),0 0 0 1px rgba(29,158,117,.2);transform:perspective(900px) rotateY(-8deg) rotateX(2deg);transition:transform .4s">
+        <div style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:48px;height:16px;background:#1A2E26;border-radius:0 0 10px 10px;z-index:5"></div>
+        <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-commercant.jpg"
+          alt="Fiche commerçant Lokalist"
+          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+        <div style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:130px;height:44px;background:rgba(29,158,117,.22);filter:blur(16px);border-radius:50%"></div>
       </div>
-      <div class="dash-stats">
-        <div class="dash-stat"><div class="dash-stat-v g">247</div><div class="dash-stat-l">Scans ce mois</div></div>
-        <div class="dash-stat"><div class="dash-stat-v a">4.8★</div><div class="dash-stat-l">Note moyenne</div></div>
-        <div class="dash-stat"><div class="dash-stat-v">12 340</div><div class="dash-stat-l">Points distribués</div></div>
-        <div class="dash-stat"><div class="dash-stat-v g">8</div><div class="dash-stat-l">Bons encaissés</div></div>
-      </div>
-      <div class="dash-qr">
-        <div class="dash-qr-ico">📲</div>
-        <div class="dash-qr-txt">
-          <strong>QR Code actif — Boulangerie Martin</strong>
-          SCAN-MARTIN-001 · 50 pts / scan validé
+
+      <!-- Dashboard repensé -->
+      <div style="flex:1;background:var(--dark);border-radius:18px;padding:18px;box-shadow:0 40px 80px rgba(0,0,0,.25),0 0 0 1px rgba(29,158,117,.12);min-width:0">
+        
+        <!-- Topbar -->
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:14px">
+          <div style="width:8px;height:8px;border-radius:50%;background:#EF4444"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:#F59E0B"></div>
+          <div style="width:8px;height:8px;border-radius:50%;background:#22C55E"></div>
+          <span style="font-size:10px;color:rgba(255,255,255,.28);margin-left:6px;font-family:monospace">Boulangerie Martin</span>
         </div>
-      </div>
-      <div class="dash-avis">
-        <span style="font-size:16px">⭐</span>
-        <div class="dash-avis-txt">
-          <strong>Nouvel avis ✓ Vérifié</strong>
-          "Accueil chaleureux, produits excellents !" — Sophie R.
+
+        <!-- Stats grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px">
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#1D9E75">247</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Scans ce mois</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#EF9F27">4.8★</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Note moyenne</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
+            <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff">12 340</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Points distribués</div>
+          </div>
+          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
+            <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#1D9E75">8</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Bons encaissés</div>
+          </div>
         </div>
+
+        <!-- Boost 12h — mis en avant -->
+        <div style="background:linear-gradient(135deg,rgba(239,159,39,.18),rgba(239,159,39,.06));border:1px solid rgba(239,159,39,.4);border-radius:9px;padding:10px 12px;margin-bottom:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:#EF9F27">⚡ Boost 12h actif</div>
+              <div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:2px">En tête de liste · +340% de visibilité</div>
+            </div>
+            <div style="background:#EF9F27;color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0">LIVE</div>
+          </div>
+        </div>
+
+        <!-- QR -->
+        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:24px">📲</span>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#fff">QR Code actif</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:1px">50 pts / scan · SCAN-MARTIN-001</div>
+          </div>
+        </div>
+
+        <!-- Avis -->
+        <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.25);border-radius:9px;padding:10px 12px;display:flex;align-items:center;gap:8px">
+          <span style="font-size:14px">⭐</span>
+          <div>
+            <div style="font-size:10px;font-weight:700;color:#fff">Nouvel avis ✓ Vérifié</div>
+            <div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">"Produits excellents !" — Sophie R.</div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
