@@ -122,6 +122,26 @@
     .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
     .foot-links a:hover{color:var(--g)}
     .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+    .immo-phones{display:flex;justify-content:center;align-items:flex-end;gap:0;perspective:1200px;padding:20px 0}
+.immo-phone{border-radius:28px;border:6px solid #1A2E26;background:#fff;position:relative;overflow:hidden;flex-shrink:0;transition:transform .4s}
+.immo-notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:40px;height:14px;background:#1A2E26;border-radius:0 0 8px 8px;z-index:5}
+.immo-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:120px;height:40px;background:rgba(59,130,246,.18);filter:blur(16px);border-radius:50%}
+.immo-phone-left{width:148px;height:296px;transform:perspective(900px) rotateY(16deg) rotateX(2deg) translateX(24px);z-index:1;opacity:.88;box-shadow:0 32px 64px rgba(0,0,0,.22)}
+.immo-phone-center{width:182px;height:364px;border:7px solid #1A2E26;border-radius:32px;transform:translateY(-24px);z-index:3;box-shadow:0 60px 120px rgba(0,0,0,.3),0 0 0 1px rgba(59,130,246,.2)}
+.immo-phone-right{width:148px;height:296px;transform:perspective(900px) rotateY(-16deg) rotateX(2deg) translateX(-24px);z-index:1;opacity:.88;box-shadow:0 32px 64px rgba(0,0,0,.22)}
+.immo-phone-left:hover{transform:perspective(900px) rotateY(8deg) rotateX(1deg) translateX(14px) translateY(-6px)}
+.immo-phone-right:hover{transform:perspective(900px) rotateY(-8deg) rotateX(1deg) translateX(-14px) translateY(-6px)}
+.immo-phone-center:hover{transform:translateY(-34px)}
+@media(max-width:960px){
+  .immo-phones{padding:32px 0 0}
+}
+@media(max-width:600px){
+  .immo-phones{padding:24px 0 0}
+  .immo-phone-left,.immo-phone-right{width:100px;height:200px;opacity:.75}
+  .immo-phone-left{transform:perspective(900px) rotateY(10deg) rotateX(1deg) translateX(14px)!important}
+  .immo-phone-right{transform:perspective(900px) rotateY(-10deg) rotateX(1deg) translateX(-14px)!important}
+  .immo-phone-center{width:140px;height:280px;transform:translateY(-16px)!important}
+}
     @media(max-width:960px){
       .nav-links{display:none}.hamburger{display:flex}
       .hero,.leads-in{grid-template-columns:1fr}
@@ -167,28 +187,64 @@
   <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
   <a href="/contact?type=agence" style="color:var(--g);font-weight:700;border:none">Nous rejoindre →</a>
 </div>
-<section style="background:var(--bg)">
-  <div class="hero">
+<section style="background:var(--bg);overflow:hidden">
+  <div class="hero" style="grid-template-columns:1fr 1fr;align-items:center">
     <div style="animation:fadeUp .6s ease both">
       <div class="hero-badge">🏠 Immobilier local — Agences, courtiers & bailleurs</div>
       <h1>Référencez votre activité<br/><em>immobilière en local</em></h1>
-      <p class="hero-sub">Agence immobilière, courtier en financement ou bailleur — Lokalist vous référence auprès des habitants de votre zone géographique. Annonces exclusives, leads qualifiés, gestion locative — chaque professionnel a sa rubrique dédiée.</p>
+      <p class="hero-sub">Agence immobilière, courtier ou bailleur — Lokalist vous référence auprès des habitants de votre zone. Annonces exclusives, leads qualifiés, badge Premium, boost annonces.</p>
       <div class="hero-btns">
         <a href="/contact?type=agence" class="btn btn-b">🏠 Référencer mon agence</a>
-        <a href="#offres" class="btn btn-o">Découvrir les offres →</a>
-        <a href="https://agence.lokalist.fr" target="_blank" class="btn btn-g">🔑 Accéder à mon espace agence →</a>
+        <a href="https://agence.lokalist.fr" target="_blank" class="btn btn-g">🔑 Espace agence →</a>
       </div>
       <div class="hero-trust">
         <div class="trust-item">Leads qualifiés locaux</div>
         <div class="trust-item">Annonces exclusives</div>
-        <div class="trust-item">Abonnement fixe</div>
+        <div class="trust-item">Badge Premium</div>
+        <div class="trust-item">Boost annonces 48h</div>
+        <div class="trust-item">0% commission transactions</div>
       </div>
     </div>
-    <div class="immo-preview" style="animation:fadeUp .7s .1s ease both">
-      <div class="ip-card"><div class="ip-img loc">🏠</div><div class="ip-body"><div class="ip-title">Location</div><div class="ip-sub">Annonces locales</div><div class="ip-stat">↑ Leads qualifiés</div></div></div>
-      <div class="ip-card"><div class="ip-img vte">🏷️</div><div class="ip-body"><div class="ip-title">Vente</div><div class="ip-sub">Estimation gratuite</div><div class="ip-stat">↑ Mandat vendeur</div></div></div>
-      <div class="ip-card"><div class="ip-img bai">🔑</div><div class="ip-body"><div class="ip-title">Bailleur</div><div class="ip-sub">Gestion locative</div><div class="ip-stat">↑ Nouveaux mandats</div></div></div>
-      <div class="ip-card"><div class="ip-img cou">💶</div><div class="ip-body"><div class="ip-title">Courtiers</div><div class="ip-sub">Financement</div><div class="ip-stat">↑ Dossiers qualifiés</div></div></div>
+
+    <!-- PHONES 3D -->
+    <div style="animation:fadeUp .7s .1s ease both">
+      <div class="immo-phones">
+
+        <!-- Gauche — Annonces liste -->
+        <div class="immo-phone immo-phone-left">
+          <div class="immo-notch"></div>
+          <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-annonces-immo.jpg"
+            alt="Liste annonces immobilières Lokalist"
+            style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+          <div class="immo-glow"></div>
+        </div>
+
+        <!-- Centre — Fiche annonce maison -->
+        <div class="immo-phone immo-phone-center">
+          <div class="immo-notch" style="width:48px;height:16px"></div>
+          <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-annonce-maison.jpg"
+            alt="Fiche annonce maison Lokalist"
+            style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+          <div class="immo-glow"></div>
+        </div>
+
+        <!-- Droite — Liste agences -->
+        <div class="immo-phone immo-phone-right">
+          <div class="immo-notch"></div>
+          <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-agence.jpg"
+            alt="Agences immobilières Lokalist"
+            style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+          <div class="immo-glow"></div>
+        </div>
+
+      </div>
+
+      <!-- Badges sous les phones -->
+      <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px">
+        <div style="display:inline-flex;align-items:center;gap:5px;background:var(--al);border:1px solid rgba(239,159,39,.35);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;color:#92400E">⭐ Badge Premium</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:var(--bl);border:1px solid #BFDBFE;border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;color:#1E40AF">⚡ Boost annonce 48h</div>
+        <div style="display:inline-flex;align-items:center;gap:5px;background:var(--gl);border:1px solid var(--gm);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--gd)">🏠 Adresse confidentielle</div>
+      </div>
     </div>
   </div>
 </section>
