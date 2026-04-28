@@ -271,6 +271,15 @@
     @media(min-width:961px){
       .cibles-grid{grid-template-columns:repeat(3,1fr)}
     }
+    @media(max-width:640px){
+  #stats-grid-top,
+  #stats-grid-top + div {
+    grid-template-columns: repeat(2,1fr) !important;
+  }
+  #stats-grid-top > div:last-child {
+    grid-column: 1 / -1;
+  }
+}
     /* ═══ MOBILE RENFORCÉ 480px ═══ */
     @media(max-width:480px){
       body{overflow-x:hidden}
@@ -740,7 +749,7 @@
     </div>
 
     <!-- Compteurs -->
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px" id="stats-grid-top">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px" id="stats-grid-top">
       <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:32px 24px;text-align:center;transition:all .3s;cursor:default" onmouseenter="this.style.background='rgba(29,158,117,.1)';this.style.borderColor='rgba(29,158,117,.35)'" onmouseleave="this.style.background='rgba(255,255,255,.04)';this.style.borderColor='rgba(255,255,255,.08)'">
         <div style="font-size:36px;margin-bottom:10px">👥</div>
         <div style="font-family:'Syne',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:800;color:var(--g);line-height:1" id="stat-habitants">—</div>
