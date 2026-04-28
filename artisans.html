@@ -149,6 +149,7 @@
 @media(max-width:600px){
   .art-phones{padding:24px 0 0}
   .art-phone-main{width:160px;height:320px;transform:none!important}
+  .badges-qualite-grid{grid-template-columns:1fr!important}
 }
     @media(max-width:960px){
       .art-phones{padding:16px 0 0}
@@ -157,6 +158,7 @@
       .hero,.boost-in,.avis-grid,.tarif-in{grid-template-columns:1fr}
       .hero{gap:40px;padding:110px 5% 60px}
       .avantages-grid{grid-template-columns:1fr}
+      .badges-qualite-grid{grid-template-columns:1fr 1fr!important}
     }
   
     /* ═══ MOBILE RENFORCÉ 480px ═══ */
@@ -316,13 +318,60 @@
   <h2 class="sec-h reveal">Tout ce dont un artisan<br/>a besoin pour se développer</h2>
   <p class="sec-p reveal">Pas de publicité compliquée. Pas d'abonnement qui saigne. Juste les bons clients, au bon moment, au bon endroit.</p>
   <div class="avantages-grid">
-    <div class="av-card reveal"><div class="av-ico">📍</div><h3>Fiche géolocalisée</h3><p>Votre fiche apparaît aux habitants qui cherchent un artisan dans votre rayon d'intervention. Les clients vous trouvent naturellement, sans publicité payante.</p></div>
-    <div class="av-card reveal"><div class="av-ico">⭐</div><h3>Avis vérifiés</h3><p>Seuls les vrais clients peuvent laisser un avis. Chaque avis est modéré avant publication. Votre réputation est protégée et authentique.</p></div>
-    <div class="av-card reveal"><div class="av-ico">🚨</div><h3>Mode urgence</h3><p>Activez le mode urgence en un tap. Votre fiche remonte en tête avec un badge rouge visible. Idéal pour les créneaux libres ou les interventions rapides.</p></div>
-    <div class="av-card reveal"><div class="av-ico">⚡</div><h3>Boost de visibilité</h3><p>2 boosts de 12h offerts chaque mois. Votre fiche passe en tête de liste dans votre secteur. Option supplémentaire disponible à partir du 3ème boost.</p></div>
-    <div class="av-card reveal"><div class="av-ico">📊</div><h3>Tableau de bord pro</h3><p>Gérez votre disponibilité, consultez vos avis et répondez-y, activez votre boost — tout depuis votre espace artisan dans l'app.</p></div>
-    <div class="av-card reveal"><div class="av-ico">💬</div><h3>Réponse aux avis</h3><p>Répondez publiquement à chaque avis client. Montrez votre professionnalisme et renforcez la confiance des futurs clients.</p></div>
+  <div class="av-card reveal"><div class="av-ico">📍</div><h3>Fiche géolocalisée</h3><p>Votre fiche apparaît aux habitants qui cherchent un artisan dans votre rayon d'intervention. Les clients vous trouvent naturellement, sans publicité payante.</p></div>
+  <div class="av-card reveal"><div class="av-ico">⭐</div><h3>Avis vérifiés</h3><p>Seuls les vrais clients peuvent laisser un avis. Chaque avis est modéré avant publication. Répondez publiquement pour montrer votre professionnalisme.</p></div>
+  <div class="av-card reveal"><div class="av-ico">🚨</div><h3>Mode urgence</h3><p>Activez le mode urgence en un tap. Votre fiche remonte en tête avec un badge rouge visible. Idéal pour les créneaux libres ou les interventions rapides.</p></div>
+  <div class="av-card reveal"><div class="av-ico">⚡</div><h3>Boost de visibilité 12h</h3><p>2 boosts gratuits par mois inclus. Votre fiche passe en tête de liste dans votre secteur. Les artisans boostés reçoivent en moyenne 3× plus de contacts.</p></div>
+  <div class="av-card reveal"><div class="av-ico">💬</div><h3>Messages clients directs</h3><p>Les habitants vous contactent directement depuis votre fiche Lokalist — demande de devis, question, prise de RDV. Tout centralisé dans votre espace pro.</p></div>
+  <div class="av-card reveal"><div class="av-ico">📊</div><h3>Tableau de bord pro</h3><p>Gérez votre disponibilité, consultez vos avis, activez votre boost et suivez vos contacts — tout depuis votre espace artisan dans l'app.</p></div>
+</div>
+
+<!-- BADGES QUALITÉ -->
+<div style="margin-top:48px;background:var(--surf);border:1.5px solid var(--bdr);border-radius:24px;padding:36px 40px" class="reveal">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+    <div style="font-size:28px">🏅</div>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--dark)">Badges qualité — gage de confiance</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:2px">Affichés sur votre fiche après vérification par Lokalist. Ils rassurent vos futurs clients avant même qu'ils vous contactent.</div>
+    </div>
   </div>
+  <div style="height:1px;background:var(--bdr);margin:20px 0"></div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px" class="badges-qualite-grid">
+    <div style="background:var(--gl);border:1px solid var(--gm);border-radius:14px;padding:16px">
+      <div style="font-size:22px;margin-bottom:8px">✓</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--gd);margin-bottom:4px">Vérifié Lokalist</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">Identité et activité vérifiées par notre équipe. Badge de confiance de base, affiché sur toutes les fiches validées.</div>
+    </div>
+    <div style="background:#F0FDF4;border:1px solid #86EFAC;border-radius:14px;padding:16px">
+      <div style="font-size:22px;margin-bottom:8px">🌿</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#15803D;margin-bottom:4px">Certifié RGE</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">Reconnu Garant de l'Environnement. Indispensable pour les travaux éligibles aux aides de l'État (MaPrimeRénov', CEE).</div>
+    </div>
+    <div style="background:#FFFBEB;border:1px solid #FCD34D;border-radius:14px;padding:16px">
+      <div style="font-size:22px;margin-bottom:8px">🛡️</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#92400E;margin-bottom:4px">Assurance vérifiée</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">Responsabilité civile professionnelle et décennale vérifiées. Le client sait qu'il est protégé en cas de problème.</div>
+    </div>
+    <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:14px;padding:16px">
+      <div style="font-size:22px;margin-bottom:8px">📋</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#1D4ED8;margin-bottom:4px">Qualibat / Qualifelec</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">Qualification professionnelle reconnue dans le bâtiment. Gage de compétence technique validée par un organisme indépendant.</div>
+    </div>
+    <div style="background:#FDF4FF;border:1px solid #E9D5FF;border-radius:14px;padding:16px">
+      <div style="font-size:22px;margin-bottom:8px">⭐</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:#7E22CE;margin-bottom:4px">Top Avis Lokalist</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">Attribué automatiquement aux artisans avec une note ≥ 4.8 et au moins 10 avis vérifiés. Renouvelé chaque trimestre.</div>
+    </div>
+    <div style="background:#F8FAFC;border:1.5px dashed var(--bdr);border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+      <div style="font-size:22px;margin-bottom:8px">🔜</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--muted);margin-bottom:4px">D'autres à venir</div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.5">Nouveaux badges en cours de validation (label NF, Handibat, etc.)</div>
+    </div>
+  </div>
+  <div style="margin-top:16px;padding:12px 16px;background:var(--bg);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6">
+    💡 <strong style="color:var(--dark)">Comment obtenir un badge ?</strong> Lors de votre inscription, transmettez vos justificatifs à notre équipe. Chaque badge est vérifié manuellement avant affichage. Sous réserve de validation Lokalist.
+  </div>
+</div>
 </section>
 <section class="boost-section">
   <div class="boost-in">
