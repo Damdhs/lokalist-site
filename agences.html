@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -11,7 +11,7 @@
   <link rel="shortcut icon" href="/favicon.svg"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--b:#3B82F6;--bl:#EFF6FF;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--b:#3B82F6;--bl:#EFF6FF;--p:#8B5CF6;--pl:#F5F3FF;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
@@ -37,6 +37,8 @@
     .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
     .btn-b{background:var(--b);color:#fff;box-shadow:0 8px 24px rgba(59,130,246,.28)}
     .btn-b:hover{background:#2563EB;transform:translateY(-2px)}
+    .btn-p{background:var(--p);color:#fff;box-shadow:0 8px 24px rgba(139,92,246,.28)}
+    .btn-p:hover{background:#7C3AED;transform:translateY(-2px)}
     .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
     .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
     .sec-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
@@ -54,18 +56,8 @@
     .hero-trust{display:flex;gap:24px;flex-wrap:wrap}
     .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
     .trust-item::before{content:'✓';color:var(--g);font-weight:800}
-    .immo-preview{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .ip-card{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;overflow:hidden;transition:all .2s;animation:fadeUp .7s ease both}
-    .ip-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(29,158,117,.1);border-color:var(--gm)}
-    .ip-img{height:72px;display:flex;align-items:center;justify-content:center;font-size:30px}
-    .ip-img.loc{background:linear-gradient(135deg,#EFF6FF,#DBEAFE)}
-    .ip-img.vte{background:linear-gradient(135deg,#F0FDF4,#D1FAE5)}
-    .ip-img.bai{background:linear-gradient(135deg,#FFF7ED,#FED7AA)}
-    .ip-img.cou{background:linear-gradient(135deg,#F5F3FF,#EDE9FE)}
-    .ip-body{padding:12px 14px}
-    .ip-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--dark)}
-    .ip-sub{font-size:11px;color:var(--muted);margin-top:2px}
-    .ip-stat{font-size:11px;color:var(--g);font-weight:600;margin-top:4px}
+
+    /* OFFRES */
     .offres{padding:90px 5%;max-width:1280px;margin:0 auto}
     .offres-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .offre-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
@@ -76,6 +68,8 @@
     .offre-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
     .offre-card p{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:16px}
     .offre-detail{font-size:12.5px;color:var(--g);font-weight:600;display:flex;align-items:center;gap:5px}
+
+    /* LEADS */
     .leads{background:var(--dark);padding:90px 5%;position:relative;overflow:hidden}
     .leads::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 75% 40%,rgba(59,130,246,.08) 0%,transparent 55%)}
     .leads-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative}
@@ -91,22 +85,32 @@
     .lead-badge{font-size:10px;font-weight:700;margin-left:auto;white-space:nowrap;padding:4px 10px;border-radius:100px}
     .lead-badge.new{background:rgba(59,130,246,.2);color:#93C5FD}
     .lead-badge.hot{background:rgba(239,159,39,.2);color:var(--a)}
+
+    /* PALIERS — 4 colonnes (Starter / Pro / Premium / Enterprise) */
     .paliers{padding:90px 5%;max-width:1280px;margin:0 auto}
-    .paliers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .palier-card{background:var(--surf);border:1.5px solid var(--bdr);border-radius:22px;padding:32px 28px;text-align:center;transition:all .3s;position:relative}
-    .palier-card.pro{border-color:var(--g);box-shadow:0 20px 56px rgba(29,158,117,.12)}
-    .palier-top{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:700;padding:5px 16px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+    .paliers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .palier-card{background:var(--surf);border:1.5px solid var(--bdr);border-radius:22px;padding:28px 22px;text-align:center;transition:all .3s;position:relative;display:flex;flex-direction:column}
+    .palier-card.pro{border-color:var(--g);box-shadow:0 20px 56px rgba(29,158,117,.12);transform:translateY(-4px)}
+    .palier-card.enterprise{background:linear-gradient(155deg,#fff 0%,#F5F3FF 100%);border-color:#DDD6FE}
+    .palier-card.enterprise:hover{border-color:var(--p);box-shadow:0 20px 56px rgba(139,92,246,.18)}
+    .palier-top{position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap}
     .palier-top.g{background:var(--g);color:#fff}
     .palier-top.a{background:var(--a);color:var(--dark)}
-    .palier-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--muted);margin-bottom:16px}
-    .palier-price{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:var(--dark);line-height:1}
-    .palier-price span{font-size:14px;color:var(--muted);font-weight:400}
-    .palier-sub{font-size:12px;color:var(--muted);margin:8px 0 20px}
-    .palier-feats{list-style:none;display:flex;flex-direction:column;gap:8px;text-align:left;margin-bottom:24px}
-    .palier-feats li{font-size:12.5px;color:var(--text);display:flex;align-items:center;gap:7px}
-    .palier-feats li::before{content:'✓';color:var(--g);font-weight:800;font-size:11px}
+    .palier-top.p{background:var(--p);color:#fff}
+    .palier-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:14px;text-transform:uppercase;letter-spacing:1px}
+    .palier-price{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--dark);line-height:1}
+    .palier-price span{font-size:13px;color:var(--muted);font-weight:400}
+    .palier-price.devis{font-size:24px;color:var(--p)}
+    .palier-sub{font-size:12px;color:var(--muted);margin:8px 0 18px;min-height:30px}
+    .palier-feats{list-style:none;display:flex;flex-direction:column;gap:7px;text-align:left;margin-bottom:20px;flex:1}
+    .palier-feats li{font-size:12px;color:var(--text);display:flex;align-items:flex-start;gap:6px;line-height:1.45}
+    .palier-feats li::before{content:'✓';color:var(--g);font-weight:800;font-size:11px;flex-shrink:0;margin-top:2px}
     .palier-feats li.muted{color:var(--muted)}
     .palier-feats li.muted::before{content:'–';color:var(--bdr);font-weight:400}
+    .palier-feats li.gold{color:var(--p);font-weight:600}
+    .palier-feats li.gold::before{content:'★';color:var(--p)}
+
+    /* CTA */
     .cta{background:linear-gradient(135deg,var(--dark),#0D1F3C);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
     .cta::before{content:'🏠';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
     .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
@@ -116,41 +120,74 @@
     .btn-w{background:#fff;color:var(--b);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
     .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
     .cta-reassure{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
+
+    /* FOOTER */
     footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
     .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-    .foot-links{display:flex;gap:22px}
+    .foot-links{display:flex;gap:22px;flex-wrap:wrap}
     .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
     .foot-links a:hover{color:var(--g)}
     .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+
+    /* PHONES MOCKUP */
     .immo-phones{display:flex;justify-content:center;align-items:flex-end;gap:0;perspective:1200px;padding:20px 0}
-.immo-phone{border-radius:28px;border:6px solid #1A2E26;background:#fff;position:relative;overflow:hidden;flex-shrink:0;transition:transform .4s}
-.immo-notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:40px;height:14px;background:#1A2E26;border-radius:0 0 8px 8px;z-index:5}
-.immo-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:120px;height:40px;background:rgba(59,130,246,.18);filter:blur(16px);border-radius:50%}
-.immo-phone-left{width:148px;height:296px;transform:perspective(900px) rotateY(16deg) rotateX(2deg) translateX(24px);z-index:1;opacity:.88;box-shadow:0 32px 64px rgba(0,0,0,.22)}
-.immo-phone-center{width:182px;height:364px;border:7px solid #1A2E26;border-radius:32px;transform:translateY(-24px);z-index:3;box-shadow:0 60px 120px rgba(0,0,0,.3),0 0 0 1px rgba(59,130,246,.2)}
-.immo-phone-right{width:148px;height:296px;transform:perspective(900px) rotateY(-16deg) rotateX(2deg) translateX(-24px);z-index:1;opacity:.88;box-shadow:0 32px 64px rgba(0,0,0,.22)}
-.immo-phone-left:hover{transform:perspective(900px) rotateY(8deg) rotateX(1deg) translateX(14px) translateY(-6px)}
-.immo-phone-right:hover{transform:perspective(900px) rotateY(-8deg) rotateX(1deg) translateX(-14px) translateY(-6px)}
-.immo-phone-center:hover{transform:translateY(-34px)}
-@media(max-width:960px){
-  .immo-phones{padding:32px 0 0}
-}
-@media(max-width:600px){
-  .immo-phones{padding:24px 0 0}
-  .immo-phone-left,.immo-phone-right{width:100px;height:200px;opacity:.75}
-  .immo-phone-left{transform:perspective(900px) rotateY(10deg) rotateX(1deg) translateX(14px)!important}
-  .immo-phone-right{transform:perspective(900px) rotateY(-10deg) rotateX(1deg) translateX(-14px)!important}
-  .immo-phone-center{width:140px;height:280px;transform:translateY(-16px)!important}
-}
+    .immo-phone{border-radius:28px;border:6px solid #1A2E26;background:#fff;position:relative;overflow:hidden;flex-shrink:0;transition:transform .4s}
+    .immo-notch{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:40px;height:14px;background:#1A2E26;border-radius:0 0 8px 8px;z-index:5}
+    .immo-glow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:120px;height:40px;background:rgba(59,130,246,.18);filter:blur(16px);border-radius:50%}
+    .immo-phone-left{width:148px;height:296px;transform:perspective(900px) rotateY(16deg) rotateX(2deg) translateX(24px);z-index:1;opacity:.88;box-shadow:0 32px 64px rgba(0,0,0,.22)}
+    .immo-phone-center{width:182px;height:364px;border:7px solid #1A2E26;border-radius:32px;transform:translateY(-24px);z-index:3;box-shadow:0 60px 120px rgba(0,0,0,.3),0 0 0 1px rgba(59,130,246,.2)}
+    .immo-phone-right{width:148px;height:296px;transform:perspective(900px) rotateY(-16deg) rotateX(2deg) translateX(-24px);z-index:1;opacity:.88;box-shadow:0 32px 64px rgba(0,0,0,.22)}
+    .immo-phone-left:hover{transform:perspective(900px) rotateY(8deg) rotateX(1deg) translateX(14px) translateY(-6px)}
+    .immo-phone-right:hover{transform:perspective(900px) rotateY(-8deg) rotateX(1deg) translateX(-14px) translateY(-6px)}
+    .immo-phone-center:hover{transform:translateY(-34px)}
+
+    /* GRID 2 COLONNES (courtiers) */
+    .grid-2-courtiers{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE — TABLETTE (1024px et moins)
+       ═══════════════════════════════════════════════ */
+    @media(max-width:1024px){
+      .paliers-grid{grid-template-columns:repeat(2,1fr);gap:18px}
+      .palier-card.pro{transform:none}
+      .offres-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE — TABLETTE PETITE (960px)
+       ═══════════════════════════════════════════════ */
     @media(max-width:960px){
-      .nav-links{display:none}.hamburger{display:flex}
+      .nav-links{display:none}
+      .hamburger{display:flex}
       .hero,.leads-in{grid-template-columns:1fr}
       .hero{gap:40px;padding:110px 5% 60px}
-      .offres-grid,.paliers-grid{grid-template-columns:1fr}
-      .immo-preview{grid-template-columns:1fr 1fr}
+      .grid-2-courtiers{grid-template-columns:1fr;gap:28px}
+      .immo-phones{padding:32px 0 0}
     }
-  
-    /* ═══ MOBILE RENFORCÉ 480px ═══ */
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE — MOBILE (640px)
+       ═══════════════════════════════════════════════ */
+    @media(max-width:640px){
+      .paliers-grid{grid-template-columns:1fr;gap:14px}
+      .palier-card{padding:24px 22px}
+      .offres-grid{grid-template-columns:1fr}
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE — MOBILE (600px) — phones
+       ═══════════════════════════════════════════════ */
+    @media(max-width:600px){
+      .immo-phones{padding:24px 0 0}
+      .immo-phone-left,.immo-phone-right{width:100px;height:200px;opacity:.75}
+      .immo-phone-left{transform:perspective(900px) rotateY(10deg) rotateX(1deg) translateX(14px)!important}
+      .immo-phone-right{transform:perspective(900px) rotateY(-10deg) rotateX(1deg) translateX(-14px)!important}
+      .immo-phone-center{width:140px;height:280px;transform:translateY(-16px)!important}
+    }
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE — MOBILE PETIT (480px)
+       ═══════════════════════════════════════════════ */
     @media(max-width:480px){
       body{overflow-x:hidden}
       nav{padding:12px 4%}
@@ -159,16 +196,15 @@
       .hero-sub{font-size:14px}
       .hero-btns{flex-direction:column;align-items:stretch}
       .hero-btns a{justify-content:center;text-align:center}
-      .offres-grid,.paliers-grid{grid-template-columns:1fr!important}
       .leads-in{grid-template-columns:1fr!important}
       .sec-h{font-size:clamp(20px,7vw,28px)!important}
       .foot-links{flex-wrap:wrap;gap:10px;justify-content:center}
       .foot-legal{justify-content:center;flex-wrap:wrap;gap:10px}
-      .foot-in{flex-wrap:wrap}
+      .foot-in{flex-wrap:wrap;justify-content:center;text-align:center}
+      .palier-card{padding:22px 20px}
+      .palier-price{font-size:32px}
     }
-.grid-2-courtiers{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-@media(max-width:768px){.grid-2-courtiers{grid-template-columns:1fr!important;gap:28px!important}}
-</style>
+  </style>
 </head>
 <body>
 <nav id="nav">
@@ -187,6 +223,8 @@
   <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
   <a href="/contact?type=agence" style="color:var(--g);font-weight:700;border:none">Nous rejoindre →</a>
 </div>
+
+<!-- HERO -->
 <section style="background:var(--bg);overflow:hidden">
   <div class="hero" style="grid-template-columns:1fr 1fr;align-items:center">
     <div style="animation:fadeUp .6s ease both">
@@ -209,8 +247,6 @@
     <!-- PHONES 3D -->
     <div style="animation:fadeUp .7s .1s ease both">
       <div class="immo-phones">
-
-        <!-- Gauche — Annonces liste -->
         <div class="immo-phone immo-phone-left">
           <div class="immo-notch"></div>
           <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-annonces-immo.jpg"
@@ -218,8 +254,6 @@
             style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
           <div class="immo-glow"></div>
         </div>
-
-        <!-- Centre — Agences (mis en avant) -->
         <div class="immo-phone immo-phone-center">
           <div class="immo-notch" style="width:48px;height:16px"></div>
           <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-agence.jpg"
@@ -227,8 +261,6 @@
             style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
           <div class="immo-glow"></div>
         </div>
-
-        <!-- Droite — Fiche annonce maison -->
         <div class="immo-phone immo-phone-right">
           <div class="immo-notch"></div>
           <img src="https://raw.githubusercontent.com/Damdhs/lokalist-site/main/images/screen-annonce-maison.jpg"
@@ -236,10 +268,8 @@
             style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
           <div class="immo-glow"></div>
         </div>
-
       </div>
 
-      <!-- Badges sous les phones -->
       <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:16px">
         <div style="display:inline-flex;align-items:center;gap:5px;background:var(--al);border:1px solid rgba(239,159,39,.35);border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;color:#92400E">⭐ Badge Premium</div>
         <div style="display:inline-flex;align-items:center;gap:5px;background:var(--bl);border:1px solid #BFDBFE;border-radius:100px;padding:5px 12px;font-size:11px;font-weight:700;color:#1E40AF">⚡ Boost annonce 6h</div>
@@ -248,6 +278,8 @@
     </div>
   </div>
 </section>
+
+<!-- OFFRES -->
 <section class="offres" id="offres">
   <p class="sec-tag reveal">Ce que Lokalist apporte à votre agence</p>
   <h2 class="sec-h reveal">Des leads qualifiés,<br/>directement de votre commune</h2>
@@ -261,6 +293,8 @@
     <div class="offre-card reveal"><div class="offre-ico">💶</div><h3>Courtiers partenaires</h3><p>Les courtiers sont référencés dans une rubrique dédiée. Les acquéreurs les contactent directement pour leur financement depuis l'app.</p><div class="offre-detail">→ Dossiers financement qualifiés</div></div>
   </div>
 </section>
+
+<!-- LEADS -->
 <section class="leads">
   <div class="leads-in">
     <div>
@@ -277,6 +311,8 @@
     </div>
   </div>
 </section>
+
+<!-- COURTIERS -->
 <section style="padding:60px 5%;background:var(--bl)">
   <div class="grid-2-courtiers">
     <div>
@@ -302,16 +338,98 @@
     </div>
   </div>
 </section>
+
+<!-- PALIERS — 4 colonnes -->
 <section class="paliers">
   <p class="sec-tag reveal">Abonnements agences</p>
   <h2 class="sec-h reveal">Choisissez votre niveau<br/>de visibilité</h2>
   <p class="sec-p reveal">Tarif fixe mensuel, sans commission sur vos transactions. Vous gardez 100% de vos honoraires.</p>
+
   <div class="paliers-grid">
-    <div class="palier-card reveal"><div class="palier-name">Starter</div><div class="palier-price">49<span>,90€/mois</span></div><div class="palier-sub">1 commune · 10 annonces</div><ul class="palier-feats"><li>Fiche agence complète</li><li>10 annonces actives</li><li>Leads acquéreurs & vendeurs</li><li>2 boosts annonce offerts/mois</li><li>Stats de base</li><li class="muted">Communes illimitées</li><li class="muted">Boosts illimités</li><li class="muted">Badge exclusif</li></ul><a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Commencer →</a></div>
-    <div class="palier-card reveal"><div class="palier-name">Pro</div><div class="palier-price">89<span>,90€/mois</span></div><div class="palier-sub">3 communes · 15 annonces actives</div><ul class="palier-feats"><li>Fiche agence premium</li><li>15 annonces actives</li><li>Leads acquéreurs & vendeurs</li><li>5 boosts annonce offerts/mois</li><li>Stats avancées</li><li class="muted">Communes illimitées</li><li class="muted">Badge exclusif</li></ul><a href="/contact?type=agence" class="btn btn-g" style="width:100%;justify-content:center">Choisir Pro →</a></div>
-    <div class="palier-card reveal"><div class="palier-top a">🚀 Multi-Com</div><div class="palier-name">Premium</div><div class="palier-price">149<span>,90€/mois</span></div><div class="palier-sub">Multi-Com · Communes illimitées</div><ul class="palier-feats"><li>Multi-Com 30 annonces</li><li>Communes illimitées</li><li>Leads acquéreurs & vendeurs</li><li>Tout Pro inclus</li><li>20 Boosts</li><li>Badge exclusif</li><li>Account manager dédié</li><li>Rapport mensuel personnalisé</li></ul><a href="/contact?type=agence" class="btn btn-b" style="width:100%;justify-content:center">Nous contacter →</a></div>
+
+    <!-- STARTER -->
+    <div class="palier-card reveal">
+      <div class="palier-name">Starter</div>
+      <div class="palier-price">49<span>,90€/mois</span></div>
+      <div class="palier-sub">1 commune · 10 annonces</div>
+      <ul class="palier-feats">
+        <li>Fiche agence complète</li>
+        <li>10 annonces actives</li>
+        <li>Leads acquéreurs &amp; vendeurs</li>
+        <li>2 boosts annonce/mois</li>
+        <li>Stats de base</li>
+        <li class="muted">3 communes</li>
+        <li class="muted">10 communes</li>
+        <li class="muted">Multi-locaux</li>
+      </ul>
+      <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Commencer →</a>
+    </div>
+
+    <!-- PRO (mis en avant) -->
+    <div class="palier-card pro reveal">
+      <div class="palier-name">Pro</div>
+      <div class="palier-price">89<span>,90€/mois</span></div>
+      <div class="palier-sub">3 communes · 15 annonces</div>
+      <ul class="palier-feats">
+        <li>Fiche agence premium</li>
+        <li>15 annonces actives</li>
+        <li>Leads acquéreurs &amp; vendeurs</li>
+        <li>5 boosts annonce/mois</li>
+        <li>Stats avancées</li>
+        <li>3 communes couvertes</li>
+        <li class="muted">10 communes</li>
+        <li class="muted">Multi-locaux</li>
+      </ul>
+      <a href="/contact?type=agence" class="btn btn-g" style="width:100%;justify-content:center">Choisir Pro →</a>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="palier-card reveal">
+      <div class="palier-top a">🚀 Multi-zones</div>
+      <div class="palier-name">Premium</div>
+      <div class="palier-price">149<span>,90€/mois</span></div>
+      <div class="palier-sub">10 communes · 30 annonces</div>
+      <ul class="palier-feats">
+        <li>Tout Pro inclus</li>
+        <li>30 annonces actives</li>
+        <li>20 boosts annonce/mois</li>
+        <li>10 communes couvertes</li>
+        <li>Badge ⭐ Premium</li>
+        <li>Account manager dédié</li>
+        <li>Rapport mensuel personnalisé</li>
+        <li class="muted">Multi-locaux illimités</li>
+      </ul>
+      <a href="/contact?type=agence" class="btn btn-b" style="width:100%;justify-content:center">Choisir Premium →</a>
+    </div>
+
+    <!-- ENTERPRISE -->
+    <div class="palier-card enterprise reveal">
+      <div class="palier-top p">🏢 Réseaux &amp; Groupes</div>
+      <div class="palier-name">Enterprise</div>
+      <div class="palier-price devis">Sur devis</div>
+      <div class="palier-sub">Agences multi-locaux<br/>&amp; réseaux nationaux</div>
+      <ul class="palier-feats">
+        <li>Tout Premium inclus</li>
+        <li>Annonces personnalisées</li>
+        <li>Boosts personnalisés</li>
+        <li>Communes au choix</li>
+        <li class="gold">Accompagnement sur-mesure</li>
+        <li class="gold">Multi-locaux centralisés</li>
+        <li class="gold">Onboarding dédié</li>
+        <li class="gold">Tarif négocié</li>
+      </ul>
+      <a href="/contact?type=agence-enterprise" class="btn btn-p" style="width:100%;justify-content:center">Demander un devis →</a>
+    </div>
+  </div>
+
+  <!-- Note Enterprise -->
+  <div class="reveal" style="max-width:760px;margin:48px auto 0;padding:24px;background:var(--pl);border:1px solid #DDD6FE;border-radius:16px;text-align:center">
+    <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏢 Vous êtes un groupe ou un réseau ?</div>
+    <p style="font-size:14px;color:var(--muted);line-height:1.7">Si votre agence dispose de plusieurs locaux ou si vous représentez un réseau (Century 21, Orpi, Foncia, Stéphane Plaza...), nous proposons un accompagnement <strong style="color:var(--p)">Enterprise sur-mesure</strong> avec onboarding dédié, multi-locaux centralisés et tarif négocié.</p>
   </div>
 </section>
+
+<!-- CTA FINAL -->
 <section class="cta">
   <div class="cta-in">
     <h2>Rejoignez<br/><em>l'immobilier local</em></h2>
@@ -320,12 +438,13 @@
     <p class="cta-reassure">Réponse sous 24h · contact@lokalist.fr</p>
   </div>
 </section>
+
+<!-- FOOTER -->
 <footer>
   <div class="foot-in">
     <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="28" height="28" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" opacity="1" fill="rgb(251,179,33)" fill-rule="evenodd"/></svg></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
-    <div class="foot-links"><a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/loisirs">Loisirs</a><a href="/agences">Immo & Courtiers</a><a href="/tarifs">Tarifs</a><a href="/contact?type=agence">Contact</a></div>
-    <div class="foot-legal"><a href="/mentions-legales">Mentions légales</a><a href="/cgv">CGV</a>
-        <a href="/cgu">CGU</a><a href="/confidentialite">Confidentialité</a><a href="/cookies">Cookies</a></div>
+    <div class="foot-links"><a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/loisirs">Loisirs</a><a href="/agences">Immo &amp; Courtiers</a><a href="/tarifs">Tarifs</a><a href="/contact?type=agence">Contact</a></div>
+    <div class="foot-legal"><a href="/mentions-legales">Mentions légales</a><a href="/cgv">CGV</a><a href="/cgu">CGU</a><a href="/confidentialite">Confidentialité</a><a href="/cookies">Cookies</a></div>
     <div class="foot-copy">© 2026 Lokalist</div>
   </div>
 </footer>
@@ -339,6 +458,3 @@
 </script>
 </body>
 </html>
-
-
-
