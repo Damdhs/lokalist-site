@@ -290,15 +290,22 @@
     feedback.textContent = '⏳ Vérification...';
 
     try {
-      // Appel REST direct à Supabase (sans SDK)
-      const url = `${SUPABASE_URL}/rest/v1/abonnements?select=commercant_id,artisan_id,agence_id&code_parrainage=eq.${encodeURIComponent(code.toUpperCase())}&limit=1`;
-      const resp = await fetch(url, {
-        headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
+      // Appel RPC sécurisée (1 seul appel, pas de RLS à débloquer sur abonnements)
+      const resp = await fetch(`${SUPABASE_URL}/rest/v1/rpc/verifier_code_parrain`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ p_code: code.toUpperCase() }),
       });
       const data = await resp.json();
 
-      if (!Array.isArray(data) || data.length === 0) {
-        // Code introuvable
+      // RPC renvoie un array avec 1 ligne : [{ valide: true/false, parrain_nom: "...", parrain_type: "..." }]
+      const result = Array.isArray(data) && data[0] ? data[0] : { valide: false };
+
+      if (!result.valide) {
         input.classList.remove('valid'); input.classList.add('invalid');
         feedback.className = 'parrain-feedback invalid';
         feedback.textContent = '❌ Code invalide ou expiré';
@@ -306,37 +313,10 @@
         return;
       }
 
-      // Code trouvé → lookup nom du parrain
-      const parr = data[0];
-      let parrainNom = 'votre parrain';
-      try {
-        if (parr.commercant_id) {
-          const r = await fetch(`${SUPABASE_URL}/rest/v1/commercants?select=nom&id=eq.${parr.commercant_id}&limit=1`, {
-            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
-          });
-          const d = await r.json();
-          if (Array.isArray(d) && d[0]?.nom) parrainNom = d[0].nom;
-        } else if (parr.artisan_id) {
-          const r = await fetch(`${SUPABASE_URL}/rest/v1/artisans?select=nom_entreprise,prenom,nom&id=eq.${parr.artisan_id}&limit=1`, {
-            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
-          });
-          const d = await r.json();
-          if (Array.isArray(d) && d[0]) {
-            parrainNom = d[0].nom_entreprise || `${d[0].prenom || ''} ${d[0].nom || ''}`.trim() || 'votre parrain';
-          }
-        } else if (parr.agence_id) {
-          const r = await fetch(`${SUPABASE_URL}/rest/v1/agences_immo?select=nom&id=eq.${parr.agence_id}&limit=1`, {
-            headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY }
-          });
-          const d = await r.json();
-          if (Array.isArray(d) && d[0]?.nom) parrainNom = d[0].nom;
-        }
-      } catch(e) { /* nom optionnel, fallback */ }
-
       input.classList.remove('invalid'); input.classList.add('valid');
       feedback.className = 'parrain-feedback valid';
-      feedback.innerHTML = `✅ Code valide — Vous serez parrainé par <strong>${parrainNom}</strong>`;
-      parrainNomValide = parrainNom;
+      feedback.innerHTML = `✅ Code valide — Vous serez parrainé par <strong>${result.parrain_nom}</strong>`;
+      parrainNomValide = result.parrain_nom;
     } catch(e) {
       input.classList.remove('valid', 'invalid');
       feedback.className = 'parrain-feedback';
