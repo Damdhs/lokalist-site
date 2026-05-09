@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tu es invité sur Lokalist 🎁 — Reçois 50 points gratuits</title>
+  <meta name="description" content="Vous avez été invité à rejoindre Lokalist, l'app de fidélité locale et de vie de commune. Recevez 50 points gratuits à votre inscription."/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="shortcut icon" href="/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+
+  <!-- Open Graph pour partage WhatsApp/SMS -->
+  <meta property="og:title" content="Tu es invité sur Lokalist 🎁"/>
+  <meta property="og:description" content="50 points gratuits t'attendent à l'inscription"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:url" content="https://lokalist.fr"/>
+
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+
+    .header{padding:20px 5%;display:flex;align-items:center;gap:8px;background:#fff;border-bottom:1px solid var(--bdr)}
+    .logo-txt{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--g);letter-spacing:-.5px}
+
+    .main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+    .invite-card{background:var(--surf);border-radius:24px;box-shadow:0 24px 60px rgba(29,158,117,.12);max-width:480px;width:100%;overflow:hidden;border:1px solid var(--bdr)}
+
+    .invite-hero{background:linear-gradient(135deg,var(--gd) 0%,var(--g) 60%,#22C98A 100%);padding:40px 32px;text-align:center;position:relative;overflow:hidden}
+    .invite-hero::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.1)}
+    .invite-hero::after{content:'';position:absolute;bottom:-30px;left:-20px;width:120px;height:120px;border-radius:50%;background:rgba(0,0,0,.08)}
+    .gift-emoji{font-size:64px;display:inline-block;margin-bottom:12px;animation:bounce 2s ease-in-out infinite;position:relative;z-index:1}
+    @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+    .invite-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px;position:relative;z-index:1}
+    .invite-sub{font-size:15px;color:rgba(255,255,255,.85);line-height:1.5;position:relative;z-index:1}
+
+    .invite-body{padding:32px}
+    .code-box{background:linear-gradient(135deg,var(--gl),#fff);border:2px solid var(--gm);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px}
+    .code-label{font-size:11px;font-weight:800;color:var(--gd);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+    .code-value{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--gd);letter-spacing:3px;margin-bottom:8px;cursor:pointer;user-select:all;transition:transform .15s}
+    .code-value:hover{transform:scale(1.02)}
+    .code-info{font-size:12px;color:var(--muted)}
+
+    .copy-btn{background:#fff;border:1.5px solid var(--gm);color:var(--gd);border-radius:10px;padding:10px 16px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:8px;font-family:'DM Sans',sans-serif}
+    .copy-btn:hover{background:var(--gl);transform:translateY(-1px)}
+    .copy-btn.copied{background:var(--gd);color:#fff;border-color:var(--gd)}
+
+    .reward-strip{background:var(--al);border:1px solid rgba(239,159,39,.4);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;margin-bottom:24px}
+    .reward-emoji{font-size:32px;flex-shrink:0}
+    .reward-text{font-size:14px;color:#78350F;line-height:1.5}
+    .reward-text strong{color:#92400E;font-weight:700}
+
+    .stores-section{margin-bottom:24px}
+    .stores-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:12px;text-align:center}
+    .stores-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .store-btn{background:#1A1A1A;color:#fff;border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;text-decoration:none;cursor:pointer;transition:all .2s}
+    .store-btn:hover{background:#000;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+    .store-btn-ico{font-size:28px;flex-shrink:0}
+    .store-btn-txt{flex:1}
+    .store-btn-small{font-size:9px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.5px}
+    .store-btn-big{font-size:13px;font-weight:600;line-height:1.1}
+
+    .deep-link-btn{background:linear-gradient(135deg,var(--g),var(--gd));color:#fff;border:none;border-radius:14px;padding:16px;width:100%;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 20px rgba(29,158,117,.3)}
+    .deep-link-btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(29,158,117,.4)}
+
+    .features-list{margin-top:24px;padding-top:24px;border-top:1px solid var(--bdr)}
+    .feature{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;font-size:13px;color:var(--text);line-height:1.5}
+    .feature-ico{flex-shrink:0;font-size:16px;margin-top:1px}
+    .feature strong{color:var(--gd);font-weight:600}
+
+    footer{padding:24px;text-align:center;background:var(--dark);color:rgba(255,255,255,.4);font-size:12px}
+    footer a{color:var(--g);text-decoration:none}
+
+    @media(max-width:480px){
+      .main{padding:20px 12px}
+      .invite-hero{padding:32px 24px}
+      .invite-body{padding:24px 20px}
+      .invite-title{font-size:22px}
+      .gift-emoji{font-size:54px}
+      .code-value{font-size:26px;letter-spacing:2px}
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div style="width:36px;height:36px;flex-shrink:0">
+    <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="36" height="36" viewBox="0 0 1024 1024">
+      <path d="M 409.546 519.454 C 410.387 521.179 406.554 519.714 406.32 520.634 C 406.229 520.991 406.585 521.646 406.651 522.025 C 406.957 523.79 407.483 525.455 407.993 527.168 C 409.669 532.795 411.883 538.432 413.998 543.915 C 417.926 554.097 422.026 564.261 427.002 573.991 C 430.731 581.285 435.237 588.166 439.446 595.163 C 447.057 607.819 455.152 620.308 465.024 631.324 Z" fill="rgb(22,62,125)" fill-rule="evenodd"/>
+      <path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 Z" fill="rgb(251,179,33)" fill-rule="evenodd"/>
+    </svg>
+  </div>
+  <span class="logo-txt">Lokalist</span>
+</header>
+
+<main class="main">
+  <div class="invite-card">
+    <div class="invite-hero">
+      <div class="gift-emoji">🎁</div>
+      <h1 class="invite-title">Tu es invité<br/>sur Lokalist !</h1>
+      <p class="invite-sub">L'app de la vie locale, gratuite & utile</p>
+    </div>
+
+    <div class="invite-body">
+      <div class="code-box">
+        <div class="code-label">🎟️ Ton code parrainage</div>
+        <div class="code-value" id="code-display" onclick="copierCode()">LOK-XXXXXX</div>
+        <div class="code-info">Renseigne ce code à ton inscription pour recevoir tes points</div>
+        <button class="copy-btn" id="copy-btn" onclick="copierCode()">📋 Copier le code</button>
+      </div>
+
+      <div class="reward-strip">
+        <div class="reward-emoji">⭐</div>
+        <div class="reward-text">
+          <strong>50 points offerts</strong> à ton inscription + ton parrain en gagne autant !
+        </div>
+      </div>
+
+      <button class="deep-link-btn" id="open-app-btn" onclick="ouvrirApp()">
+        🚀 J'ai déjà l'app — Ouvrir Lokalist
+      </button>
+
+      <div class="stores-section" style="margin-top:20px">
+        <div class="stores-title">📱 Pas encore l'app ? Télécharge-la</div>
+        <div class="stores-grid">
+          <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.lokalist.app" data-todo="REMPLACER avec vrai package ID lors publication Play Store" target="_blank" rel="noopener">
+            <span class="store-btn-ico">🤖</span>
+            <div class="store-btn-txt">
+              <div class="store-btn-small">Disponible sur</div>
+              <div class="store-btn-big">Play Store</div>
+            </div>
+          </a>
+          <a class="store-btn" href="https://apps.apple.com/fr/app/lokalist" data-todo="REMPLACER avec vraie URL App Store lors publication" target="_blank" rel="noopener">
+            <span class="store-btn-ico">🍎</span>
+            <div class="store-btn-txt">
+              <div class="store-btn-small">Disponible sur</div>
+              <div class="store-btn-big">App Store</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="features-list">
+        <div class="feature"><span class="feature-ico">🏪</span><span><strong>Soutiens tes commerces locaux</strong> avec un programme de fidélité simple</span></div>
+        <div class="feature"><span class="feature-ico">🎟️</span><span><strong>Reçois des bons mairie</strong> pour soutenir le commerce de ta ville</span></div>
+        <div class="feature"><span class="feature-ico">🚧</span><span><strong>Signale des problèmes</strong> (voirie, éclairage...) directement à ta mairie</span></div>
+        <div class="feature"><span class="feature-ico">🔧</span><span><strong>Trouve des artisans</strong> de confiance près de chez toi</span></div>
+        <div class="feature"><span class="feature-ico">🏠</span><span><strong>Découvre des biens immobiliers</strong> dans ta zone</span></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <p>Une question ? Contacte-nous sur <a href="https://lokalist.fr/contact">lokalist.fr/contact</a></p>
+  <p style="margin-top:8px;font-size:11px">© 2026 Lokalist — Made in Normandie 🇫🇷</p>
+</footer>
+
+<script>
+  // ──────────────────────────────────────────────
+  // 1. Récupérer le code depuis l'URL
+  // ──────────────────────────────────────────────
+  const params = new URLSearchParams(window.location.search);
+  let code = (params.get('code') || '').toUpperCase().trim();
+
+  // Validation regex LOK-XXXXXX
+  const codeValide = /^LOK-[A-Z0-9]{6}$/.test(code);
+
+  if (codeValide) {
+    document.getElementById('code-display').textContent = code;
+    // Stockage local pour récupération à l'ouverture de l'app web
+    try {
+      localStorage.setItem('lokalist_invite_code', code);
+      localStorage.setItem('lokalist_invite_date', new Date().toISOString());
+    } catch (e) { /* localStorage indisponible */ }
+  } else {
+    // Code invalide
+    document.getElementById('code-display').textContent = 'CODE INVALIDE';
+    document.getElementById('code-display').style.fontSize = '18px';
+    document.getElementById('code-display').style.letterSpacing = '0';
+    document.getElementById('code-display').style.color = '#991B1B';
+    document.getElementById('copy-btn').style.display = 'none';
+  }
+
+  // ──────────────────────────────────────────────
+  // 2. Copier le code dans le presse-papier
+  // ──────────────────────────────────────────────
+  async function copierCode() {
+    if (!codeValide) return;
+    const btn = document.getElementById('copy-btn');
+    try {
+      await navigator.clipboard.writeText(code);
+      btn.textContent = '✅ Code copié !';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '📋 Copier le code';
+        btn.classList.remove('copied');
+      }, 2000);
+    } catch (e) {
+      // Fallback si clipboard API indisponible
+      const range = document.createRange();
+      range.selectNode(document.getElementById('code-display'));
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      try {
+        document.execCommand('copy');
+        btn.textContent = '✅ Code copié !';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copier le code';
+          btn.classList.remove('copied');
+        }, 2000);
+      } catch (e2) {
+        btn.textContent = '⚠️ Sélectionne et copie manuellement';
+      }
+    }
+  }
+
+  // ──────────────────────────────────────────────
+  // 3. Ouvrir l'app via deep link
+  // ──────────────────────────────────────────────
+  function ouvrirApp() {
+    if (!codeValide) {
+      alert("Le code parrainage n'est pas valide. Vérifie le lien d'invitation.");
+      return;
+    }
+    // Tente d'ouvrir l'app via le scheme custom
+    // Si l'app n'est pas installée, l'utilisateur reste sur la page
+    window.location.href = `lokalist://invite?code=${code}`;
+  }
+</script>
+
+</body>
+</html>
