@@ -82,12 +82,14 @@
     .gratuit-strip h4{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gd);margin-bottom:3px}
     .gratuit-strip p{font-size:13px;color:var(--gd);opacity:.8}
 
-    /* Mairie */
-    .mairie-hero-card{background:linear-gradient(135deg,var(--gd) 0%,var(--g) 60%,#22C98A 100%);border-radius:24px;padding:40px;position:relative;overflow:hidden;margin-bottom:16px}
+  /* Mairie */
+    .mairie-hero-card{background:linear-gradient(135deg,var(--gd) 0%,var(--g) 60%,#22C98A 100%);border-radius:24px;padding:40px;position:relative;overflow:hidden;margin-bottom:16px;word-break:break-word}
     .mairie-hero-card::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
     .mairie-hero-card::after{content:'';position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;border-radius:50%;background:rgba(0,0,0,.08)}
+    .mairie-card-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;line-height:1.3}
+    .mairie-card-sub{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6;margin-bottom:18px;font-style:italic}
     .mairie-feats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:relative;z-index:1}
-    .mairie-feat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.85);font-weight:500}
+    .mairie-feat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:rgba(255,255,255,.85);font-weight:500;min-width:0;word-break:break-word}
     .mairie-feat-ico{font-size:16px;flex-shrink:0}
 
     /* Toggle mensuel/annuel */
@@ -166,7 +168,11 @@
       .hero h1{font-size:clamp(28px,8vw,36px);letter-spacing:-.8px}
       .tarifs{padding:40px 4%}
       .tarif-card{padding:20px 16px}
-      .mairie-hero-card{padding:24px 20px}
+      .mairie-hero-card{padding:22px 18px}
+      .mairie-card-title{font-size:14px}
+      .mairie-card-sub{font-size:12px;margin-bottom:14px}
+      .mairie-feats-grid{grid-template-columns:1fr;gap:6px}
+      .mairie-feat{font-size:12px;padding:9px 12px}
       .enterprise-banner{padding:24px 20px}
       .pourquoi-block{padding:22px 18px}
       .btn{padding:11px 16px;font-size:13px}
@@ -286,7 +292,8 @@
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px" class="mairie-tarif-grid">
       <div class="mairie-hero-card">
         <div style="position:relative;z-index:1">
-          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:16px">🗺️ Tout ce que Lokalist apporte à votre territoire</div>
+          <div class="mairie-card-title">🗺️ Tout ce que Lokalist apporte à votre territoire</div>
+          <div class="mairie-card-sub">Une vraie application qui fonctionne avec tous les acteurs de votre commune — élus, commerçants, artisans, agences, citoyens.</div>
           <div class="mairie-feats-grid">
             <div class="mairie-feat"><span class="mairie-feat-ico">📣</span>Alertes municipales push (5 types)</div>
             <div class="mairie-feat"><span class="mairie-feat-ico">📅</span>Agenda municipal avec notifications</div>
