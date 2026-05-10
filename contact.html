@@ -249,8 +249,8 @@
     <label class="form-option" id="opt-premium" style="cursor:pointer;border-color:#EC4899;background:#FDF2F8">
       <input type="radio" name="formule_loisir" value="premium"/>
       <div>
-        <div class="form-option-lbl" style="color:#EC4899">⭐ Premium — 29,90€/mois</div>
-        <div class="form-option-sub">Standard + Packs combinés + section "Idée sortie". <strong>1 mois offert</strong>.</div>
+        <div class="form-option-lbl" style="color:#EC4899">⭐ Premium — 24,90€/mois</div>
+        <div class="form-option-sub">Standard + Packs combinés + section "Idée sortie". <strong>1 mois offert · 0% commission</strong>.</div>
       </div>
     </label>
   </div>
@@ -320,16 +320,33 @@
       if(titles[p]){document.getElementById('form-pro-title').textContent=titles[p][0];document.getElementById('form-pro-sub').textContent=titles[p][1]}
       document.getElementById('field-categorie-artisan').style.display=p==='artisan'?'block':'none'
       document.getElementById('field-communes-agence').style.display=(p==='agence'||p==='courtier')?'block':'none'
-
-      // ⭐ CHAMPS LOISIRS
+// ⭐ CHAMPS LOISIRS + COMMERCANT (RESTOS)
       const isLoisirs = p === 'loisirs';
+      const isCommercant = p === 'commercant';
+      const showPackFields = isLoisirs || isCommercant; // Étendu aux restos
+
       document.getElementById('field-type-loisir').style.display = isLoisirs ? 'block' : 'none';
-      document.getElementById('field-formule-loisir').style.display = isLoisirs ? 'block' : 'none';
+      document.getElementById('field-formule-loisir').style.display = showPackFields ? 'block' : 'none';
       
       // Profils cibles + idée pack : visibles SEULEMENT si Premium choisi
       const formulePremium = document.querySelector('input[name="formule_loisir"]:checked')?.value === 'premium';
-      document.getElementById('field-profils-cibles').style.display = (isLoisirs && formulePremium) ? 'block' : 'none';
-      document.getElementById('field-pack-idee').style.display = (isLoisirs && formulePremium) ? 'block' : 'none';
+      document.getElementById('field-profils-cibles').style.display = (showPackFields && formulePremium) ? 'block' : 'none';
+      document.getElementById('field-pack-idee').style.display = (showPackFields && formulePremium) ? 'block' : 'none';
+
+      // Adapter le label de la formule selon le profil
+      const optStandard = document.getElementById('opt-standard');
+      const optPremium = document.getElementById('opt-premium');
+      if (showPackFields && optStandard && optPremium) {
+        const stdLbl = optStandard.querySelector('.form-option-lbl');
+        const premLbl = optPremium.querySelector('.form-option-lbl');
+        if (isCommercant) {
+          if (stdLbl) stdLbl.textContent = '🎯 Standard — 19,90€/mois';
+          if (premLbl) premLbl.textContent = '⭐ Premium Restos — 24,90€/mois';
+        } else {
+          if (stdLbl) stdLbl.textContent = '🎯 Standard — 19,90€/mois';
+          if (premLbl) premLbl.textContent = '⭐ Premium — 24,90€/mois';
+        }
+      }
 
       // ⭐ Champ code parrain : visible POUR commercant/artisan/courtier/loisirs ; CACHÉ pour agence
       const showParrain = (p==='commercant' || p==='artisan' || p==='courtier' || p==='loisirs');
@@ -468,8 +485,8 @@
   const params=new URLSearchParams(window.location.search),demoParam=params.get('demo'),typeParam=params.get('type'),formuleParam=params.get('formule')
   if(demoParam==='mairie')selectProfil('mairie');else if(typeParam)selectProfil(typeParam)
   
-  // ⭐ Si URL contient ?formule=premium → cocher Premium et afficher profils/pack
-  if (formuleParam === 'premium' && typeParam === 'loisirs') {
+  // ⭐ Si URL contient ?formule=premium → cocher Premium (loisirs OU commercant)
+  if (formuleParam === 'premium' && (typeParam === 'loisirs' || typeParam === 'commercant')) {
     setTimeout(() => {
       const radioPrem = document.querySelector('input[name="formule_loisir"][value="premium"]');
       if (radioPrem) {
