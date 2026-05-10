@@ -179,7 +179,88 @@
         </div>
         <div class="form-group" id="field-categorie-artisan" style="display:none"><label>Catégorie d'activité *</label><select name="categorie"><option value="">Choisir...</option><option>Plomberie</option><option>Électricité</option><option>Maçonnerie</option><option>Menuiserie</option><option>Peinture</option><option>Chauffage / Climatisation</option><option>Jardinage / Espaces verts</option><option>Serrurerie</option><option>Carrelage</option><option>Multi-services</option><option>Autre</option></select></div>
         <div class="form-group" id="field-communes-agence" style="display:none"><label>Communes couvertes</label><input type="text" name="communes" placeholder="Ex: Fécamp, Étretat, Yport..."/></div>
+<!-- ⭐ CHAMPS LOISIRS - Type établissement + Profils cibles + Formule -->
+<div class="form-group" id="field-type-loisir" style="display:none">
+  <label>Type d'établissement *</label>
+  <select name="type_loisir">
+    <option value="">Choisir...</option>
+    <option>🍽️ Restaurant</option>
+    <option>💆 Spa / Bien-être</option>
+    <option>🎳 Bowling</option>
+    <option>🎭 Escape Game / Laser Game</option>
+    <option>🎬 Cinéma</option>
+    <option>🏎️ Karting</option>
+    <option>🧘 Yoga / Pilates / Sport</option>
+    <option>🍳 Atelier cuisine</option>
+    <option>🎨 Atelier créatif (peinture, poterie...)</option>
+    <option>🎸 Cours de musique</option>
+    <option>🌳 Parc / Zoo / Aquarium</option>
+    <option>🏛️ Musée / Culture</option>
+    <option>🍻 Bar / Cave à vins</option>
+    <option>🏊 Piscine / Fitness</option>
+    <option>Autre</option>
+  </select>
+</div>
 
+<div class="form-group" id="field-profils-cibles" style="display:none">
+  <label>Profils cibles (cochez ceux qui correspondent à votre clientèle)</label>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px">
+    <label class="form-option" style="cursor:pointer">
+      <input type="checkbox" name="profil_cible" value="famille" style="accent-color:var(--g)"/>
+      <div>
+        <div class="form-option-lbl">👨‍👩‍👧‍👦 Familles</div>
+        <div class="form-option-sub">Sorties enfants, ateliers</div>
+      </div>
+    </label>
+    <label class="form-option" style="cursor:pointer">
+      <input type="checkbox" name="profil_cible" value="couple" style="accent-color:var(--g)"/>
+      <div>
+        <div class="form-option-lbl">💑 Couples</div>
+        <div class="form-option-sub">Spa, resto romantique</div>
+      </div>
+    </label>
+    <label class="form-option" style="cursor:pointer">
+      <input type="checkbox" name="profil_cible" value="amis" style="accent-color:var(--g)"/>
+      <div>
+        <div class="form-option-lbl">🍻 Amis</div>
+        <div class="form-option-sub">Bowling, bars, escape</div>
+      </div>
+    </label>
+    <label class="form-option" style="cursor:pointer">
+      <input type="checkbox" name="profil_cible" value="seul" style="accent-color:var(--g)"/>
+      <div>
+        <div class="form-option-lbl">🚶 Solo</div>
+        <div class="form-option-sub">Musées, ateliers, café</div>
+      </div>
+    </label>
+  </div>
+</div>
+
+<div class="form-group" id="field-formule-loisir" style="display:none">
+  <label>Formule souhaitée *</label>
+  <div class="form-options">
+    <label class="form-option" id="opt-standard" style="cursor:pointer">
+      <input type="radio" name="formule_loisir" value="standard" checked/>
+      <div>
+        <div class="form-option-lbl">🎯 Standard — 19,90€/mois</div>
+        <div class="form-option-sub">Fidélité QR + bons mairie + carte. <strong>3 mois offerts</strong>.</div>
+      </div>
+    </label>
+    <label class="form-option" id="opt-premium" style="cursor:pointer;border-color:#EC4899;background:#FDF2F8">
+      <input type="radio" name="formule_loisir" value="premium"/>
+      <div>
+        <div class="form-option-lbl" style="color:#EC4899">⭐ Premium — 29,90€/mois</div>
+        <div class="form-option-sub">Standard + Packs combinés + section "Idée sortie". <strong>1 mois offert</strong>.</div>
+      </div>
+    </label>
+  </div>
+</div>
+
+<div class="form-group" id="field-pack-idee" style="display:none">
+  <label>Idée de pack (optionnel)</label>
+  <input type="text" name="pack_idee" placeholder="Ex: 'Soirée Spa + Resto' ou 'Bowling + Bar à tapas'"/>
+  <div style="font-size:11px;color:var(--muted);margin-top:6px">💡 Décrivez le combo idéal que vous aimeriez proposer. On cherchera le partenaire pour vous.</div>
+</div>
         <!-- ⭐ CHAMP CODE PARRAIN (caché pour agence + mairie) -->
         <div class="form-group" id="field-code-parrain">
           <label>Code parrain (optionnel) <span style="color:var(--muted);font-weight:400">— Si un partenaire vous a recommandé Lokalist</span></label>
@@ -240,6 +321,16 @@
       document.getElementById('field-categorie-artisan').style.display=p==='artisan'?'block':'none'
       document.getElementById('field-communes-agence').style.display=(p==='agence'||p==='courtier')?'block':'none'
 
+      // ⭐ CHAMPS LOISIRS
+      const isLoisirs = p === 'loisirs';
+      document.getElementById('field-type-loisir').style.display = isLoisirs ? 'block' : 'none';
+      document.getElementById('field-formule-loisir').style.display = isLoisirs ? 'block' : 'none';
+      
+      // Profils cibles + idée pack : visibles SEULEMENT si Premium choisi
+      const formulePremium = document.querySelector('input[name="formule_loisir"]:checked')?.value === 'premium';
+      document.getElementById('field-profils-cibles').style.display = (isLoisirs && formulePremium) ? 'block' : 'none';
+      document.getElementById('field-pack-idee').style.display = (isLoisirs && formulePremium) ? 'block' : 'none';
+
       // ⭐ Champ code parrain : visible POUR commercant/artisan/courtier/loisirs ; CACHÉ pour agence
       const showParrain = (p==='commercant' || p==='artisan' || p==='courtier' || p==='loisirs');
       document.getElementById('field-code-parrain').style.display = showParrain ? 'block' : 'none';
@@ -250,6 +341,26 @@
       }
 
       const sl={commercant:"🏪 Envoyer ma demande partenaire",artisan:"🔧 Créer ma fiche artisan",agence:"🏠 Référencer mon agence",courtier:"💶 Devenir courtier partenaire",loisirs:"🎳 Référencer mon activité"}
+
+      // ⭐ Listener formule loisirs (afficher/masquer profils + idée pack)
+      if (isLoisirs) {
+        document.querySelectorAll('input[name="formule_loisir"]').forEach(radio => {
+          radio.addEventListener('change', (ev) => {
+            const isPrem = ev.target.value === 'premium';
+            document.getElementById('field-profils-cibles').style.display = isPrem ? 'block' : 'none';
+            document.getElementById('field-pack-idee').style.display = isPrem ? 'block' : 'none';
+            // Update visual feedback du label submit
+            const subBtn = document.getElementById('form-pro-submit');
+            if (isPrem) {
+              subBtn.innerHTML = '⭐ Devenir partenaire Premium';
+              subBtn.style.background = '#EC4899';
+            } else {
+              subBtn.innerHTML = '🎳 Référencer mon activité';
+              subBtn.style.background = '';
+            }
+          });
+        });
+      }
       document.getElementById('form-pro-submit').innerHTML=sl[p]||'✉️ Envoyer ma demande'
       document.getElementById('form-pro').classList.remove('form-hidden')
     }
@@ -354,8 +465,19 @@
     .then(res=>{if(res.ok){document.getElementById('form-mairie').classList.add('form-hidden');document.getElementById('form-pro').classList.add('form-hidden');document.getElementById('form-success').classList.remove('form-hidden');document.getElementById('form-success').scrollIntoView({behavior:'smooth',block:'start'})}else{btn.disabled=false;btn.innerHTML='❌ Erreur — réessayez ou écrivez à contact@lokalist.fr'}})
     .catch(()=>{btn.disabled=false;btn.innerHTML='❌ Erreur réseau — réessayez'})
   }
-  const params=new URLSearchParams(window.location.search),demoParam=params.get('demo'),typeParam=params.get('type')
+  const params=new URLSearchParams(window.location.search),demoParam=params.get('demo'),typeParam=params.get('type'),formuleParam=params.get('formule')
   if(demoParam==='mairie')selectProfil('mairie');else if(typeParam)selectProfil(typeParam)
+  
+  // ⭐ Si URL contient ?formule=premium → cocher Premium et afficher profils/pack
+  if (formuleParam === 'premium' && typeParam === 'loisirs') {
+    setTimeout(() => {
+      const radioPrem = document.querySelector('input[name="formule_loisir"][value="premium"]');
+      if (radioPrem) {
+        radioPrem.checked = true;
+        radioPrem.dispatchEvent(new Event('change'));
+      }
+    }, 200);
+  }
 </script>
 </body>
 </html>
