@@ -471,16 +471,89 @@
   });
   // ====== FIN VÉRIF CODE PARRAIN ======
 
-  function submitForm(e,type){
-    e.preventDefault();const btn=e.target.querySelector('button[type="submit"]');btn.disabled=true;btn.innerHTML='⏳ Envoi en cours...'
-    const formData=new FormData(e.target);formData.append('_profil',type);formData.append('_subject','Nouveau contact Lokalist — '+type)
+  async function submitForm(e,type){
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    btn.innerHTML = '⏳ Envoi en cours...';
+    
+    const formData = new FormData(e.target);
+    formData.append('_profil', type);
+    formData.append('_subject', 'Nouveau contact Lokalist — ' + type);
+    
     // Si code parrain valide → ajouter le nom du parrain au formspree
     if (type === 'pro' && parrainNomValide) {
       formData.append('parrain_nom_verifie', parrainNomValide);
     }
-    fetch('https://formspree.io/f/xgopdbjp',{method:'POST',body:formData,headers:{'Accept':'application/json'}})
-    .then(res=>{if(res.ok){document.getElementById('form-mairie').classList.add('form-hidden');document.getElementById('form-pro').classList.add('form-hidden');document.getElementById('form-success').classList.remove('form-hidden');document.getElementById('form-success').scrollIntoView({behavior:'smooth',block:'start'})}else{btn.disabled=false;btn.innerHTML='❌ Erreur — réessayez ou écrivez à contact@lokalist.fr'}})
-    .catch(()=>{btn.disabled=false;btn.innerHTML='❌ Erreur réseau — réessayez'})
+
+    // ⭐ NOUVEAU : Si c'est une candidature Loisirs/Restos Premium, on insère AUSSI dans Supabase
+    const profil = e.target.querySelector('input[name="_profil"]')?.value || formData.get('_profil');
+    const profilSelectionne = document.querySelector('.profil-btn.active')?.id?.replace('btn-', '');
+    const formuleLoisir = formData.get('formule_loisir');
+    const isCandidatureLoisirs = (profilSelectionne === 'loisirs' || profilSelectionne === 'commercant') && formuleLoisir;
+    
+    if (isCandidatureLoisirs) {
+      try {
+        // Récupérer profils cibles cochés
+        const profilsCibles = [];
+        document.querySelectorAll('input[name="profil_cible"]:checked').forEach(cb => profilsCibles.push(cb.value));
+        
+        // Préparer payload Supabase
+        const candidaturePayload = {
+          nom_etablissement: formData.get('entreprise') || 'Non renseigné',
+          type_activite: formData.get('type_loisir') || (profilSelectionne === 'commercant' ? 'restaurant' : 'autre'),
+          ville: formData.get('ville') || '',
+          adresse: formData.get('adresse') || null,
+          nom_contact: ((formData.get('prenom') || '') + ' ' + (formData.get('nom') || '')).trim(),
+          email: formData.get('email') || '',
+          telephone: formData.get('telephone') || null,
+          profil_cible: profilsCibles,
+          ouverture_jours: null,
+          prix_moyen: parseFloat(formData.get('prix_moyen')) || null,
+          capacite: parseInt(formData.get('capacite')) || null,
+          partenaire_souhaite: formData.get('pack_idee') || null,
+          description_offre: formData.get('message') || null,
+          statut: 'nouvelle',
+          notes_admin: 'Formule: ' + formuleLoisir + ' | Profil: ' + profilSelectionne + (parrainNomValide ? ' | Parrain: ' + parrainNomValide : '')
+        };
+
+        // Envoi en parallèle (Supabase + Formspree)
+        await fetch(`${SUPABASE_URL}/rest/v1/candidatures_partenaires_loisir`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(candidaturePayload)
+        });
+        // On ne bloque pas si Supabase échoue (Formspree reste prioritaire)
+      } catch (err) {
+        console.warn('[Supabase] Insertion candidature échouée (non bloquant):', err);
+      }
+    }
+
+    // Envoi Formspree (toujours)
+    try {
+      const res = await fetch('https://formspree.io/f/xgopdbjp', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('form-mairie').classList.add('form-hidden');
+        document.getElementById('form-pro').classList.add('form-hidden');
+        document.getElementById('form-success').classList.remove('form-hidden');
+        document.getElementById('form-success').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = '❌ Erreur — réessayez ou écrivez à contact@lokalist.fr';
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.innerHTML = '❌ Erreur réseau — réessayez';
+    }
   }
   const params=new URLSearchParams(window.location.search),demoParam=params.get('demo'),typeParam=params.get('type'),formuleParam=params.get('formule')
   if(demoParam==='mairie')selectProfil('mairie');else if(typeParam)selectProfil(typeParam)
