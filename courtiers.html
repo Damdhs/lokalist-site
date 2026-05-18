@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokalist Courtiers — Crédit immo, rachat, assurance emprunteur en local</title>
+  <meta name="description" content="Courtier en crédit immobilier, rachat de crédits ou assurance emprunteur ? Lokalist vous référence en local et vous envoie des leads qualifiés directement depuis l'app. 19,90€/mois sans engagement."/>
+  <meta name="keywords" content="courtier crédit immobilier local, courtier rachat de crédits, assurance emprunteur, leads courtier, courtier indépendant, référencement courtier en ligne, tableau de bord courtier, plateforme courtier local"/>
+  <link rel="canonical" href="https://lokalist.fr/courtiers"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="shortcut icon" href="/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--b:#3B82F6;--bl:#EFF6FF;--p:#8B5CF6;--pl:#F5F3FF;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--g)}
+    .nav-cta{background:var(--b)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;transition:all .2s!important}
+    .nav-cta:hover{background:#2563EB!important;transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open{display:flex}
+    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
+    .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
+    .btn-b{background:var(--b);color:#fff;box-shadow:0 8px 24px rgba(59,130,246,.28)}
+    .btn-b:hover{background:#2563EB;transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
+    .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:500px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:1;transform:translateY(0)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* HERO */
+    .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bl);border:1px solid #BFDBFE;color:#1E40AF;font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--b)}
+    .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:480px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .hero-trust{display:flex;gap:24px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800}
+
+    /* MOCKUP visuel — 1 phone central */
+    .phone-wrap{display:flex;justify-content:center;perspective:1200px;padding:20px 0}
+    .phone{width:240px;height:480px;border:8px solid #1A2E26;border-radius:36px;background:#fff;position:relative;overflow:hidden;box-shadow:0 60px 120px rgba(0,0,0,.28),0 0 0 1px rgba(59,130,246,.15)}
+    .phone-notch{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:60px;height:18px;background:#1A2E26;border-radius:0 0 10px 10px;z-index:5}
+    .phone-content{padding:36px 14px 14px;height:100%;display:flex;flex-direction:column;gap:8px;background:linear-gradient(180deg,#F8FAFC 0%,#fff 100%)}
+    .phone-header{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--dark);padding:6px 4px;margin-bottom:4px}
+    .phone-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:11px;display:flex;align-items:center;gap:10px}
+    .phone-card-ico{width:36px;height:36px;border-radius:9px;background:var(--bl);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .phone-card-body{flex:1;min-width:0}
+    .phone-card-title{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:var(--dark);margin-bottom:1px;line-height:1.2}
+    .phone-card-meta{font-size:9px;color:var(--muted);line-height:1.3}
+    .phone-card-badge{font-size:8px;font-weight:700;color:#1E40AF;background:var(--bl);border-radius:4px;padding:2px 6px;white-space:nowrap}
+
+    /* SERVICES */
+    .services{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+    .service-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:32px;transition:all .3s;position:relative;overflow:hidden}
+    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--b);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .service-card:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(59,130,246,.09);border-color:#BFDBFE}
+    .service-card:hover::before{transform:scaleX(1)}
+    .service-ico{width:56px;height:56px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+    .service-card h3{font-family:'Syne',sans-serif;font-size:19px;font-weight:700;color:var(--dark);margin-bottom:10px}
+    .service-card p{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:16px}
+    .service-feats{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .service-feats li{font-size:12.5px;color:var(--text);display:flex;align-items:flex-start;gap:6px}
+    .service-feats li::before{content:'✓';color:var(--g);font-weight:800;flex-shrink:0}
+
+    /* VS NATIONAL — section différenciateur */
+    .versus{background:var(--dark);padding:90px 5%;position:relative;overflow:hidden}
+    .versus::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 25% 50%,rgba(59,130,246,.1) 0%,transparent 55%)}
+    .versus-in{max-width:1080px;margin:0 auto;position:relative}
+    .versus .sec-tag{color:#93C5FD}
+    .versus .sec-h{color:#fff;text-align:center;max-width:760px;margin:0 auto 18px}
+    .versus .sec-p{color:rgba(255,255,255,.55);text-align:center;max-width:600px;margin:0 auto 48px}
+    .versus-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch}
+    .vs-col{padding:32px 28px;border-radius:20px;display:flex;flex-direction:column}
+    .vs-col-bad{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .vs-col-good{background:linear-gradient(155deg,rgba(59,130,246,.18) 0%,rgba(29,158,117,.14) 100%);border:1px solid rgba(59,130,246,.3)}
+    .vs-label{font-size:10.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
+    .vs-col-bad .vs-label{color:rgba(255,255,255,.4)}
+    .vs-col-good .vs-label{color:#93C5FD}
+    .vs-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:18px;line-height:1.2}
+    .vs-list{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:auto}
+    .vs-list li{font-size:13.5px;line-height:1.55;display:flex;align-items:flex-start;gap:9px}
+    .vs-col-bad .vs-list li{color:rgba(255,255,255,.55)}
+    .vs-col-bad .vs-list li::before{content:'✕';color:#EF4444;font-weight:800;flex-shrink:0;font-size:14px}
+    .vs-col-good .vs-list li{color:rgba(255,255,255,.92)}
+    .vs-col-good .vs-list li::before{content:'✓';color:#34D399;font-weight:800;flex-shrink:0;font-size:14px}
+
+    /* LEADS */
+    .leads{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .leads-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .leads-cards{display:flex;flex-direction:column;gap:10px}
+    .lead-card{background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:14px;transition:all .2s}
+    .lead-card:hover{border-color:#BFDBFE;box-shadow:0 8px 24px rgba(59,130,246,.06)}
+    .lead-ico{font-size:24px;flex-shrink:0}
+    .lead-body{flex:1;min-width:0}
+    .lead-body h4{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:var(--dark);margin-bottom:3px}
+    .lead-body p{font-size:12px;color:var(--muted);line-height:1.5}
+    .lead-badge{font-size:10px;font-weight:700;margin-left:auto;white-space:nowrap;padding:4px 10px;border-radius:100px}
+    .lead-badge.new{background:var(--bl);color:#1E40AF}
+    .lead-badge.hot{background:var(--al);color:#92400E}
+
+    /* PRICING — 1 grosse card */
+    .pricing{background:var(--bg);padding:90px 5%}
+    .pricing-in{max-width:780px;margin:0 auto;text-align:center}
+    .pricing-card{background:var(--surf);border:2px solid var(--b);border-radius:24px;padding:48px 40px;box-shadow:0 30px 80px rgba(59,130,246,.12);margin:48px auto 0;text-align:left;position:relative;overflow:hidden}
+    .pricing-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--b) 0%,var(--g) 100%)}
+    .pricing-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+    .pricing-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--b);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+    .pricing-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--dark);line-height:1.2}
+    .pricing-amount{text-align:right}
+    .pricing-mois{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--dark);line-height:1}
+    .pricing-mois span{font-size:14px;color:var(--muted);font-weight:400}
+    .pricing-an{font-size:12px;color:var(--g);font-weight:700;margin-top:6px}
+    .pricing-feats{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin-bottom:28px}
+    .pricing-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:flex-start;gap:8px;line-height:1.45}
+    .pricing-feats li::before{content:'✓';color:var(--g);font-weight:800;flex-shrink:0;margin-top:1px}
+    .pricing-cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .enterprise-note{margin-top:36px;padding:24px;background:var(--pl);border:1px solid #DDD6FE;border-radius:16px;text-align:center}
+    .enterprise-note-tag{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+    .enterprise-note p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg,var(--dark),#0D1F3C);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'💶';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2 em{font-style:normal;color:var(--a)}
+    .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
+    .btn-w{background:#fff;color:var(--b);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
+    .cta-reassure{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
+
+    /* FOOTER */
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+    .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+    .foot-legal{display:flex;gap:16px;flex-wrap:wrap}
+    .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none}
+    .foot-legal a:hover{color:var(--g)}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .services-grid{grid-template-columns:repeat(2,1fr)}
+      .versus-cols{grid-template-columns:1fr}
+      .leads-grid{grid-template-columns:1fr;gap:40px}
+    }
+    @media(max-width:960px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .hero{grid-template-columns:1fr;gap:40px;padding:110px 5% 60px}
+      .pricing-feats{grid-template-columns:1fr}
+      .pricing-top{flex-direction:column;align-items:flex-start}
+      .pricing-amount{text-align:left}
+    }
+    @media(max-width:640px){
+      .services-grid{grid-template-columns:1fr}
+      .hero h1{font-size:clamp(28px,8vw,38px)!important}
+      .hero-btns{flex-direction:column;align-items:stretch}
+      .hero-btns a{justify-content:center}
+      .pricing-card{padding:32px 24px}
+      .pricing-mois{font-size:36px}
+      .phone{width:200px;height:400px}
+      .foot-in{flex-wrap:wrap;justify-content:center;text-align:center}
+      .foot-links,.foot-legal{flex-wrap:wrap;gap:10px;justify-content:center}
+    }
+  </style>
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+    <div style="width:52px;height:52px;flex-shrink:0;display:flex;align-items:center">
+      <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="52" height="52" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/></svg>
+    </div>
+    <span style="font-family:'Syne',sans-serif;font-size:25px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/mairies">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/loisirs">Loisirs</a></li>
+    <li><a href="/agences">Agences immo</a></li>
+    <li><a href="/courtiers" class="active">Courtiers</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="/contact?type=courtier" class="nav-cta">Devenir courtier</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/loisirs">🎳 Loisirs & Activités</a>
+  <a href="/agences">🏠 Agences immo</a>
+  <a href="/courtiers">💶 Courtiers</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <a href="/contact?type=courtier" style="color:var(--b);font-weight:700;border:none">Devenir courtier →</a>
+</div>
+
+<!-- HERO -->
+<section style="background:var(--bg);overflow:hidden">
+  <div class="hero">
+    <div style="animation:fadeUp .6s ease both">
+      <div class="hero-badge">💶 Crédit · Rachat · Assurance — Courtier local</div>
+      <h1>Vos prochains clients<br/><em>sont à 30 km</em></h1>
+      <p class="hero-sub">Courtier en crédit immobilier, rachat de crédits ou assurance emprunteur ? Lokalist vous référence dans votre zone et vous envoie des leads qualifiés. Vous choisissez votre rayon d'action (30 à 150 km). Sans engagement.</p>
+      <div class="hero-btns">
+        <a href="/contact?type=courtier" class="btn btn-b">💶 Devenir courtier partenaire</a>
+        <a href="https://dashboard.lokalist.fr" target="_blank" class="btn btn-o">🔑 Espace courtier →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">19,90€/mois</div>
+        <div class="trust-item">3 mois offerts annuel</div>
+        <div class="trust-item">Sans engagement</div>
+        <div class="trust-item">Leads exclusifs locaux</div>
+      </div>
+    </div>
+
+    <div style="animation:fadeUp .7s .1s ease both">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-content">
+            <div class="phone-header">💶 Courtiers près de chez vous</div>
+            <div class="phone-card">
+              <div class="phone-card-ico">💶</div>
+              <div class="phone-card-body">
+                <div class="phone-card-title">Dupont Courtage</div>
+                <div class="phone-card-meta">Fécamp · 4,8 ⭐ · Crédit immo</div>
+              </div>
+              <div class="phone-card-badge">Partenaire</div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-ico">🏦</div>
+              <div class="phone-card-body">
+                <div class="phone-card-title">Finance Habitat 76</div>
+                <div class="phone-card-meta">Étretat · 4,7 ⭐ · Primo-accédants</div>
+              </div>
+              <div class="phone-card-badge">Partenaire</div>
+            </div>
+            <div class="phone-card">
+              <div class="phone-card-ico">💼</div>
+              <div class="phone-card-body">
+                <div class="phone-card-title">Crédit Conseil Normandie</div>
+                <div class="phone-card-meta">Yvetot · 4,9 ⭐ · Rachat de crédits</div>
+              </div>
+              <div class="phone-card-badge">Partenaire</div>
+            </div>
+            <div class="phone-card" style="background:var(--bl);border-color:#BFDBFE">
+              <div class="phone-card-ico" style="background:#fff">🛡️</div>
+              <div class="phone-card-body">
+                <div class="phone-card-title">Sécur'Pret Caux</div>
+                <div class="phone-card-meta">Cany-Barville · Assurance emprunteur</div>
+              </div>
+              <div class="phone-card-badge" style="background:var(--a);color:#fff">⚡ Boost</div>
+            </div>
+            <div style="text-align:center;font-size:9px;color:var(--muted);margin-top:6px;font-style:italic">Exemple — données fictives</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <p class="sec-tag reveal">Vos 3 expertises, une seule plateforme</p>
+  <h2 class="sec-h reveal">Crédit, rachat, assurance —<br/>vos leads en local</h2>
+  <p class="sec-p reveal">Quelle que soit votre spécialité (ou les 3 réunies), Lokalist vous envoie des leads qualifiés depuis l'app, directement de votre zone.</p>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-ico" style="background:var(--bl)">💶</div>
+      <h3>Crédit immobilier</h3>
+      <p>Les acquéreurs Lokalist déposent leur projet d'achat (budget, profil, type de bien) dans l'app et demandent à être mis en relation avec un courtier local.</p>
+      <ul class="service-feats">
+        <li>Primo-accédants &amp; secundo</li>
+        <li>Budget et profil pré-qualifiés</li>
+        <li>Coordonnées directes</li>
+        <li>Rappel sous 48h attendu</li>
+      </ul>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-ico" style="background:var(--al)">🔄</div>
+      <h3>Rachat de crédits</h3>
+      <p>Les habitants qui veulent regrouper ou renégocier leurs crédits déposent leur situation dans l'app. Vous récupérez le dossier qualifié.</p>
+      <ul class="service-feats">
+        <li>Capacités d'emprunt indiquées</li>
+        <li>Crédits en cours déclarés</li>
+        <li>Motivation rachat précisée</li>
+        <li>Dossier prêt à étudier</li>
+      </ul>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-ico" style="background:var(--gl)">🛡️</div>
+      <h3>Assurance emprunteur</h3>
+      <p>Les emprunteurs qui veulent changer d'assurance (loi Lemoine) cherchent un expert local. Vous les accompagnez dans la délégation et l'économie.</p>
+      <ul class="service-feats">
+        <li>Capital restant dû indiqué</li>
+        <li>Profil santé qualifié</li>
+        <li>Économie estimée demandée</li>
+        <li>Marché en plein essor</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VS NATIONAL -->
+<section class="versus">
+  <div class="versus-in">
+    <p class="sec-tag reveal">Pourquoi Lokalist plutôt qu'une plateforme nationale ?</p>
+    <h2 class="sec-h reveal">Vous êtes <span style="color:#34D399">LOCAL</span>.<br/>Pas une fiche perdue dans 10 000 résultats.</h2>
+    <p class="sec-p reveal">Sur Pretto, Hellopret, Empruntis ou Meilleurtaux, vous êtes mis en concurrence avec des centaines de courtiers nationaux. Sur Lokalist, vous êtes LE courtier de votre commune.</p>
+
+    <div class="versus-cols reveal">
+      <div class="vs-col vs-col-bad">
+        <div class="vs-label">Plateformes nationales</div>
+        <div class="vs-title">Anonymat &amp; concurrence brutale</div>
+        <ul class="vs-list">
+          <li>Mis en concurrence avec 500+ courtiers nationaux</li>
+          <li>Leads bradés au moins-disant, marges étouffées</li>
+          <li>Commission plateforme prélevée à chaque dossier</li>
+          <li>Aucune relation humaine avec le client</li>
+          <li>Profil noyé dans une liste interminable</li>
+          <li>Cible : volume national, pas votre territoire</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-col-good">
+        <div class="vs-label">Avec Lokalist</div>
+        <div class="vs-title">Vous êtes LE courtier de votre zone</div>
+        <ul class="vs-list">
+          <li>Maximum 3-5 courtiers concurrents sur votre rayon</li>
+          <li>Leads qualifiés, votre zone, votre tarif</li>
+          <li><strong>0% de commission</strong> sur vos dossiers</li>
+          <li>Vrai contact humain local valorisé par l'habitant</li>
+          <li>Fiche partenaire avec photo, avis, expertise</li>
+          <li>Vous choisissez votre rayon : 30 à 150 km</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEADS -->
+<section class="leads">
+  <div class="leads-grid">
+    <div>
+      <p class="sec-tag reveal">Leads en temps réel</p>
+      <h2 class="sec-h reveal">Des dossiers qualifiés,<br/>dans votre rayon</h2>
+      <p class="sec-p reveal">Chaque jour, des habitants de votre zone déposent leur projet financement dans l'app. Vous recevez une notification, les coordonnées, et le contexte du dossier.</p>
+      <a href="/contact?type=courtier" class="btn btn-b" style="margin-top:8px">Accéder aux leads locaux →</a>
+    </div>
+    <div class="leads-cards reveal">
+      <div class="lead-card">
+        <div class="lead-ico">💶</div>
+        <div class="lead-body">
+          <h4>Sophie R. — Crédit immo</h4>
+          <p>Acquisition 220K€ · Primo-accédant · Cany-Barville</p>
+        </div>
+        <div class="lead-badge hot">🔥 Chaud</div>
+      </div>
+      <div class="lead-card">
+        <div class="lead-ico">🔄</div>
+        <div class="lead-body">
+          <h4>Marc T. — Rachat de crédits</h4>
+          <p>3 crédits à regrouper · 95K€ restant · Fécamp</p>
+        </div>
+        <div class="lead-badge new">Nouveau</div>
+      </div>
+      <div class="lead-card">
+        <div class="lead-ico">🛡️</div>
+        <div class="lead-body">
+          <h4>Hélène B. — Assurance emprunteur</h4>
+          <p>Délégation Lemoine · 180K€ restant · Yvetot</p>
+        </div>
+        <div class="lead-badge new">Nouveau</div>
+      </div>
+      <div class="lead-card">
+        <div class="lead-ico">💼</div>
+        <div class="lead-body">
+          <h4>Famille D. — Crédit immo + rachat</h4>
+          <p>Achat 310K€ + regroupement · Étretat</p>
+        </div>
+        <div class="lead-badge hot">🔥 Chaud</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="pricing-in">
+    <p class="sec-tag reveal">Abonnement courtier</p>
+    <h2 class="sec-h reveal">Un tarif. Tout inclus.<br/>Pas de commission.</h2>
+    <p class="sec-p reveal" style="margin:0 auto">Pas d'engagement, pas de surprise. Vous gardez 100 % de vos honoraires sur chaque dossier signé.</p>
+
+    <div class="pricing-card reveal">
+      <div class="pricing-top">
+        <div>
+          <div class="pricing-name">💶 Courtier Lokalist</div>
+          <div class="pricing-title">Tout inclus, sans engagement</div>
+        </div>
+        <div class="pricing-amount">
+          <div class="pricing-mois">19<span>,90€/mois</span></div>
+          <div class="pricing-an">OU 179,10€/an — 3 mois offerts</div>
+        </div>
+      </div>
+
+      <ul class="pricing-feats">
+        <li>Fiche courtier complète (logo, photo, expertise, avis)</li>
+        <li>Rayon d'action 30 à 150 km au choix</li>
+        <li>Leads crédit immobilier qualifiés</li>
+        <li>Leads rachat de crédits qualifiés</li>
+        <li>Leads assurance emprunteur qualifiés</li>
+        <li>Visible dans la rubrique Immo de l'app</li>
+        <li>Notifications push à chaque nouveau lead</li>
+        <li>Tableau de bord dédié (espace courtier)</li>
+        <li>Statistiques détaillées des leads</li>
+        <li>0 % de commission sur vos dossiers</li>
+        <li>Sans engagement de durée</li>
+        <li>Support client réactif (sous 24h)</li>
+      </ul>
+
+      <div class="pricing-cta-row">
+        <a href="/contact?type=courtier" class="btn btn-b" style="flex:1;min-width:200px;justify-content:center">💶 Devenir courtier — 19,90€/mois</a>
+        <a href="/contact?type=courtier-annuel" class="btn btn-g" style="flex:1;min-width:200px;justify-content:center">🎁 Annuel — 179,10€</a>
+      </div>
+    </div>
+
+    <div class="enterprise-note reveal">
+      <div class="enterprise-note-tag">🏢 Vous êtes un réseau de courtiers ?</div>
+      <p>Si vous représentez un réseau national (Cafpi, Empruntis, In&amp;Fi, Meilleurtaux, La Centrale de Financement…), nous proposons un accompagnement <strong style="color:var(--p)">Enterprise sur-mesure</strong> avec multi-comptes centralisés, onboarding dédié et tarif négocié. <a href="/contact?type=courtier-enterprise" style="color:var(--p);font-weight:700">Demander un devis →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta">
+  <div class="cta-in">
+    <h2>Rejoignez les<br/><em>courtiers locaux</em></h2>
+    <p>Référencez-vous sur Lokalist et recevez vos premiers leads qualifiés dès cette semaine.</p>
+    <a href="/contact?type=courtier" class="btn-w">💶 Devenir courtier partenaire</a>
+    <p class="cta-reassure">Réponse sous 24h · contact@lokalist.fr · Sans engagement</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px">
+      <div style="width:28px;height:28px;flex-shrink:0">
+        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="28" height="28" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/></svg>
+      </div>
+      <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span>
+    </div>
+    <div class="foot-links">
+      <a href="/">Accueil</a>
+      <a href="/mairies">Mairies</a>
+      <a href="/commercants">Commerçants</a>
+      <a href="/artisans">Artisans</a>
+      <a href="/loisirs">Loisirs</a>
+      <a href="/agences">Agences immo</a>
+      <a href="/courtiers">Courtiers</a>
+      <a href="/tarifs">Tarifs</a>
+      <a href="/contact?type=courtier">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">CGV</a>
+      <a href="/cgu">CGU</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cookies">Cookies</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20));
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800);
+  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')});
+</script>
+</body>
+</html>
