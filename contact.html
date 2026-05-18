@@ -253,6 +253,13 @@
         <div class="form-option-sub">Standard + Packs combinés + section "Idée sortie". <strong>1 mois offert · 0% commission</strong>.</div>
       </div>
     </label>
+    <label class="form-option" id="opt-undecided" style="cursor:pointer;border-color:#D8E8E2;background:#F7F8F4">
+      <input type="radio" name="formule_loisir" value="undecided"/>
+      <div>
+        <div class="form-option-lbl" style="color:#5C7268">🤔 Je ne sais pas encore</div>
+        <div class="form-option-sub">Pas de soucis ! On en discute lors de l'appel. <strong>Notre équipe vous conseille</strong> selon votre activité.</div>
+      </div>
+    </label>
   </div>
 </div>
 
@@ -363,14 +370,22 @@
       if (isLoisirs) {
         document.querySelectorAll('input[name="formule_loisir"]').forEach(radio => {
           radio.addEventListener('change', (ev) => {
-            const isPrem = ev.target.value === 'premium';
+            const val = ev.target.value;
+            const isPrem = val === 'premium';
+            const isUndecided = val === 'undecided';
+            
+            // Profils cibles + idée pack : visibles SEULEMENT si Premium (pas pour Standard ni Undecided)
             document.getElementById('field-profils-cibles').style.display = isPrem ? 'block' : 'none';
             document.getElementById('field-pack-idee').style.display = isPrem ? 'block' : 'none';
+            
             // Update visual feedback du label submit
             const subBtn = document.getElementById('form-pro-submit');
             if (isPrem) {
               subBtn.innerHTML = '⭐ Devenir partenaire Premium';
               subBtn.style.background = '#EC4899';
+            } else if (isUndecided) {
+              subBtn.innerHTML = '🤔 Envoyer ma demande — on en discute';
+              subBtn.style.background = '#5C7268';
             } else {
               subBtn.innerHTML = '🎳 Référencer mon activité';
               subBtn.style.background = '';
