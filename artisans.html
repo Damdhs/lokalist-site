@@ -496,7 +496,8 @@
     <div class="foot-copy">© 2026 Lokalist</div>
   </div>
 </footer>
-  // Dropdown Espaces Pros
+<script>
+   // Dropdown Espaces Pros
 function toggleEspaces(e){
   e.stopPropagation();
   document.getElementById('navEspaces').classList.toggle('open');
@@ -507,7 +508,6 @@ document.addEventListener('click',(e)=>{
     if(el)el.classList.remove('open');
   }
 });
-<script>
   window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
   const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'})
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
