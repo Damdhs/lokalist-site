@@ -816,6 +816,7 @@
   window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
   const obs=new IntersectionObserver((e)=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('visible'),i*70);obs.unobserve(el.target)}})},{threshold:0.08})
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800)
   function toggleFaq(el){el.closest('.faq-item').classList.toggle('open')}
   function toggleMob(){document.getElementById('mob').classList.toggle('open')}
   document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')})
