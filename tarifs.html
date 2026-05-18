@@ -154,7 +154,7 @@
     .foot-links a:hover{color:var(--g)}
     .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
 
-    @media(max-width:960px){
+    @media(max-width:1100px){
       .nav-links{display:none}.hamburger{display:flex}
       .tarif-cards.cols2,.tarif-cards.cols3{grid-template-columns:1fr}
       .mairie-feats-grid{grid-template-columns:1fr}
@@ -182,41 +182,64 @@
       .foot-links{flex-wrap:wrap;gap:10px;justify-content:center}
       .foot-in{flex-wrap:wrap}
     }
+    /* === DROPDOWN ESPACES PROS === */
+.nav-espaces{position:relative}
+.nav-espaces-btn{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:1px solid rgba(29,158,117,.25);transition:all .2s}
+.nav-espaces-btn:hover{background:var(--gl)!important}
+.nav-espaces-btn .chev{font-size:10px;transition:transform .2s}
+.nav-espaces.open .nav-espaces-btn .chev{transform:rotate(180deg)}
+.nav-espaces-drop{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 12px 40px rgba(0,0,0,.08);opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .2s;z-index:201}
+.nav-espaces.open .nav-espaces-drop{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-espaces-drop a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--text)!important;text-decoration:none;transition:background .15s}
+.nav-espaces-drop a:hover{background:var(--gl);color:var(--g)!important}
+.nav-espaces-drop a .ico{font-size:18px}
+/* === FIN DROPDOWN === */
   </style>
 </head>
 <body>
 <nav id="nav">
-  <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none">
-    <div style="width:44px;height:44px;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="44" height="44" viewBox="0 0 1024 1024"><path d="M 409.546 519.454 C 410.387 521.179 406.554 519.714 406.32 520.634 C 406.229 520.991 406.585 521.646 406.651 522.025 C 406.957 523.79 407.483 525.455 407.993 527.168 C 409.669 532.795 411.883 538.432 413.998 543.915 C 417.926 554.097 422.026 564.261 427.002 573.991 C 430.731 581.285 435.237 588.166 439.446 595.163 C 447.057 607.819 455.152 620.308 465.024 631.324 C 472.102 639.223 479.394 646.69 487.812 653.185 C 490.398 655.181 492.926 657.489 495.835 659.016 C 495.9 659.517 495.967 659.999 495.988 660.504 C 495.492 672.623 495.868 684.871 495.99 696.996 C 496.177 715.729 496.03 734.483 496.023 753.211 C 496.02 760.858 496.202 768.514 495.875 776.156 C 495.791 778.111 495.777 780.068 495.729 782.024 C 495.712 782.725 495.464 783.775 495.978 784.317 C 491.35 784.178 488.098 780.285 485.456 776.94 C 479.762 769.731 474.258 762.36 468.644 755.086 C 445.258 724.789 421.085 695.068 397.932 664.597 C 389.232 653.148 380.34 641.864 371.805 630.289 C 354.153 606.35 336.933 581.993 322.16 556.142 C 314.027 541.913 306.205 527.598 299.879 512.464 C 289.244 487.021 283.79 459.057 284.555 431.491 C 284.812 422.211 285.444 412.95 287.153 403.806 C 289.703 390.159 293.172 376.563 298.483 363.708 C 305.544 346.618 314.354 330.215 325.633 315.504 C 346.127 288.777 373.63 266.53 404.531 252.918 C 458.306 229.23 522.651 228.903 575.342 255.971 C 593.552 265.326 610.717 277.244 625.341 291.619 C 628.872 295.09 632.325 298.684 635.514 302.473 C 636.555 303.71 638.569 305.36 639.033 306.911 C 636.591 306.523 634.153 305.549 631.704 305.035 C 625.201 303.67 618.558 302.702 611.945 302.049 C 593.946 300.272 576.025 301.53 558.406 305.54 C 548.682 307.752 538.729 310.638 529.779 315.077 C 528.892 315.356 528.04 314.827 527.243 314.47 C 525.511 313.693 523.694 313.048 521.877 312.496 C 515.08 310.431 508.037 308.754 500.957 308.028 C 479.014 305.78 457.688 308.941 437.436 317.748 C 427.458 322.087 418.126 328.03 409.778 334.976 C 397.694 345.031 387.371 357.488 380.032 371.416 C 360.654 408.192 361.564 454.104 383.423 489.617 C 388.345 497.612 394.184 505.046 400.85 511.664 C 403.567 514.361 406.402 517.254 409.546 519.454 Z" fill="rgb(22,62,125)" fill-rule="evenodd"/><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)" fill-rule="evenodd"/><path d="M 485.426 470.605 C 486.376 465.485 486.342 460.222 487.497 455.104 C 491.535 437.223 499.03 420.396 510.898 406.303 C 526.78 387.445 548.736 373.87 572.967 368.837 C 619.903 359.089 670.754 381.471 693.377 424.144 C 706.138 448.214 709.432 476.132 703.392 502.61 C 700.924 513.428 697.011 524.108 691.024 533.507 C 686.968 539.874 682.688 546.135 677.37 551.534 C 675.75 553.179 673.957 555.537 671.942 556.672 C 670.175 555.281 668.953 553.002 667.576 551.242 C 664.052 546.736 660.837 541.962 657.461 537.343 C 651.578 529.292 645.629 521.215 639.488 513.358 C 637.635 510.987 634.484 509.009 633.064 506.389 C 632.227 504.845 632.089 502.455 631.651 500.743 C 630.84 497.577 630.153 494.384 629.383 491.209 C 628.963 489.474 628.295 487.63 628.324 485.834 C 630.07 483.205 632.765 481.21 635.063 479.089 C 639.14 475.327 643.182 471.496 647.143 467.611 C 650.031 464.779 653.469 461.585 652.716 457.148 C 651.777 451.619 646.637 451.09 642.039 450.57 C 635.846 449.869 629.642 449.259 623.448 448.522 C 620.676 448.192 617.613 448.138 614.934 447.335 C 613.145 444.994 612.239 441.389 611.129 438.663 C 608.387 431.932 606.011 424.801 602.563 418.397 C 599.989 413.617 594.386 411.54 590.225 415.951 C 588.179 418.12 587.151 421.018 585.99 423.702 C 583.727 428.931 581.472 434.164 579.176 439.379 C 578.264 441.45 577.332 443.513 576.404 445.577 C 576.117 446.216 575.783 447.298 575.103 447.583 C 567.705 448.411 560.306 449.086 552.912 449.994 C 549.589 450.402 545.836 450.264 542.63 451.257 C 538.279 452.604 536.047 457.663 538.011 461.794 C 539.381 464.678 542.184 466.753 544.474 468.874 C 548.511 472.614 552.45 476.458 556.532 480.149 C 558.428 481.865 561.578 483.799 562.683 486.149 C 562.816 487.249 562.208 488.489 561.928 489.542 C 561.322 491.825 560.833 494.152 560.323 496.457 C 559.577 499.836 559.053 504.088 557.544 507.204 C 556.924 508.482 555.333 509.131 554.292 510.027 C 552.46 511.606 550.953 513.588 549.441 515.466 C 543.249 523.153 537.693 531.339 531.551 539.064 C 528.605 542.769 525.968 546.722 523.09 550.481 C 521.886 552.053 520.659 554.585 519.044 555.713 C 515.821 553.369 513.265 550.274 510.76 547.219 C 507.824 543.639 504.913 540.127 502.434 536.201 C 490.232 516.882 483.604 493.557 485.426 470.605 Z" fill="rgb(251,179,35)" fill-rule="evenodd"/></svg></div>
-    <span style="font-family:'Syne',sans-serif;font-size:25px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+    <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
+      <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="48" height="48" viewBox="0 0 1024 1024">
+        <path d="M 409.546 519.454 C 410.387 521.179 406.554 519.714 406.32 520.634 C 406.229 520.991 406.585 521.646 406.651 522.025 C 406.957 523.79 407.483 525.455 407.993 527.168 C 409.669 532.795 411.883 538.432 413.998 543.915 C 417.926 554.097 422.026 564.261 427.002 573.991 C 430.731 581.285 435.237 588.166 439.446 595.163 C 447.057 607.819 455.152 620.308 465.024 631.324 C 472.102 639.223 479.394 646.69 487.812 653.185 C 490.398 655.181 492.926 657.489 495.835 659.016 C 495.9 659.517 495.967 659.999 495.988 660.504 C 495.492 672.623 495.868 684.871 495.99 696.996 C 496.177 715.729 496.03 734.483 496.023 753.211 C 496.02 760.858 496.202 768.514 495.875 776.156 C 495.791 778.111 495.777 780.068 495.729 782.024 C 495.712 782.725 495.464 783.775 495.978 784.317 C 491.35 784.178 488.098 780.285 485.456 776.94 C 479.762 769.731 474.258 762.36 468.644 755.086 C 445.258 724.789 421.085 695.068 397.932 664.597 C 389.232 653.148 380.34 641.864 371.805 630.289 C 354.153 606.35 336.933 581.993 322.16 556.142 C 314.027 541.913 306.205 527.598 299.879 512.464 C 289.244 487.021 283.79 459.057 284.555 431.491 C 284.812 422.211 285.444 412.95 287.153 403.806 C 289.703 390.159 293.172 376.563 298.483 363.708 C 305.544 346.618 314.354 330.215 325.633 315.504 C 346.127 288.777 373.63 266.53 404.531 252.918 C 458.306 229.23 522.651 228.903 575.342 255.971 C 593.552 265.326 610.717 277.244 625.341 291.619 C 628.872 295.09 632.325 298.684 635.514 302.473 C 636.555 303.71 638.569 305.36 639.033 306.911 C 636.591 306.523 634.153 305.549 631.704 305.035 C 625.201 303.67 618.558 302.702 611.945 302.049 C 593.946 300.272 576.025 301.53 558.406 305.54 C 548.682 307.752 538.729 310.638 529.779 315.077 C 528.892 315.356 528.04 314.827 527.243 314.47 C 525.511 313.693 523.694 313.048 521.877 312.496 C 515.08 310.431 508.037 308.754 500.957 308.028 C 479.014 305.78 457.688 308.941 437.436 317.748 C 427.458 322.087 418.126 328.03 409.778 334.976 C 397.694 345.031 387.371 357.488 380.032 371.416 C 360.654 408.192 361.564 454.104 383.423 489.617 C 388.345 497.612 394.184 505.046 400.85 511.664 C 403.567 514.361 406.402 517.254 409.546 519.454 Z" fill="rgb(22,62,125)"/>
+        <path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/>
+      </svg>
+    </div>
+    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
   </a>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
     <li><a href="/commercants">Commerçants</a></li>
     <li><a href="/artisans">Artisans</a></li>
-    <li><a href="/loisirs">Loisirs & Activités</a></li>
+    <li><a href="/loisirs">Loisirs</a></li>
     <li><a href="/idees-sorties">Idées Sorties</a></li>
-    <li><a href="/agences">Agences Immo</a></li>
+    <li><a href="/agences">Agences</a></li>
     <li><a href="/courtiers">Courtiers</a></li>
-    <li><a href="/tarifs" class="active">Tarifs</a></li>
-    <li><a href="https://dashboard.lokalist.fr" target="_blank" class="nav-dash">🏛️ Dashboard</a></li>
-    <li><a href="https://agence.lokalist.fr" target="_blank" class="nav-dash">🏠 Espace Agence</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li class="nav-espaces" id="navEspaces">
+      <button class="nav-espaces-btn" onclick="toggleEspaces(event)">🚪 Espaces Pros <span class="chev">▾</span></button>
+      <div class="nav-espaces-drop">
+        <a href="https://dashboard.lokalist.fr" target="_blank"><span class="ico">🏛️</span> Dashboard Mairie</a>
+        <a href="https://agence.lokalist.fr" target="_blank"><span class="ico">🏠</span> Espace Agence</a>
+      </div>
+    </li>
     <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
   </ul>
-  <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
-<div class="mob" id="mob">
+<div class="mobile-menu" id="mobileMenu">
   <a href="/mairies">🏛️ Mairies</a>
   <a href="/commercants">🏪 Commerçants</a>
   <a href="/artisans">🔧 Artisans</a>
-  <a href="/loisirs">🎳 Loisirs & Activités</a>
+  <a href="/loisirs">🎳 Loisirs</a>
   <a href="/idees-sorties">🎉 Idées Sorties</a>
-  <a href="/agences">🏠 Agences Immo</a>
+  <a href="/agences">🏠 Agences</a>
   <a href="/courtiers">💶 Courtiers</a>
   <a href="/tarifs">💶 Tarifs</a>
-  <a href="https://dashboard.lokalist.fr" target="_blank">⚙️ Dashboard</a>
+  <div style="height:1px;background:var(--bdr);margin:8px 0"></div>
+  <a href="https://dashboard.lokalist.fr" target="_blank">🏛️ Dashboard Mairie</a>
   <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
-  <a href="/contact" style="color:var(--g);font-weight:700;border:none">Nous rejoindre →</a>
+  <a href="/contact" style="color:var(--g);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
 </div>
 
 <!-- HERO -->
@@ -813,6 +836,17 @@
 </footer>
 
 <script>
+  // Dropdown Espaces Pros
+function toggleEspaces(e){
+  e.stopPropagation();
+  document.getElementById('navEspaces').classList.toggle('open');
+}
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('#navEspaces')){
+    const el=document.getElementById('navEspaces');
+    if(el)el.classList.remove('open');
+  }
+});
   window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
   const obs=new IntersectionObserver((e)=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('visible'),i*70);obs.unobserve(el.target)}})},{threshold:0.08})
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
