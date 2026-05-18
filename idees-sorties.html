@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokalist Idées Sorties — Packs combinés Premium pour restaurants & loisirs</title>
+  <meta name="description" content="Restaurants, loisirs : créez des packs combinés (resto + bowling, spa + dîner, ciné + restaurant) et touchez une nouvelle clientèle. Lokalist trouve vos partenaires locaux pour vous. Formule Premium 24,90€/mois."/>
+  <meta name="keywords" content="pack combiné restaurant, soirée combinée bowling restaurant, pack spa restaurant, pack cinéma restaurant, idées sorties locales, premium restaurant loisirs, partenariat pros locaux, matchmaking restaurant loisirs"/>
+  <link rel="canonical" href="https://lokalist.fr/idees-sorties"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="shortcut icon" href="/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--b:#3B82F6;--bl:#EFF6FF;--p:#8B5CF6;--pl:#F5F3FF;--pink:#EC4899;--pinkl:#FCE7F3;--pinkd:#BE185D;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--pink)}
+    .nav-cta{background:var(--pink)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--pinkd)!important;transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open{display:flex}
+    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn-pink{background:var(--pink);color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.28)}
+    .btn-pink:hover{background:var(--pinkd);transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
+    .btn-o:hover{border-color:var(--pink);color:var(--pink);background:var(--pinkl)}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:560px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:1;transform:translateY(0)}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* HERO */
+    .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;text-align:center;background:linear-gradient(180deg,var(--pinkl) 0%,var(--bg) 100%)}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #FBCFE8;color:var(--pinkd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px;box-shadow:0 2px 12px rgba(236,72,153,.08)}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.5vw,62px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px;max-width:900px;margin-left:auto;margin-right:auto}
+    .hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--pink) 0%,var(--a) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:17px;color:var(--muted);line-height:1.75;font-weight:300;margin:0 auto 32px;max-width:680px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:32px}
+    .hero-trust{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800}
+
+    /* COTE UTILISATEUR — Vitrine packs */
+    .vitrine{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .vitrine-head{text-align:center;margin-bottom:48px}
+    .vitrine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .pack-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:0;overflow:hidden;transition:all .3s;position:relative}
+    .pack-card:hover{transform:translateY(-6px);box-shadow:0 24px 60px rgba(236,72,153,.12);border-color:#FBCFE8}
+    .pack-banner{height:120px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative}
+    .pack-banner-amis{background:linear-gradient(135deg,#FCD34D 0%,#F97316 100%)}
+    .pack-banner-couple{background:linear-gradient(135deg,#FBCFE8 0%,#EC4899 100%)}
+    .pack-banner-detente{background:linear-gradient(135deg,#A7F3D0 0%,#10B981 100%)}
+    .pack-content{padding:24px 24px 28px}
+    .pack-tag{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:6px}
+    .pack-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:8px;line-height:1.25}
+    .pack-combo{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:16px}
+    .pack-combo strong{color:var(--text);font-weight:600}
+    .pack-price{display:inline-flex;align-items:center;gap:6px;background:var(--pinkl);color:var(--pinkd);font-size:12px;font-weight:700;padding:6px 12px;border-radius:100px;border:1px solid #FBCFE8}
+    .pack-price::before{content:'💶'}
+
+    /* COMMENT CA MARCHE — 3 étapes */
+    .howto{background:linear-gradient(180deg,var(--pinkl) 0%,#fff 100%);padding:90px 5%}
+    .howto-in{max-width:1080px;margin:0 auto;text-align:center}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+    .step{background:var(--surf);border:1px solid #FBCFE8;border-radius:20px;padding:32px 28px;text-align:left;position:relative}
+    .step-num{position:absolute;top:-18px;left:24px;width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--pink) 0%,var(--pinkd) 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:16px;font-weight:800;box-shadow:0 6px 16px rgba(236,72,153,.3)}
+    .step-ico{width:56px;height:56px;border-radius:15px;background:var(--pinkl);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px;margin-top:6px}
+    .step h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:10px}
+    .step p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+    /* LOKALIST FAIT POUR VOUS — section différenciante */
+    .matchmaking{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .match-card{background:linear-gradient(135deg,var(--dark) 0%,#1A2E4F 100%);border-radius:32px;padding:60px 56px;color:#fff;position:relative;overflow:hidden}
+    .match-card::before{content:'🎯';position:absolute;top:-20px;right:-20px;font-size:240px;opacity:.04}
+    .match-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:center;position:relative}
+    .match-left p.sec-tag{color:#FBCFE8}
+    .match-left h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,42px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:18px}
+    .match-left h2 em{font-style:normal;color:var(--pink)}
+    .match-left .lead{font-size:15.5px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:24px}
+    .match-bullets{list-style:none;display:flex;flex-direction:column;gap:14px}
+    .match-bullets li{display:flex;gap:14px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.85);line-height:1.55}
+    .match-bullets li::before{content:'✓';width:24px;height:24px;border-radius:50%;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0}
+    .match-bullets strong{color:#fff}
+    .match-mockup{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:10px;backdrop-filter:blur(10px)}
+    .match-mockup-head{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--pink);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px}
+    .match-prop{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px}
+    .match-prop-ico{width:42px;height:42px;border-radius:11px;background:rgba(236,72,153,.18);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+    .match-prop-body{flex:1}
+    .match-prop-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;line-height:1.2}
+    .match-prop-meta{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
+    .match-prop-cta{font-size:10px;font-weight:700;color:#fff;background:var(--pink);padding:5px 10px;border-radius:6px;white-space:nowrap}
+
+    /* WORKFLOW PRO */
+    .workflow{background:var(--bg);padding:90px 5%}
+    .workflow-in{max-width:1080px;margin:0 auto}
+    .workflow-head{text-align:center;margin-bottom:48px}
+    .workflow-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+    .workflow-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s}
+    .workflow-card:hover{border-color:#FBCFE8;box-shadow:0 12px 32px rgba(236,72,153,.08)}
+    .workflow-card-tag{display:inline-block;font-size:10px;font-weight:700;color:var(--pink);background:var(--pinkl);padding:4px 10px;border-radius:100px;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+    .workflow-card h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--dark);margin-bottom:10px}
+    .workflow-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+    /* ROI / Avantages pro */
+    .roi{padding:90px 5%;max-width:1280px;margin:0 auto;text-align:center}
+    .roi-head{margin-bottom:48px}
+    .roi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1080px;margin:0 auto}
+    .roi-card{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;padding:28px 20px;text-align:left;transition:all .3s}
+    .roi-card:hover{transform:translateY(-3px);border-color:#FBCFE8;box-shadow:0 16px 40px rgba(236,72,153,.08)}
+    .roi-num{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;background:linear-gradient(135deg,var(--pink) 0%,var(--a) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:8px}
+    .roi-card h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px}
+    .roi-card p{font-size:12.5px;color:var(--muted);line-height:1.55}
+
+    /* PRICING Premium focus */
+    .pricing{background:linear-gradient(180deg,var(--pinkl) 0%,#fff 100%);padding:90px 5%}
+    .pricing-in{max-width:580px;margin:0 auto;text-align:center}
+    .premium-card{background:var(--surf);border:3px solid var(--pink);border-radius:28px;padding:48px 40px;margin:48px auto 0;text-align:left;box-shadow:0 32px 80px rgba(236,72,153,.18);position:relative;overflow:hidden}
+    .premium-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--pink) 0%,var(--a) 100%)}
+    .premium-ribbon{position:absolute;top:18px;right:-32px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;padding:6px 40px;transform:rotate(45deg);text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 12px rgba(236,72,153,.3)}
+    .premium-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--pinkd);background:var(--pinkl);padding:5px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+    .premium-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--dark);margin-bottom:18px;line-height:1.25}
+    .premium-price{margin-bottom:24px;padding:18px 0;border-top:1px dashed #FBCFE8;border-bottom:1px dashed #FBCFE8}
+    .premium-mois{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:var(--dark);line-height:1}
+    .premium-mois span{font-size:14px;color:var(--muted);font-weight:400}
+    .premium-eco{font-size:12.5px;color:var(--g);font-weight:700;margin-top:6px}
+    .premium-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+    .premium-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+    .premium-feats li::before{content:'✓';color:var(--pink);font-weight:800;flex-shrink:0;margin-top:2px}
+    .premium-feats li.star{color:var(--pinkd);font-weight:600}
+    .premium-feats li.star::before{content:'⭐'}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg,var(--pinkd) 0%,#831843 100%);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'🎉';font-size:280px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.04;pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2 em{font-style:normal;color:var(--a)}
+    .cta p{font-size:16px;color:rgba(255,255,255,.65);margin-bottom:36px;font-weight:300}
+    .btn-w{background:#fff;color:var(--pinkd);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.18)}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.25)}
+    .cta-reassure{font-size:12px;color:rgba(255,255,255,.45);margin-top:14px}
+
+    /* FOOTER */
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+    .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--pink)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+    .foot-legal{display:flex;gap:16px;flex-wrap:wrap}
+    .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none}
+    .foot-legal a:hover{color:var(--pink)}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      .vitrine-grid{grid-template-columns:repeat(2,1fr)}
+      .roi-grid{grid-template-columns:repeat(2,1fr)}
+      .match-grid{grid-template-columns:1fr;gap:32px}
+      .steps{grid-template-columns:1fr;gap:16px}
+    }
+    @media(max-width:960px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+      .hero{padding:110px 5% 60px}
+      .match-card{padding:40px 32px}
+      .workflow-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:640px){
+      .vitrine-grid{grid-template-columns:1fr}
+      .roi-grid{grid-template-columns:1fr}
+      .hero h1{font-size:clamp(28px,8vw,40px)!important}
+      .hero-btns{flex-direction:column;align-items:stretch}
+      .hero-btns a{justify-content:center}
+      .premium-card{padding:36px 28px}
+      .premium-mois{font-size:38px}
+      .match-card{padding:32px 24px;border-radius:24px}
+      .foot-in{flex-wrap:wrap;justify-content:center;text-align:center}
+      .foot-links,.foot-legal{flex-wrap:wrap;gap:10px;justify-content:center}
+    }
+  </style>
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+    <div style="width:52px;height:52px;flex-shrink:0;display:flex;align-items:center">
+      <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="52" height="52" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/></svg>
+    </div>
+    <span style="font-family:'Syne',sans-serif;font-size:25px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/mairies">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/loisirs">Loisirs</a></li>
+    <li><a href="/idees-sorties" class="active">Idées Sorties</a></li>
+    <li><a href="/agences">Agences immo</a></li>
+    <li><a href="/courtiers">Courtiers</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li><a href="/contact?type=premium" class="nav-cta">Passer en Premium</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMob()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mob" id="mob">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/loisirs">🎳 Loisirs</a>
+  <a href="/idees-sorties">🎉 Idées Sorties</a>
+  <a href="/agences">🏠 Agences immo</a>
+  <a href="/courtiers">💶 Courtiers</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <a href="/contact?type=premium" style="color:var(--pink);font-weight:700;border:none">Passer en Premium →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🎉 Nouveau — Formule Premium</div>
+  <h1>Créez des <em>expériences combinées</em><br/>avec d'autres pros locaux</h1>
+  <p class="hero-sub">Restaurants &amp; loisirs : transformez 2 ventes séparées en 1 soirée vendue ensemble. Lokalist <strong style="color:var(--pinkd)">recherche activement vos partenaires pros locaux</strong> et met en avant vos packs dans la rubrique star de l'app : <strong>Idée Sortie</strong>.</p>
+  <div class="hero-btns">
+    <a href="/contact?type=premium" class="btn btn-pink">🎉 Passer en Premium · 24,90€/mois</a>
+    <a href="#vitrine" class="btn btn-o">Voir des exemples de packs ↓</a>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-item">Partenaires trouvés par Lokalist</div>
+    <div class="trust-item">0% commission sur vos ventes</div>
+    <div class="trust-item">Prix définis par vous</div>
+    <div class="trust-item">Sans engagement</div>
+  </div>
+</section>
+
+<!-- VITRINE PACKS (côté utilisateur) -->
+<section class="vitrine" id="vitrine">
+  <div class="vitrine-head">
+    <p class="sec-tag reveal">Côté utilisateur — Ce que voient vos clients</p>
+    <h2 class="sec-h reveal" style="max-width:780px;margin-left:auto;margin-right:auto">Une rubrique <span style="color:var(--pink)">Idée Sortie</span><br/>qui donne envie de réserver</h2>
+    <p class="sec-p reveal" style="margin-left:auto;margin-right:auto">Les utilisateurs Lokalist voient des packs combinés clés en main. Plus besoin de réserver 2 fois : un seul code, une seule soirée. Et vos pros récupèrent 2 ventes au lieu d'1.</p>
+  </div>
+
+  <div class="vitrine-grid">
+    <div class="pack-card reveal">
+      <div class="pack-banner pack-banner-amis">🎳</div>
+      <div class="pack-content">
+        <div class="pack-tag">Pack Amis</div>
+        <h3 class="pack-title">Restaurant + Bowling</h3>
+        <p class="pack-combo">Le combo <strong>convivial parfait</strong> pour 4-6 personnes. Dîner, parties illimitées, ambiance détente.</p>
+        <div class="pack-price">Prix défini par les pros</div>
+      </div>
+    </div>
+
+    <div class="pack-card reveal">
+      <div class="pack-banner pack-banner-couple">🎬</div>
+      <div class="pack-content">
+        <div class="pack-tag">Pack Couple</div>
+        <h3 class="pack-title">Cinéma + Restaurant</h3>
+        <p class="pack-combo">La <strong>soirée romantique</strong> classique mais magique. Séance + dîner aux chandelles dans un resto partenaire.</p>
+        <div class="pack-price">Prix défini par les pros</div>
+      </div>
+    </div>
+
+    <div class="pack-card reveal">
+      <div class="pack-banner pack-banner-detente">💆</div>
+      <div class="pack-content">
+        <div class="pack-tag">Pack Détente</div>
+        <h3 class="pack-title">Spa + Restaurant</h3>
+        <p class="pack-combo">Massage, sauna, puis dîner gastronomique. Le pack <strong>cadeau idéal</strong> pour offrir une parenthèse bien-être.</p>
+        <div class="pack-price">Prix défini par les pros</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--muted);font-size:13px;font-style:italic;margin-top:32px">Les prix sont définis librement par chaque duo de pros. Lokalist ne prélève aucune commission sur les packs vendus.</p>
+</section>
+
+<!-- COMMENT CA MARCHE -->
+<section class="howto">
+  <div class="howto-in">
+    <p class="sec-tag reveal">Comment ça marche</p>
+    <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Un pack en <span style="color:var(--pink)">3 étapes</span></h2>
+    <p class="sec-p reveal" style="margin-left:auto;margin-right:auto;text-align:left">Un workflow simple, conçu pour que vous gardiez 100% de votre activité tout en multipliant vos opportunités de vente.</p>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-ico">🤝</div>
+        <h3>Lokalist trouve vos partenaires</h3>
+        <p>Vous êtes Premium ? Nous identifions activement les pros locaux compatibles avec votre activité (ex: restos près de votre bowling, spa avec restos voisins). On vous propose des matchs pertinents.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-ico">📝</div>
+        <h3>Vous validez le pack ensemble</h3>
+        <p>Vous choisissez votre partenaire, définissez le pack et son prix combiné ensemble. Lokalist publie le pack dans la rubrique <strong>"Idée Sortie"</strong> visible par tous les utilisateurs.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-ico">💸</div>
+        <h3>Vous encaissez en caisse</h3>
+        <p>L'utilisateur réserve dans l'app et reçoit un code unique. Il présente le code, vous validez, vous encaissez. <strong>0% de commission</strong> pour Lokalist sur le pack. Tout est pour vous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOKALIST FAIT POUR VOUS -->
+<section class="matchmaking">
+  <div class="match-card reveal">
+    <div class="match-grid">
+      <div class="match-left">
+        <p class="sec-tag">⭐ Différenciateur Premium</p>
+        <h2>On <em>cherche</em><br/>vos partenaires<br/>pour vous</h2>
+        <p class="lead">C'est notre vrai service à valeur ajoutée. Pas un simple annuaire : <strong style="color:#fff">une vraie recherche active de partenariats compatibles</strong> avec votre activité, votre zone, votre type de clientèle.</p>
+        <ul class="match-bullets">
+          <li><span><strong>Matchmaking géolocalisé.</strong> Nous identifions les pros à proximité immédiate de vous (idéal : 5-10 km max pour vos clients).</span></li>
+          <li><span><strong>Compatibilité métier.</strong> Resto + bowling, spa + dîner, ciné + crêperie : seuls les bons mariages sont proposés.</span></li>
+          <li><span><strong>Notifications quand un match arrive.</strong> Pas besoin de scruter l'app — on vous prévient quand un pro intéressant rejoint Lokalist près de vous.</span></li>
+          <li><span><strong>Suggestions saisonnières.</strong> Soirée raclette en hiver, terrasses en été, packs Saint-Valentin... On vous propose les bons concepts au bon moment.</span></li>
+        </ul>
+      </div>
+      <div class="match-mockup">
+        <div class="match-mockup-head">📱 Notification reçue par le pro Premium</div>
+        <div class="match-prop">
+          <div class="match-prop-ico">🎳</div>
+          <div class="match-prop-body">
+            <div class="match-prop-title">Bowling Star à 1,2 km</div>
+            <div class="match-prop-meta">Nouveau Premium · Compatible avec restos</div>
+          </div>
+          <div class="match-prop-cta">Voir</div>
+        </div>
+        <div class="match-prop">
+          <div class="match-prop-ico">🎬</div>
+          <div class="match-prop-body">
+            <div class="match-prop-title">Cinéma Le Royal à 800 m</div>
+            <div class="match-prop-meta">Match idéal pour pack Couple</div>
+          </div>
+          <div class="match-prop-cta">Voir</div>
+        </div>
+        <div class="match-prop">
+          <div class="match-prop-ico">💆</div>
+          <div class="match-prop-body">
+            <div class="match-prop-title">Spa Zen à 2,5 km</div>
+            <div class="match-prop-meta">Cible CSP+ comme votre restaurant</div>
+          </div>
+          <div class="match-prop-cta">Voir</div>
+        </div>
+        <div style="text-align:center;font-size:10px;color:rgba(255,255,255,.4);margin-top:6px;font-style:italic">Exemple — données fictives</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW PRO -->
+<section class="workflow">
+  <div class="workflow-in">
+    <div class="workflow-head">
+      <p class="sec-tag reveal">Côté pro — Détails techniques</p>
+      <h2 class="sec-h reveal" style="text-align:center;margin-left:auto;margin-right:auto">Tout est dans votre <span style="color:var(--pink)">tableau de bord</span></h2>
+    </div>
+
+    <div class="workflow-grid">
+      <div class="workflow-card reveal">
+        <div class="workflow-card-tag">📦 Création du pack</div>
+        <h3>Vous proposez, l'autre pro valide</h3>
+        <p>Une fois mis en relation, vous créez le pack depuis votre dashboard : titre, description, prix combiné, photo. Le pro partenaire reçoit une notification et valide en 1 clic. Une fois validé, le pack est en ligne dans l'app.</p>
+      </div>
+
+      <div class="workflow-card reveal">
+        <div class="workflow-card-tag">💸 Encaissement séparé</div>
+        <h3>Chacun garde sa part</h3>
+        <p>L'utilisateur paie le pack dans l'app (selon votre configuration) ou directement chez vous en caisse. Vous vous mettez d'accord à l'avance sur la répartition (ex: 50/50 ou prorata du tarif initial).</p>
+      </div>
+
+      <div class="workflow-card reveal">
+        <div class="workflow-card-tag">🎟️ Code unique</div>
+        <h3>1 code, 1 soirée, 2 validations</h3>
+        <p>L'utilisateur reçoit 1 code QR unique pour le pack entier. Il le présente chez vous (resto), vous le validez, puis chez l'autre pro (bowling) qui le valide aussi. Tout est tracé dans vos stats.</p>
+      </div>
+
+      <div class="workflow-card reveal">
+        <div class="workflow-card-tag">📊 Stats temps réel</div>
+        <h3>Suivez vos packs au quotidien</h3>
+        <p>Combien de packs vendus ce mois, quel revenu généré, quels jours marchent le mieux, quels créneaux. Comparez avec vos ventes classiques et ajustez votre stratégie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section class="roi">
+  <div class="roi-head">
+    <p class="sec-tag reveal">Pourquoi passer en Premium ?</p>
+    <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Ce que <span style="color:var(--pink)">+5€/mois</span> vous rapporte</h2>
+    <p class="sec-p reveal" style="margin-left:auto;margin-right:auto">L'écart avec le Standard (19,90€) est minime. Le ROI vient des packs vendus.</p>
+  </div>
+
+  <div class="roi-grid">
+    <div class="roi-card reveal">
+      <div class="roi-num">+1</div>
+      <h4>Vente combinée</h4>
+      <p>Chaque pack vendu = 2 ventes au lieu de 1 pour vous et votre partenaire.</p>
+    </div>
+    <div class="roi-card reveal">
+      <div class="roi-num">+30%</div>
+      <h4>Ticket moyen</h4>
+      <p>Les utilisateurs réservent un pack à 80€ alors qu'ils auraient dépensé 50€ seuls.</p>
+    </div>
+    <div class="roi-card reveal">
+      <div class="roi-num">0%</div>
+      <h4>Commission</h4>
+      <p>Lokalist ne prend rien sur vos ventes de packs. Vous gardez tout.</p>
+    </div>
+    <div class="roi-card reveal">
+      <div class="roi-num">∞</div>
+      <h4>Packs illimités</h4>
+      <p>Créez autant de packs que vous voulez avec différents partenaires. Aucune limite.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING Premium focus -->
+<section class="pricing">
+  <div class="pricing-in">
+    <p class="sec-tag reveal">Tarif Premium</p>
+    <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Une seule formule.<br/>Toutes les opportunités.</h2>
+
+    <div class="premium-card reveal">
+      <div class="premium-ribbon">Recommandé</div>
+      <div class="premium-tag">🎉 Premium</div>
+      <h3 class="premium-title">L'accès à la rubrique<br/>Idée Sortie + tous les avantages Premium</h3>
+      <div class="premium-price">
+        <div class="premium-mois">24<span>,90€/mois</span></div>
+        <div class="premium-eco">Soit +5€/mois vs Standard — rentabilisé dès le 1er pack vendu</div>
+      </div>
+
+      <ul class="premium-feats">
+        <li class="star">Mise en avant dans la rubrique <strong>"Idée Sortie"</strong></li>
+        <li class="star"><strong>Recherche active de partenaires</strong> par Lokalist</li>
+        <li class="star">Packs combinés illimités</li>
+        <li>Tout le pack Standard (QR fidélité, mairies, boosts...)</li>
+        <li>Onboarding visio dédié sous 30 min</li>
+        <li>0 % commission sur vos ventes de packs</li>
+        <li>Stats packs temps réel</li>
+        <li>Sans engagement de durée</li>
+      </ul>
+
+      <a href="/contact?type=premium" class="btn btn-pink" style="width:100%;justify-content:center">🎉 Passer en Premium →</a>
+
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic">Déjà partenaire Standard ? Upgrade en 1 clic depuis votre dashboard.</p>
+    </div>
+
+    <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="/commercants" style="font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px dashed var(--muted)">→ Voir tarif Standard restaurants</a>
+      <a href="/loisirs" style="font-size:13px;color:var(--muted);text-decoration:none;border-bottom:1px dashed var(--muted)">→ Voir tarif Standard loisirs</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in">
+    <h2>Prêt à vendre<br/>des <em>expériences</em> ?</h2>
+    <p>Rejoignez la rubrique Idée Sortie et touchez une nouvelle clientèle dès cette semaine.</p>
+    <a href="/contact?type=premium" class="btn-w">🎉 Passer en Premium · 24,90€/mois</a>
+    <p class="cta-reassure">Réponse sous 24h · Recherche de partenaire en parallèle · Sans engagement</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px">
+      <div style="width:28px;height:28px;flex-shrink:0">
+        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="28" height="28" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/></svg>
+      </div>
+      <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span>
+    </div>
+    <div class="foot-links">
+      <a href="/">Accueil</a>
+      <a href="/mairies">Mairies</a>
+      <a href="/commercants">Commerçants</a>
+      <a href="/artisans">Artisans</a>
+      <a href="/loisirs">Loisirs</a>
+      <a href="/idees-sorties">Idées Sorties</a>
+      <a href="/agences">Agences immo</a>
+      <a href="/courtiers">Courtiers</a>
+      <a href="/tarifs">Tarifs</a>
+      <a href="/contact?type=premium">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">CGV</a>
+      <a href="/cgu">CGU</a>
+      <a href="/confidentialite">Confidentialité</a>
+      <a href="/cookies">Cookies</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20));
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800);
+  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')});
+</script>
+</body>
+</html>
