@@ -5,6 +5,7 @@
     { "source": "/commercants", "destination": "/commercants.html" },
     { "source": "/artisans", "destination": "/artisans.html" },
     { "source": "/agences", "destination": "/agences.html" },
+    { "source": "/courtiers", "destination": "/courtiers.html" },
     { "source": "/loisirs", "destination": "/loisirs.html" },
     { "source": "/tarifs", "destination": "/tarifs.html" },
     { "source": "/contact", "destination": "/contact.html" },
