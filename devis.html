@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Signature électronique — Lokalist</title>
+  <meta name="description" content="Acceptez votre devis Lokalist en ligne en quelques secondes." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --g: #1D9E75;
+      --gd: #0F6E56;
+      --gl: #E1F5EE;
+      --gm: #A7F3D0;
+      --gdark: #04342C;
+      --a: #EF9F27;
+      --al: #FAEEDA;
+      --bg: #FAFBF9;
+      --dark: #0B1612;
+      --text: #1A2E26;
+      --muted: #5C7268;
+      --border: #E0E5E1;
+      --red: #E24B4A;
+      --redl: #FCEBEB;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'DM Sans', -apple-system, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    .app { max-width: 540px; margin: 0 auto; padding-bottom: 100px; }
+
+    /* Header */
+    .header {
+      background: white;
+      padding: 18px 18px;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.95);
+    }
+    .header-inner { display: flex; align-items: center; gap: 10px; max-width: 540px; margin: 0 auto; }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: var(--g);
+      border-radius: 50% 50% 50% 0;
+      transform: rotate(-45deg);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .logo-mark::after {
+      content: '';
+      width: 12px; height: 12px;
+      background: var(--a);
+      border-radius: 50%;
+      transform: rotate(45deg);
+    }
+    .logo-text { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: 1px; }
+    .logo-tag { font-size: 9px; color: var(--muted); letter-spacing: 1.5px; margin-top: 2px; font-weight: 600; }
+
+    /* Loader / Error states */
+    .state-screen {
+      padding: 60px 24px;
+      text-align: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .state-icon { font-size: 48px; margin-bottom: 16px; }
+    .state-title { font-size: 22px; font-weight: 700; font-family: 'Syne', sans-serif; color: var(--dark); margin: 0 0 8px; }
+    .state-msg { font-size: 14px; color: var(--muted); max-width: 360px; margin: 0 auto 24px; line-height: 1.6; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .loader {
+      width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--g);
+      border-radius: 50%;
+      margin: 0 auto 16px;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Content */
+    .content { padding: 20px 18px; }
+
+    .badge-devis {
+      background: var(--gl);
+      border-left: 4px solid var(--g);
+      padding: 14px 16px;
+      border-radius: 0 10px 10px 0;
+      margin-bottom: 20px;
+    }
+    .badge-devis-label { font-size: 10px; color: var(--gd); letter-spacing: 1.5px; font-weight: 600; margin-bottom: 3px; }
+    .badge-devis-numero { font-size: 18px; font-weight: 700; color: var(--gdark); font-family: 'Syne', sans-serif; }
+    .badge-devis-date { font-size: 12px; color: var(--gd); margin-top: 4px; }
+
+    .greeting-label { font-size: 14px; color: var(--muted); margin-bottom: 4px; }
+    .greeting-name { font-size: 18px; font-weight: 600; margin-bottom: 20px; }
+
+    .card {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .card-label { font-size: 10px; color: var(--muted); letter-spacing: 1.2px; font-weight: 600; margin-bottom: 8px; }
+    .card-content { font-size: 14px; line-height: 1.6; }
+
+    .ligne {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 0.5px solid #F0F0F0;
+    }
+    .ligne:last-of-type { border-bottom: none; }
+    .ligne-desc { flex: 1; padding-right: 10px; font-size: 13px; line-height: 1.4; }
+    .ligne-meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .ligne-total { font-size: 13px; font-weight: 600; white-space: nowrap; }
+    .ligne-remise .ligne-total { color: #92400E; }
+    .ligne-remise { background: #FEF9C3; margin: 0 -16px; padding: 10px 16px; }
+
+    .totals { margin-top: 12px; padding-top: 12px; border-top: 0.5px solid var(--border); }
+    .totals-row { display: flex; justify-content: space-between; padding: 4px 0; font-size: 13px; }
+    .totals-row.muted { color: var(--muted); }
+    .totals-row.italic { font-style: italic; font-size: 11px; }
+    .totals-ttc {
+      background: var(--gl);
+      margin: 10px -16px -16px;
+      padding: 14px 16px;
+      border-radius: 0 0 12px 12px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .totals-ttc-label { font-size: 13px; font-weight: 600; color: var(--gdark); }
+    .totals-ttc-value { font-size: 20px; font-weight: 700; color: var(--gdark); font-family: 'Syne', sans-serif; }
+
+    .info-block {
+      background: #FFF7ED;
+      border-left: 3px solid var(--a);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 12px;
+      color: #7C2D12;
+      line-height: 1.5;
+    }
+    .info-block strong { color: #4A1B0C; }
+
+    /* Signature form */
+    .sig-form {
+      background: white;
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+    .sig-intro { font-size: 13px; color: var(--text); margin-bottom: 14px; line-height: 1.5; }
+    .sig-form label { display: block; font-size: 11px; color: var(--muted); letter-spacing: 1px; font-weight: 600; margin-bottom: 6px; }
+    .sig-form input[type="text"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #C5D0CA;
+      border-radius: 9px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      margin-bottom: 14px;
+      -webkit-appearance: none;
+    }
+    .sig-form input[type="text"]:focus { border-color: var(--g); box-shadow: 0 0 0 3px rgba(29,158,117,0.1); }
+    .sig-form .cgv-check {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 12px; color: var(--muted); line-height: 1.5; cursor: pointer;
+    }
+    .sig-form .cgv-check input[type="checkbox"] {
+      flex-shrink: 0; margin-top: 2px;
+      width: 18px; height: 18px;
+      cursor: pointer; accent-color: var(--g);
+    }
+
+    .legal-note {
+      font-size: 11px; color: var(--muted);
+      text-align: center; padding: 12px 4px;
+      line-height: 1.6;
+    }
+
+    /* Sticky CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-top: 0.5px solid var(--border);
+      padding: 12px 18px;
+      z-index: 100;
+    }
+    .sticky-cta-inner { max-width: 540px; margin: 0 auto; }
+    .btn-accept {
+      width: 100%;
+      background: var(--g);
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.15s;
+    }
+    .btn-accept:hover:not(:disabled) { background: var(--gd); transform: translateY(-1px); }
+    .btn-accept:disabled { background: #C5D0CA; cursor: not-allowed; }
+    .btn-secondary {
+      width: 100%;
+      background: white;
+      color: var(--g);
+      border: 1.5px solid var(--g);
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+    .sticky-foot { font-size: 10px; color: var(--muted); text-align: center; margin-top: 8px; }
+
+    /* Success state */
+    .success-mark {
+      width: 64px; height: 64px;
+      background: var(--gl);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 32px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo-mark"></div>
+      <div>
+        <div class="logo-text">LOKALIST</div>
+        <div class="logo-tag">VIE LOCALE · DIGITALE</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="app" id="app">
+    <div class="state-screen" id="state-loading">
+      <div class="loader"></div>
+      <div class="state-title">Chargement du devis...</div>
+      <div class="state-msg">Récupération de vos informations en cours.</div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+    const SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
+    const API_URL = 'https://lokalist-api-production.up.railway.app';
+
+    const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const app = document.getElementById('app');
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('t') || window.location.pathname.split('/').filter(Boolean).pop();
+
+    function fmtEur(n) { return parseFloat(n||0).toLocaleString('fr-FR', { minimumFractionDigits: 2 }) + ' €'; }
+    function fmtDate(d) { if (!d) return '—'; return new Date(d).toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' }); }
+    function esc(s) { return String(s||'').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+    async function init() {
+      if (!token || !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(token)) {
+        renderError('Lien invalide', 'Le lien que vous avez utilisé ne correspond à aucun devis. Vérifiez votre email ou contactez-nous.');
+        return;
+      }
+
+      try {
+        const { data, error } = await sb.rpc('get_devis_by_token', { p_token: token });
+        if (error) throw error;
+        if (!data || !data.length) {
+          renderError('Devis introuvable', 'Ce lien ne correspond à aucun devis dans notre système.');
+          return;
+        }
+        const devis = data[0];
+
+        if (devis.expire) {
+          renderExpired(token);
+          return;
+        }
+        if (devis.deja_accepte) {
+          renderAlreadyAccepted(devis);
+          return;
+        }
+
+        renderDevis(devis);
+      } catch (e) {
+        console.error(e);
+        renderError('Erreur de chargement', e.message || 'Une erreur est survenue.');
+      }
+    }
+
+    function renderError(title, msg) {
+      app.innerHTML = `
+        <div class="state-screen">
+          <div class="state-icon">⚠️</div>
+          <div class="state-title">${esc(title)}</div>
+          <div class="state-msg">${esc(msg)}</div>
+        </div>
+      `;
+    }
+
+    function renderExpired(token) {
+      app.innerHTML = `
+        <div class="state-screen">
+          <div class="state-icon">⏱️</div>
+          <div class="state-title">Ce lien a expiré</div>
+          <div class="state-msg">Pour des raisons de sécurité, ce lien n'est plus valable. Cliquez ci-dessous pour demander un nouveau lien à Lokalist.</div>
+        </div>
+        <div class="sticky-cta">
+          <div class="sticky-cta-inner">
+            <button class="btn-accept" id="btn-demander">📧 Demander un nouveau lien</button>
+            <div class="sticky-foot">Vous recevrez un nouvel email sous 24h</div>
+          </div>
+        </div>
+      `;
+      document.getElementById('btn-demander').addEventListener('click', async (e) => {
+        e.target.disabled = true;
+        e.target.textContent = 'Demande en cours...';
+        try {
+          const r = await fetch(API_URL + '/devis/demander-nouveau-lien', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token })
+          });
+          if (!r.ok) throw new Error('Erreur ' + r.status);
+          app.innerHTML = `
+            <div class="state-screen">
+              <div class="success-mark">✓</div>
+              <div class="state-title">Demande envoyée</div>
+              <div class="state-msg">Lokalist va vous envoyer un nouveau lien sous 24h. Vérifiez votre boîte mail.</div>
+            </div>
+          `;
+          document.querySelector('.sticky-cta')?.remove();
+        } catch (err) {
+          e.target.disabled = false;
+          e.target.textContent = '📧 Demander un nouveau lien';
+          alert('Erreur : ' + err.message);
+        }
+      });
+    }
+
+    function renderAlreadyAccepted(d) {
+      app.innerHTML = `
+        <div class="state-screen">
+          <div class="success-mark">✓</div>
+          <div class="state-title">Devis déjà accepté</div>
+          <div class="state-msg">
+            Ce devis a été accepté électroniquement le <strong>${fmtDate(d.signature_accepte_at)}</strong>
+            ${d.signature_signataire_nom ? `par <strong>${esc(d.signature_signataire_nom)}</strong>` : ''}.<br><br>
+            Vous recevrez prochainement votre facture à régler par virement.
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDevis(d) {
+      const lignes = Array.isArray(d.lignes) ? d.lignes : [];
+      const lignesHtml = lignes.map(l => {
+        const isRemise = parseFloat(l.total || 0) < 0;
+        return `
+          <div class="ligne ${isRemise ? 'ligne-remise' : ''}">
+            <div class="ligne-desc">
+              ${esc(l.desc || '')}
+              ${l.qte && l.qte !== 1 ? `<div class="ligne-meta">${l.qte} × ${fmtEur(l.prix)}</div>` : ''}
+            </div>
+            <div class="ligne-total">${fmtEur(l.total)}</div>
+          </div>
+        `;
+      }).join('');
+
+      app.innerHTML = `
+        <div class="content">
+          <div class="badge-devis">
+            <div class="badge-devis-label">VOTRE DEVIS</div>
+            <div class="badge-devis-numero">${esc(d.numero)}</div>
+            <div class="badge-devis-date">Valable jusqu'au ${fmtDate(d.signature_expire_at)}</div>
+          </div>
+
+          <div class="greeting-label">Bonjour</div>
+          <div class="greeting-name">${esc(d.client_nom)}</div>
+
+          ${d.objet ? `
+          <div class="card">
+            <div class="card-label">OBJET</div>
+            <div class="card-content">${esc(d.objet)}</div>
+          </div>
+          ` : ''}
+
+          <div class="card">
+            <div class="card-label">PRESTATIONS</div>
+            ${lignesHtml}
+            <div class="totals">
+              <div class="totals-row muted"><span>Total HT</span><span>${fmtEur(d.total_ht)}</span></div>
+              <div class="totals-row muted italic"><span>TVA Art. 293B CGI</span><span>—</span></div>
+              <div class="totals-ttc">
+                <div class="totals-ttc-label">TOTAL TTC</div>
+                <div class="totals-ttc-value">${fmtEur(d.total_ttc)}</div>
+              </div>
+            </div>
+          </div>
+
+          ${d.conditions ? `
+          <div class="info-block">
+            <strong>Conditions de paiement</strong><br>
+            ${esc(d.conditions).replace(/\n/g, '<br>')}
+          </div>
+          ` : ''}
+
+          <div class="sig-form">
+            <div class="sig-intro">Pour accepter ce devis, complétez votre nom et confirmez :</div>
+            <label for="signataire">VOTRE NOM COMPLET *</label>
+            <input type="text" id="signataire" placeholder="Jean Dupont" autocomplete="name" maxlength="100"/>
+            <label class="cgv-check">
+              <input type="checkbox" id="cgv-check"/>
+              <span>J'ai lu et j'accepte le devis ainsi que les conditions de paiement.</span>
+            </label>
+          </div>
+
+          <div class="legal-note">
+            En acceptant ce devis, vous confirmez votre engagement à régler le montant selon les conditions.<br>
+            Un email de confirmation vous sera envoyé.
+          </div>
+        </div>
+
+        <div class="sticky-cta">
+          <div class="sticky-cta-inner">
+            <button class="btn-accept" id="btn-accept" disabled>✓ J'accepte ce devis</button>
+            <div class="sticky-foot">Signé électroniquement · LOKALIST · contact@lokalist.fr</div>
+          </div>
+        </div>
+      `;
+
+      const input = document.getElementById('signataire');
+      const cgv = document.getElementById('cgv-check');
+      const btn = document.getElementById('btn-accept');
+
+      function check() {
+        btn.disabled = !(input.value.trim().length >= 2 && cgv.checked);
+      }
+      input.addEventListener('input', check);
+      cgv.addEventListener('change', check);
+
+      btn.addEventListener('click', async () => {
+        if (btn.disabled) return;
+        const nom = input.value.trim();
+        if (!nom) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Acceptation en cours...';
+
+        try {
+          const ua = navigator.userAgent;
+          const { data: resp, error } = await sb.rpc('accepter_devis', {
+            p_token: token,
+            p_signataire_nom: nom,
+            p_signataire_ip: null,
+            p_signataire_ua: ua
+          });
+          if (error) throw error;
+
+          const r = resp && resp[0];
+          if (!r || !r.success) {
+            throw new Error(r?.message || 'Échec de l\'acceptation');
+          }
+
+          // Notifier l'admin par email (best effort)
+          try {
+            await fetch(API_URL + '/devis/notifier-acceptation', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ documentId: r.document_id })
+            });
+          } catch(e) { console.warn('Notif admin échouée:', e); }
+
+          // Render success
+          app.innerHTML = `
+            <div class="state-screen">
+              <div class="success-mark">✓</div>
+              <div class="state-title">Devis accepté !</div>
+              <div class="state-msg">
+                Merci <strong>${esc(nom)}</strong>, votre acceptation du devis <strong>${esc(r.numero)}</strong> a bien été enregistrée.<br><br>
+                Vous recevrez votre facture par email sous peu.<br><br>
+                <span style="color:var(--muted);font-size:12px">Vous pouvez fermer cette page.</span>
+              </div>
+            </div>
+          `;
+          document.querySelector('.sticky-cta')?.remove();
+
+        } catch (e) {
+          console.error(e);
+          btn.disabled = false;
+          btn.textContent = '✓ J\'accepte ce devis';
+          alert('Erreur : ' + (e.message || 'Acceptation impossible'));
+        }
+      });
+    }
+
+    init();
+  </script>
+</body>
+</html>
