@@ -1,23 +1,23 @@
-// ════════════════════════════════════════════════════════════════
-//  api/annonce.js — Vercel Edge Function
-//  Génère une page HTML SSR pour /annonce/:id avec :
-//  - Méta-tags Open Graph dynamiques (preview WhatsApp/FB/Twitter)
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  api/annonce.js â€” Vercel Edge Function
+//  GÃ©nÃ¨re une page HTML SSR pour /annonce/:id avec :
+//  - MÃ©ta-tags Open Graph dynamiques (preview WhatsApp/FB/Twitter)
 //  - JSON-LD Schema.org (rich snippet Google)
 //  - Bouton "Voir dans l'app" (deep link lokalist://)
-//  - Bouton "Télécharger l'app" (Play Store)
+//  - Bouton "TÃ©lÃ©charger l'app" (Play Store)
 //  - Page responsive (mobile + desktop)
-// ════════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 
 export const config = { runtime: 'edge' };
 
 const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3MTQ0MDksImV4cCI6MjA2MDI5MDQwOX0.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
-const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist'; // À mettre à jour quand iOS publié
+const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist'; // Ã€ mettre Ã  jour quand iOS publiÃ©
 const SITE_URL       = 'https://lokalist.fr';
 
-// ─── Helpers ────────────────────────────────────────────────────
+// â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const escapeHtml = (str) => {
   if (!str) return '';
   return String(str)
@@ -31,9 +31,9 @@ const escapeHtml = (str) => {
 const formatPrix = (p, t) => {
   if (!p) return 'Prix sur demande';
   const suffix = t === 'location' ? '/mois' : '';
-  if (p >= 1000000) return `${(p/1000000).toFixed(2).replace('.',',')} M€${suffix}`;
-  if (p >= 1000)    return `${Math.floor(p/1000)} k€${suffix}`;
-  return `${p} €${suffix}`;
+  if (p >= 1000000) return `${(p/1000000).toFixed(2).replace('.',',')} Mâ‚¬${suffix}`;
+  if (p >= 1000)    return `${Math.floor(p/1000)} kâ‚¬${suffix}`;
+  return `${p} â‚¬${suffix}`;
 };
 
 const pageNotFound = (msg = "Annonce introuvable") => new Response(html404(msg), {
@@ -45,16 +45,16 @@ const html404 = (msg) => `<!doctype html>
 <html lang="fr"><head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Annonce introuvable — Lokalist</title>
+<title>Annonce introuvable â€” Lokalist</title>
 <style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}</style>
 </head><body>
-<div style="font-size:64px">🏠</div>
+<div style="font-size:64px">ðŸ </div>
 <h1>${escapeHtml(msg)}</h1>
-<p style="color:#8A8FA8">Cette annonce n'existe plus ou a été retirée.</p>
-<p><a href="${SITE_URL}">← Retour à Lokalist</a></p>
+<p style="color:#8A8FA8">Cette annonce n'existe plus ou a Ã©tÃ© retirÃ©e.</p>
+<p><a href="${SITE_URL}">â† Retour Ã  Lokalist</a></p>
 </body></html>`;
 
-// ─── Handler principal ──────────────────────────────────────────
+// â”€â”€â”€ Handler principal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default async function handler(req) {
   try {
     const url = new URL(req.url);
@@ -80,9 +80,9 @@ export default async function handler(req) {
 
     if (a.statut !== 'active') return pageNotFound("Cette annonce n'est plus active");
 
-    // Données préparées
-    const titre        = a.titre || 'Annonce immobilière';
-    const description  = a.description || `${a.type_bien || 'Bien'} à ${a.ville || ''} - Annonce sur Lokalist`;
+    // DonnÃ©es prÃ©parÃ©es
+    const titre        = a.titre || 'Annonce immobiliÃ¨re';
+    const description  = a.description || `${a.type_bien || 'Bien'} Ã  ${a.ville || ''} - Annonce sur Lokalist`;
     const descShort    = (description.length > 160 ? description.slice(0, 157) + '...' : description);
     const prix         = formatPrix(a.prix, a.type_transaction);
     const ville        = a.ville || '';
@@ -133,14 +133,14 @@ export default async function handler(req) {
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-<title>${escapeHtml(titre)} — ${prix} — Lokalist</title>
+<title>${escapeHtml(titre)} â€” ${prix} â€” Lokalist</title>
 <meta name="description" content="${escapeHtml(descShort)}"/>
 <link rel="canonical" href="${canonical}"/>
 
 <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Lokalist"/>
-<meta property="og:title" content="${escapeHtml(titre)} — ${prix}"/>
+<meta property="og:title" content="${escapeHtml(titre)} â€” ${prix}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
 <meta property="og:image" content="${escapeHtml(photoMain)}"/>
 <meta property="og:image:width" content="1200"/>
@@ -150,7 +150,7 @@ export default async function handler(req) {
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="${escapeHtml(titre)} — ${prix}"/>
+<meta name="twitter:title" content="${escapeHtml(titre)} â€” ${prix}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
 <meta name="twitter:image" content="${escapeHtml(photoMain)}"/>
 
@@ -236,8 +236,8 @@ export default async function handler(req) {
 <body>
 
 <header class="top-bar">
-  <a href="${SITE_URL}">🏡 Lokalist</a>
-  <a href="${deepLink}" class="btn-app">Voir dans l'app →</a>
+  <a href="${SITE_URL}">ðŸ¡ Lokalist</a>
+  <a href="${deepLink}" class="btn-app">Voir dans l'app â†’</a>
 </header>
 
 <main class="container">
@@ -245,7 +245,7 @@ export default async function handler(req) {
   <article class="hero">
     ${photoMain
       ? `<img class="hero-img" src="${escapeHtml(photoMain)}" alt="${escapeHtml(titre)}" loading="eager"/>`
-      : `<div class="hero-img-fallback">🏠</div>`
+      : `<div class="hero-img-fallback">ðŸ </div>`
     }
     ${photos.length > 1 ? `
     <div class="gallery">
@@ -254,43 +254,43 @@ export default async function handler(req) {
 
     <div class="badges">
       <span class="badge ${a.type_transaction === 'vente' ? 'badge-transac' : 'badge-location'}">
-        ${a.type_transaction === 'vente' ? '🏷️ Vente' : '🔑 Location'}
+        ${a.type_transaction === 'vente' ? 'ðŸ·ï¸ Vente' : 'ðŸ”‘ Location'}
       </span>
       <span class="badge" style="background:var(--primary-l);color:var(--primary-d);">${typeLabel}</span>
-      ${a.booste ? `<span class="badge badge-boost">⚡ Mise en avant</span>` : ''}
-      ${a.agences_immo?.badge_premium ? `<span class="badge badge-premium">⭐ Agence Premium</span>` : ''}
+      ${a.booste ? `<span class="badge badge-boost">âš¡ Mise en avant</span>` : ''}
+      ${a.agences_immo?.badge_premium ? `<span class="badge badge-premium">â­ Agence Premium</span>` : ''}
     </div>
 
     <div class="head">
       <h1 class="titre">${escapeHtml(titre)}</h1>
-      <div class="ville">📍 ${escapeHtml(ville)}${a.code_postal ? ` (${a.code_postal})` : ''}</div>
+      <div class="ville">ðŸ“ ${escapeHtml(ville)}${a.code_postal ? ` (${a.code_postal})` : ''}</div>
       <div class="prix">${prix}</div>
     </div>
 
     <div class="stats">
-      ${a.surface     ? `<div class="stat"><div class="stat-val">${a.surface} m²</div><div class="stat-lbl">Surface</div></div>` : ''}
-      ${a.nb_pieces   ? `<div class="stat"><div class="stat-val">${a.nb_pieces}</div><div class="stat-lbl">Pièces</div></div>` : ''}
+      ${a.surface     ? `<div class="stat"><div class="stat-val">${a.surface} mÂ²</div><div class="stat-lbl">Surface</div></div>` : ''}
+      ${a.nb_pieces   ? `<div class="stat"><div class="stat-val">${a.nb_pieces}</div><div class="stat-lbl">PiÃ¨ces</div></div>` : ''}
       ${a.nb_chambres ? `<div class="stat"><div class="stat-val">${a.nb_chambres}</div><div class="stat-lbl">Chambres</div></div>` : ''}
-      ${a.etage != null ? `<div class="stat"><div class="stat-val">${a.etage}</div><div class="stat-lbl">Étage</div></div>` : ''}
-      ${a.annee_construction ? `<div class="stat"><div class="stat-val">${a.annee_construction}</div><div class="stat-lbl">Année</div></div>` : ''}
+      ${a.etage != null ? `<div class="stat"><div class="stat-val">${a.etage}</div><div class="stat-lbl">Ã‰tage</div></div>` : ''}
+      ${a.annee_construction ? `<div class="stat"><div class="stat-val">${a.annee_construction}</div><div class="stat-lbl">AnnÃ©e</div></div>` : ''}
       ${a.ges ? `<div class="stat"><div class="stat-val">${escapeHtml(a.ges)}</div><div class="stat-lbl">DPE</div></div>` : ''}
     </div>
   </article>
 
   ${description ? `
   <section class="section">
-    <h2>📄 Description</h2>
+    <h2>ðŸ“„ Description</h2>
     <p>${escapeHtml(description)}</p>
   </section>` : ''}
 
   <section class="section">
-    <h2>🏢 Présenté par</h2>
+    <h2>ðŸ¢ PrÃ©sentÃ© par</h2>
     <div class="agence">
-      <div class="agence-icon">🏢</div>
+      <div class="agence-icon">ðŸ¢</div>
       <div>
         <div class="agence-nom">${escapeHtml(agenceNom)}</div>
         ${a.agences_immo?.note_moyenne > 0
-          ? `<div class="agence-note">⭐ ${Number(a.agences_immo.note_moyenne).toFixed(1)} (${a.agences_immo.nb_avis || 0} avis)</div>`
+          ? `<div class="agence-note">â­ ${Number(a.agences_immo.note_moyenne).toFixed(1)} (${a.agences_immo.nb_avis || 0} avis)</div>`
           : ''
         }
       </div>
@@ -299,31 +299,31 @@ export default async function handler(req) {
 
   ${a.numero_mandat ? `
   <section class="section">
-    <h2>📋 Informations légales</h2>
-    <p style="font-size:13px;color:var(--muted);">Mandat n° ${escapeHtml(a.numero_mandat)}</p>
+    <h2>ðŸ“‹ Informations lÃ©gales</h2>
+    <p style="font-size:13px;color:var(--muted);">Mandat nÂ° ${escapeHtml(a.numero_mandat)}</p>
     ${a.honoraires ? `<p style="font-size:13px;color:var(--muted);margin-top:4px;">Honoraires : ${escapeHtml(a.honoraires)}</p>` : ''}
   </section>` : ''}
 
   <div class="cta-block">
-    <h3>📱 Voir plus dans l'application</h3>
-    <p>Photos, contact direct, financement, alertes nouvelles annonces…</p>
+    <h3>ðŸ“± Voir plus dans l'application</h3>
+    <p>Photos, contact direct, financement, alertes nouvelles annoncesâ€¦</p>
     <a href="${deepLink}" class="cta-btn">Ouvrir dans l'app</a>
-    <a href="${PLAY_STORE_URL}" class="cta-btn-secondary">Télécharger</a>
+    <a href="${PLAY_STORE_URL}" class="cta-btn-secondary">TÃ©lÃ©charger</a>
   </div>
 
 </main>
 
 <footer>
-  <p>© Lokalist · La fidélité locale réinventée</p>
-  <p style="margin-top:6px;"><a href="${SITE_URL}">Retour à l'accueil</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
+  <p>Â© Lokalist Â· La fidÃ©litÃ© locale rÃ©inventÃ©e</p>
+  <p style="margin-top:6px;"><a href="${SITE_URL}">Retour Ã  l'accueil</a> Â· <a href="${SITE_URL}/contact">Contact</a> Â· <a href="${SITE_URL}/mentions-legales">Mentions lÃ©gales</a></p>
 </footer>
 
 <script>
-  // Tente d'ouvrir l'app si on est sur mobile (sans bloquer si app pas installée)
+  // Tente d'ouvrir l'app si on est sur mobile (sans bloquer si app pas installÃ©e)
   (function() {
     const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
     if (!isMobile) return;
-    // Pas de redirection auto agressive — on laisse l'user cliquer.
+    // Pas de redirection auto agressive â€” on laisse l'user cliquer.
   })();
 </script>
 
