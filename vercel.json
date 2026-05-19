@@ -17,6 +17,7 @@
     { "source": "/cookies", "destination": "/cookies.html" },
     { "source": "/contact/", "destination": "/contact.html" },
     { "source": "/contact/:path*", "destination": "/contact.html" },
-    { "source": "/devis/:token", "destination": "/devis.html" }
+    { "source": "/devis/:token", "destination": "/devis.html" },
+    { "source": "/annonce/:id", "destination": "/api/annonce?id=:id" }
   ]
 }
