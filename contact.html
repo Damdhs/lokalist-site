@@ -27,9 +27,9 @@
     .foot-legal a:hover{color:var(--g)}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
     .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
-    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
-    .mob.open{display:flex}
-    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .mob,.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open,.mobile-menu.open{display:flex}
+    .mob a,.mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
     .hero{padding:110px 5% 60px;text-align:center;max-width:680px;margin:0 auto}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);color:var(--gd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.6px;animation:fadeUp .5s ease both}
     .hero h1{font-family:'Syne',sans-serif;font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:16px;animation:fadeUp .6s .08s ease both}
@@ -364,8 +364,8 @@ document.addEventListener('click',(e)=>{
   const SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 
-  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
-  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')})
+  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
   function selectProfil(p){
     document.querySelectorAll('.profil-btn').forEach(b=>b.classList.remove('active'))
     document.getElementById('form-mairie').classList.add('form-hidden')
