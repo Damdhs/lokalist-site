@@ -29,9 +29,9 @@
     .foot-legal a:hover{color:var(--g)}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
     .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
-    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
-    .mob.open{display:flex}
-    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .mob,.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open,.mobile-menu.open{display:flex}
+    .mob a,.mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
     .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
     .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
@@ -852,8 +852,8 @@ document.addEventListener('click',(e)=>{
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
   setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800)
   function toggleFaq(el){el.closest('.faq-item').classList.toggle('open')}
-  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
-  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')})
+  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
 
   // Toggle mensuel/annuel pour 3 sections : commerçants, artisans, courtiers
   const toggleState = { com: false, art: false, cou: false }
