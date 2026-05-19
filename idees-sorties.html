@@ -24,9 +24,9 @@
     .nav-cta:hover{background:var(--pinkd)!important;transform:translateY(-1px)}
     .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
     .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
-    .mob{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
-    .mob.open{display:flex}
-    .mob a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
     .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
     .btn-pink{background:var(--pink);color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.28)}
     .btn-pink:hover{background:var(--pinkd);transform:translateY(-2px)}
@@ -39,7 +39,6 @@
     .reveal{opacity:1;transform:translateY(0)}
     .reveal.visible{opacity:1;transform:translateY(0)}
 
-    /* HERO */
     .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;text-align:center;background:linear-gradient(180deg,var(--pinkl) 0%,var(--bg) 100%)}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #FBCFE8;color:var(--pinkd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px;box-shadow:0 2px 12px rgba(236,72,153,.08)}
     .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.5vw,62px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px;max-width:900px;margin-left:auto;margin-right:auto}
@@ -50,7 +49,6 @@
     .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
     .trust-item::before{content:'✓';color:var(--g);font-weight:800}
 
-    /* COTE UTILISATEUR — Vitrine packs */
     .vitrine{padding:90px 5%;max-width:1280px;margin:0 auto}
     .vitrine-head{text-align:center;margin-bottom:48px}
     .vitrine-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -68,7 +66,6 @@
     .pack-price{display:inline-flex;align-items:center;gap:6px;background:var(--pinkl);color:var(--pinkd);font-size:12px;font-weight:700;padding:6px 12px;border-radius:100px;border:1px solid #FBCFE8}
     .pack-price::before{content:'💶'}
 
-    /* COMMENT CA MARCHE — 3 étapes */
     .howto{background:linear-gradient(180deg,var(--pinkl) 0%,#fff 100%);padding:90px 5%}
     .howto-in{max-width:1080px;margin:0 auto;text-align:center}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
@@ -78,7 +75,6 @@
     .step h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:10px}
     .step p{font-size:13.5px;color:var(--muted);line-height:1.7}
 
-    /* LOKALIST FAIT POUR VOUS — section différenciante */
     .matchmaking{padding:90px 5%;max-width:1280px;margin:0 auto}
     .match-card{background:linear-gradient(135deg,var(--dark) 0%,#1A2E4F 100%);border-radius:32px;padding:60px 56px;color:#fff;position:relative;overflow:hidden}
     .match-card::before{content:'🎯';position:absolute;top:-20px;right:-20px;font-size:240px;opacity:.04}
@@ -100,7 +96,6 @@
     .match-prop-meta{font-size:11px;color:rgba(255,255,255,.55);margin-top:3px}
     .match-prop-cta{font-size:10px;font-weight:700;color:#fff;background:var(--pink);padding:5px 10px;border-radius:6px;white-space:nowrap}
 
-    /* WORKFLOW PRO */
     .workflow{background:var(--bg);padding:90px 5%}
     .workflow-in{max-width:1080px;margin:0 auto}
     .workflow-head{text-align:center;margin-bottom:48px}
@@ -111,7 +106,6 @@
     .workflow-card h3{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--dark);margin-bottom:10px}
     .workflow-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
 
-    /* ROI / Avantages pro */
     .roi{padding:90px 5%;max-width:1280px;margin:0 auto;text-align:center}
     .roi-head{margin-bottom:48px}
     .roi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1080px;margin:0 auto}
@@ -121,25 +115,33 @@
     .roi-card h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px}
     .roi-card p{font-size:12.5px;color:var(--muted);line-height:1.55}
 
-    /* PRICING Premium focus */
     .pricing{background:linear-gradient(180deg,var(--pinkl) 0%,#fff 100%);padding:90px 5%}
-    .pricing-in{max-width:580px;margin:0 auto;text-align:center}
-    .premium-card{background:var(--surf);border:3px solid var(--pink);border-radius:28px;padding:48px 40px;margin:48px auto 0;text-align:left;box-shadow:0 32px 80px rgba(236,72,153,.18);position:relative;overflow:hidden}
-    .premium-card::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--pink) 0%,var(--a) 100%)}
+    .pricing-in{max-width:980px;margin:0 auto;text-align:center}
+    .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;text-align:left;margin-top:48px}
+    .price-card{background:var(--surf);border-radius:28px;padding:40px 32px;position:relative;overflow:hidden}
+    .price-card.premium{border:3px solid var(--pink);box-shadow:0 32px 80px rgba(236,72,153,.18)}
+    .price-card.premium::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--pink) 0%,var(--a) 100%)}
+    .price-card.sur-demande{border:3px solid var(--bdr);background:linear-gradient(180deg,#fff 0%,var(--bg) 100%);box-shadow:0 16px 40px rgba(0,0,0,.06)}
+    .price-card.sur-demande::before{content:'';position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--g) 0%,var(--gd) 100%)}
     .premium-ribbon{position:absolute;top:18px;right:-32px;background:var(--pink);color:#fff;font-size:11px;font-weight:800;padding:6px 40px;transform:rotate(45deg);text-transform:uppercase;letter-spacing:1px;box-shadow:0 4px 12px rgba(236,72,153,.3)}
-    .premium-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:12px;font-weight:800;color:var(--pinkd);background:var(--pinkl);padding:5px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
-    .premium-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--dark);margin-bottom:18px;line-height:1.25}
-    .premium-price{margin-bottom:24px;padding:18px 0;border-top:1px dashed #FBCFE8;border-bottom:1px dashed #FBCFE8}
-    .premium-mois{font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:var(--dark);line-height:1}
-    .premium-mois span{font-size:14px;color:var(--muted);font-weight:400}
-    .premium-eco{font-size:12.5px;color:var(--g);font-weight:700;margin-top:6px}
-    .premium-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
-    .premium-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
-    .premium-feats li::before{content:'✓';color:var(--pink);font-weight:800;flex-shrink:0;margin-top:2px}
-    .premium-feats li.star{color:var(--pinkd);font-weight:600}
-    .premium-feats li.star::before{content:'⭐'}
+    .price-tag{display:inline-block;font-family:'Syne',sans-serif;font-size:12px;font-weight:800;padding:5px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px}
+    .price-tag.pink{color:var(--pinkd);background:var(--pinkl)}
+    .price-tag.green{color:var(--gd);background:var(--gl)}
+    .price-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:18px;line-height:1.25}
+    .price-amount{margin-bottom:24px;padding:18px 0;border-top:1px dashed #FBCFE8;border-bottom:1px dashed #FBCFE8}
+    .price-amount.green{border-color:var(--gm)}
+    .price-mois{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--dark);line-height:1}
+    .price-mois.green{color:var(--g);font-size:32px}
+    .price-mois span{font-size:14px;color:var(--muted);font-weight:400}
+    .price-eco{font-size:12.5px;color:var(--g);font-weight:700;margin-top:6px}
+    .price-eco.muted{color:var(--muted);font-weight:500}
+    .price-feats{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+    .price-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+    .price-feats li::before{content:'✓';color:var(--pink);font-weight:800;flex-shrink:0;margin-top:2px}
+    .price-feats li.star{color:var(--pinkd);font-weight:600}
+    .price-feats li.star::before{content:'⭐'}
+    .price-card.sur-demande .price-feats li::before{color:var(--g)}
 
-    /* CTA */
     .cta{background:linear-gradient(135deg,var(--pinkd) 0%,#831843 100%);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
     .cta::before{content:'🎉';font-size:280px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.04;pointer-events:none}
     .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
@@ -150,7 +152,6 @@
     .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.25)}
     .cta-reassure{font-size:12px;color:rgba(255,255,255,.45);margin-top:14px}
 
-    /* FOOTER */
     footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
     .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
     .foot-links{display:flex;gap:22px;flex-wrap:wrap}
@@ -161,16 +162,28 @@
     .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none}
     .foot-legal a:hover{color:var(--pink)}
 
+    /* DROPDOWN ESPACES PROS */
+    .nav-espaces{position:relative}
+    .nav-espaces-btn{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:1px solid rgba(29,158,117,.25);transition:all .2s}
+    .nav-espaces-btn:hover{background:var(--gl)!important}
+    .nav-espaces-btn .chev{font-size:10px;transition:transform .2s}
+    .nav-espaces.open .nav-espaces-btn .chev{transform:rotate(180deg)}
+    .nav-espaces-drop{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 12px 40px rgba(0,0,0,.08);opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .2s;z-index:201}
+    .nav-espaces.open .nav-espaces-drop{opacity:1;visibility:visible;transform:translateY(0)}
+    .nav-espaces-drop a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--text)!important;text-decoration:none;transition:background .15s}
+    .nav-espaces-drop a:hover{background:var(--gl);color:var(--g)!important}
+    .nav-espaces-drop a .ico{font-size:18px}
+
     /* RESPONSIVE */
+    @media(max-width:1100px){
+      .nav-links{display:none}
+      .hamburger{display:flex}
+    }
     @media(max-width:1024px){
       .vitrine-grid{grid-template-columns:repeat(2,1fr)}
       .roi-grid{grid-template-columns:repeat(2,1fr)}
       .match-grid{grid-template-columns:1fr;gap:32px}
       .steps{grid-template-columns:1fr;gap:16px}
-    }
-    @media(max-width:1100px){
-      .nav-links{display:none}
-      .hamburger{display:flex}
       .hero{padding:110px 5% 60px}
       .match-card{padding:40px 32px}
       .workflow-grid{grid-template-columns:1fr}
@@ -178,27 +191,15 @@
     @media(max-width:640px){
       .vitrine-grid{grid-template-columns:1fr}
       .roi-grid{grid-template-columns:1fr}
+      .pricing-grid{grid-template-columns:1fr}
       .hero h1{font-size:clamp(28px,8vw,40px)!important}
       .hero-btns{flex-direction:column;align-items:stretch}
       .hero-btns a{justify-content:center}
-      .premium-card{padding:36px 28px}
-      .premium-mois{font-size:38px}
+      .price-card{padding:32px 24px}
       .match-card{padding:32px 24px;border-radius:24px}
       .foot-in{flex-wrap:wrap;justify-content:center;text-align:center}
       .foot-links,.foot-legal{flex-wrap:wrap;gap:10px;justify-content:center}
     }
-    /* === DROPDOWN ESPACES PROS === */
-.nav-espaces{position:relative}
-.nav-espaces-btn{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:1px solid rgba(29,158,117,.25);transition:all .2s}
-.nav-espaces-btn:hover{background:var(--gl)!important}
-.nav-espaces-btn .chev{font-size:10px;transition:transform .2s}
-.nav-espaces.open .nav-espaces-btn .chev{transform:rotate(180deg)}
-.nav-espaces-drop{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 12px 40px rgba(0,0,0,.08);opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .2s;z-index:201}
-.nav-espaces.open .nav-espaces-drop{opacity:1;visibility:visible;transform:translateY(0)}
-.nav-espaces-drop a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--text)!important;text-decoration:none;transition:background .15s}
-.nav-espaces-drop a:hover{background:var(--gl);color:var(--g)!important}
-.nav-espaces-drop a .ico{font-size:18px}
-/* === FIN DROPDOWN === */
   </style>
 </head>
 <body>
@@ -217,7 +218,7 @@
     <li><a href="/commercants">Commerçants</a></li>
     <li><a href="/artisans">Artisans</a></li>
     <li><a href="/loisirs">Loisirs</a></li>
-    <li><a href="/idees-sorties">Idées Sorties</a></li>
+    <li><a href="/idees-sorties" class="active">Idées Sorties</a></li>
     <li><a href="/agences">Agences</a></li>
     <li><a href="/courtiers">Courtiers</a></li>
     <li><a href="/tarifs">Tarifs</a></li>
@@ -244,10 +245,9 @@
   <div style="height:1px;background:var(--bdr);margin:8px 0"></div>
   <a href="https://dashboard.lokalist.fr" target="_blank">🏛️ Dashboard</a>
   <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
-  <a href="/contact" style="color:var(--g);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
+  <a href="/contact" style="color:var(--pink);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
 </div>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-badge">🎉 Nouveau — Formule Premium</div>
   <h1>Créez des <em>expériences combinées</em><br/>avec d'autres pros locaux</h1>
@@ -264,14 +264,12 @@
   </div>
 </section>
 
-<!-- VITRINE PACKS (côté utilisateur) -->
 <section class="vitrine" id="vitrine">
   <div class="vitrine-head">
     <p class="sec-tag reveal">Côté utilisateur — Ce que voient vos clients</p>
     <h2 class="sec-h reveal" style="max-width:780px;margin-left:auto;margin-right:auto">Une rubrique <span style="color:var(--pink)">Idée Sortie</span><br/>qui donne envie de réserver</h2>
     <p class="sec-p reveal" style="margin-left:auto;margin-right:auto">Les utilisateurs Lokalist voient des packs combinés clés en main. Plus besoin de réserver 2 fois : un seul code, une seule soirée. Et vos pros récupèrent 2 ventes au lieu d'1.</p>
   </div>
-
   <div class="vitrine-grid">
     <div class="pack-card reveal">
       <div class="pack-banner pack-banner-amis">🎳</div>
@@ -282,7 +280,6 @@
         <div class="pack-price">Prix défini par les pros</div>
       </div>
     </div>
-
     <div class="pack-card reveal">
       <div class="pack-banner pack-banner-couple">🎬</div>
       <div class="pack-content">
@@ -292,7 +289,6 @@
         <div class="pack-price">Prix défini par les pros</div>
       </div>
     </div>
-
     <div class="pack-card reveal">
       <div class="pack-banner pack-banner-detente">💆</div>
       <div class="pack-content">
@@ -303,17 +299,14 @@
       </div>
     </div>
   </div>
-
   <p style="text-align:center;color:var(--muted);font-size:13px;font-style:italic;margin-top:32px">Les prix sont définis librement par chaque duo de pros. Lokalist ne prélève aucune commission sur les packs vendus.</p>
 </section>
 
-<!-- COMMENT CA MARCHE -->
 <section class="howto">
   <div class="howto-in">
     <p class="sec-tag reveal">Comment ça marche</p>
     <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Un pack en <span style="color:var(--pink)">3 étapes</span></h2>
     <p class="sec-p reveal" style="margin-left:auto;margin-right:auto;text-align:left">Un workflow simple, conçu pour que vous gardiez 100% de votre activité tout en multipliant vos opportunités de vente.</p>
-
     <div class="steps">
       <div class="step reveal">
         <div class="step-num">1</div>
@@ -337,7 +330,6 @@
   </div>
 </section>
 
-<!-- LOKALIST FAIT POUR VOUS -->
 <section class="matchmaking">
   <div class="match-card reveal">
     <div class="match-grid">
@@ -384,33 +376,28 @@
   </div>
 </section>
 
-<!-- WORKFLOW PRO -->
 <section class="workflow">
   <div class="workflow-in">
     <div class="workflow-head">
       <p class="sec-tag reveal">Côté pro — Détails techniques</p>
       <h2 class="sec-h reveal" style="text-align:center;margin-left:auto;margin-right:auto">Tout est dans votre <span style="color:var(--pink)">tableau de bord</span></h2>
     </div>
-
     <div class="workflow-grid">
       <div class="workflow-card reveal">
         <div class="workflow-card-tag">📦 Création du pack</div>
         <h3>Vous proposez, l'autre pro valide</h3>
         <p>Une fois mis en relation, vous créez le pack depuis votre dashboard : titre, description, prix combiné, photo. Le pro partenaire reçoit une notification et valide en 1 clic. Une fois validé, le pack est en ligne dans l'app.</p>
       </div>
-
       <div class="workflow-card reveal">
         <div class="workflow-card-tag">💸 Encaissement séparé</div>
         <h3>Chacun garde sa part</h3>
         <p>L'utilisateur paie le pack dans l'app (selon votre configuration) ou directement chez vous en caisse. Vous vous mettez d'accord à l'avance sur la répartition (ex: 50/50 ou prorata du tarif initial).</p>
       </div>
-
       <div class="workflow-card reveal">
         <div class="workflow-card-tag">🎟️ Code unique</div>
         <h3>1 code, 1 soirée, 2 validations</h3>
         <p>L'utilisateur reçoit 1 code QR unique pour le pack entier. Il le présente chez vous (resto), vous le validez, puis chez l'autre pro (bowling) qui le valide aussi. Tout est tracé dans vos stats.</p>
       </div>
-
       <div class="workflow-card reveal">
         <div class="workflow-card-tag">📊 Stats temps réel</div>
         <h3>Suivez vos packs au quotidien</h3>
@@ -420,14 +407,12 @@
   </div>
 </section>
 
-<!-- ROI -->
 <section class="roi">
   <div class="roi-head">
     <p class="sec-tag reveal">Pourquoi passer en Premium ?</p>
     <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Ce que <span style="color:var(--pink)">+5€/mois</span> vous rapporte</h2>
     <p class="sec-p reveal" style="margin-left:auto;margin-right:auto">L'écart avec le Standard (19,90€) est minime. Le ROI vient des packs vendus.</p>
   </div>
-
   <div class="roi-grid">
     <div class="roi-card reveal">
       <div class="roi-num">+1</div>
@@ -452,35 +437,56 @@
   </div>
 </section>
 
-<!-- PRICING Premium focus -->
 <section class="pricing">
   <div class="pricing-in">
     <p class="sec-tag reveal">Tarif Premium</p>
-    <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Une seule formule.<br/>Toutes les opportunités.</h2>
+    <h2 class="sec-h reveal" style="margin-left:auto;margin-right:auto">Deux façons de démarrer</h2>
+    <p class="sec-p reveal" style="margin:0 auto 32px">Choisissez la formule classique — ou contactez-nous pour un accompagnement sur mesure.</p>
 
-    <div class="premium-card reveal">
-      <div class="premium-ribbon">Recommandé</div>
-      <div class="premium-tag">🎉 Premium</div>
-      <h3 class="premium-title">L'accès à la rubrique<br/>Idée Sortie + tous les avantages Premium</h3>
-      <div class="premium-price">
-        <div class="premium-mois">24<span>,90€/mois</span></div>
-        <div class="premium-eco">Soit +5€/mois vs Standard — rentabilisé dès le 1er pack vendu</div>
+    <div class="pricing-grid">
+
+      <div class="price-card premium reveal">
+        <div class="premium-ribbon">Recommandé</div>
+        <div class="price-tag pink">🎉 Premium</div>
+        <h3 class="price-title">Formule Premium<br/>Idée Sortie + tout inclus</h3>
+        <div class="price-amount">
+          <div class="price-mois">24<span>,90€/mois</span></div>
+          <div class="price-eco">Soit +5€/mois vs Standard — rentabilisé dès le 1er pack vendu</div>
+        </div>
+        <ul class="price-feats">
+          <li class="star">Mise en avant rubrique <strong>"Idée Sortie"</strong></li>
+          <li class="star"><strong>Recherche active de partenaires</strong> par Lokalist</li>
+          <li class="star">Packs combinés illimités</li>
+          <li>Tout le pack Standard inclus</li>
+          <li>Onboarding visio dédié sous 30 min</li>
+          <li>0 % commission sur vos ventes de packs</li>
+          <li>Stats packs temps réel</li>
+          <li>Sans engagement de durée</li>
+        </ul>
+        <a href="/contact?type=premium" class="btn btn-pink" style="width:100%;justify-content:center">🎉 Passer en Premium →</a>
+        <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic">Déjà partenaire Standard ? Upgrade en 1 clic.</p>
       </div>
 
-      <ul class="premium-feats">
-        <li class="star">Mise en avant dans la rubrique <strong>"Idée Sortie"</strong></li>
-        <li class="star"><strong>Recherche active de partenaires</strong> par Lokalist</li>
-        <li class="star">Packs combinés illimités</li>
-        <li>Tout le pack Standard (QR fidélité, mairies, boosts...)</li>
-        <li>Onboarding visio dédié sous 30 min</li>
-        <li>0 % commission sur vos ventes de packs</li>
-        <li>Stats packs temps réel</li>
-        <li>Sans engagement de durée</li>
-      </ul>
+      <div class="price-card sur-demande reveal">
+        <div class="price-tag green">💬 Sur mesure</div>
+        <h3 class="price-title">Cas particulier<br/>ou besoin spécifique ?</h3>
+        <div class="price-amount green">
+          <div class="price-mois green">Sur demande</div>
+          <div class="price-eco muted">Tarif et conditions adaptés à votre situation</div>
+        </div>
+        <ul class="price-feats">
+          <li><strong>Vous hésitez</strong> entre Standard et Premium ?</li>
+          <li><strong>Plusieurs établissements</strong> à gérer ?</li>
+          <li>Besoin d'un <strong>accompagnement personnalisé</strong> ?</li>
+          <li><strong>Format différent</strong> de l'abonnement classique ?</li>
+          <li>Discussion en visio sous <strong>48h</strong></li>
+          <li><strong>Aucun engagement</strong> de votre part</li>
+          <li>Devis détaillé sous 24h après échange</li>
+        </ul>
+        <a href="/contact" class="btn btn-o" style="width:100%;justify-content:center;border-color:var(--g);color:var(--g)">💬 Contacter Lokalist →</a>
+        <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic">Réponse sous 24h ouvré · contact@lokalist.fr</p>
+      </div>
 
-      <a href="/contact?type=premium" class="btn btn-pink" style="width:100%;justify-content:center">🎉 Passer en Premium →</a>
-
-      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px;font-style:italic">Déjà partenaire Standard ? Upgrade en 1 clic depuis votre dashboard.</p>
     </div>
 
     <div style="margin-top:32px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
@@ -490,7 +496,6 @@
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta">
   <div class="cta-in">
     <h2>Prêt à vendre<br/>des <em>expériences</em> ?</h2>
@@ -500,7 +505,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="foot-in">
     <div class="foot-logo" style="display:flex;align-items:center;gap:6px">
@@ -519,7 +523,7 @@
       <a href="/agences">Agences immo</a>
       <a href="/courtiers">Courtiers</a>
       <a href="/tarifs">Tarifs</a>
-      <a href="/contact?type=premium">Contact</a>
+      <a href="/contact">Contact</a>
     </div>
     <div class="foot-legal">
       <a href="/mentions-legales">Mentions légales</a>
@@ -533,23 +537,26 @@
 </footer>
 
 <script>
-  // Dropdown Espaces Pros
-function toggleEspaces(e){
-  e.stopPropagation();
-  document.getElementById('navEspaces').classList.toggle('open');
-}
-document.addEventListener('click',(e)=>{
-  if(!e.target.closest('#navEspaces')){
-    const el=document.getElementById('navEspaces');
-    if(el)el.classList.remove('open');
+  function toggleEspaces(e){
+    e.stopPropagation();
+    document.getElementById('navEspaces').classList.toggle('open');
   }
-});
+  function toggleMobile(){
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  document.addEventListener('click',(e)=>{
+    if(!e.target.closest('#navEspaces')){
+      const el=document.getElementById('navEspaces');
+      if(el)el.classList.remove('open');
+    }
+    if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu')){
+      document.getElementById('mobileMenu').classList.remove('open');
+    }
+  });
   window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20));
   const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800);
-  function toggleMob(){document.getElementById('mob').classList.toggle('open')}
-  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mob'))document.getElementById('mob').classList.remove('open')});
 </script>
 </body>
 </html>
