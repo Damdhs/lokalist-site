@@ -18,6 +18,21 @@
     { "source": "/contact/", "destination": "/contact.html" },
     { "source": "/contact/:path*", "destination": "/contact.html" },
     { "source": "/devis/:token", "destination": "/devis.html" },
-    { "source": "/annonce/:id", "destination": "/api/annonce?id=:id" }
+    { "source": "/annonce/:id", "destination": "/api/annonce?id=:id" },
+    { "source": "/contrats/:token", "destination": "/signer-contrat.html" }
+  ],
+  "headers": [
+    {
+      "source": "/signer-contrat.html",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=(), payment=()" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
+        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, max-age=0" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://lokalist-api-production.up.railway.app; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';" }
+      ]
+    }
   ]
 }
