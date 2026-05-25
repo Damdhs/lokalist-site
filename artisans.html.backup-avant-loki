@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -217,7 +217,6 @@
   <link rel="icon" href="/favicon.ico" sizes="any"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
-  <link rel="stylesheet" href="loki-section.css">
 </head>
 <body>
 <nav id="nav">
@@ -518,103 +517,6 @@ document.addEventListener('click',(e)=>{
   function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
   document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
 </script>
-<section class="loki reveal-in" id="loki">
-  <div class="loki__wrap">
-
-    <div class="loki__head">
-      <svg class="loki__avatar" data-reveal viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LOKI, le renard Lokalist">
-        <path d="M20 22 L34 44 Q50 38 66 44 L80 22 Q74 50 72 56 Q62 78 50 78 Q38 78 28 56 Q26 50 20 22Z" fill="#EF9F27"/>
-        <path d="M24 27 L33 41 Q41 38 41 38 L34 26Z" fill="#fff" opacity=".85"/>
-        <path d="M76 27 L67 41 Q59 38 59 38 L66 26Z" fill="#fff" opacity=".85"/>
-        <path d="M34 50 Q50 58 66 50 Q62 70 50 72 Q38 70 34 50Z" fill="#fff"/>
-        <circle cx="41" cy="52" r="3.4" fill="#14211C"/>
-        <circle cx="59" cy="52" r="3.4" fill="#14211C"/>
-        <path d="M50 60 l-4 4 q4 3 8 0 Z" fill="#14211C"/>
-        <circle cx="42" cy="50.5" r="1" fill="#fff"/>
-        <circle cx="60" cy="50.5" r="1" fill="#fff"/>
-      </svg>
-
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> LOKI · votre assistant IA Lokalist
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span> vous trouve des <span class="hl">chantiers</span>, vous gardez votre savoir-faire
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        Le renard de Lokalist met votre métier en avant auprès des habitants qui ont besoin de vous,
-        au bon endroit et au bon moment. Pendant que vous travaillez, lui s'occupe de votre visibilité
-        et de votre relation client.
-      </p>
-    </div>
-
-    <div class="loki__grid">
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📍</div>
-        <h3>Il vous met devant les bons clients</h3>
-        <p>Un habitant cherche un plombier, un électricien, un artisan près de chez lui ? LOKI met en avant les pros Lokalist du secteur — avec votre métier, votre zone, vos badges de confiance.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🛡️</div>
-        <h3>Il valorise vos certifications</h3>
-        <p>Assurance à jour, RGE, profil vérifié : LOKI met en avant vos badges pour rassurer avant même le premier appel. La confiance se gagne avant le devis.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🚨</div>
-        <h3>Il booste vos urgences</h3>
-        <p>Un créneau libre, une intervention rapide à remplir ? Activez le mode urgence : LOKI pousse votre disponibilité aux habitants qui en ont besoin maintenant.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📝</div>
-        <h3>Il rédige vos devis et messages</h3>
-        <p>Décrivez la prestation, LOKI met en forme un message clair et pro pour vos clients. Vous validez, vous envoyez. Moins de paperasse, plus de chantiers.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">⭐</div>
-        <h3>Il soigne votre réputation</h3>
-        <p>Il vous aide à collecter et répondre aux avis. Une bonne note bien gérée, c'est le meilleur commercial pour un artisan local.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🗂️</div>
-        <h3>Il suit vos demandes</h3>
-        <p>Un mini-CRM simple : nouvelles demandes, en cours, à relancer. LOKI vous évite de perdre un client faute d'avoir rappelé à temps.</p>
-      </article>
-
-    </div>
-
-    <div class="loki__proof">
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Des demandes qualifiées
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Une réputation solide
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Zéro temps perdu en admin
-      </span>
-    </div>
-
-    <div class="loki__cta">
-      <p class="loki__cta-line">Vous êtes un pro du terrain. LOKI est votre pro du digital.</p>
-      <a class="loki__btn" href="contact.html?type=profil">
-        Rejoindre Lokalist
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
-  <script src="loki.js" defer></script>
 </body>
 </html>
 

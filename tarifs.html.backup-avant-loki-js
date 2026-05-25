@@ -883,6 +883,5 @@ document.addEventListener('click',(e)=>{
     document.getElementById(key + '-annuel').style.display = isAnnual ? 'block' : 'none'
   }
 </script>
-  <script src="loki.js" defer></script>
 </body>
 </html>

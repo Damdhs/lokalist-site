@@ -637,6 +637,5 @@ document.addEventListener('click',(e)=>{
     }, 200);
   }
 </script>
-  <script src="loki.js" defer></script>
 </body>
 </html>

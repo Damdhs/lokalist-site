@@ -1169,7 +1169,6 @@ chargerStats();
 
   </div>
 </section>
-  <script src="loki.js" defer></script>
 </body>
 </html>
 

@@ -560,6 +560,5 @@
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800);
 </script>
-  <script src="loki.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -509,7 +509,6 @@ document.addEventListener('click',(e)=>{
   function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
   document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
 </script>
-  <script src="loki.js" defer></script>
 </body>
 </html>
 

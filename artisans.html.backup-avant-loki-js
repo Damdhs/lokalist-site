@@ -614,7 +614,6 @@ document.addEventListener('click',(e)=>{
 
   </div>
 </section>
-  <script src="loki.js" defer></script>
 </body>
 </html>
 
