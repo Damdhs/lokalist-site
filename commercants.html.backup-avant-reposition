@@ -373,93 +373,6 @@
     </div>
   </div>
 </section>
-<section class="loki reveal-in" id="loki">
-  <div class="loki__wrap">
-
-    <div class="loki__head">
-      <!-- Avatar renard LOKI (SVG inline, aucune image à héberger) -->
-      
-
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> LOKI · votre assistant IA Lokalist
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span> travaille pour votre <span class="hl">commerce</span>, jour et nuit
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        Le renard malin de Lokalist est aussi un copilote business. Il guide vos clients jusqu'à
-        votre boutique, rédige vos offres, choisit le bon moment pour les diffuser et vous fait
-        gagner du temps sur tout ce qui n'est pas votre métier.
-      </p>
-    </div>
-
-    <div class="loki__grid">
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🎯</div>
-        <h3>Il amène les clients à vous</h3>
-        <p>Quand un habitant cherche « où manger », « un cadeau », « une idée près de chez moi », LOKI oriente vers les commerces Lokalist — dont le vôtre. Une vitrine qui parle pour vous, 24h/24.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">✍️</div>
-        <h3>Il rédige vos offres</h3>
-        <p>Décrivez votre promo en une phrase : LOKI écrit le texte qui donne envie de venir. Titre accrocheur, conditions claires, ton adapté à votre clientèle. Vous validez, c'est en ligne.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">⏰</div>
-        <h3>Il choisit le bon moment</h3>
-        <p>LOKI vous suggère quand lancer une offre selon les jours d'affluence et les habitudes locales. Fini les promos envoyées au mauvais moment dans le vide.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🔁</div>
-        <h3>Il fidélise à votre place</h3>
-        <p>Il repère les clients qui reviennent et ceux qui décrochent, et propose la bonne relance. Vos habitués reçoivent leurs points et leurs bons — vous gardez le lien sans y penser.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">💬</div>
-        <h3>Il répond pour vous</h3>
-        <p>Questions des clients, avis à remercier, messages courants : LOKI prépare des réponses prêtes à envoyer. Vous restez maître, vous gagnez des heures chaque semaine.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📈</div>
-        <h3>Il vous montre ce qui marche</h3>
-        <p>En clair, sans jargon : quelles offres ont rapporté, combien de clients fidélisés, quoi améliorer. Vous décidez avec des chiffres, pas au feeling.</p>
-      </article>
-
-    </div>
-
-    <div class="loki__proof">
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Plus de visibilité locale
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Des clients qui reviennent
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Moins de temps perdu
-      </span>
-    </div>
-
-    <div class="loki__cta">
-      <p class="loki__cta-line">Laissez LOKI s'occuper du digital. Occupez-vous de vos clients.</p>
-      <a class="loki__btn" href="contact.html?type=profil">
-        Rejoindre Lokalist
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
 <section class="tarif-section">
   <div class="tarif-grid">
     <div>
@@ -640,7 +553,93 @@ document.addEventListener('click',(e)=>{
   function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
   document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
 </script>
+<section class="loki reveal-in" id="loki">
+  <div class="loki__wrap">
 
+    <div class="loki__head">
+      <!-- Avatar renard LOKI (SVG inline, aucune image à héberger) -->
+      
+
+      <div class="loki__badge" data-reveal>
+        <span class="dot"></span> LOKI · votre assistant IA Lokalist
+      </div>
+
+      <h2 class="loki__title" data-reveal>
+        <span class="fox">LOKI 🦊</span> travaille pour votre <span class="hl">commerce</span>, jour et nuit
+      </h2>
+
+      <p class="loki__lead" data-reveal>
+        Le renard malin de Lokalist est aussi un copilote business. Il guide vos clients jusqu'à
+        votre boutique, rédige vos offres, choisit le bon moment pour les diffuser et vous fait
+        gagner du temps sur tout ce qui n'est pas votre métier.
+      </p>
+    </div>
+
+    <div class="loki__grid">
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🎯</div>
+        <h3>Il amène les clients à vous</h3>
+        <p>Quand un habitant cherche « où manger », « un cadeau », « une idée près de chez moi », LOKI oriente vers les commerces Lokalist — dont le vôtre. Une vitrine qui parle pour vous, 24h/24.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">✍️</div>
+        <h3>Il rédige vos offres</h3>
+        <p>Décrivez votre promo en une phrase : LOKI écrit le texte qui donne envie de venir. Titre accrocheur, conditions claires, ton adapté à votre clientèle. Vous validez, c'est en ligne.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">⏰</div>
+        <h3>Il choisit le bon moment</h3>
+        <p>LOKI vous suggère quand lancer une offre selon les jours d'affluence et les habitudes locales. Fini les promos envoyées au mauvais moment dans le vide.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🔁</div>
+        <h3>Il fidélise à votre place</h3>
+        <p>Il repère les clients qui reviennent et ceux qui décrochent, et propose la bonne relance. Vos habitués reçoivent leurs points et leurs bons — vous gardez le lien sans y penser.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">💬</div>
+        <h3>Il répond pour vous</h3>
+        <p>Questions des clients, avis à remercier, messages courants : LOKI prépare des réponses prêtes à envoyer. Vous restez maître, vous gagnez des heures chaque semaine.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">📈</div>
+        <h3>Il vous montre ce qui marche</h3>
+        <p>En clair, sans jargon : quelles offres ont rapporté, combien de clients fidélisés, quoi améliorer. Vous décidez avec des chiffres, pas au feeling.</p>
+      </article>
+
+    </div>
+
+    <div class="loki__proof">
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Plus de visibilité locale
+      </span>
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Des clients qui reviennent
+      </span>
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Moins de temps perdu
+      </span>
+    </div>
+
+    <div class="loki__cta">
+      <p class="loki__cta-line">Laissez LOKI s'occuper du digital. Occupez-vous de vos clients.</p>
+      <a class="loki__btn" href="contact.html?type=profil">
+        Rejoindre Lokalist
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
   <script src="loki.js" defer></script>
 </body>
 </html>

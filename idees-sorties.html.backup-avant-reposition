@@ -379,90 +379,6 @@
   </div>
 </section>
 
-<section class="loki reveal-in" id="loki">
-  <div class="loki__wrap">
-
-    <div class="loki__head">
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> LOKI · votre guide sorties
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span> sait toujours <span class="hl">quoi faire près de chez vous</span>
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        Plus jamais de « on fait quoi ce week-end ? ». Le renard de Lokalist connaît tous les
-        événements, sorties et bons plans de votre commune et vous propose ce qui vous correspond,
-        au bon moment.
-      </p>
-    </div>
-
-    <div class="loki__grid">
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🎉</div>
-        <h3>Les événements du moment</h3>
-        <p>Concerts, marchés, expos, brocantes : LOKI vous montre ce qui se passe près de vous, mis à jour en direct par les commerces et votre mairie.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📍</div>
-        <h3>Toujours à deux pas</h3>
-        <p>LOKI tient compte de votre position : il propose en priorité ce qui est proche, accessible et qui vaut vraiment le déplacement.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">👨‍👩‍👧</div>
-        <h3>Pour toute la famille</h3>
-        <p>Sortie en solo, en couple, avec les enfants ? Dites à LOKI avec qui vous sortez, il adapte ses idées à votre tribu.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">☀️</div>
-        <h3>Selon la météo et le moment</h3>
-        <p>Beau temps, soirée pluvieuse, dimanche tranquille : LOKI ajuste ses suggestions pour que ça tombe toujours juste.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">💸</div>
-        <h3>Des sorties qui rapportent des points</h3>
-        <p>Beaucoup d'activités et de commerces partenaires vous font gagner des points Lokalist, transformables en bons d'achat. Sortir devient malin.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🦊</div>
-        <h3>Il suffit de demander</h3>
-        <p>« Une idée pour samedi ? », « Un endroit sympa pour bruncher ? » : posez la question à LOKI, il vous répond comme un ami qui connaît la ville.</p>
-      </article>
-
-    </div>
-
-    <div class="loki__proof">
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Toujours une bonne idée
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        100 % local
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Et des points en bonus
-      </span>
-    </div>
-
-    <div class="loki__cta">
-      <p class="loki__cta-line">Votre ville est pleine de surprises. LOKI vous les fait découvrir.</p>
-      <a class="loki__btn" href="#telecharger">
-        Découvrir Lokalist
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
 <section class="workflow">
   <div class="workflow-in">
     <div class="workflow-head">
@@ -646,6 +562,89 @@
   setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800);
 </script>
   <script src="loki.js" defer></script>
+<section class="loki reveal-in" id="loki">
+  <div class="loki__wrap">
 
+    <div class="loki__head">
+      <div class="loki__badge" data-reveal>
+        <span class="dot"></span> LOKI · votre guide sorties
+      </div>
+
+      <h2 class="loki__title" data-reveal>
+        <span class="fox">LOKI 🦊</span> sait toujours <span class="hl">quoi faire près de chez vous</span>
+      </h2>
+
+      <p class="loki__lead" data-reveal>
+        Plus jamais de « on fait quoi ce week-end ? ». Le renard de Lokalist connaît tous les
+        événements, sorties et bons plans de votre commune et vous propose ce qui vous correspond,
+        au bon moment.
+      </p>
+    </div>
+
+    <div class="loki__grid">
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🎉</div>
+        <h3>Les événements du moment</h3>
+        <p>Concerts, marchés, expos, brocantes : LOKI vous montre ce qui se passe près de vous, mis à jour en direct par les commerces et votre mairie.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">📍</div>
+        <h3>Toujours à deux pas</h3>
+        <p>LOKI tient compte de votre position : il propose en priorité ce qui est proche, accessible et qui vaut vraiment le déplacement.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">👨‍👩‍👧</div>
+        <h3>Pour toute la famille</h3>
+        <p>Sortie en solo, en couple, avec les enfants ? Dites à LOKI avec qui vous sortez, il adapte ses idées à votre tribu.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">☀️</div>
+        <h3>Selon la météo et le moment</h3>
+        <p>Beau temps, soirée pluvieuse, dimanche tranquille : LOKI ajuste ses suggestions pour que ça tombe toujours juste.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">💸</div>
+        <h3>Des sorties qui rapportent des points</h3>
+        <p>Beaucoup d'activités et de commerces partenaires vous font gagner des points Lokalist, transformables en bons d'achat. Sortir devient malin.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🦊</div>
+        <h3>Il suffit de demander</h3>
+        <p>« Une idée pour samedi ? », « Un endroit sympa pour bruncher ? » : posez la question à LOKI, il vous répond comme un ami qui connaît la ville.</p>
+      </article>
+
+    </div>
+
+    <div class="loki__proof">
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Toujours une bonne idée
+      </span>
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        100 % local
+      </span>
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Et des points en bonus
+      </span>
+    </div>
+
+    <div class="loki__cta">
+      <p class="loki__cta-line">Votre ville est pleine de surprises. LOKI vous les fait découvrir.</p>
+      <a class="loki__btn" href="#telecharger">
+        Découvrir Lokalist
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
 </body>
 </html>

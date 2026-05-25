@@ -433,6 +433,91 @@
     </div>
   </div>
 </section>
+<section class="tarif-art">
+  <div class="tarif-in">
+    <div>
+      <p class="sec-tag reveal">Tarification</p>
+      <h2 class="sec-h reveal">Simple, transparent,<br/>sans mauvaise surprise</h2>
+      <p class="sec-p reveal">Lokalist ne prend aucune commission sur vos chantiers. Vous payez un abonnement mensuel fixe et gardez 100% de vos revenus.</p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="tarif-extra reveal"><span class="tarif-extra-name">🎁 2 boosts 12h/mois</span><span class="tarif-extra-price">Inclus</span></div>
+        <div class="tarif-extra reveal"><span class="tarif-extra-name">📊 Dashboard pro complet</span><span class="tarif-extra-price">Inclus</span></div>
+        <div class="tarif-extra reveal"><span class="tarif-extra-name">⭐ Avis vérifiés illimités</span><span class="tarif-extra-price">Inclus</span></div>
+        <div class="tarif-extra reveal"><span class="tarif-extra-name">🚀 Boost supplémentaire</span><span class="tarif-extra-price">9,90€/boost</span></div>
+      </div>
+    </div>
+    <div class="tarif-card reveal">
+      <div class="tarif-top">🔧 Artisan Lokalist</div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Abonnement mensuel</div>
+      <div style="font-family:'Syne',sans-serif;font-size:13px;color:var(--a);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">🎁 3 mois offerts</div>
+      <div class="tarif-main">19<span style="font-size:18px;color:var(--muted);font-weight:400">,90€/mois</span></div>
+      <div class="tarif-sub">3 premiers mois offerts, puis <strong style="color:var(--dark)">19,90€/mois* (préavis de 3 mois)</strong> — ou <strong style="color:var(--g)">179,10€/an</strong> en paiement unique (= 3 mois offerts).</div>
+      <ul class="tarif-feats">
+        <li>Fiche artisan géolocalisée</li>
+        <li>Rayon d'intervention personnalisable (5 à 30 km)</li>
+        <li>2 boosts 12h offerts par mois</li>
+        <li>Mode urgence activable</li>
+        <li>Dashboard pro dans l'app</li>
+        <li>Avis clients (à venir)</li>
+        <li>Support dédié Lokalist</li>
+      </ul>
+      <a href="/contact?type=artisan" class="btn btn-a" style="width:100%;justify-content:center;margin-bottom:10px">🎁 Commencer — 3 mois offerts</a>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <div style="flex:1;text-align:center;background:#F0FDF9;border:1px solid #A7F3D0;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#1D9E75">19,90€</div><div style="font-size:11px;color:#5C7268;margin-top:2px">/mois</div></div>
+        <div style="flex:1;text-align:center;background:#FFF7ED;border:1px solid #FCD34D;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#EF9F27">179,10€</div><div style="font-size:11px;color:#5C7268;margin-top:2px">/an · 3 mois offerts</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta">
+  <div class="cta-in">
+    <h2>Prêt à trouver<br/><em>vos prochains clients ?</em></h2>
+    <p>Rejoignez Lokalist gratuitement et commencez à recevoir des demandes locales dès aujourd'hui.</p>
+    <a href="/contact?type=artisan" class="btn-w">🔧 Rejoindre comme artisan</a>
+    <p class="cta-reassure">3 mois offerts · 19,90€/mois ensuite · contact@lokalist.fr</p>
+  </div>
+</section>
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain"/></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
+    <div class="foot-links">
+      <a href="/">Accueil</a>
+      <a href="/mairies">Mairies</a>
+      <a href="/commercants">Commerçants</a>
+      <a href="/artisans">Artisans</a>
+      <a href="/agences">Immo & Courtiers</a>
+      <a href="/tarifs">Tarifs</a>
+      <a href="/contact?type=artisan">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a>
+      <a href="/cgv">CGV</a>
+        <a href="/cgu">CGU</a>
+        <a href="/confidentialite">Confidentialité</a>
+      <a href="/cookies">Cookies</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist</div>
+  </div>
+</footer>
+<script>
+   // Dropdown Espaces Pros
+function toggleEspaces(e){
+  e.stopPropagation();
+  document.getElementById('navEspaces').classList.toggle('open');
+}
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('#navEspaces')){
+    const el=document.getElementById('navEspaces');
+    if(el)el.classList.remove('open');
+  }
+});
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
+  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'})
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800)
+  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
+</script>
 <section class="loki reveal-in" id="loki">
   <div class="loki__wrap">
 
@@ -519,92 +604,6 @@
 
   </div>
 </section>
-<section class="tarif-art">
-  <div class="tarif-in">
-    <div>
-      <p class="sec-tag reveal">Tarification</p>
-      <h2 class="sec-h reveal">Simple, transparent,<br/>sans mauvaise surprise</h2>
-      <p class="sec-p reveal">Lokalist ne prend aucune commission sur vos chantiers. Vous payez un abonnement mensuel fixe et gardez 100% de vos revenus.</p>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="tarif-extra reveal"><span class="tarif-extra-name">🎁 2 boosts 12h/mois</span><span class="tarif-extra-price">Inclus</span></div>
-        <div class="tarif-extra reveal"><span class="tarif-extra-name">📊 Dashboard pro complet</span><span class="tarif-extra-price">Inclus</span></div>
-        <div class="tarif-extra reveal"><span class="tarif-extra-name">⭐ Avis vérifiés illimités</span><span class="tarif-extra-price">Inclus</span></div>
-        <div class="tarif-extra reveal"><span class="tarif-extra-name">🚀 Boost supplémentaire</span><span class="tarif-extra-price">9,90€/boost</span></div>
-      </div>
-    </div>
-    <div class="tarif-card reveal">
-      <div class="tarif-top">🔧 Artisan Lokalist</div>
-      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Abonnement mensuel</div>
-      <div style="font-family:'Syne',sans-serif;font-size:13px;color:var(--a);font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px">🎁 3 mois offerts</div>
-      <div class="tarif-main">19<span style="font-size:18px;color:var(--muted);font-weight:400">,90€/mois</span></div>
-      <div class="tarif-sub">3 premiers mois offerts, puis <strong style="color:var(--dark)">19,90€/mois* (préavis de 3 mois)</strong> — ou <strong style="color:var(--g)">179,10€/an</strong> en paiement unique (= 3 mois offerts).</div>
-      <ul class="tarif-feats">
-        <li>Fiche artisan géolocalisée</li>
-        <li>Rayon d'intervention personnalisable (5 à 30 km)</li>
-        <li>2 boosts 12h offerts par mois</li>
-        <li>Mode urgence activable</li>
-        <li>Dashboard pro dans l'app</li>
-        <li>Avis clients (à venir)</li>
-        <li>Support dédié Lokalist</li>
-      </ul>
-      <a href="/contact?type=artisan" class="btn btn-a" style="width:100%;justify-content:center;margin-bottom:10px">🎁 Commencer — 3 mois offerts</a>
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <div style="flex:1;text-align:center;background:#F0FDF9;border:1px solid #A7F3D0;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#1D9E75">19,90€</div><div style="font-size:11px;color:#5C7268;margin-top:2px">/mois</div></div>
-        <div style="flex:1;text-align:center;background:#FFF7ED;border:1px solid #FCD34D;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#EF9F27">179,10€</div><div style="font-size:11px;color:#5C7268;margin-top:2px">/an · 3 mois offerts</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="cta">
-  <div class="cta-in">
-    <h2>Prêt à trouver<br/><em>vos prochains clients ?</em></h2>
-    <p>Rejoignez Lokalist gratuitement et commencez à recevoir des demandes locales dès aujourd'hui.</p>
-    <a href="/contact?type=artisan" class="btn-w">🔧 Rejoindre comme artisan</a>
-    <p class="cta-reassure">3 mois offerts · 19,90€/mois ensuite · contact@lokalist.fr</p>
-  </div>
-</section>
-<footer>
-  <div class="foot-in">
-    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain"/></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
-    <div class="foot-links">
-      <a href="/">Accueil</a>
-      <a href="/mairies">Mairies</a>
-      <a href="/commercants">Commerçants</a>
-      <a href="/artisans">Artisans</a>
-      <a href="/agences">Immo & Courtiers</a>
-      <a href="/tarifs">Tarifs</a>
-      <a href="/contact?type=artisan">Contact</a>
-    </div>
-    <div class="foot-legal">
-      <a href="/mentions-legales">Mentions légales</a>
-      <a href="/cgv">CGV</a>
-        <a href="/cgu">CGU</a>
-        <a href="/confidentialite">Confidentialité</a>
-      <a href="/cookies">Cookies</a>
-    </div>
-    <div class="foot-copy">© 2026 Lokalist</div>
-  </div>
-</footer>
-<script>
-   // Dropdown Espaces Pros
-function toggleEspaces(e){
-  e.stopPropagation();
-  document.getElementById('navEspaces').classList.toggle('open');
-}
-document.addEventListener('click',(e)=>{
-  if(!e.target.closest('#navEspaces')){
-    const el=document.getElementById('navEspaces');
-    if(el)el.classList.remove('open');
-  }
-});
-  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
-  const obs=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*60);obs.unobserve(e.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'})
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
-  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800)
-  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
-  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
-</script>
-
   <script src="loki.js" defer></script>
 </body>
 </html>

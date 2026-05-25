@@ -438,90 +438,6 @@
 </section>
 
 <!-- PRICING -->
-<section class="loki reveal-in" id="loki">
-  <div class="loki__wrap">
-
-    <div class="loki__head">
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> LOKI · votre assistant IA Lokalist
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span> vous envoie des <span class="hl">emprunteurs</span> de votre secteur
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        Le renard de Lokalist connaît les habitants qui ont un projet immobilier. Quand l'un d'eux
-        cherche un financement, c'est vous qu'il propose — un courtier proche, disponible et de
-        confiance.
-      </p>
-    </div>
-
-    <div class="loki__grid">
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">💶</div>
-        <h3>Des demandes de financement</h3>
-        <p>Un acheteur a besoin d'un prêt ? LOKI vous met en relation selon votre proximité. Vous recevez des contacts réellement en projet, pas des curieux.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📍</div>
-        <h3>Au plus proche</h3>
-        <p>LOKI calcule la distance et propose le courtier le mieux placé pour chaque emprunteur. Vous travaillez votre secteur, sans déplacement inutile.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🎯</div>
-        <h3>Des dossiers pré-qualifiés</h3>
-        <p>Budget, apport, échéance : LOKI recueille les bases du projet avant de vous transmettre le contact. Vous gagnez du temps dès le premier échange.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🤝</div>
-        <h3>Connecté aux agences locales</h3>
-        <p>LOKI fait travailler ensemble agences et courtiers du territoire. Un acheteur trouve son bien, vous trouvez votre client : tout le monde y gagne.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🔔</div>
-        <h3>Alerté en temps réel</h3>
-        <p>Nouveau lead à traiter, contact à relancer : LOKI vous prévient pour que vous soyez le premier à répondre. La réactivité fait la différence.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📊</div>
-        <h3>Votre activité en clair</h3>
-        <p>Combien de leads, lesquels aboutissent, sur quels secteurs : un suivi simple pour concentrer votre énergie là où elle paie.</p>
-      </article>
-
-    </div>
-
-    <div class="loki__proof">
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Des emprunteurs qualifiés
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Un ancrage local
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Plus de dossiers signés
-      </span>
-    </div>
-
-    <div class="loki__cta">
-      <p class="loki__cta-line">Le territoire a besoin de financements. LOKI vous y connecte.</p>
-      <a class="loki__btn" href="contact.html?type=profil">
-        Rejoindre Lokalist
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
 <section class="pricing">
   <div class="pricing-in">
     <p class="sec-tag reveal">Abonnement courtier</p>
@@ -629,6 +545,89 @@ document.addEventListener('click',(e)=>{
   document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
 </script>
   <script src="loki.js" defer></script>
+<section class="loki reveal-in" id="loki">
+  <div class="loki__wrap">
 
+    <div class="loki__head">
+      <div class="loki__badge" data-reveal>
+        <span class="dot"></span> LOKI · votre assistant IA Lokalist
+      </div>
+
+      <h2 class="loki__title" data-reveal>
+        <span class="fox">LOKI 🦊</span> vous envoie des <span class="hl">emprunteurs</span> de votre secteur
+      </h2>
+
+      <p class="loki__lead" data-reveal>
+        Le renard de Lokalist connaît les habitants qui ont un projet immobilier. Quand l'un d'eux
+        cherche un financement, c'est vous qu'il propose — un courtier proche, disponible et de
+        confiance.
+      </p>
+    </div>
+
+    <div class="loki__grid">
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">💶</div>
+        <h3>Des demandes de financement</h3>
+        <p>Un acheteur a besoin d'un prêt ? LOKI vous met en relation selon votre proximité. Vous recevez des contacts réellement en projet, pas des curieux.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">📍</div>
+        <h3>Au plus proche</h3>
+        <p>LOKI calcule la distance et propose le courtier le mieux placé pour chaque emprunteur. Vous travaillez votre secteur, sans déplacement inutile.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🎯</div>
+        <h3>Des dossiers pré-qualifiés</h3>
+        <p>Budget, apport, échéance : LOKI recueille les bases du projet avant de vous transmettre le contact. Vous gagnez du temps dès le premier échange.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🤝</div>
+        <h3>Connecté aux agences locales</h3>
+        <p>LOKI fait travailler ensemble agences et courtiers du territoire. Un acheteur trouve son bien, vous trouvez votre client : tout le monde y gagne.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🔔</div>
+        <h3>Alerté en temps réel</h3>
+        <p>Nouveau lead à traiter, contact à relancer : LOKI vous prévient pour que vous soyez le premier à répondre. La réactivité fait la différence.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">📊</div>
+        <h3>Votre activité en clair</h3>
+        <p>Combien de leads, lesquels aboutissent, sur quels secteurs : un suivi simple pour concentrer votre énergie là où elle paie.</p>
+      </article>
+
+    </div>
+
+    <div class="loki__proof">
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Des emprunteurs qualifiés
+      </span>
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Un ancrage local
+      </span>
+      <span class="loki__proof-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Plus de dossiers signés
+      </span>
+    </div>
+
+    <div class="loki__cta">
+      <p class="loki__cta-line">Le territoire a besoin de financements. LOKI vous y connecte.</p>
+      <a class="loki__btn" href="contact.html?type=profil">
+        Rejoindre Lokalist
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
 </body>
 </html>
