@@ -200,7 +200,6 @@
   <link rel="icon" href="/favicon.ico" sizes="any"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
-  <link rel="stylesheet" href="loki-section.css">
 </head>
 <body>
 <nav id="nav">
@@ -885,88 +884,5 @@ document.addEventListener('click',(e)=>{
   }
 </script>
   <script src="loki.js" defer></script>
-<section class="loki reveal-in" id="loki">
-  <div class="loki__wrap">
-
-    <div class="loki__head">
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> LOKI · inclus dans votre abonnement
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        Avec Lokalist, <span class="fox">LOKI 🦊</span> travaille pour vous <span class="hl">sans surcoût</span>
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        Quel que soit votre forfait, le renard intelligent de Lokalist est de la partie. Un assistant
-        qui vous fait gagner du temps et des clients — déjà compris dans le prix.
-      </p>
-    </div>
-
-    <div class="loki__grid">
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">✍️</div>
-        <h3>Vos offres rédigées pour vous</h3>
-        <p>LOKI écrit vos promos et campagnes en quelques secondes. Un gain de temps quotidien, inclus dans chaque formule.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🎯</div>
-        <h3>Des clients amenés à vous</h3>
-        <p>LOKI oriente les habitants vers votre établissement quand ils cherchent ce que vous proposez. De la visibilité qui ne vous coûte rien de plus.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🔁</div>
-        <h3>Une fidélité automatisée</h3>
-        <p>Points, bons, relances : LOKI entretient le lien avec vos clients pendant que vous travaillez. La fidélité sans effort.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📈</div>
-        <h3>Des décisions éclairées</h3>
-        <p>LOKI vous montre ce qui marche, en clair. Vous investissez votre énergie là où ça rapporte vraiment.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">⏱️</div>
-        <h3>Du temps retrouvé</h3>
-        <p>Moins d'admin, moins de rédaction, moins de gestion : LOKI absorbe les tâches digitales pour vous rendre vos heures.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🚀</div>
-        <h3>Une valeur qui grandit</h3>
-        <p>Plus votre forfait monte, plus LOKI en fait pour vous. Chaque palier débloque de nouvelles capacités à votre service.</p>
-      </article>
-
-    </div>
-
-    <div class="loki__proof">
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Inclus dans tous les forfaits
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Aucun surcoût
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        De la valeur dès le 1er jour
-      </span>
-    </div>
-
-    <div class="loki__cta">
-      <p class="loki__cta-line">Un assistant IA inclus dans votre abonnement. C'est ça, Lokalist.</p>
-      <a class="loki__btn" href="contact.html?type=profil">
-        Choisir mon forfait
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
 </body>
 </html>

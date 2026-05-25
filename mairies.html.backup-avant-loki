@@ -273,7 +273,6 @@
   <link rel="icon" href="/favicon.ico" sizes="any"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
-  <link rel="stylesheet" href="loki-section.css">
 </head>
 <body>
 <nav id="nav">
@@ -572,89 +571,5 @@ document.addEventListener('click',(e)=>{
   document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
 </script>
   <script src="loki.js" defer></script>
-<section class="loki reveal-in" id="loki">
-  <div class="loki__wrap">
-
-    <div class="loki__head">
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> LOKI · l'assistant IA de votre commune
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span> simplifie le lien entre la <span class="hl">mairie et ses habitants</span>
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        Le renard de Lokalist devient le bras droit numérique de votre commune : il rédige vos
-        communications, écoute les habitants et vous fait gagner un temps précieux sur la
-        communication locale.
-      </p>
-    </div>
-
-    <div class="loki__grid">
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📣</div>
-        <h3>Il rédige vos alertes</h3>
-        <p>Coupure d'eau, travaux, alerte météo : décrivez la situation, LOKI rédige un message clair et envoyé aux habitants concernés par géolocalisation. L'info passe, vite et bien.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📅</div>
-        <h3>Il anime votre agenda</h3>
-        <p>Marchés, événements, réunions publiques : LOKI met en forme et publie votre agenda local. Les habitants voient ce qui se passe près de chez eux, sans rien chercher.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🗣️</div>
-        <h3>Il synthétise les signalements</h3>
-        <p>Voirie, propreté, éclairage : LOKI regroupe et résume les signalements citoyens avec photo et géolocalisation. Vous voyez l'essentiel d'un coup d'œil.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📊</div>
-        <h3>Il anime vos sondages</h3>
-        <p>Une décision à prendre, un avis à recueillir ? LOKI vous aide à lancer un sondage citoyen et à en lire les résultats. La démocratie locale, en quelques clics.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🏆</div>
-        <h3>Il dynamise la vie locale</h3>
-        <p>Défis citoyens, points, récompenses : LOKI aide à créer des animations qui rapprochent les habitants de leur commune et des commerces du territoire.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">⏱️</div>
-        <h3>Il vous fait gagner du temps</h3>
-        <p>Moins de rédaction, moins de mises en page, moins de tri : LOKI s'occupe du digital pour que vos équipes se concentrent sur le terrain et les habitants.</p>
-      </article>
-
-    </div>
-
-    <div class="loki__proof">
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Des habitants mieux informés
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Une commune plus vivante
-      </span>
-      <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Du temps pour vos équipes
-      </span>
-    </div>
-
-    <div class="loki__cta">
-      <p class="loki__cta-line">Une commune connectée à ses habitants. LOKI s'occupe du reste.</p>
-      <a class="loki__btn" href="contact.html?type=profil">
-        Découvrir Lokalist pour ma commune
-        <span class="arrow">→</span>
-      </a>
-    </div>
-
-  </div>
-</section>
 </body>
 </html>

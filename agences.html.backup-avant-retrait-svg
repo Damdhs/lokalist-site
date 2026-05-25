@@ -506,7 +506,17 @@ document.addEventListener('click',(e)=>{
   <div class="loki__wrap">
 
     <div class="loki__head">
-      
+      <svg class="loki__avatar" data-reveal viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LOKI, le renard Lokalist">
+        <path d="M20 22 L34 44 Q50 38 66 44 L80 22 Q74 50 72 56 Q62 78 50 78 Q38 78 28 56 Q26 50 20 22Z" fill="#EF9F27"/>
+        <path d="M24 27 L33 41 Q41 38 41 38 L34 26Z" fill="#fff" opacity=".85"/>
+        <path d="M76 27 L67 41 Q59 38 59 38 L66 26Z" fill="#fff" opacity=".85"/>
+        <path d="M34 50 Q50 58 66 50 Q62 70 50 72 Q38 70 34 50Z" fill="#fff"/>
+        <circle cx="41" cy="52" r="3.4" fill="#14211C"/>
+        <circle cx="59" cy="52" r="3.4" fill="#14211C"/>
+        <path d="M50 60 l-4 4 q4 3 8 0 Z" fill="#14211C"/>
+        <circle cx="42" cy="50.5" r="1" fill="#fff"/>
+        <circle cx="60" cy="50.5" r="1" fill="#fff"/>
+      </svg>
 
       <div class="loki__badge" data-reveal>
         <span class="dot"></span> LOKI · votre assistant IA Lokalist

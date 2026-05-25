@@ -7,16 +7,6 @@
 (function () {
   "use strict";
 
-  /* ----- 0. CONFIG APP -----
-     Le bouton "app" est en STAND-BY (visible mais non cliquable).
-     Le jour ou les stores sont en ligne :
-       - mets APP_READY = true
-       - renseigne APP_LINK avec l'URL du store (ou une page de tel.) */
-  var APP_READY = false;
-  var APP_LINK  = "#"; // ex futur : "https://play.google.com/store/apps/details?id=..."
-  var APP_LABEL_READY   = "Télécharger l'app 🦊";
-  var APP_LABEL_PENDING = "App bientôt disponible 🦊";
-
   /* ----- 1. Contenus par contexte -----
      Chaque contexte = une accroche (bulle) + une mini-conversation démo.
      'u' = message habitant/utilisateur, 'l' = réponse de LOKI. */
@@ -171,23 +161,8 @@
     + '.loki-typing span{display:inline-block;width:6px;height:6px;border-radius:50%;background:#9BB0A8;margin:0 1px;animation:lokiDot 1.2s infinite;}'
     + '.loki-typing span:nth-child(2){animation-delay:.2s}.loki-typing span:nth-child(3){animation-delay:.4s}'
     + '@keyframes lokiDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}'
-    + '.loki-cta{padding:0 16px 16px;}'
-    + '.loki-cta a{display:block;text-align:center;padding:11px;border-radius:12px;text-decoration:none;'
-    + 'background:linear-gradient(135deg,#EF9F27,#e08a10);color:#fff;font-weight:700;font-size:14px;}'
-    + '.loki-input{display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(15,110,86,.1);'
-    + 'opacity:0;max-height:0;overflow:hidden;transition:opacity .4s,max-height .4s;}'
-    + '.loki-input.in{opacity:1;max-height:80px;}'
-    + '.loki-input input{flex:1;border:1px solid rgba(15,110,86,.2);border-radius:11px;padding:9px 12px;'
-    + 'font-family:inherit;font-size:13.5px;outline:none;color:#14211C;}'
-    + '.loki-input input:focus{border-color:#1D9E75;}'
-    + '.loki-input button{flex:none;width:38px;border:none;border-radius:11px;cursor:pointer;'
-    + 'background:#1D9E75;color:#fff;font-size:16px;line-height:1;}'
-    + '.loki-hint{font-size:11.5px;color:#8a978f;text-align:center;padding:0 16px 12px;'
-    + 'opacity:0;transition:opacity .4s;}.loki-hint.in{opacity:1;}'
-    + '.loki-appbtn{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;'
-    + 'font-weight:700;font-size:13px;text-decoration:none;}'
-    + '.loki-appbtn.ready{background:linear-gradient(135deg,#EF9F27,#e08a10);color:#fff;cursor:pointer;}'
-    + '.loki-appbtn.pending{background:#F0F4F2;color:#8a978f;cursor:default;border:1px dashed #c5d2cb;}'
+    + '.loki-hint{font-size:12.5px;color:#5C6B64;text-align:center;padding:0 18px 16px;'
+    + 'line-height:1.45;opacity:0;transition:opacity .5s;}.loki-hint.in{opacity:1;}'
     + '@media(prefers-reduced-motion:reduce){.loki-fab{animation:none!important}}';
 
   var style = document.createElement("style");
@@ -212,34 +187,24 @@
     + '<div><b>LOKI</b><div class="sub">votre assistant Lokalist</div></div>'
     + '<button class="loki-panel__close" aria-label="Fermer">✕</button></div>'
     + '<div class="loki-chat" id="lokiChat"></div>'
-    + '<div class="loki-input" id="lokiInput">'
-    + '<input type="text" id="lokiFree" placeholder="Écrivez à LOKI…" aria-label="Écrivez votre question à LOKI" />'
-    + '<button id="lokiSend" aria-label="Envoyer">➤</button></div>'
-    + '<div class="loki-hint" id="lokiHint">LOKI comprend vos questions en langage naturel 🦊</div>';
+    + '<div class="loki-hint" id="lokiHint">🦊 Le vrai LOKI répond à toutes vos questions en langage naturel, dans l\'app Lokalist.</div>';
 
   document.body.appendChild(bubble);
   document.body.appendChild(panel);
   document.body.appendChild(fab);
 
   var chatEl  = panel.querySelector("#lokiChat");
-  var inputEl = panel.querySelector("#lokiInput");
-  var freeEl  = panel.querySelector("#lokiFree");
-  var sendEl  = panel.querySelector("#lokiSend");
   var hintEl  = panel.querySelector("#lokiHint");
 
   /* ----- 5. Logique d'animation -----  */
   function playChat() {
     chatEl.innerHTML = "";
-    inputEl.classList.remove("in");
     hintEl.classList.remove("in");
     var seq = DATA.chat, i = 0;
     (function step() {
       if (i >= seq.length) {
-        // Fin de la demo : on revele le champ libre + la phrase explicative
-        setTimeout(function () {
-          inputEl.classList.add("in");
-          hintEl.classList.add("in");
-        }, 350);
+        // Fin de la demo : on revele la phrase "texte libre dans l'app"
+        setTimeout(function () { hintEl.classList.add("in"); }, 350);
         return;
       }
       var item = seq[i];
@@ -268,41 +233,6 @@
     chatEl.scrollTop = chatEl.scrollHeight;
   }
 
-  /* ----- 5b. Envoi d'une vraie question (factice -> redirige vers l'app) ----- */
-  function sendFree() {
-    var v = freeEl.value.trim();
-    if (!v) return;
-    addMsg("u", v);
-    freeEl.value = "";
-    var t = document.createElement("div");
-    t.className = "loki-typing";
-    t.innerHTML = "<span></span><span></span><span></span>";
-    chatEl.appendChild(t);
-    chatEl.scrollTop = chatEl.scrollHeight;
-    setTimeout(function () {
-      chatEl.removeChild(t);
-      addMsg("l", "Bonne question ! Pour une vraie réponse sur-mesure, retrouvez-moi dans l'application Lokalist 📲");
-      // Bouton app (stand-by ou actif selon la config en haut du fichier)
-      var w = document.createElement("div");
-      w.style.display = "flex";
-      w.style.justifyContent = "flex-start";
-      if (APP_READY) {
-        var a = document.createElement("a");
-        a.className = "loki-appbtn ready";
-        a.href = APP_LINK;
-        a.textContent = APP_LABEL_READY;
-        w.appendChild(a);
-      } else {
-        var span = document.createElement("span");
-        span.className = "loki-appbtn pending";
-        span.textContent = APP_LABEL_PENDING;
-        w.appendChild(span);
-      }
-      chatEl.appendChild(w);
-      chatEl.scrollTop = chatEl.scrollHeight;
-    }, 850);
-  }
-
   var opened = false;
   function openPanel() {
     bubble.classList.remove("in");
@@ -321,11 +251,6 @@
     e.stopPropagation(); bubble.classList.remove("in");
   });
   bubble.addEventListener("click", openPanel);
-
-  sendEl.addEventListener("click", sendFree);
-  freeEl.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") sendFree();
-  });
 
   /* ----- 6. Apparition différée (effet surprise) -----  */
   setTimeout(function () { fab.classList.add("in", "ring"); }, 2200);
