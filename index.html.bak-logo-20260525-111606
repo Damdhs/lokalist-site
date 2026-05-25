@@ -13,6 +13,13 @@
   <meta property="og:url" content="https://lokalist.fr" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="canonical" href="https://lokalist.fr" />
+  <!-- Favicon Lokalist -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<meta name="theme-color" content="#1D9E75"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -342,13 +349,6 @@
 .nav-espaces-drop a .ico{font-size:18px}
 /* === FIN DROPDOWN === */
 </style>
-  <!-- Favicon Lokalist -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
-  <link rel="icon" href="/favicon.ico" sizes="any"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-  <meta name="theme-color" content="#1D9E75"/>
 </head>
 <body>
 

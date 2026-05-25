@@ -7,6 +7,8 @@
   <meta name="description" content="Restaurants, loisirs : créez des packs combinés (resto + bowling, spa + dîner, ciné + restaurant) et touchez une nouvelle clientèle. Lokalist trouve vos partenaires locaux pour vous. Formule Premium 24,90€/mois."/>
   <meta name="keywords" content="pack combiné restaurant, soirée combinée bowling restaurant, pack spa restaurant, pack cinéma restaurant, idées sorties locales, premium restaurant loisirs, partenariat pros locaux, matchmaking restaurant loisirs"/>
   <link rel="canonical" href="https://lokalist.fr/idees-sorties"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="shortcut icon" href="/favicon.svg"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--b:#3B82F6;--bl:#EFF6FF;--p:#8B5CF6;--pl:#F5F3FF;--pink:#EC4899;--pinkl:#FCE7F3;--pinkd:#BE185D;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
@@ -199,19 +201,15 @@
       .foot-links,.foot-legal{flex-wrap:wrap;gap:10px;justify-content:center}
     }
   </style>
-  <!-- Favicon Lokalist -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
-  <link rel="icon" href="/favicon.ico" sizes="any"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-  <meta name="theme-color" content="#1D9E75"/>
 </head>
 <body>
 <nav id="nav">
   <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
     <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
-      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
+      <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="48" height="48" viewBox="0 0 1024 1024">
+        <path d="M 409.546 519.454 C 410.387 521.179 406.554 519.714 406.32 520.634 C 406.229 520.991 406.585 521.646 406.651 522.025 C 406.957 523.79 407.483 525.455 407.993 527.168 C 409.669 532.795 411.883 538.432 413.998 543.915 C 417.926 554.097 422.026 564.261 427.002 573.991 C 430.731 581.285 435.237 588.166 439.446 595.163 C 447.057 607.819 455.152 620.308 465.024 631.324 C 472.102 639.223 479.394 646.69 487.812 653.185 C 490.398 655.181 492.926 657.489 495.835 659.016 C 495.9 659.517 495.967 659.999 495.988 660.504 C 495.492 672.623 495.868 684.871 495.99 696.996 C 496.177 715.729 496.03 734.483 496.023 753.211 C 496.02 760.858 496.202 768.514 495.875 776.156 C 495.791 778.111 495.777 780.068 495.729 782.024 C 495.712 782.725 495.464 783.775 495.978 784.317 C 491.35 784.178 488.098 780.285 485.456 776.94 C 479.762 769.731 474.258 762.36 468.644 755.086 C 445.258 724.789 421.085 695.068 397.932 664.597 C 389.232 653.148 380.34 641.864 371.805 630.289 C 354.153 606.35 336.933 581.993 322.16 556.142 C 314.027 541.913 306.205 527.598 299.879 512.464 C 289.244 487.021 283.79 459.057 284.555 431.491 C 284.812 422.211 285.444 412.95 287.153 403.806 C 289.703 390.159 293.172 376.563 298.483 363.708 C 305.544 346.618 314.354 330.215 325.633 315.504 C 346.127 288.777 373.63 266.53 404.531 252.918 C 458.306 229.23 522.651 228.903 575.342 255.971 C 593.552 265.326 610.717 277.244 625.341 291.619 C 628.872 295.09 632.325 298.684 635.514 302.473 C 636.555 303.71 638.569 305.36 639.033 306.911 C 636.591 306.523 634.153 305.549 631.704 305.035 C 625.201 303.67 618.558 302.702 611.945 302.049 C 593.946 300.272 576.025 301.53 558.406 305.54 C 548.682 307.752 538.729 310.638 529.779 315.077 C 528.892 315.356 528.04 314.827 527.243 314.47 C 525.511 313.693 523.694 313.048 521.877 312.496 C 515.08 310.431 508.037 308.754 500.957 308.028 C 479.014 305.78 457.688 308.941 437.436 317.748 C 427.458 322.087 418.126 328.03 409.778 334.976 C 397.694 345.031 387.371 357.488 380.032 371.416 C 360.654 408.192 361.564 454.104 383.423 489.617 C 388.345 497.612 394.184 505.046 400.85 511.664 C 403.567 514.361 406.402 517.254 409.546 519.454 Z" fill="rgb(22,62,125)"/>
+        <path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/>
+      </svg>
     </div>
     <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
   </a>
@@ -511,7 +509,7 @@
   <div class="foot-in">
     <div class="foot-logo" style="display:flex;align-items:center;gap:6px">
       <div style="width:28px;height:28px;flex-shrink:0">
-        <img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain"/>
+        <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="28" height="28" viewBox="0 0 1024 1024"><path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 C 696.7 350.787 708.901 360.887 718.258 372.727 C 732.219 390.391 742.952 409.341 749.574 430.929 C 755.144 449.086 757.742 468.996 756.062 487.969 C 753.787 513.671 746.845 538.4 733.524 560.657 C 723.136 578.012 709.691 592.854 693.985 605.522 C 641.844 647.581 562.625 651.375 507.236 613.194 C 487.058 599.285 469.543 581.659 457.112 560.435 C 451.222 550.379 446.693 539.603 442.837 528.63 C 435.928 508.97 433.226 486.878 434.966 466.102 Z" fill="rgb(251,179,33)"/></svg>
       </div>
       <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span>
     </div>

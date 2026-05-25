@@ -6,6 +6,8 @@
   <title>Tu es invité sur Lokalist 🎁 — Reçois 50 points gratuits</title>
   <meta name="description" content="Vous avez été invité à rejoindre Lokalist, l'app de fidélité locale et de vie de commune. Recevez 50 points gratuits à votre inscription."/>
   <meta name="robots" content="noindex, nofollow"/>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="shortcut icon" href="/favicon.svg"/>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
 
   <!-- Open Graph pour partage WhatsApp/SMS -->
@@ -80,19 +82,15 @@
       .code-value{font-size:26px;letter-spacing:2px}
     }
   </style>
-  <!-- Favicon Lokalist -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
-  <link rel="icon" href="/favicon.ico" sizes="any"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-  <meta name="theme-color" content="#1D9E75"/>
 </head>
 <body>
 
 <header class="header">
   <div style="width:36px;height:36px;flex-shrink:0">
-    <img src="/logo.png" alt="Lokalist" width="36" height="36" style="display:block;width:36px;height:36px;object-fit:contain"/>
+    <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" width="36" height="36" viewBox="0 0 1024 1024">
+      <path d="M 409.546 519.454 C 410.387 521.179 406.554 519.714 406.32 520.634 C 406.229 520.991 406.585 521.646 406.651 522.025 C 406.957 523.79 407.483 525.455 407.993 527.168 C 409.669 532.795 411.883 538.432 413.998 543.915 C 417.926 554.097 422.026 564.261 427.002 573.991 C 430.731 581.285 435.237 588.166 439.446 595.163 C 447.057 607.819 455.152 620.308 465.024 631.324 Z" fill="rgb(22,62,125)" fill-rule="evenodd"/>
+      <path d="M 434.966 466.102 C 437.013 441.671 443.604 417.608 456.374 396.498 C 470.147 373.73 488.444 354.205 510.989 339.905 C 563.411 306.656 632.861 307.928 684.233 342.417 Z" fill="rgb(251,179,33)" fill-rule="evenodd"/>
+    </svg>
   </div>
   <span class="logo-txt">Lokalist</span>
 </header>
