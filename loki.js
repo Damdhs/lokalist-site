@@ -2,52 +2,108 @@
    LOKI — Widget flottant contextuel Lokalist  🦊
    Un seul fichier, déposé sur toutes les pages.
    Détecte la page via le nom de fichier et adapte le discours.
+   Chaque contexte a PLUSIEURS scénarios de démo, tirés au hasard.
    Usage : <script src="loki.js" defer></script> avant </body>
    ============================================================ */
 (function () {
   "use strict";
 
   /* ----- 1. Contenus par contexte -----
-     Chaque contexte = une accroche (bulle) + une mini-conversation démo.
-     'u' = message habitant/utilisateur, 'l' = réponse de LOKI. */
+     Chaque contexte = des accroches (bulles) + PLUSIEURS mini-conversations.
+     'u' = message habitant/utilisateur, 'l' = réponse de LOKI.
+     À chaque ouverture, un scénario est choisi au hasard parmi 'chats'. */
   var CONTENTS = {
     user: {
       label: "habitants",
       bubbles: [
         "Cherche un resto ? Une sortie ? Demande-moi 🍽️",
         "Un bon plan près de chez toi ? Je connais 😉",
-        "Une idée pour ce week-end ? Clique sur moi 🦊"
+        "Une idée pour ce week-end ? Clique sur moi 🦊",
+        "Une idée cadeau ? J'ai ce qu'il te faut 🎁",
+        "Besoin d'un artisan en urgence ? Je cherche pour toi 🔧"
       ],
-      chat: [
-        ["u", "Une idée de sortie ce week-end ?"],
-        ["l", "Le marché de producteurs samedi matin, et une expo photo à la médiathèque 📸"],
-        ["l", "Les deux sont à moins de 10 min de chez toi. Je t'y guide ?"]
+      chats: [
+        [
+          ["u", "Une idée de sortie ce week-end ?"],
+          ["l", "Le marché de producteurs samedi matin, et une expo photo à la médiathèque 📸"],
+          ["l", "Les deux sont à moins de 10 min de chez toi. Je t'y guide ?"]
+        ],
+        [
+          ["u", "Je cherche un bon restaurant ce soir"],
+          ["l", "Le Bistrot du Port est ouvert et à 600 m de toi 🍽️ Note de 4,7/5"],
+          ["l", "Tu y gagnes aussi des points Lokalist. Je te montre le chemin ?"]
+        ],
+        [
+          ["u", "Il me faut un plombier rapidement"],
+          ["l", "J'en ai un certifié à 1,2 km, dispo aujourd'hui 🔧"],
+          ["l", "Je t'affiche ses coordonnées et ses avis ?"]
+        ],
+        [
+          ["u", "Comment je gagne des points exactement ?"],
+          ["l", "En scannant chez les commerçants, en laissant des avis et en parrainant des amis 🎯"],
+          ["l", "À 200 points, tu débloques déjà un bon de 5 €. On regarde ton solde ?"]
+        ],
+        [
+          ["u", "Une idée cadeau pour ma mère qui adore jardiner ?"],
+          ["l", "Une jardinerie partenaire à 2 km propose -15 % cette semaine 🌿"],
+          ["l", "Sinon, un fleuriste juste à côté fait de jolies compositions. Je t'y emmène ?"]
+        ],
+        [
+          ["u", "Il y a des promos en ce moment ?"],
+          ["l", "Oui ! -20 % chez le torréfacteur du centre et une offre 2=3 à la boulangerie ☕"],
+          ["l", "Toutes à moins de 5 min de toi. Je te liste les autres ?"]
+        ]
       ]
     },
     commercant: {
       label: "commerçants",
       bubbles: [
         "Je peux écrire ton offre du jour en 10 sec 📝",
-        "Envie de voir comment je t'amène des clients ?",
-        "Une promo à lancer ? Je m'en occupe 🦊"
+        "Tes avis clients ? Je t'aide à y répondre 💬",
+        "Je rédige ton annonce qui donne envie 🦊",
+        "Envie de voir tes stats de la semaine ? 📊"
       ],
-      chat: [
-        ["u", "Écris-moi une promo pour mes croissants"],
-        ["l", "« Petit-déj malin ☕ : 2 croissants + 1 café à 4,50€ ce matin. Cumulez vos points Lokalist ! »"],
-        ["l", "Je la publie et je préviens les habitants du quartier ?"]
+      chats: [
+        [
+          ["u", "Aide-moi à rédiger mon offre du jour"],
+          ["l", "« 🥐 Offre du matin : 1 viennoiserie offerte dès 3 achetées, jusqu'à 11h ! »"],
+          ["l", "Je la publie sur ta fiche et je la pousse aux habitants proches ?"]
+        ],
+        [
+          ["u", "Combien de scans cette semaine ?"],
+          ["l", "47 scans, +18 % vs la semaine dernière, et 12 nouveaux clients 📊"],
+          ["l", "Ta note moyenne reste à 4,8/5. Je te fais le détail ?"]
+        ],
+        [
+          ["u", "Un client m'a laissé un avis, je réponds quoi ?"],
+          ["l", "Propose : « Merci beaucoup, ravi que ça vous ait plu ! À très vite chez nous 😊 »"],
+          ["l", "Je l'enregistre comme réponse publique ?"]
+        ]
       ]
     },
     artisan: {
       label: "artisans",
       bubbles: [
-        "Je te trouve des chantiers près de chez toi 🔧",
-        "Un créneau libre ? J'active ton mode urgence 🚨",
-        "Je rédige tes devis pendant que tu bosses 🦊"
+        "Je mets ta fiche en valeur auprès des habitants 🔧",
+        "Un client cherche ton métier près d'ici ? Je te place",
+        "Je t'aide à gérer tes avis et ta visibilité 🦊"
       ],
-      chat: [
-        ["u", "J'ai un créneau libre demain après-midi"],
-        ["l", "Top ! J'active ton mode urgence : je pousse ta dispo aux habitants du secteur 🚨"],
-        ["l", "Tu as déjà 2 demandes de plomberie en attente. Je te les montre ?"]
+      chats: [
+        [
+          ["u", "Comment je gagne en visibilité ?"],
+          ["l", "Ta fiche apparaît quand un habitant cherche ton métier près de chez lui 🔧"],
+          ["l", "Avec tes badges (assurance, RGE), tu inspires plus confiance. Je t'aide à les activer ?"]
+        ],
+        [
+          ["u", "J'ai une dispo de dernière minute cette semaine"],
+          ["l", "Active le mode Urgence : ta fiche passe en avant pendant 3 jours ⚡"],
+          ["l", "Les habitants qui cherchent en urgence te voient en premier. Je l'active ?"]
+        ],
+        [
+          ["u", "Un client veut un devis"],
+          ["l", "Je note sa demande dans ton suivi et je te préviens 🔔"],
+          ["l", "Tu pourras le relancer en un clic. Je te montre ton pipeline ?"]
+        ]
       ]
     },
     agence: {
@@ -55,12 +111,24 @@
       bubbles: [
         "Je qualifie tes leads pendant que tu vends 🏠",
         "Un acheteur sérieux dans le secteur ? Je le repère",
-        "Je rédige ton annonce qui donne envie 🦊"
+        "Je te mets en relation avec les bons profils 🦊"
       ],
-      chat: [
-        ["u", "Nouveau contact sur le T3 centre-ville"],
-        ["l", "Lead qualifié : budget 240k€, achat sous 3 mois, financement OK. Du sérieux 👍"],
-        ["l", "Je te le transmets et je propose un courtier proche ?"]
+      chats: [
+        [
+          ["u", "Nouveau contact sur le T3 centre-ville"],
+          ["l", "Lead qualifié : budget 240k€, achat sous 3 mois, financement OK. Du sérieux 👍"],
+          ["l", "Je te le transmets et je propose un courtier proche ?"]
+        ],
+        [
+          ["u", "J'ai une nouvelle annonce à diffuser"],
+          ["l", "Je la mets en ligne et je la signale aux acheteurs qui correspondent 🏠"],
+          ["l", "Tu veux que je la booste auprès des profils du secteur ?"]
+        ],
+        [
+          ["u", "Qui sont mes contacts les plus chauds ?"],
+          ["l", "3 acheteurs prêts à visiter cette semaine, tous financés 🔥"],
+          ["l", "Je te les classe par priorité ?"]
+        ]
       ]
     },
     courtier: {
@@ -70,10 +138,17 @@
         "Un acheteur cherche un financement ? C'est toi que je propose",
         "Je qualifie tes demandes de prêt 🦊"
       ],
-      chat: [
-        ["u", "Tu as des demandes de financement par ici ?"],
-        ["l", "Oui ! Un acheteur sur un T3 à 240k€ cherche un courtier proche. Apport 15%, profil solide 💶"],
-        ["l", "Je te le mets en relation maintenant ?"]
+      chats: [
+        [
+          ["u", "Tu as des demandes de financement par ici ?"],
+          ["l", "Oui ! Un acheteur sur un T3 à 240k€ cherche un courtier proche. Apport 15 %, profil solide 💶"],
+          ["l", "Je te le mets en relation maintenant ?"]
+        ],
+        [
+          ["u", "Quel type de profils tu m'envoies ?"],
+          ["l", "Des acheteurs déjà engagés sur un bien, avec apport et besoin de financement 💶"],
+          ["l", "Cette semaine, 2 dossiers solides t'attendent. Je te les présente ?"]
+        ]
       ]
     },
     mairie: {
@@ -83,10 +158,22 @@
         "Un événement à annoncer ? Je m'en charge",
         "Je synthétise les signalements des habitants 🦊"
       ],
-      chat: [
-        ["u", "Coupure d'eau rue des Lilas demain 8h-12h"],
-        ["l", "« 💧 Info travaux : coupure d'eau rue des Lilas demain de 8h à 12h. Pensez à remplir vos réserves. »"],
-        ["l", "Je l'envoie aux habitants concernés par géolocalisation ?"]
+      chats: [
+        [
+          ["u", "Coupure d'eau rue des Lilas demain 8h-12h"],
+          ["l", "« 💧 Info travaux : coupure d'eau rue des Lilas demain de 8h à 12h. Pensez à remplir vos réserves. »"],
+          ["l", "Je l'envoie aux habitants concernés par géolocalisation ?"]
+        ],
+        [
+          ["u", "On organise un vide-grenier samedi prochain"],
+          ["l", "Je crée l'événement dans l'agenda : « 🎪 Vide-grenier samedi, place du marché, 8h-18h »"],
+          ["l", "Je préviens les habitants et j'ouvre les inscriptions ?"]
+        ],
+        [
+          ["u", "Combien de signalements cette semaine ?"],
+          ["l", "9 signalements : surtout de la voirie et 2 dépôts sauvages 🗺️"],
+          ["l", "Je te les regroupe par quartier pour ton équipe ?"]
+        ]
       ]
     }
   };
@@ -119,6 +206,13 @@
 
   var CTX = detectContext();
   var DATA = CONTENTS[CTX] || CONTENTS.user;
+
+  /* Choisit un scénario de chat au hasard parmi ceux du contexte. */
+  function pickChat() {
+    var list = DATA.chats || [];
+    if (!list.length) return [];
+    return list[Math.floor(Math.random() * list.length)];
+  }
 
   /* ----- 3. Styles injectés -----  */
   var css = ''
@@ -200,7 +294,7 @@
   function playChat() {
     chatEl.innerHTML = "";
     hintEl.classList.remove("in");
-    var seq = DATA.chat, i = 0;
+    var seq = pickChat(), i = 0; // scénario tiré au hasard à chaque lecture
     (function step() {
       if (i >= seq.length) {
         // Fin de la demo : on revele la phrase "texte libre dans l'app"
