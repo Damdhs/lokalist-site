@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -471,8 +471,29 @@ document.addEventListener('click',(e)=>{
 
     // Vide → reset
     if (!code || code.length === 0) { resetParrainFeedback(); return; }
-
-    // Format invalide → reset (LOK-XXXXXX = 10 chars)
+ 
+    const codeUp = code.toUpperCase();
+ 
+    // ⭐ CODE AGENCE (LOK-AG-XXXXXX) : retour NEUTRE, pas d'appel base, pas de nom révélé
+    if (/^LOK-AG-[A-Z0-9]{6}$/i.test(codeUp)) {
+      input.classList.remove('invalid'); input.classList.add('valid');
+      feedback.className = 'parrain-feedback valid';
+      feedback.textContent = '✓ Code pris en compte';
+      // On transmet le code agence tel quel (pas de nom — vérif manuelle côté admin)
+      parrainNomValide = 'CODE_AGENCE:' + codeUp;
+      return;
+    }
+ 
+    // Format invalide → reset (LOK-XXXXXX = code habitant/pro, 10 chars)
+    if (!/^LOK-[A-Z0-9]{6}$/i.test(code)) {
+      input.classList.remove('valid', 'invalid');
+      feedback.className = 'parrain-feedback';
+      feedback.textContent = '';
+      parrainNomValide = null;
+      return;
+    }
+ 
+    // Format invalide → reset (LOK-XXXXXX = code habitant/pro, 10 chars)
     if (!/^LOK-[A-Z0-9]{6}$/i.test(code)) {
       input.classList.remove('valid', 'invalid');
       feedback.className = 'parrain-feedback';
