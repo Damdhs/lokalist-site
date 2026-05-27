@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8"/>
@@ -459,6 +459,210 @@
 
   </div>
 </section>
+<!-- ═══════════════════════════════════════════════════════════════════
+     BLOC PARRAINAGE AGENCES — page /agences
+     À COLLER juste AVANT  <section class="paliers">
+     CSS scopé sous .parrainage-sec → n'impacte rien d'autre.
+     Réutilise les fonts Syne + DM Sans déjà chargées.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="parrainage-sec reveal" id="parrainage">
+  <style>
+    .parrainage-sec{
+      --pg:#1D9E75;--pgd:#0F6E56;--pb:#3B82F6;--pa:#EF9F27;
+      position:relative;padding:96px 5%;overflow:hidden;
+      background:linear-gradient(150deg,#08221A 0%,#0B2A3F 60%,#0A1E33 100%);
+    }
+    /* halos d'ambiance */
+    .parrainage-sec::before{
+      content:'';position:absolute;top:-15%;left:-5%;width:520px;height:520px;
+      background:radial-gradient(circle,rgba(29,158,117,.35),transparent 65%);
+      filter:blur(20px);pointer-events:none;
+    }
+    .parrainage-sec::after{
+      content:'';position:absolute;bottom:-20%;right:-8%;width:560px;height:560px;
+      background:radial-gradient(circle,rgba(59,130,246,.30),transparent 65%);
+      filter:blur(20px);pointer-events:none;
+    }
+    .parr-wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto}
+
+    /* ── En-tête ── */
+    .parr-head{text-align:center;max-width:680px;margin:0 auto 56px}
+    .parr-badge{
+      display:inline-flex;align-items:center;gap:8px;
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
+      color:#fff;font-size:11.5px;font-weight:700;padding:7px 18px;border-radius:100px;
+      text-transform:uppercase;letter-spacing:1.4px;margin-bottom:22px;backdrop-filter:blur(8px);
+    }
+    .parr-badge .pulse{
+      width:8px;height:8px;border-radius:50%;background:var(--pa);
+      box-shadow:0 0 0 0 rgba(239,159,39,.7);animation:parrPulse 2s infinite;
+    }
+    @keyframes parrPulse{
+      0%{box-shadow:0 0 0 0 rgba(239,159,39,.6)}
+      70%{box-shadow:0 0 0 10px rgba(239,159,39,0)}
+      100%{box-shadow:0 0 0 0 rgba(239,159,39,0)}
+    }
+    .parr-title{
+      font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:800;
+      line-height:1.08;letter-spacing:-1px;color:#fff;margin-bottom:16px;
+    }
+    .parr-title em{font-style:normal;background:linear-gradient(100deg,#34D399,#60A5FA);
+      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+    .parr-lead{font-size:16px;line-height:1.7;color:rgba(255,255,255,.6);font-weight:300}
+    .parr-lead strong{color:rgba(255,255,255,.92);font-weight:600}
+
+    /* ── Parcours des paliers ── */
+    .parr-track{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    /* ligne de liaison derrière les cartes (desktop) */
+    .parr-track::before{
+      content:'';position:absolute;top:78px;left:14%;right:14%;height:3px;
+      background:linear-gradient(90deg,var(--pg),var(--pa),var(--pb));
+      border-radius:3px;opacity:.5;z-index:0;
+    }
+    .parr-step{
+      position:relative;z-index:1;background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:32px 26px 28px;
+      backdrop-filter:blur(10px);transition:transform .35s,border-color .35s,box-shadow .35s;
+      display:flex;flex-direction:column;align-items:center;text-align:center;
+    }
+    .parr-step:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.28)}
+    .parr-step:hover .parr-medal{transform:scale(1.08) rotate(-4deg)}
+
+    /* médaille / numéro de palier */
+    .parr-medal{
+      width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+      font-family:'Syne',sans-serif;font-weight:800;font-size:30px;color:#fff;margin-bottom:18px;
+      position:relative;transition:transform .35s;
+    }
+    .parr-medal::after{
+      content:'';position:absolute;inset:-6px;border-radius:50%;
+      border:2px dashed rgba(255,255,255,.25);animation:parrSpin 14s linear infinite;
+    }
+    @keyframes parrSpin{to{transform:rotate(360deg)}}
+    .m1{background:linear-gradient(135deg,#1D9E75,#0F6E56);box-shadow:0 16px 40px rgba(29,158,117,.45)}
+    .m2{background:linear-gradient(135deg,#EF9F27,#D98A1A);box-shadow:0 16px 40px rgba(239,159,39,.45)}
+    .m3{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 16px 40px rgba(59,130,246,.45)}
+
+    .parr-step-tag{
+      font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;
+      color:rgba(255,255,255,.5);margin-bottom:6px;
+    }
+    .parr-step-count{
+      font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:14px;
+    }
+    .parr-reward{
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;
+      padding:16px 16px;width:100%;
+    }
+    .parr-reward-ico{font-size:30px;margin-bottom:8px;display:block}
+    .parr-reward-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
+    .parr-reward-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.55}
+
+    /* ── Bandeau "cycle répétable" + CTA ── */
+    .parr-foot{
+      margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);
+      border-radius:20px;padding:24px 30px;backdrop-filter:blur(10px);
+    }
+    .parr-foot-txt{display:flex;align-items:center;gap:16px;min-width:280px;flex:1}
+    .parr-loop-ico{
+      font-size:28px;width:54px;height:54px;flex-shrink:0;border-radius:14px;
+      background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .parr-foot-txt h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
+    .parr-foot-txt p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.55}
+    .parr-cta{
+      background:#fff;color:#08221A;padding:14px 28px;border-radius:100px;
+      font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;
+      white-space:nowrap;transition:transform .25s,box-shadow .25s;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+    .parr-cta:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(0,0,0,.35)}
+
+    /* ── Responsive ── */
+    @media(max-width:860px){
+      .parr-track{grid-template-columns:1fr;gap:16px;max-width:440px;margin:0 auto}
+      .parr-track::before{
+        left:50%;right:auto;top:8%;bottom:8%;width:3px;height:auto;
+        background:linear-gradient(180deg,var(--pg),var(--pa),var(--pb));
+        transform:translateX(-50%);
+      }
+    }
+    @media(max-width:480px){
+      .parrainage-sec{padding:70px 5%}
+      .parr-foot{padding:20px;flex-direction:column;align-items:stretch;text-align:center}
+      .parr-foot-txt{flex-direction:column;text-align:center}
+      .parr-cta{text-align:center;justify-content:center}
+    }
+  </style>
+
+  <div class="parr-wrap">
+
+    <div class="parr-head">
+      <span class="parr-badge"><span class="pulse"></span> Programme parrainage agences</span>
+      <h2 class="parr-title">Recommandez des pros,<br/><em>débloquez des avantages</em></h2>
+      <p class="parr-lead">
+        Vous connaissez des commerçants, artisans ou courtiers de votre secteur&nbsp;?
+        Donnez-leur votre code. Chaque pro qui rejoint Lokalist fait grimper votre compteur — et
+        <strong>plus vous parrainez, plus votre visibilité explose</strong>. Aucun plafond&nbsp;: le cycle recommence à l'infini.
+      </p>
+    </div>
+
+    <div class="parr-track">
+
+      <!-- PALIER 5 -->
+      <div class="parr-step">
+        <div class="parr-medal m1">5</div>
+        <div class="parr-step-tag">Palier 1</div>
+        <div class="parr-step-count">5 pros parrainés</div>
+        <div class="parr-reward">
+          <span class="parr-reward-ico">⚡</span>
+          <div class="parr-reward-name">5 boosts offerts</div>
+          <div class="parr-reward-desc">5 mises en avant de 6h pour propulser vos annonces en tête de liste.</div>
+        </div>
+      </div>
+
+      <!-- PALIER 10 -->
+      <div class="parr-step">
+        <div class="parr-medal m2">10</div>
+        <div class="parr-step-tag">Palier 2</div>
+        <div class="parr-step-count">10 pros parrainés</div>
+        <div class="parr-reward">
+          <span class="parr-reward-ico">⭐</span>
+          <div class="parr-reward-name">Fiche sponsorisée 30j</div>
+          <div class="parr-reward-desc">Votre agence mise en avant pendant 30 jours auprès des habitants de vos communes.</div>
+        </div>
+      </div>
+
+      <!-- PALIER 20 -->
+      <div class="parr-step">
+        <div class="parr-medal m3">20</div>
+        <div class="parr-step-tag">Palier 3 · le gros lot</div>
+        <div class="parr-step-count">20 pros parrainés</div>
+        <div class="parr-reward">
+          <span class="parr-reward-ico">📣</span>
+          <div class="parr-reward-name">Campagne push géolocalisée</div>
+          <div class="parr-reward-desc">Une notification ciblée envoyée aux habitants de votre zone + sponsoring 30j cumulé.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="parr-foot">
+      <div class="parr-foot-txt">
+        <div class="parr-loop-ico">🔄</div>
+        <div>
+          <h4>Un cycle sans fin</h4>
+          <p>Une fois les 20 parrainages atteints, le compteur repart à zéro. Vous pouvez débloquer les récompenses autant de fois que vous le souhaitez.</p>
+        </div>
+      </div>
+      <a href="/contact?type=agence" class="parr-cta">Rejoindre &amp; obtenir mon code →</a>
+    </div>
+
+  </div>
+</section>
+<!-- ═══════════════ FIN BLOC PARRAINAGE AGENCES ═══════════════ -->
 <section class="paliers">
   <p class="sec-tag reveal">Abonnements agences</p>
   <h2 class="sec-h reveal">Choisissez votre niveau<br/>de visibilité</h2>
