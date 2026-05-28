@@ -8,6 +8,7 @@
     { "source": "/courtiers", "destination": "/courtiers.html" },
     { "source": "/loisirs", "destination": "/loisirs.html" },
     { "source": "/idees-sorties", "destination": "/idees-sorties.html" },
+    { "source": "/appels-offres", "destination": "/appels-offres.html" },
     { "source": "/tarifs", "destination": "/tarifs.html" },
     { "source": "/contact", "destination": "/contact.html" },
     { "source": "/mentions-legales", "destination": "/mentions-legales.html" },
