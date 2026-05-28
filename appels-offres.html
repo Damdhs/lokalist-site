@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokalist — Appels d'offres locaux pour les pros &amp; les mairies</title>
+  <meta name="description" content="La place de marché de la commande locale. Les mairies et les pros publient leurs besoins, les pros Lokalist y répondent avec un devis. Marchés publics de proximité et entraide entre professionnels."/>
+  <meta name="keywords" content="appels d'offres locaux, marchés publics locaux, devis entre pros, commande locale, appel d'offres mairie, besoin pro local, traiteur événement, sous-traitance locale, place de marché B2B local"/>
+  <link rel="canonical" href="https://lokalist.fr/appels-offres"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--g)}
+    .nav-cta{background:var(--g)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--gd)!important;transform:translateY(-1px)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .foot-legal{display:flex;gap:16px;flex-wrap:wrap}
+    .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+    .foot-legal a:hover{color:var(--g)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
+    .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
+    .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:560px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:1;transform:translateY(0)}.reveal.visible{opacity:1;transform:translateY(0)}
+
+    /* HERO */
+    .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);color:var(--gd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,56px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--g)}
+    .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:500px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .hero-trust{display:flex;gap:24px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800}
+
+    /* HERO MOCKUP — fil d'AO */
+    .ao-mock{background:var(--dark);border-radius:20px;padding:20px;box-shadow:0 48px 96px rgba(0,0,0,.28),0 0 0 1px rgba(29,158,117,.15)}
+    .ao-mock-top{display:flex;align-items:center;gap:5px;margin-bottom:16px}
+    .ao-mock-top .dot{width:8px;height:8px;border-radius:50%}
+    .ao-mock-top .lbl{font-size:10px;color:rgba(255,255,255,.3);margin-left:6px;font-family:monospace}
+    .ao-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;margin-bottom:9px}
+    .ao-item:last-child{margin-bottom:0}
+    .ao-item-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+    .ao-tag{font-size:9.5px;font-weight:800;padding:3px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:.4px}
+    .ao-tag.mairie{background:rgba(29,158,117,.18);color:var(--gm);border:1px solid rgba(29,158,117,.3)}
+    .ao-tag.pro{background:rgba(239,159,39,.18);color:var(--a);border:1px solid rgba(239,159,39,.35)}
+    .ao-status{font-size:9px;color:rgba(255,255,255,.4);font-family:monospace}
+    .ao-item h4{font-family:'Syne',sans-serif;font-size:13.5px;font-weight:700;color:#fff;margin-bottom:4px;line-height:1.25}
+    .ao-item p{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
+    .ao-item-foot{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+    .ao-resp{font-size:10px;color:rgba(255,255,255,.4)}
+    .ao-resp b{color:#fff}
+    .ao-cta{background:var(--g);color:#fff;font-size:10px;font-weight:800;padding:5px 12px;border-radius:100px;font-family:'Syne',sans-serif}
+
+    /* USE CASES */
+    .usecases{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .uc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+    .uc-card{background:var(--surf);border:1px solid var(--bdr);border-radius:22px;padding:34px;position:relative;overflow:hidden;transition:all .3s}
+    .uc-card:hover{transform:translateY(-4px);box-shadow:0 24px 56px rgba(29,158,117,.1);border-color:var(--gm)}
+    .uc-card .uc-ico{width:54px;height:54px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:18px}
+    .uc-card.mairie .uc-ico{background:var(--gl)}
+    .uc-card.pro .uc-ico{background:var(--al)}
+    .uc-kicker{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;margin-bottom:8px}
+    .uc-card.mairie .uc-kicker{color:var(--g)}
+    .uc-card.pro .uc-kicker{color:var(--a)}
+    .uc-card h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dark);margin-bottom:12px;line-height:1.15;letter-spacing:-.5px}
+    .uc-card>p{font-size:14.5px;color:var(--muted);line-height:1.7;margin-bottom:20px}
+    .uc-ex{background:var(--bg);border:1px dashed var(--bdr);border-radius:14px;padding:16px 18px}
+    .uc-ex-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:6px}
+    .uc-ex-txt{font-size:13.5px;color:var(--text);line-height:1.6;font-style:italic}
+
+    /* STEPS (dark) */
+    .steps-section{padding:90px 5%;background:var(--dark);position:relative;overflow:hidden}
+    .steps-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 70% 40%,rgba(29,158,117,.1) 0%,transparent 55%)}
+    .steps-in{max-width:1280px;margin:0 auto;position:relative}
+    .steps-section .sec-tag{color:var(--gm)}
+    .steps-section .sec-h{color:#fff}
+    .steps-section .sec-p{color:rgba(255,255,255,.45)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
+    .step{padding:28px 24px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;transition:all .3s}
+    .step:hover{background:rgba(29,158,117,.09);border-color:rgba(29,158,117,.3);transform:translateY(-4px)}
+    .step-n{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:rgba(29,158,117,.2);line-height:1;margin-bottom:12px}
+    .step-i{font-size:26px;margin-bottom:10px}
+    .step h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+    .step p{font-size:13px;color:rgba(255,255,255,.45);line-height:1.6}
+
+    /* ARGUMENTS */
+    .args{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .args-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .arg-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+    .arg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .arg-card:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(29,158,117,.09);border-color:var(--gm)}
+    .arg-card:hover::before{transform:scaleX(1)}
+    .arg-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .arg-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .arg-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+
+    /* CTA */
+    .cta{background:linear-gradient(135deg,var(--dark),#1A3028);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'📣';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:620px;margin:0 auto}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2 span{color:var(--a)}
+    .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
+    .btn-w{background:#fff;color:var(--g);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
+    .cta-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
+
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+    .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+
+    @media(max-width:1100px){
+      .nav-links{display:none}.hamburger{display:flex}
+      .hero,.uc-grid{grid-template-columns:1fr}
+      .hero{gap:40px;padding:110px 5% 60px}
+      .args-grid,.steps{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){.args-grid,.steps{grid-template-columns:1fr}}
+    @media(max-width:480px){
+      body{overflow-x:hidden}
+      nav{padding:12px 4%}
+      .hero,.uc-grid{grid-template-columns:1fr!important;gap:24px!important}
+      .hero{padding:88px 4% 44px!important}
+      .hero h1{font-size:clamp(24px,8.5vw,34px)!important;letter-spacing:-.8px}
+      .hero-sub{font-size:14px}
+      .hero-btns{flex-direction:column;align-items:stretch}
+      .hero-btns a,.hero-btns .btn{text-align:center;justify-content:center;width:100%}
+      .hero-trust{gap:12px;flex-wrap:wrap;margin-top:24px}
+      .sec-h{font-size:clamp(20px,7vw,28px)!important}
+      .sec-p{font-size:14px!important;margin-bottom:24px}
+      .args-grid,.steps{grid-template-columns:1fr!important}
+      .uc-card{padding:26px 20px}
+      .btn{padding:11px 16px;font-size:13px}
+      .cta h2{font-size:clamp(22px,8vw,34px)!important}
+      .foot-links{flex-wrap:wrap;gap:10px;justify-content:center}
+      .foot-legal{justify-content:center;flex-wrap:wrap;gap:10px}
+      .foot-in{flex-wrap:wrap}
+    }
+    /* === DROPDOWN ESPACES PROS === */
+    .nav-espaces{position:relative}
+    .nav-espaces-btn{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:1px solid rgba(29,158,117,.25);transition:all .2s}
+    .nav-espaces-btn:hover{background:var(--gl)!important}
+    .nav-espaces-btn .chev{font-size:10px;transition:transform .2s}
+    .nav-espaces.open .nav-espaces-btn .chev{transform:rotate(180deg)}
+    .nav-espaces-drop{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 12px 40px rgba(0,0,0,.08);opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .2s;z-index:201}
+    .nav-espaces.open .nav-espaces-drop{opacity:1;visibility:visible;transform:translateY(0)}
+    .nav-espaces-drop a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--text)!important;text-decoration:none;transition:background .15s}
+    .nav-espaces-drop a:hover{background:var(--gl);color:var(--g)!important}
+    .nav-espaces-drop a .ico{font-size:18px}
+    /* === FIN DROPDOWN === */
+  </style>
+  <!-- Favicon Lokalist -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+  <link rel="icon" href="/favicon.ico" sizes="any"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+  <meta name="theme-color" content="#1D9E75"/>
+  <link rel="stylesheet" href="loki-section.css">
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+    <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
+      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
+    </div>
+    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/mairies">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/appels-offres" class="active">Appels d'offres</a></li>
+    <li><a href="/loisirs">Loisirs</a></li>
+    <li><a href="/agences">Agences</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li class="nav-espaces" id="navEspaces">
+      <button class="nav-espaces-btn" onclick="toggleEspaces(event)">🚪 Espaces Pros <span class="chev">▾</span></button>
+      <div class="nav-espaces-drop">
+        <a href="https://dashboard.lokalist.fr" target="_blank"><span class="ico">🏛️</span> Dashboard</a>
+        <a href="https://agence.lokalist.fr" target="_blank"><span class="ico">🏠</span> Espace Agence</a>
+      </div>
+    </li>
+    <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/appels-offres">📣 Appels d'offres</a>
+  <a href="/loisirs">🎳 Loisirs</a>
+  <a href="/agences">🏠 Agences</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <div style="height:1px;background:var(--bdr);margin:8px 0"></div>
+  <a href="https://dashboard.lokalist.fr" target="_blank">🏛️ Dashboard</a>
+  <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
+  <a href="/contact" style="color:var(--g);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
+</div>
+
+<!-- HERO -->
+<section style="background:var(--bg);overflow:hidden">
+  <div class="hero">
+    <div style="animation:fadeUp .6s ease both">
+      <div class="hero-badge">📣 Réservé aux pros Lokalist</div>
+      <h1>Les appels d'offres<br/><em>de votre territoire</em></h1>
+      <p class="hero-sub">Les mairies et les pros de votre commune publient leurs besoins. Vous y répondez avec un devis, en quelques clics. Du business local, qualifié, qui ne passe plus à côté de vous.</p>
+      <div class="hero-btns">
+        <a href="/contact?type=profil" class="btn btn-g">📣 Accéder aux appels d'offres</a>
+        <a href="#usecases" class="btn btn-o">Voir comment ça marche →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">Mairies &amp; pros vérifiés</div>
+        <div class="trust-item">0% de commission</div>
+        <div class="trust-item">Devis intégré</div>
+        <div class="trust-item">Alertes en temps réel</div>
+      </div>
+    </div>
+
+    <!-- Mockup : fil d'appels d'offres -->
+    <div style="animation:fadeUp .7s .1s ease both">
+      <div class="ao-mock">
+        <div class="ao-mock-top">
+          <div class="dot" style="background:#EF4444"></div>
+          <div class="dot" style="background:#F59E0B"></div>
+          <div class="dot" style="background:#22C55E"></div>
+          <span class="lbl">Appels d'offres · près de vous</span>
+        </div>
+
+        <div class="ao-item">
+          <div class="ao-item-head">
+            <span class="ao-tag mairie">🏛️ Mairie</span>
+            <span class="ao-status">Ouvert · 6 j restants</span>
+          </div>
+          <h4>Entretien des espaces verts — saison 2026</h4>
+          <p>Tonte, taille et désherbage de 4 sites communaux. Contrat annuel.</p>
+          <div class="ao-item-foot">
+            <span class="ao-resp"><b>3</b> pros ont répondu</span>
+            <span class="ao-cta">Répondre →</span>
+          </div>
+        </div>
+
+        <div class="ao-item">
+          <div class="ao-item-head">
+            <span class="ao-tag pro">🍽️ Pro → Pro</span>
+            <span class="ao-status">Ouvert · 2 j restants</span>
+          </div>
+          <h4>Traiteur pour service de 30 couverts — 31/12</h4>
+          <p>Restaurant cherche renfort traiteur + 2 extras pour le réveillon.</p>
+          <div class="ao-item-foot">
+            <span class="ao-resp"><b>5</b> pros ont répondu</span>
+            <span class="ao-cta">Répondre →</span>
+          </div>
+        </div>
+
+        <div class="ao-item">
+          <div class="ao-item-head">
+            <span class="ao-tag mairie">🏛️ Mairie</span>
+            <span class="ao-status">Ouvert · 12 j restants</span>
+          </div>
+          <h4>Rénovation peinture salle des fêtes</h4>
+          <p>~180 m². Artisans peintres de la commune prioritaires.</p>
+          <div class="ao-item-foot">
+            <span class="ao-resp"><b>1</b> pro a répondu</span>
+            <span class="ao-cta">Répondre →</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--muted);font-style:italic">Aperçu de l'interface — exemples fictifs</div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases" id="usecases">
+  <p class="sec-tag reveal">Deux flux, une place de marché locale</p>
+  <h2 class="sec-h reveal">Qui publie, qui répond ?</h2>
+  <p class="sec-p reveal">Lokalist met en relation ceux qui ont un besoin local et les pros capables d'y répondre. Tout reste dans votre commune.</p>
+  <div class="uc-grid">
+
+    <div class="uc-card mairie reveal">
+      <div class="uc-ico">🏛️</div>
+      <div class="uc-kicker">Mairie → Pros</div>
+      <h3>La commune publie,<br/>les pros locaux répondent</h3>
+      <p>Votre mairie a régulièrement besoin de prestataires : entretien, travaux, événements, restauration. Au lieu de chercher dans son carnet d'adresses, elle publie un appel d'offres sur Lokalist — et les pros de la commune sont notifiés.</p>
+      <div class="uc-ex">
+        <div class="uc-ex-lbl">Exemple</div>
+        <div class="uc-ex-txt">« La mairie rénove une salle, entretient ses espaces verts, organise sa fête de fin d'année → vous répondez avec votre devis. »</div>
+      </div>
+    </div>
+
+    <div class="uc-card pro reveal">
+      <div class="uc-ico">🤝</div>
+      <div class="uc-kicker">Pro → Pros</div>
+      <h3>Un pro a un besoin,<br/>d'autres pros le couvrent</h3>
+      <p>Un coup de feu, un chantier trop gros, un renfort ponctuel : les pros s'entraident. Vous publiez votre besoin, les autres pros Lokalist de votre zone vous proposent leurs services. L'entraide locale, organisée.</p>
+      <div class="uc-ex">
+        <div class="uc-ex-lbl">Exemple</div>
+        <div class="uc-ex-txt">« Restaurant cherche un traiteur et des extras pour un service de 30 couverts le 31 décembre → les pros disponibles répondent. »</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps-section">
+  <div class="steps-in">
+    <p class="sec-tag reveal">Simple et rapide</p>
+    <h2 class="sec-h reveal">Comment ça marche</h2>
+    <p class="sec-p reveal">De la publication à la réponse, tout se passe dans Lokalist. Aucun appel d'offres public dans la nature, aucune commission.</p>
+    <div class="steps">
+      <div class="step reveal"><div class="step-n">01</div><div class="step-i">📣</div><h3>Un besoin est publié</h3><p>Une mairie ou un pro de votre commune décrit son besoin : nature, zone, délai, budget. L'appel d'offres est diffusé localement.</p></div>
+      <div class="step reveal"><div class="step-n">02</div><div class="step-i">🔔</div><h3>Vous êtes notifié</h3><p>Les pros concernés de la zone reçoivent une alerte. Vous voyez les appels d'offres qui correspondent à votre métier, près de chez vous.</p></div>
+      <div class="step reveal"><div class="step-n">03</div><div class="step-i">📝</div><h3>Vous répondez avec un devis</h3><p>Vous proposez votre offre directement depuis Lokalist, devis à l'appui. Le demandeur compare et vous recontacte. Pas d'intermédiaire.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARGUMENTS -->
+<section class="args">
+  <p class="sec-tag reveal">Pourquoi c'est puissant</p>
+  <h2 class="sec-h reveal">Bien plus qu'un programme<br/>de fidélité</h2>
+  <p class="sec-p reveal">En devenant pro Lokalist, vous ne gagnez pas seulement des clients fidèles. Vous accédez à un flux de business B2B local que personne d'autre ne vous donne.</p>
+  <div class="args-grid">
+    <div class="arg-card reveal"><div class="arg-ico">📍</div><h3>100% local et qualifié</h3><p>Pas de leads anonymes venus de l'autre bout du pays. Uniquement des besoins de votre commune, émis par des mairies et des pros vérifiés.</p></div>
+    <div class="arg-card reveal"><div class="arg-ico">💸</div><h3>0% de commission</h3><p>Vous remportez un marché ? Vous gardez 100% du montant. Lokalist ne prélève rien sur les affaires conclues via les appels d'offres.</p></div>
+    <div class="arg-card reveal"><div class="arg-ico">📝</div><h3>Devis intégré</h3><p>Répondez avec un devis propre directement depuis la plateforme. Plus besoin de jongler entre mails, PDF et relances.</p></div>
+    <div class="arg-card reveal"><div class="arg-ico">🔔</div><h3>Alertes en temps réel</h3><p>Un appel d'offres correspond à votre métier et votre zone ? Vous êtes prévenu immédiatement. Vous ne ratez plus une opportunité.</p></div>
+    <div class="arg-card reveal"><div class="arg-ico">🛡️</div><h3>Entre pros vérifiés</h3><p>Mairies partenaires et pros référencés Lokalist uniquement. Vous savez à qui vous avez affaire, des deux côtés.</p></div>
+    <div class="arg-card reveal"><div class="arg-ico">🏛️</div><h3>L'accès aux marchés publics locaux</h3><p>Les besoins récurrents de votre mairie deviennent enfin visibles pour vous — un canal direct vers la commande publique de proximité.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta-in">
+    <h2>Ne ratez plus un<br/><span>marché local</span></h2>
+    <p>Rejoignez Lokalist et accédez aux appels d'offres des mairies et des pros de votre territoire.</p>
+    <a href="/contact?type=profil" class="btn-w">📣 Rejoindre Lokalist</a>
+    <p class="cta-note">Réservé aux pros partenaires · contact@lokalist.fr</p>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain"/></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
+    <div class="foot-links">
+      <a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/appels-offres">Appels d'offres</a><a href="/loisirs">Loisirs</a><a href="/agences">Immo &amp; Courtiers</a><a href="/tarifs">Tarifs</a><a href="/contact?type=profil">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a><a href="/cgv">CGV</a>
+      <a href="/cgu">CGU</a><a href="/confidentialite">Confidentialité</a><a href="/cookies">Cookies</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist</div>
+  </div>
+</footer>
+
+<script>
+  // Dropdown Espaces Pros
+  function toggleEspaces(e){
+    e.stopPropagation();
+    document.getElementById('navEspaces').classList.toggle('open');
+  }
+  document.addEventListener('click',(e)=>{
+    if(!e.target.closest('#navEspaces')){
+      const el=document.getElementById('navEspaces');
+      if(el)el.classList.remove('open');
+    }
+  });
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20));
+  const obs=new IntersectionObserver((e)=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('visible'),i*60);obs.unobserve(el.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800);
+  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')});
+</script>
+</body>
+</html>
