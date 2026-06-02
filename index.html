@@ -349,8 +349,8 @@
 .benef-h{font-family:'Syne',sans-serif;font-size:clamp(28px,4.5vw,52px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
 .benef-h span{color:var(--a)}
 .benef-p{font-size:16px;color:rgba(255,255,255,.5);font-weight:300;max-width:520px;margin:0 auto;line-height:1.7}
-.benef-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.bcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:30px 26px;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start}
+.benef-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.bcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:30px 26px;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;height:100%}
 .bcard::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .4s}
 .bcard:hover{transform:translateY(-5px);background:rgba(29,158,117,.08);border-color:rgba(29,158,117,.3)}
 .bcard:hover::after{transform:scaleX(1)}
@@ -376,6 +376,36 @@
 .benef-cta a:hover{background:var(--gd);transform:translateY(-2px)}
 @media(max-width:900px){.benef-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.benef-grid{grid-template-columns:1fr}.benef-cta{flex-direction:column;text-align:center}.benef-cta a{width:100%;justify-content:center}}
+/* ════ SECTION LOKI ════ */
+.loki{background:linear-gradient(165deg,#071410 0%,#0D2318 55%,#0B1612 100%);padding:90px 5%;position:relative;overflow:hidden}
+.loki::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 80% 10%,rgba(239,159,39,.10) 0%,transparent 55%),radial-gradient(ellipse 55% 55% at 10% 90%,rgba(29,158,117,.12) 0%,transparent 55%)}
+.loki__wrap{max-width:1140px;margin:0 auto;position:relative;z-index:1}
+.loki__head{text-align:center;max-width:680px;margin:0 auto 52px}
+.loki__badge{display:inline-flex;align-items:center;gap:8px;background:rgba(239,159,39,.12);border:1px solid rgba(239,159,39,.3);color:#F3C57E;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:7px 16px;border-radius:100px;margin-bottom:22px}
+.loki__badge .dot{width:7px;height:7px;border-radius:50%;background:var(--a);animation:pulse 2s infinite}
+.loki__title{font-family:'Syne',sans-serif;font-size:clamp(28px,4.5vw,52px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.08;margin-bottom:18px}
+.loki__title .fox{color:var(--a)}
+.loki__title .hl{color:var(--gm)}
+.loki__lead{font-size:16px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.75}
+.loki__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;align-items:stretch}
+.loki-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 26px;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start;height:100%}
+.loki-card::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--g),var(--a));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+.loki-card:hover{transform:translateY(-5px);background:rgba(29,158,117,.08);border-color:rgba(29,158,117,.3)}
+.loki-card:hover::after{transform:scaleX(1)}
+.loki-card__icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:16px;background:rgba(29,158,117,.15);border:1px solid rgba(29,158,117,.25)}
+.loki-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:9px}
+.loki-card p{font-size:13.5px;color:rgba(255,255,255,.55);line-height:1.7}
+.loki__proof{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin-bottom:40px}
+.loki__proof-item{display:inline-flex;align-items:center;gap:8px;background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.25);color:var(--gm);font-size:13px;font-weight:600;padding:9px 18px;border-radius:100px}
+.loki__proof-item svg{color:var(--g)}
+.loki__cta{text-align:center}
+.loki__cta-line{font-family:'Syne',sans-serif;font-size:clamp(17px,2.2vw,22px);font-weight:700;color:#fff;margin-bottom:22px;line-height:1.4}
+.loki__btn{display:inline-flex;align-items:center;gap:10px;background:var(--g);color:#fff;padding:15px 32px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(29,158,117,.35);transition:all .25s}
+.loki__btn:hover{background:var(--gd);transform:translateY(-2px)}
+.loki__btn .arrow{transition:transform .25s}
+.loki__btn:hover .arrow{transform:translateX(4px)}
+@media(max-width:900px){.loki__grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.loki__grid{grid-template-columns:1fr}.loki__btn{width:100%;justify-content:center}}
 /* === FIN DROPDOWN === */
 </style>
   <!-- Favicon Lokalist -->
@@ -385,7 +415,6 @@
   <link rel="icon" href="/favicon.ico" sizes="any"/>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
-  <link rel="stylesheet" href="loki-section.css">
 </head>
 <body>
 
@@ -514,6 +543,7 @@
         <li>Signalements d'artisans (anti-fraude)</li>
         <li>Vérification du statut artisans (RGE, QUALIBAT, ASSURANCE, et autres...)</li>
         <li>Suivre vos communes</li>
+        <li>Profitez de la puissance de LOKI</li>
       </ul>
       <a href="#telecharger" class="cible-link">Télécharger gratuitement →</a>
     </div>
@@ -532,6 +562,7 @@
         <li>Gestion des marchés &amp; emplacements</li>
         <li>Statistiques en temps réel</li>
         <li>Suivi des remboursements transparent</li>
+        <li>Profitez de la puissance de LOKI</li>
       </ul>
       <a href="/mairies" class="cible-link">Découvrir l'offre →</a>
     </div>
@@ -550,6 +581,7 @@
 <li>Agenda & événements visibles sur votre fiche</li>
 <li>Espace pro sur dashboard.lokalist.fr</li>
 <li>Demande de boost mise en avant</li>
+<li>Profitez de la puissance de LOKI</li>
       </ul>
       <a href="/commercants" class="cible-link">Rejoindre →</a>
     </div>
@@ -574,6 +606,7 @@
         <li>Message direct sur l'app avec les clients</li>
 <li>Badges qualité vérifiés (RGE, assurance, Lokalist)</li>
 <li>Signalement anti-fraude par les habitants</li>
+<li>Profitez de la puissance de LOKI</li>
       </ul>
       <a href="/artisans" class="cible-link">Rejoindre comme artisan →</a>
     </div>
@@ -584,11 +617,14 @@
       <p>Une rubrique dédiée pour le marché immobilier local. Annonces exclusives, leads qualifiés, courtiers partenaires — tout en un.</p>
       <ul class="cible-feats">
         <li>Annonces location &amp; vente</li>
+        <li>Vidéos de présentation agence</li>
+        <li>Vidéo de vos biens à vendre</li>
         <li>Profil acquéreur &amp; estimation gratuite vendeur</li>
         <li>Formulaire bailleur → rappel agence</li>
         <li>Boost annonces</li>
         <li>Courtiers partenaires</li>
         <li>Logo Premium</li>
+        <li>Profitez de la puissance de LOKI</li>
       </ul>
       <a href="/contact?type=agence" class="cible-link">Référencer mon agence →</a>
     </div>
@@ -908,60 +944,49 @@
   </div>
 </section>
 
-<!-- CTA -->
-<section class="loki reveal-in" id="loki">
+<!-- LOKI -->
+<section class="loki" id="loki">
   <div class="loki__wrap">
 
     <div class="loki__head">
-      
-
-      <div class="loki__badge" data-reveal>
-        <span class="dot"></span> Faites connaissance avec LOKI
-      </div>
-
-      <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span>, le renard qui connaît <span class="hl">votre ville</span> par cœur
-      </h2>
-
-      <p class="loki__lead" data-reveal>
-        C'est votre guide local dans Lokalist. Posez-lui une question, dites-lui ce dont vous avez
-        envie, et il vous trouve le bon plan, le bon pro, la bonne sortie — à deux pas de chez vous.
-      </p>
+      <div class="loki__badge"><span class="dot"></span> Faites connaissance avec LOKI</div>
+      <h2 class="loki__title"><span class="fox">LOKI 🦊</span>, le renard qui connaît <span class="hl">votre ville</span> par cœur</h2>
+      <p class="loki__lead">C'est votre guide local dans Lokalist. Posez-lui une question, dites-lui ce dont vous avez envie, et il vous trouve le bon plan, le bon pro, la bonne sortie — à deux pas de chez vous.</p>
     </div>
 
     <div class="loki__grid">
 
-      <article class="loki-card" data-reveal>
+      <article class="loki-card">
         <div class="loki-card__icon">🔎</div>
         <h3>« Je cherche… »</h3>
         <p>Un resto pour ce soir, un cadeau de dernière minute, un artisan dispo cette semaine ? Dites-le à LOKI, il vous oriente vers les meilleures adresses de votre commune.</p>
       </article>
 
-      <article class="loki-card" data-reveal>
+      <article class="loki-card">
         <div class="loki-card__icon">🎉</div>
         <h3>Des idées de sorties</h3>
         <p>Marché, expo, événement, balade : LOKI vous propose quoi faire près de chez vous, selon vos envies et l'agenda local de votre mairie.</p>
       </article>
 
-      <article class="loki-card" data-reveal>
+      <article class="loki-card">
         <div class="loki-card__icon">💸</div>
         <h3>Les meilleurs bons plans</h3>
         <p>Offres des commerçants, promos du moment, bons à utiliser : LOKI met en avant ce qui vous fait vraiment économiser, près de vous.</p>
       </article>
 
-      <article class="loki-card" data-reveal>
+      <article class="loki-card">
         <div class="loki-card__icon">🏠</div>
         <h3>Même pour l'immobilier</h3>
         <p>Vous cherchez à louer, acheter ou financer ? LOKI vous met en relation avec les bonnes agences et courtiers du secteur, sans démarchage.</p>
       </article>
 
-      <article class="loki-card" data-reveal>
+      <article class="loki-card">
         <div class="loki-card__icon">🧭</div>
         <h3>Il vous guide dans l'app</h3>
         <p>Une question sur vos points, vos bons, votre commune ? LOKI répond et vous montre où aller. Lokalist devient simple, même la première fois.</p>
       </article>
 
-      <article class="loki-card" data-reveal>
+      <article class="loki-card">
         <div class="loki-card__icon">🎁</div>
         <h3>Il vous fait gagner des points</h3>
         <p>Plus vous vivez votre ville avec Lokalist, plus vous cumulez de points transformables en bons d'achat. LOKI vous rappelle les bons réflexes pour en profiter.</p>
@@ -971,25 +996,22 @@
 
     <div class="loki__proof">
       <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         100 % local
       </span>
       <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         Gratuit pour les habitants
       </span>
       <span class="loki__proof-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         Toujours dans votre poche
       </span>
     </div>
 
     <div class="loki__cta">
       <p class="loki__cta-line">Votre ville a plein de choses à offrir. LOKI vous les présente.</p>
-      <a class="loki__btn" href="#telecharger">
-        Découvrir Lokalist
-        <span class="arrow">→</span>
-      </a>
+      <a class="loki__btn" href="#telecharger">Découvrir Lokalist <span class="arrow">→</span></a>
     </div>
 
   </div>
