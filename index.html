@@ -350,7 +350,7 @@
 .benef-h span{color:var(--a)}
 .benef-p{font-size:16px;color:rgba(255,255,255,.5);font-weight:300;max-width:520px;margin:0 auto;line-height:1.7}
 .benef-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.bcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:30px 26px;transition:all .3s;position:relative;overflow:hidden}
+.bcard{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:30px 26px;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:flex-start}
 .bcard::after{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .4s}
 .bcard:hover{transform:translateY(-5px);background:rgba(29,158,117,.08);border-color:rgba(29,158,117,.3)}
 .bcard:hover::after{transform:scaleX(1)}
@@ -816,6 +816,8 @@
     </div>
   </div>
 </section>
+
+<!-- BÉNÉFICES 5 ACTEURS -->
 <section class="benef" id="benefices">
   <div class="benef-in">
     <div class="benef-head">
@@ -864,6 +866,7 @@
     </div>
   </div>
 </section>
+
 <!-- IMMO -->
 <section class="immo" id="immobilier">
   <div class="immo-in">
@@ -1131,7 +1134,8 @@ document.addEventListener('click',(e)=>{
   },{threshold:0.01,rootMargin:'0px 0px -10px 0px'})
   reveals.forEach(el=>obs.observe(el))
   setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800)
-  // ── Chiffres clés dynamiques ──────────────────────────────────────
+  // ── Chiffres clés dynamiques (désactivé — section chiffres remplacée par #benefices) ──
+  // Réactiver chargerStats() quand la section chiffres reviendra
 async function chargerStats() {
   try {
     const res = await fetch('https://lokalist-api-production.up.railway.app/stats/publiques');
@@ -1147,10 +1151,11 @@ async function chargerStats() {
     document.getElementById('stat-ca').textContent = d.ca_estime.toLocaleString('fr-FR') + ' €';
     document.getElementById('stat-date').textContent = '↻ Mis à jour le ' + new Date(d.generated_at).toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
   } catch(e) {
-    document.getElementById('stat-date').textContent = 'Données temporairement indisponibles';
+    var dateEl = document.getElementById('stat-date');
+    if(dateEl) dateEl.textContent = 'Données temporairement indisponibles';
   }
 }
-chargerStats();
+// chargerStats(); // ← réactiver quand la section chiffres reviendra
   function toggleMobile(){
     document.getElementById('mobileMenu').classList.toggle('open')
   }
@@ -1175,4 +1180,3 @@ chargerStats();
   <script src="loki.js" defer></script>
 </body>
 </html>
-
