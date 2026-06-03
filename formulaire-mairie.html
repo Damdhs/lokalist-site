@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lokalist — Fiche de votre commune</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --primary: #1D9E75;
+    --primary-dark: #0F6E56;
+    --accent: #EF9F27;
+    --ink: #14342A;
+    --muted: #6B8A7F;
+    --line: #D8EBE3;
+    --bg-card: #ffffff;
+    --radius: 16px;
+    --shadow: 0 10px 40px rgba(15, 110, 86, 0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    background: linear-gradient(135deg, #E1F5EE 0%, #ffffff 55%);
+    min-height: 100vh;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .head { text-align: center; margin-bottom: 32px; animation: rise .6s ease both; }
+  .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 30px; color: var(--primary); letter-spacing: -0.5px; }
+  .brand .dot { color: var(--accent); }
+  .eyebrow { text-transform: uppercase; letter-spacing: 2px; font-size: 11px; font-weight: 600; color: var(--muted); margin-top: 6px; }
+  .head h1 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 26px; margin: 18px 0 8px; color: var(--ink); line-height: 1.2; }
+  .head p { color: var(--muted); font-size: 15px; max-width: 540px; margin: 0 auto; }
+
+  .card { background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 8px 28px 28px; animation: rise .7s ease both .08s; }
+  .section { padding-top: 24px; }
+  .section + .section { border-top: 1px solid var(--line); margin-top: 8px; }
+  .section-title { display: flex; align-items: center; gap: 10px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: var(--primary-dark); margin: 0 0 6px; }
+  .section-title .num { width: 26px; height: 26px; flex: 0 0 26px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 13px; font-weight: 700; display: grid; place-items: center; font-family: 'DM Sans', sans-serif; }
+  .vis { font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .3px; padding: 2px 8px; border-radius: 999px; }
+  .vis.pub { background: #E1F5EE; color: var(--primary-dark); }
+  .vis.priv { background: #FFF1DA; color: #9A6212; }
+  .section-sub { font-size: 13px; color: var(--muted); margin: 0 0 16px; }
+
+  .lock-banner { display: flex; gap: 12px; align-items: flex-start; background: #FFF8EE; border: 1px solid #F4D9A8; border-radius: 12px; padding: 12px 14px; margin: 4px 0 18px; }
+  .lock-banner .ic { font-size: 18px; line-height: 1.3; }
+  .lock-banner div { font-size: 13px; color: #7A5410; }
+  .lock-banner b { color: #6B4709; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field.full { grid-column: 1 / -1; }
+  label { display: block; font-size: 12px; font-weight: 600; color: var(--ink); margin-bottom: 6px; letter-spacing: .2px; }
+  label .req { color: var(--accent); }
+  input, textarea, select {
+    width: 100%; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink);
+    background: #F6FBF9; border: 1.5px solid var(--line); border-radius: 11px;
+    padding: 12px 14px; outline: none; transition: border-color .15s, box-shadow .15s, background .15s;
+  }
+  input::placeholder, textarea::placeholder { color: #9DB6AC; }
+  input:focus, textarea:focus, select:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 4px rgba(29, 158, 117, 0.12); }
+  textarea { resize: vertical; min-height: 84px; }
+  .hint { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  .err-msg { display: none; font-size: 12px; color: #C0392B; margin-top: 6px; font-weight: 500; }
+  .field.invalid input, .field.invalid select { border-color: #E0A6A0; background: #FDF4F3; }
+  .field.invalid .err-msg { display: block; }
+
+  /* Logo : URL + upload */
+  .logo-row { display: flex; align-items: center; gap: 14px; margin-top: 8px; }
+  .logo-preview { width: 56px; height: 56px; flex: 0 0 56px; border-radius: 12px; border: 1.5px dashed var(--line); background: #F6FBF9 center/cover no-repeat; display: grid; place-items: center; color: #9DB6AC; font-size: 11px; text-align: center; overflow: hidden; }
+  .file-btn { display: inline-flex; align-items: center; gap: 8px; background: #EAF6F1; color: var(--primary-dark); border: none; border-radius: 10px; padding: 11px 16px; font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .file-btn:hover { background: #DDF0E8; }
+  .file-name { font-size: 13px; color: var(--muted); }
+  .or-sep { text-align: center; font-size: 12px; color: var(--muted); margin: 12px 0 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+  .actions { margin-top: 28px; display: flex; flex-direction: column; gap: 12px; }
+  .btn { border: none; cursor: pointer; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; padding: 15px; border-radius: 12px; transition: transform .1s, box-shadow .2s, opacity .2s; }
+  .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 8px 22px rgba(29, 158, 117, 0.30); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(29, 158, 117, 0.38); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost { background: #EAF6F1; color: var(--primary-dark); }
+  .btn-ghost:hover { background: #DDF0E8; }
+  .legal { font-size: 12px; color: var(--muted); text-align: center; margin-top: 4px; }
+
+  .recap { display: none; animation: rise .5s ease both; }
+  .recap.show { display: block; }
+  .recap-banner { display: flex; align-items: center; gap: 14px; background: #E1F5EE; border: 1px solid #A7E3CE; border-radius: 14px; padding: 18px 20px; margin-bottom: 20px; }
+  .recap-banner .check { width: 42px; height: 42px; flex: 0 0 42px; border-radius: 50%; background: var(--primary); color: #fff; display: grid; place-items: center; font-size: 22px; }
+  .recap-banner b { font-family: 'Syne', sans-serif; color: var(--primary-dark); font-size: 16px; }
+  .recap-banner span { display: block; font-size: 13px; color: var(--muted); }
+  .recap-group { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--primary-dark); text-transform: uppercase; letter-spacing: .5px; margin: 18px 0 4px; }
+  .recap-row { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .recap-row .k { color: var(--muted); flex: 0 0 42%; }
+  .recap-row .v { color: var(--ink); font-weight: 600; text-align: right; word-break: break-word; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 28px 16px 60px; }
+    .card { padding: 4px 18px 22px; }
+  }
+  @media print {
+    body { background: #fff; }
+    .no-print { display: none !important; }
+    .card { box-shadow: none; border: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <div class="brand">Lokalist<span class="dot">.</span></div>
+    <div class="eyebrow">Espace mairie</div>
+    <h1>La fiche de votre commune</h1>
+    <p>Renseignez les informations de votre mairie. Elles nous permettent de préparer votre espace Lokalist. Cela ne prend que quelques minutes.</p>
+  </div>
+
+  <!-- ░░ FORMULAIRE ░░ -->
+  <div class="card no-print" id="form-card">
+
+    <!-- 1. Commune -->
+    <div class="section">
+      <div class="section-title"><span class="num">1</span> Votre commune <span class="vis pub">visible des habitants</span></div>
+      <div class="grid">
+        <div class="field full">
+          <label>Nom de la commune <span class="req">*</span></label>
+          <input type="text" id="f-nom" placeholder="Ex : Fécamp" />
+          <div class="err-msg">Merci d'indiquer le nom de la commune.</div>
+        </div>
+        <div class="field">
+          <label>Code postal <span class="req">*</span></label>
+          <input type="text" id="f-cp" inputmode="numeric" maxlength="5" placeholder="76400" />
+          <div class="err-msg">Code postal à 5 chiffres attendu.</div>
+        </div>
+        <div class="field">
+          <label>Population (habitants)</label>
+          <input type="number" id="f-pop" min="0" placeholder="18 000" />
+        </div>
+        <div class="field">
+          <label>Nom du maire</label>
+          <input type="text" id="f-maire" placeholder="Prénom Nom" />
+        </div>
+        <div class="field">
+          <label>Adresse de la mairie</label>
+          <input type="text" id="f-adresse" placeholder="Place du Général Leclerc" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Contact public -->
+    <div class="section">
+      <div class="section-title"><span class="num">2</span> Contact <span class="vis pub">visible des habitants</span></div>
+      <p class="section-sub">Coordonnées que les habitants pourront voir dans l'application.</p>
+      <div class="grid">
+        <div class="field">
+          <label>Email de contact <span class="req">*</span></label>
+          <input type="email" id="f-email" placeholder="contact@ville.fr" />
+          <div class="err-msg">Merci d'indiquer un email valide.</div>
+        </div>
+        <div class="field">
+          <label>Téléphone</label>
+          <input type="tel" id="f-tel" placeholder="02 35 00 00 00" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Présence en ligne -->
+    <div class="section">
+      <div class="section-title"><span class="num">3</span> Présence en ligne <span class="vis pub">visible des habitants</span></div>
+      <div class="grid">
+        <div class="field">
+          <label>Site web de la commune</label>
+          <input type="url" id="f-site" placeholder="https://www.ville.fr" />
+        </div>
+        <div class="field">
+          <label>Site transport / mobilité</label>
+          <input type="url" id="f-transport" placeholder="https://transport.ville.fr" />
+          <div class="hint">Lien vers les infos de transport / mobilité de la commune.</div>
+        </div>
+        <div class="field">
+          <label>Page Facebook</label>
+          <input type="url" id="f-fb" placeholder="https://facebook.com/..." />
+        </div>
+        <div class="field">
+          <label>Compte Instagram</label>
+          <input type="url" id="f-insta" placeholder="https://instagram.com/..." />
+        </div>
+
+        <div class="field full">
+          <label>Logo de la commune</label>
+          <input type="url" id="f-logo" placeholder="https://.../logo.png" />
+          <div class="or-sep">— ou —</div>
+          <div class="logo-row">
+            <div class="logo-preview" id="logo-preview">Aperçu</div>
+            <div>
+              <button type="button" class="file-btn" id="logo-btn">📎 Télécharger le logo</button>
+              <input type="file" id="f-logo-file" accept="image/*" style="display:none" />
+              <div class="file-name" id="logo-filename">Aucun fichier sélectionné</div>
+            </div>
+          </div>
+          <div class="hint">Format PNG ou JPG. Si vous téléchargez un fichier, pensez à nous l'envoyer par email (l'enregistrement automatique arrivera bientôt).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Référent Lokalist (gestion, NON visible) -->
+    <div class="section">
+      <div class="section-title"><span class="num">4</span> Référent Lokalist <span class="vis priv">non visible des habitants</span></div>
+      <div class="lock-banner">
+        <span class="ic">🔒</span>
+        <div><b>Confidentiel.</b> Ces informations ne sont <b>pas visibles par les habitants</b>. Elles servent uniquement à créer le <b>compte de gestion</b> de votre espace Lokalist. Indiquez la personne qui gérera la plateforme — maire, adjoint(e) ou agent.</div>
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label>Nom et prénom du référent <span class="req">*</span></label>
+          <input type="text" id="f-ref-nom" placeholder="Prénom Nom" />
+          <div class="err-msg">Merci d'indiquer le référent.</div>
+        </div>
+        <div class="field">
+          <label>Fonction</label>
+          <select id="f-ref-fonction">
+            <option value="">— Sélectionner —</option>
+            <option>Maire</option>
+            <option>Adjoint(e) au maire</option>
+            <option>Conseiller(ère) municipal(e)</option>
+            <option>Agent municipal / DGS</option>
+            <option>Service communication</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Email du référent <span class="req">*</span></label>
+          <input type="email" id="f-ref-email" placeholder="referent@ville.fr" />
+          <div class="err-msg">Merci d'indiquer un email valide.</div>
+        </div>
+        <div class="field">
+          <label>Téléphone du référent</label>
+          <input type="tel" id="f-ref-tel" placeholder="06 00 00 00 00" />
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Présentation -->
+    <div class="section">
+      <div class="section-title"><span class="num">5</span> Présentation <span class="vis pub">visible des habitants</span></div>
+      <div class="grid">
+        <div class="field full">
+          <label>Mot de la mairie / description (optionnel)</label>
+          <textarea id="f-desc" placeholder="Quelques lignes pour présenter votre commune, vos marchés, vos commerces..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-primary" id="btn-valider">Valider ma fiche</button>
+      <div class="legal">En validant, vous transmettez ces informations à Lokalist pour la création de votre espace.</div>
+    </div>
+  </div>
+
+  <!-- ░░ RÉCAPITULATIF ░░ -->
+  <div class="card recap" id="recap">
+    <div class="recap-banner">
+      <div class="check">✓</div>
+      <div>
+        <b>Fiche complétée</b>
+        <span>Copiez le récapitulatif ou imprimez-le en PDF, puis transmettez-le à Lokalist.</span>
+      </div>
+    </div>
+    <div id="recap-list"></div>
+    <div class="actions no-print">
+      <button type="button" class="btn btn-primary" id="btn-copier">📋 Copier le récapitulatif</button>
+      <button type="button" class="btn btn-ghost" id="btn-imprimer">🖨️ Imprimer / Enregistrer en PDF</button>
+      <button type="button" class="btn btn-ghost" id="btn-modifier">← Modifier ma fiche</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    'use strict';
+
+    // Groupes pour le recap (libelles + visibilite)
+    var GROUPES = [
+      { titre: 'Commune', champs: [
+        { id: 'f-nom', label: 'Commune', requis: true },
+        { id: 'f-cp', label: 'Code postal', requis: true, cp: true },
+        { id: 'f-pop', label: 'Population' },
+        { id: 'f-maire', label: 'Maire' },
+        { id: 'f-adresse', label: 'Adresse mairie' },
+      ]},
+      { titre: 'Contact public', champs: [
+        { id: 'f-email', label: 'Email public', requis: true, email: true },
+        { id: 'f-tel', label: 'Telephone public' },
+      ]},
+      { titre: 'Presence en ligne', champs: [
+        { id: 'f-site', label: 'Site web' },
+        { id: 'f-transport', label: 'Site transport / mobilite' },
+        { id: 'f-fb', label: 'Facebook' },
+        { id: 'f-insta', label: 'Instagram' },
+        { id: 'f-logo', label: 'Logo (lien)' },
+      ]},
+      { titre: 'Referent Lokalist (non visible des habitants)', champs: [
+        { id: 'f-ref-nom', label: 'Referent - Nom', requis: true },
+        { id: 'f-ref-fonction', label: 'Referent - Fonction' },
+        { id: 'f-ref-email', label: 'Referent - Email', requis: true, email: true },
+        { id: 'f-ref-tel', label: 'Referent - Telephone' },
+      ]},
+      { titre: 'Presentation', champs: [
+        { id: 'f-desc', label: 'Description' },
+      ]},
+    ];
+
+    function val(id) { var e = document.getElementById(id); return e ? String(e.value || '').trim() : ''; }
+    function fieldWrap(id) { var e = document.getElementById(id); return e ? e.closest('.field') : null; }
+    function escapeHtml(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+    function valider() {
+      var ok = true, premierKo = null;
+      GROUPES.forEach(function (g) {
+        g.champs.forEach(function (c) {
+          var w = fieldWrap(c.id);
+          if (!w) return;
+          w.classList.remove('invalid');
+          var v = val(c.id);
+          var ko = false;
+          if (c.requis && !v) ko = true;
+          if (c.cp && v && !/^\d{5}$/.test(v)) ko = true;
+          if (c.email && v && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)) ko = true;
+          if (ko) { w.classList.add('invalid'); ok = false; if (!premierKo) premierKo = w; }
+        });
+      });
+      if (!ok && premierKo) premierKo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return ok;
+    }
+
+    function logoInfo() {
+      var url = val('f-logo');
+      if (window.__logoFile) return { aff: 'Fichier « ' + window.__logoFile + ' » (a envoyer par email)', txt: window.__logoFile + ' (fichier a envoyer par email)' };
+      if (url) return { aff: escapeHtml(url), txt: url };
+      return null;
+    }
+
+    function construireRecap() {
+      var html = '', texte = 'FICHE MAIRIE - LOKALIST\n\n';
+      GROUPES.forEach(function (g) {
+        var lignes = '', txtBloc = '';
+        g.champs.forEach(function (c) {
+          var v = val(c.id);
+          if (c.id === 'f-logo') { var li = logoInfo(); if (!li) return; lignes += '<div class="recap-row"><span class="k">Logo</span><span class="v">' + li.aff + '</span></div>'; txtBloc += 'Logo : ' + li.txt + '\n'; return; }
+          if (!v) return;
+          lignes += '<div class="recap-row"><span class="k">' + c.label + '</span><span class="v">' + escapeHtml(v) + '</span></div>';
+          txtBloc += c.label + ' : ' + v + '\n';
+        });
+        if (lignes) {
+          html += '<div class="recap-group">' + g.titre + '</div>' + lignes;
+          texte += '== ' + g.titre + ' ==\n' + txtBloc + '\n';
+        }
+      });
+      document.getElementById('recap-list').innerHTML = html;
+      window.__recapTexte = texte;
+    }
+
+    function afficherRecap() {
+      construireRecap();
+      document.getElementById('form-card').style.display = 'none';
+      document.getElementById('recap').classList.add('show');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function copier() {
+      var txt = window.__recapTexte || '';
+      var btn = document.getElementById('btn-copier');
+      function fb(ok) { var prev = btn.textContent; btn.textContent = ok ? '✓ Copié !' : 'Copie impossible'; setTimeout(function () { btn.textContent = prev; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(function () { fb(true); }, function () { fb(false); });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = txt; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); fb(true); } catch (e) { fb(false); }
+        document.body.removeChild(ta);
+      }
+    }
+
+    // Logo : upload (apercu + nom de fichier)
+    document.getElementById('logo-btn').addEventListener('click', function () { document.getElementById('f-logo-file').click(); });
+    document.getElementById('f-logo-file').addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      window.__logoFile = file.name;
+      document.getElementById('logo-filename').textContent = file.name;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var prev = document.getElementById('logo-preview');
+        prev.style.backgroundImage = 'url(' + ev.target.result + ')';
+        prev.textContent = '';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('btn-valider').addEventListener('click', function () { if (valider()) afficherRecap(); });
+    document.getElementById('btn-copier').addEventListener('click', copier);
+    document.getElementById('btn-imprimer').addEventListener('click', function () { window.print(); });
+    document.getElementById('btn-modifier').addEventListener('click', function () {
+      document.getElementById('recap').classList.remove('show');
+      document.getElementById('form-card').style.display = '';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    GROUPES.forEach(function (g) { g.champs.forEach(function (c) {
+      var e = document.getElementById(c.id);
+      if (e) e.addEventListener('input', function () { var w = fieldWrap(c.id); if (w) w.classList.remove('invalid'); });
+    }); });
+  })();
+</script>
+</body>
+</html>
