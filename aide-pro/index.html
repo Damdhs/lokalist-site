@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide de l'espace pro — Lokalist</title>
+<meta name="description" content="Tout pour bien démarrer avec ton espace pro Lokalist : activer ton accès, gérer ta fiche, donner accès à ton équipe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1D9E75; --green-d:#0F6E56; --gold:#EF9F27; --gold-soft:#FFF6E8;
+    --ink:#1A1A2E; --muted:#5B6472; --line:#E9E3D7;
+    --paper:#FBF8F2; --card:#FFFFFF; --green-soft:#EEF8F3;
+    --serif:'Fraunces',Georgia,serif; --sans:'Manrope',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans); color:var(--ink); background:var(--paper);
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -5%, rgba(29,158,117,.07), transparent 42%),
+                     radial-gradient(circle at 95% 8%, rgba(239,159,39,.08), transparent 40%);
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:0 22px;}
+  a{color:var(--green-d);}
+
+  /* HERO */
+  header.hero{padding:64px 0 30px;}
+  .badge{display:inline-flex;align-items:center;gap:7px;background:var(--gold-soft);color:#8A5A06;
+    border:1px solid #F4D49B;border-radius:999px;padding:6px 13px;font-size:12.5px;font-weight:700;
+    letter-spacing:.4px;text-transform:uppercase;}
+  .hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,7vw,52px);line-height:1.08;
+    margin:18px 0 14px;letter-spacing:-.5px;}
+  .hero h1 .em{font-style:italic;color:var(--green);}
+  .hero p{font-size:18px;color:var(--muted);max-width:54ch;}
+
+  /* SECTION */
+  section{padding:34px 0;border-top:1px solid var(--line);}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--green);
+    display:flex;align-items:center;gap:9px;}
+  .eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:2px;}
+  h2{font-family:var(--serif);font-weight:600;font-size:clamp(26px,5vw,34px);line-height:1.15;
+    margin:12px 0 8px;letter-spacing:-.3px;}
+  .lead{color:var(--muted);font-size:16.5px;margin-bottom:22px;max-width:58ch;}
+
+  /* STEPS */
+  .step{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin-bottom:12px;box-shadow:0 1px 0 rgba(26,26,46,.02);}
+  .step .n{flex:0 0 38px;height:38px;border-radius:50%;background:var(--green);color:#fff;
+    font-family:var(--serif);font-weight:600;font-size:18px;display:flex;align-items:center;justify-content:center;}
+  .step h3{font-size:16.5px;font-weight:700;margin-bottom:2px;}
+  .step p{font-size:15px;color:var(--muted);}
+  .code-inline{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--gold-soft);
+    color:#8A5A06;border:1px solid #F4D49B;border-radius:6px;padding:1px 7px;font-weight:600;font-size:14px;}
+  .path{font-weight:700;color:var(--ink);}
+
+  /* FEATURE GRID */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .fcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;}
+  .fcard .ic{font-size:22px;}
+  .fcard h3{font-size:16px;font-weight:700;margin:8px 0 7px;}
+  .fcard ul{list-style:none;}
+  .fcard li{font-size:14px;color:var(--muted);padding-left:18px;position:relative;margin-bottom:5px;}
+  .fcard li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;
+    background:var(--green);}
+
+  /* CALLOUT (équipe) */
+  .callout{background:var(--green-soft);border:1px solid #CBE9DC;border-radius:18px;padding:22px 22px;}
+  .callout h2{margin-top:0;}
+  .callout .mini{display:flex;gap:12px;align-items:flex-start;margin-top:14px;}
+  .callout .mini .dot{flex:0 0 26px;height:26px;border-radius:50%;background:#fff;border:1px solid #CBE9DC;
+    color:var(--green-d);font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;}
+  .callout .mini p{font-size:15px;color:#2C4A40;}
+
+  /* FAQ */
+  details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;
+    overflow:hidden;}
+  summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:700;font-size:15.5px;
+    display:flex;justify-content:space-between;align-items:center;gap:12px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::after{content:"+";font-family:var(--serif);font-size:22px;color:var(--gold);line-height:1;transition:transform .2s;}
+  details[open] summary::after{transform:rotate(45deg);}
+  details .a{padding:0 18px 16px;color:var(--muted);font-size:15px;}
+
+  /* CONTACT */
+  .contact{text-align:center;background:linear-gradient(135deg,var(--green) 0%,var(--green-d) 100%);
+    color:#fff;border-radius:22px;padding:40px 26px;margin:8px 0 0;}
+  .contact h2{color:#fff;}
+  .contact p{color:rgba(255,255,255,.9);max-width:46ch;margin:6px auto 20px;}
+  .btn{display:inline-block;background:var(--gold);color:#3A2400;text-decoration:none;font-weight:700;
+    padding:14px 30px;border-radius:12px;font-size:16px;}
+
+  footer{padding:34px 0 60px;text-align:center;color:#9A958B;font-size:12.5px;line-height:1.7;}
+  footer .logo{font-family:var(--serif);font-weight:600;font-size:18px;color:var(--green-d);}
+
+  /* entrance animation */
+  .reveal{opacity:0;transform:translateY(14px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes rise{to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none;}}
+
+  @media(max-width:560px){
+    .grid{grid-template-columns:1fr;}
+    header.hero{padding:46px 0 22px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="wrap reveal">
+      <span class="badge">🔑 Espace pro</span>
+      <h1>Bienvenue dans ton <span class="em">espace pro</span> Lokalist.</h1>
+      <p>Tout est prêt côté Lokalist. Il te reste une étape pour accéder à ta fiche depuis l'application — ce guide te montre comment, en moins de deux minutes.</p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ACTIVER -->
+    <section>
+      <div class="wrap reveal" style="animation-delay:.05s">
+        <p class="eyebrow">Étape 1 · 2 minutes</p>
+        <h2>Activer ton accès</h2>
+        <p class="lead">Lokalist t'a transmis un <strong>code d'accès</strong> par email (du type <span class="code-inline">PRO-AB12</span>). Voici comment l'utiliser.</p>
+
+        <div class="step">
+          <div class="n">1</div>
+          <div>
+            <h3>Télécharge l'app Lokalist et connecte-toi</h3>
+            <p>Avec le compte indiqué dans ton email de bienvenue. Si Lokalist t'a créé un compte, utilise l'email et le mot de passe provisoire reçus (tu pourras le changer ensuite).</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="n">2</div>
+          <div>
+            <h3>Va dans <span class="path">Profil</span> → « Relier votre espace pro »</h3>
+            <p>Depuis l'onglet Profil, ouvre l'écran de saisie du code.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="n">3</div>
+          <div>
+            <h3>Saisis ton code <span class="code-inline">PRO-AB12</span></h3>
+            <p>Valide : la section <strong>« 🔑 Mon espace pro »</strong> apparaît aussitôt dans ton profil. C'est par là que tu accèdes à ta fiche, à tout moment.</p>
+          </div>
+        </div>
+
+        <p style="font-size:14px;color:var(--muted);margin-top:14px;">
+          💡 Le code est à <strong>usage unique</strong> et lié à <strong>une seule personne</strong>. Il n'est à saisir qu'une fois — ensuite, ton espace reste rattaché à ton compte.
+        </p>
+      </div>
+    </section>
+
+    <!-- CE QUE TU PEUX FAIRE -->
+    <section>
+      <div class="wrap reveal" style="animation-delay:.05s">
+        <p class="eyebrow">Ton espace pro</p>
+        <h2>Ce que tu peux faire</h2>
+        <p class="lead">Selon ton activité, ton espace t'ouvre des outils différents. Voici l'essentiel.</p>
+
+        <div class="grid">
+          <div class="fcard">
+            <div class="ic">🏪</div>
+            <h3>Commerçant · Resto · Loisir · Service</h3>
+            <ul>
+              <li>Mettre à jour ta fiche (infos, photos, horaires)</li>
+              <li>Ton QR code et tes points de fidélité</li>
+              <li>Scanner les bons de tes clients</li>
+              <li>Suivre tes avis</li>
+            </ul>
+          </div>
+          <div class="fcard">
+            <div class="ic">🔧</div>
+            <h3>Artisan</h3>
+            <ul>
+              <li>Gérer ta fiche et tes mentions</li>
+              <li>Répondre aux avis clients</li>
+              <li>Activer « dispo rapidement » / urgence</li>
+              <li>Recevoir des demandes près de chez toi</li>
+            </ul>
+          </div>
+          <div class="fcard">
+            <div class="ic">💼</div>
+            <h3>Courtier</h3>
+            <ul>
+              <li>Gérer ta fiche cabinet</li>
+              <li>Recevoir des demandes de financement</li>
+              <li>Mettre en avant tes offres (boosts)</li>
+            </ul>
+          </div>
+          <div class="fcard">
+            <div class="ic">🏠</div>
+            <h3>Agence immobilière</h3>
+            <ul>
+              <li>Publier et gérer tes annonces</li>
+              <li>Booster tes biens</li>
+              <li>Gérer tes communes couvertes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MON EQUIPE -->
+    <section>
+      <div class="wrap reveal" style="animation-delay:.05s">
+        <div class="callout">
+          <p class="eyebrow">Mon équipe</p>
+          <h2>Donner accès à un collaborateur</h2>
+          <p style="color:#2C4A40;font-size:16px;max-width:56ch;">Ta secrétaire, un associé, un employé peut aussi accéder à l'espace pro — avec son propre compte. Un accès = une personne.</p>
+
+          <div class="mini"><div class="dot">1</div><p>Depuis ton espace pro, génère un <strong>code d'équipe</strong>.</p></div>
+          <div class="mini"><div class="dot">2</div><p>Transmets-le à la personne (un code par personne).</p></div>
+          <div class="mini"><div class="dot">3</div><p>Elle le saisit dans <strong>son</strong> profil, au même endroit (« Relier votre espace pro ») — et accède à la fiche.</p></div>
+
+          <p style="color:#2C4A40;font-size:14px;margin-top:14px;">Besoin de retirer un accès ? Lokalist peut le révoquer à tout moment, sur simple demande.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <div class="wrap reveal" style="animation-delay:.05s">
+        <p class="eyebrow">Questions fréquentes</p>
+        <h2>Les cas qui reviennent</h2>
+        <div style="margin-top:18px;">
+          <details>
+            <summary>Le code indique qu'il est « déjà utilisé »</summary>
+            <div class="a">Chaque code est à usage unique et pour une seule personne. S'il a déjà servi, demande un nouveau code à Lokalist — c'est immédiat.</div>
+          </details>
+          <details>
+            <summary>J'ai perdu mon code</summary>
+            <div class="a">Aucun souci : contacte Lokalist, on t'en régénère un nouveau et on te le renvoie.</div>
+          </details>
+          <details>
+            <summary>J'avais déjà un compte sur l'app Lokalist</summary>
+            <div class="a">Connecte-toi simplement avec ce compte, puis saisis ton code dans Profil → « Relier votre espace pro ». Pas besoin d'en créer un autre.</div>
+          </details>
+          <details>
+            <summary>Je change de téléphone</summary>
+            <div class="a">Ton espace pro est rattaché à ton <strong>compte</strong>, pas à ton téléphone. Reconnecte-toi sur le nouvel appareil et tout est là.</div>
+          </details>
+          <details>
+            <summary>J'ai plusieurs établissements</summary>
+            <div class="a">Tu peux relier plusieurs accès : chaque établissement apparaît dans ta section « Mon espace pro ». Demande un code par établissement.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section style="border-top:none;">
+      <div class="wrap reveal" style="animation-delay:.05s">
+        <div class="contact">
+          <p class="eyebrow" style="color:#BFF0DD;justify-content:center;">On est là</p>
+          <h2>Une question ? On te répond.</h2>
+          <p>Le plus simple : réponds directement à ton email de bienvenue. On revient vers toi rapidement.</p>
+          <!-- Remplace par ton vrai email support si besoin -->
+          <a class="btn" href="mailto:contact@lokalist.fr?subject=Aide%20espace%20pro">Écrire à Lokalist</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="logo">Lokalist</div>
+      <div style="margin-top:6px;">Le commerce local, ensemble.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
