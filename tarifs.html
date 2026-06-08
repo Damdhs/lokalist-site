@@ -382,67 +382,66 @@
       <div class="tarif-section-ico">🏪</div>
       <div>
         <div class="tarif-section-title">Commerçants & Loisirs</div>
-        <div class="tarif-section-sub">19,90€/mois (préavis 3 mois) ou 179,10€/an — 3 mois offerts</div>
+        <div class="tarif-section-sub">Deux formules · Standard pour être visible, Premium pour vendre en ligne</div>
       </div>
     </div>
 
-    <div class="toggle-wrap">
-      <span class="toggle-label active" id="lbl-mensuel-com">Mensuel</span>
-      <button class="toggle" id="toggle-com" onclick="switchToggle('com')"></button>
-      <span class="toggle-label" id="lbl-annuel-com">Annuel</span>
-      <span class="toggle-badge" id="badge-com" style="display:none">3 mois offerts 🎁</span>
-    </div>
+    <div class="tarif-cards cols2" style="align-items:stretch">
 
-    <div class="tarif-cards cols2">
-      <div class="tarif-card" id="com-mensuel">
-        <div class="tarif-card-name">Mensuel · Sans engagement long</div>
-        <div style="background:var(--gl);border-radius:8px;padding:6px 12px;display:inline-block;font-size:11px;font-weight:700;color:var(--gd);margin-bottom:12px">📅 Préavis 3 mois</div>
+      <!-- STANDARD -->
+      <div class="tarif-card" style="display:flex;flex-direction:column;height:100%">
+        <div class="tarif-card-name">🏪 Standard</div>
+        <div style="background:var(--gl);border-radius:8px;padding:6px 12px;display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;color:var(--gd);margin-bottom:12px">Être visible &amp; fidéliser</div>
         <div class="tarif-card-price">19<span>,90€<small>/mois</small></span></div>
-        <div class="tarif-card-sub">Résiliable avec 3 mois de préavis. Sans frais cachés.</div>
+        <div class="tarif-card-sub">ou <strong>179,10€/an</strong> (3 mois offerts). Mensuel : préavis 3 mois. <strong>0% commission.</strong></div>
         <ul class="tarif-feats">
-          <li>Fiche vitrine avec photos & description</li>
+          <li>Fiche vitrine avec photos &amp; description</li>
           <li>QR code fidélité unique</li>
           <li>Encaissement des bons mairie</li>
           <li>Dashboard analytics temps réel</li>
-          <li>Avis clients vérifiés & modérés</li>
-          <li>Agenda & événements sur votre fiche</li>
+          <li>Avis clients vérifiés &amp; modérés</li>
+          <li>Agenda &amp; événements sur votre fiche</li>
           <li>Espace pro sur dashboard.lokalist.fr</li>
           <li>1 boost gratuit/mois inclus</li>
           <li>Réseaux sociaux sur votre fiche</li>
           <li>Code parrainage (1 mois offert l'an suivant)</li>
         </ul>
-        <a href="/contact" class="btn btn-o" style="width:100%;justify-content:center">Commencer →</a>
+        <a href="/contact?type=commercant" class="btn btn-o" style="margin-top:auto;width:100%;justify-content:center">Commencer →</a>
       </div>
 
-      <div class="tarif-card featured" id="com-annuel" style="display:none">
-        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--a);color:#fff;font-size:10px;font-weight:700;padding:4px 14px;border-radius:0 0 10px 10px;letter-spacing:.5px;white-space:nowrap">🎁 MEILLEURE OFFRE</div>
-        <div class="tarif-card-name" style="margin-top:12px">Annuel · Économique</div>
-        <div style="background:var(--al);border-radius:8px;padding:6px 12px;display:inline-block;font-size:11px;font-weight:700;color:#92400E;margin-bottom:12px">= 3 mois offerts inclus</div>
-        <div class="tarif-card-price">179<span>,10€<small>/an</small></span></div>
-        <div class="tarif-card-sub">Soit <strong>14,92€/mois</strong> — économie de 60€ vs mensuel. Engagement 1 an.</div>
+      <!-- PREMIUM -->
+      <div class="tarif-card featured" style="display:flex;flex-direction:column;height:100%;border:2px solid var(--g)">
+        <div style="position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:10px;font-weight:700;padding:4px 14px;border-radius:0 0 10px 10px;letter-spacing:.5px;white-space:nowrap">⭐ LE PLUS COMPLET</div>
+        <div class="tarif-card-name" style="margin-top:12px">🚀 Premium</div>
+        <div style="background:var(--gl);border-radius:8px;padding:6px 12px;display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;color:var(--gd);margin-bottom:12px">Vendre en ligne</div>
+        <div class="tarif-card-price">24<span>,90€<small>/mois</small></span></div>
+        <div class="tarif-card-sub">ou <strong>298,80€/an</strong> en paiement unique. <strong>+5€/mois seulement vs Standard.</strong> 0% commission.</div>
         <ul class="tarif-feats">
-          <li>Tout le mensuel inclus</li>
-          <li>Économie de 60€/an vs mensuel</li>
-          <li>Priorité support</li>
-          <li>1 mois offert supplémentaire l'an suivant si parrainage</li>
+          <li><strong>Tout le Standard inclus</strong></li>
+          <li>🛍️ <strong>Click &amp; Collect</strong> — commande &amp; retrait</li>
+          <li>🚲 Livraison (avec votre propre solution)</li>
+          <li>💳 Paiement en ligne (avec votre propre solution)</li>
+          <li>🎁 Packs Loisirs / Expérience — réservations</li>
+          <li>Mise en avant rubrique « Idée sortie »</li>
         </ul>
-        <a href="/contact" class="btn btn-a" style="width:100%;justify-content:center">Choisir l'annuel →</a>
+        <a href="/contact?type=commercant&formule=premium" class="btn btn-a" style="margin-top:auto;width:100%;justify-content:center">Choisir Premium →</a>
       </div>
 
+      <!-- COLONNE INCLUS -->
       <div style="background:var(--gl);border:1px solid var(--gm);border-radius:20px;padding:28px">
-        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gd);margin-bottom:16px">✨ Inclus dans votre abonnement</div>
+        <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--gd);margin-bottom:16px">✨ Inclus dans les deux formules</div>
         <div style="display:flex;flex-direction:column;gap:10px">
           <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 14px;border:1px solid var(--bdr)">
             <span style="font-size:20px">📅</span>
-            <div><div style="font-size:13px;font-weight:600;color:var(--dark)">Agenda commerçant</div><div style="font-size:11px;color:var(--muted)">Publiez vos événements & horaires spéciaux</div></div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--dark)">Agenda commerçant</div><div style="font-size:11px;color:var(--muted)">Publiez vos événements &amp; horaires spéciaux</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 14px;border:1px solid var(--bdr)">
             <span style="font-size:20px">📊</span>
-            <div><div style="font-size:13px;font-weight:600;color:var(--dark)">Espace pro dashboard</div><div style="font-size:11px;color:var(--muted)">Stats, offres, avis — accessible sur dashboard.lokalist.fr</div></div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--dark)">Espace pro dashboard</div><div style="font-size:11px;color:var(--muted)">Stats, offres, avis — sur dashboard.lokalist.fr</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 14px;border:1px solid var(--bdr)">
             <span style="font-size:20px">⚡</span>
-            <div><div style="font-size:13px;font-weight:600;color:var(--dark)">1 boost gratuit/mois</div><div style="font-size:11px;color:var(--muted)">Mettez en avant votre offre sur la page d'accueil</div></div>
+            <div><div style="font-size:13px;font-weight:600;color:var(--dark)">1 boost gratuit/mois</div><div style="font-size:11px;color:var(--muted)">Mettez en avant votre offre sur l'accueil</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;background:#fff;border-radius:10px;padding:10px 14px;border:1px solid var(--bdr)">
             <span style="font-size:20px">👥</span>
