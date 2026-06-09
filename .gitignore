@@ -2,3 +2,5 @@ patch-*.js
 *.bak-*
 
 patch-*.cjs
+*.bak
+*.bak2
