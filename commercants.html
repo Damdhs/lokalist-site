@@ -189,6 +189,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
   <link rel="stylesheet" href="loki-section.css">
+<style id="patch-commercants-css-v1">
+@media(max-width:600px){.steps-pack{grid-template-columns:1fr !important}}
+</style><!-- /patch-commercants-css-v1 -->
 </head>
 <body>
 <nav id="nav">
@@ -345,11 +348,11 @@
   <div class="bons-in">
     <div class="reveal">
       <h2>Encaissez les bons<br/>de votre mairie</h2>
-      <p>Votre mairie distribue des bons aux habitants via Lokalist. Ces bons ne sont valables que chez les commerçants partenaires de la commune (Une notification est envoyée aux habitants.). Vous les acceptez, vos ventes augmentent, et vous êtes remboursé.</p>
+      <p>Votre mairie distribue des bons aux habitants via Lokalist. Ces bons ne sont valables que chez les commerçants partenaires de la commune (une notification est envoyée aux habitants). Vous les acceptez, vos ventes augmentent, et vous êtes remboursé.</p>
       <div class="bons-steps">
         <div class="bons-step"><div class="bons-step-n">1</div><div class="bons-step-txt"><h4>Le client présente son bon</h4><p>Il vous montre son bon depuis l'app Lokalist. Vous scannez ou saisissez le code.</p></div></div>
         <div class="bons-step"><div class="bons-step-n">2</div><div class="bons-step-txt"><h4>Le bon est validé</h4><p>La valeur est déduite du montant de l'achat. La transaction est enregistrée.</p></div></div>
-        <div class="bons-step"><div class="bons-step-n">3</div><div class="bons-step-txt"><h4>Vous êtes remboursé</h4><p>Lokalist et la mairie vous rembourse le montant des bons encaissés. Suivi en temps réel dans votre dashboard.</p></div></div>
+        <div class="bons-step"><div class="bons-step-n">3</div><div class="bons-step-txt"><h4>Vous êtes remboursé</h4><p>Lokalist et la mairie vous remboursent le montant des bons encaissés. Suivi en temps réel dans votre dashboard.</p></div></div>
       </div>
     </div>
     <div class="bon-exemple reveal">
@@ -464,7 +467,7 @@
 </section>
 <!-- TARIFS COMMERÇANTS — Standard + Premium -->
 <!-- TARIFS COMMERÇANTS — Standard + Premium (v2 : hauteurs égales) -->
-<section class="tarif-section">
+<section class="tarif-section" id="tarifs">
   <div style="max-width:1080px;margin:0 auto;text-align:center">
     <p class="sec-tag reveal">Tarification</p>
     <h2 class="sec-h reveal">Deux formules, simple à choisir</h2>
@@ -567,7 +570,7 @@
       <div style="background:linear-gradient(135deg,#fff,#FDF2F8);border:2px solid #EC4899;border-radius:24px;padding:30px 34px;text-align:center;box-shadow:0 16px 40px rgba(236,72,153,.14)">
         <div style="font-size:34px;margin-bottom:8px">🎁</div>
         <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:8px">Les Packs Expérience sont inclus dans le Premium</div>
-        <p style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:20px">Combinez votre établissement avec un partenaire local, vos clients réservent en ligne et présentent leur code sur place. C'est compris dans votre abonnement Premium, sans commission au pourcentage sur le prix du pack — seul un forfait de mise en relation de 9,90 € s'applique tous les 10 packs encaissés.*</p>
+        <p style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:20px">Combinez votre établissement avec un partenaire local, vos clients réservent en ligne et présentent leur code sur place. C'est compris dans votre abonnement Premium, sans commission au pourcentage sur le prix du pack — seul un forfait de mise en relation de 9,90 € s'applique tous les 10 packs encaissés.</p>
         <a href="#tarifs" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:#EC4899;color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.3)">Voir les formules ↑</a>
       </div>
     </div>
@@ -585,7 +588,7 @@
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
           <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">2</div>
           <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Le client réserve</div>
-          <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Il découvre votre pack dans "Idée sortie", il réserve, reçoit un code unique.</div>
+          <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Il découvre votre pack dans "Idées Sorties", il réserve, reçoit un code unique.</div>
         </div>
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
           <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">3</div>
