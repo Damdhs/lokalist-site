@@ -855,51 +855,10 @@
         <div class="faq-a">L'abonnement mairie est annuel et établi sur devis selon la taille de votre commune. Il inclut toutes les fonctionnalités du dashboard (alertes, agenda, signalements, sondages, marchés...). En plus de cet abonnement, Lokalist prend 15% de commission uniquement sur les campagnes de bons que vous lancez — les 85% restants sont intégralement distribués en bons aux habitants.</div>
       </div>
       <div class="faq-item">
-        ═══════════════════════════════════════════════════════════════════
-  RETOUCHES FAQ — tarifs.html
-  3 modifications à faire dans VS Code (Ctrl+H = Rechercher/Remplacer)
-═══════════════════════════════════════════════════════════════════
-
-
-─── RETOUCHE 1 : nouvelle entrée "Standard vs Premium" ──────────────
-
-  → Colle ce bloc JUSTE AVANT la question
-    « Lokalist prend-il une commission sur mes ventes »
-
-<div class="faq-item">
-  <div class="faq-q" onclick="toggleFaq(this)">Standard ou Premium : quelle différence pour un commerçant ?<span class="faq-q-ico">+</span></div>
-  <div class="faq-a">La formule <strong>Standard (19,90€/mois)</strong> vous rend visible et vous permet de fidéliser : fiche vitrine, QR code de fidélité, bons mairie, dashboard, avis, agenda et 1 boost/mois. La formule <strong>Premium (24,90€/mois)</strong> inclut tout le Standard, plus la vente en ligne : <strong>Click &amp; Collect</strong> (commande et retrait), livraison et paiement en ligne (avec vos propres outils), et les <strong>Packs Loisirs / Expérience</strong>. En résumé : Standard pour être visible, Premium pour vendre en ligne. Aucune commission sur votre chiffre d'affaires dans les deux cas. Les Packs Loisirs font seulement l'objet d'un forfait de mise en relation de 9,90 € tous les 10 packs encaissés.</div>
-</div>
-
-
-─── RETOUCHE 2 : la réponse "3 mois offerts" ────────────────────────
-
-  CHERCHE cette phrase (fin de la réponse) :
-
-soit une économie de 60€ par an. Cette offre s'applique aux commerçants, artisans et courtiers.
-
-  REMPLACE-LA PAR :
-
-soit une économie de 60€ par an. Cette offre s'applique à la formule Standard des commerçants, artisans et courtiers. La formule Premium en annuel (298,80€) est au tarif plein, sans mois offerts.
-
-
-─── RETOUCHE 3 : la réponse "courtiers" ─────────────────────────────
-
-  CHERCHE :
-
-Les courtiers ont le même tarif que les commerçants (19,90€/mois ou 179,10€/an).
-
-  REMPLACE PAR :
-
-Les courtiers ont le même tarif que la formule Standard des commerçants (19,90€/mois ou 179,10€/an).
-
-
-═══════════════════════════════════════════════════════════════════
-  Astuce : dans VS Code, Ctrl+H ouvre Rechercher/Remplacer.
-  Colle l'ancien texte en haut, le nouveau en bas, clique "Remplacer".
-  (Si le texte n'est pas trouvé à cause des accents, cherche juste
-   un bout sans accent, ex. "60 par an" → tu repères la ligne.)
-═══════════════════════════════════════════════════════════════════
+        <div class="faq-q" onclick="toggleFaq(this)">Standard ou Premium : quelle différence pour un commerçant ?<span class="faq-q-ico">+</span></div>
+        <div class="faq-a">La formule <strong>Standard (19,90€/mois)</strong> vous rend visible et vous permet de fidéliser : fiche vitrine, QR code, bons mairie, dashboard, avis et 1 boost/mois. La formule <strong>Premium (24,90€/mois)</strong> ajoute la vente en ligne : <strong>Click &amp; Collect</strong>, livraison et paiement avec vos propres outils, et les <strong>Packs Loisirs / Expérience</strong>. Aucune commission sur votre chiffre d'affaires dans les deux cas.</div>
+      </div>
+      <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Lokalist prend-il une commission sur mes ventes en tant que commerçant ?<span class="faq-q-ico">+</span></div>
         <div class="faq-a">Non. Lokalist ne prend aucune commission sur vos ventes. Vous gardez 100% de votre chiffre d'affaires. Vous payez uniquement votre abonnement mensuel ou annuel — c'est tout.</div>
       </div>
@@ -909,7 +868,7 @@ Les courtiers ont le même tarif que la formule Standard des commerçants (19,90
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Les 3 mois offerts pour l'abonnement annuel, comment ça marche ?<span class="faq-q-ico">+</span></div>
-        <div class="faq-a">En optant pour l'abonnement annuel à 179,10€, vous payez l'équivalent de 9 mois au tarif mensuel (9 × 19,90€ = 179,10€) pour 12 mois d'accès. Les 3 mois restants sont donc offerts — soit une économie de 60€ par an. Cette offre s'applique aux commerçants, artisans et courtiers.</div>
+        <div class="faq-a">En optant pour l'abonnement annuel à 179,10€, vous payez l'équivalent de 9 mois au tarif mensuel (9 × 19,90€ = 179,10€) pour 12 mois d'accès. Les 3 mois restants sont donc offerts — soit une économie de 60€ par an. Cette offre s'applique à la formule Standard des commerçants, artisans et courtiers. La formule Premium en annuel (298,80€) est au tarif plein, sans mois offerts.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Les agences paient-elles une commission sur les transactions ?<span class="faq-q-ico">+</span></div>
@@ -917,7 +876,7 @@ Les courtiers ont le même tarif que la formule Standard des commerçants (19,90
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Comment ça marche pour les courtiers ?<span class="faq-q-ico">+</span></div>
-        <div class="faq-a">Les courtiers ont le même tarif que les commerçants (19,90€/mois ou 179,10€/an). Votre encart apparaît automatiquement sur les fiches des 3 agences immobilières les plus proches de votre zone d'intervention — quand un acheteur consulte un bien, il voit votre offre de financement et peut vous contacter en un clic.</div>
+        <div class="faq-a">Les courtiers ont le même tarif que la formule Standard des commerçants (19,90€/mois ou 179,10€/an). Votre encart apparaît automatiquement sur les fiches des 3 agences immobilières les plus proches de votre zone d'intervention — quand un acheteur consulte un bien, il voit votre offre de financement et peut vous contacter en un clic.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Les agences peuvent-elles ajouter des vidéos ?<span class="faq-q-ico">+</span></div>

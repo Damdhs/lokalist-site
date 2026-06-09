@@ -223,6 +223,13 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
   <link rel="stylesheet" href="loki-section.css">
+<style id="patch-agences-css-v1">
+@media(max-width:600px){
+  .parr-cta{white-space:normal !important;width:100% !important;box-sizing:border-box !important;word-break:break-word !important}
+  .parr-foot,.parr-foot-txt,.parr-foot-txt p{max-width:100% !important;min-width:0 !important}
+  .parr-foot-txt p{word-break:break-word !important}
+}
+</style><!-- /patch-agences-css-v1 -->
 </head>
 <body>
 <nav id="nav">
@@ -271,7 +278,7 @@
 
 <!-- HERO -->
 <section style="background:var(--bg);overflow:hidden">
-  <div class="hero" style="grid-template-columns:1fr 1fr;align-items:center">
+  <div class="hero">
     <div style="animation:fadeUp .6s ease both">
       <div class="hero-badge">🏠 Immobilier local — Agences, courtiers & bailleurs</div>
       <h1>Référencez votre activité<br/><em>immobilière en local</em></h1>
@@ -329,7 +336,7 @@
 <section class="offres" id="offres">
   <p class="sec-tag reveal">Ce que Lokalist apporte à votre agence</p>
   <h2 class="sec-h reveal">Des leads qualifiés,<br/>directement de votre commune</h2>
-  <p class="sec-p reveal">Fini les plateformes nationales où vous noyez dans la masse. Lokalist cible les habitants de votre commune, alors venez récupérer des bons mandats maintenant — vos vrais clients potentiels.</p>
+  <p class="sec-p reveal">Fini les plateformes nationales où vous vous noyez dans la masse. Lokalist cible les habitants de votre commune, alors venez récupérer des bons mandats maintenant — vos vrais clients potentiels.</p>
   <div class="offres-grid">
     <div class="offre-card reveal"><div class="offre-ico">🔍</div><h3>Profils acquéreurs</h3><p>Les habitants déposent leur projet d'achat ou de location dans l'app. Budget, communes, surface, nombre de pièces. Vous recevez des leads avec leurs coordonnées.</p><div class="offre-detail">→ Lead direct avec coordonnées</div></div>
     <div class="offre-card reveal"><div class="offre-ico">🏷️</div><h3>Mandats vendeurs</h3><p>Les propriétaires qui veulent vendre remplissent un formulaire depuis l'app. Estimation gratuite souhaitée ou non. Votre agence les rappelle en priorité.</p><div class="offre-detail">→ Lead vendeur qualifié</div></div>
