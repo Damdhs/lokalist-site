@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokalist — Scanner un bon client</title>
+<style>
+  :root{
+    --vert:#1D9E75; --vertfonce:#0F6E56; --orange:#EF9F27;
+    --texte:#1f2937; --gris:#6b7280; --bgcard:#ffffff; --bg:#f5f7f6; --bord:#e5eae8;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--texte);
+    font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.5; }
+  .page{ max-width:780px; margin:0 auto; padding:24px 16px 48px; }
+  header{ background:var(--vertfonce); color:#fff; border-radius:16px; padding:24px 26px; }
+  header .logo{ font-size:24px; font-weight:800; letter-spacing:.5px; }
+  header h1{ font-size:20px; margin:10px 0 4px; }
+  header p{ margin:0; color:#bfe6d6; font-size:14px; }
+  .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:22px 24px; margin-top:18px; }
+  .bloc h2{ font-size:17px; color:var(--vertfonce); margin:0 0 14px; display:flex; align-items:center; gap:8px; }
+  ol{ margin:0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol li{ counter-increment:etape; position:relative; padding:8px 0 8px 44px; font-size:15px; }
+  ol li::before{ content:counter(etape); position:absolute; left:0; top:6px;
+    width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
+    font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
+  .astuce b{ color:#b5740f; }
+  .code{ font-family:monospace; background:#eef4f1; border:1px solid var(--bord); border-radius:8px; padding:3px 8px; font-size:14px; color:var(--vertfonce); font-weight:700; }
+  .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
+  footer{ text-align:center; color:var(--gris); font-size:12px; margin-top:22px; }
+  @media print{ body{ background:#fff; } .bloc,header{ break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">Lokalist</div>
+    <h1>Récompenser un client en 30 secondes</h1>
+    <p>Guide commerçant — utiliser un bon Lokalist</p>
+  </header>
+
+  <!-- BLOC 1 : scanner -->
+  <div class="bloc">
+    <h2>📷 Scanner un bon client</h2>
+    <ol>
+      <li>Ouvrez l'appli Lokalist (connecté à votre <b>espace commerçant</b>).</li>
+      <li>Touchez le bouton vert <b>« Scanner un bon client »</b> en haut de votre espace. La caméra s'ouvre.</li>
+      <li>Le client ouvre son bon (onglet <b>Gains</b>) et vous présente son <b>QR code</b>. Visez-le.</li>
+      <li>L'appli affiche le <b>montant restant</b> du bon.</li>
+      <li>Saisissez le <b>montant à déduire</b> (ce que le client utilise aujourd'hui), puis <b>Valider</b>.</li>
+      <li>C'est fait. Le solde du bon se met à jour automatiquement. ✅</li>
+    </ol>
+    <div class="astuce">
+      <b>Le QR ne passe pas ?</b> Pas de souci : touchez « Saisir le code » et tapez le code affiché sous le QR du client (format <span class="code">LOK-XXXX-XXXX</span>). Le résultat est identique.
+    </div>
+  </div>
+
+  <!-- BLOC 2 : acces rapide simple -->
+  <div class="bloc">
+    <h2>⚡ L'accès rapide : votre bouton « Scanner » sur l'écran d'accueil</h2>
+    <p class="sous">Le plus pratique au comptoir : un appui et la caméra s'ouvre. À installer une seule fois.</p>
+    <ol>
+      <li>Installez l'appli gratuite <b>Shortcut Maker</b> (Play Store).</li>
+      <li>Créez un raccourci de type <b>« Lien »</b> et recopiez :<br><span class="code">lokalist://scan-bon-client</span></li>
+      <li>Nommez-le <b>« Scanner »</b> et validez. L'icône arrive sur votre écran d'accueil. 🎉</li>
+    </ol>
+    <div class="astuce">
+      <b>iPhone :</b> app <b>Raccourcis</b> → « Ouvrir l'URL » → <span class="code">lokalist://scan-bon-client</span> → « Sur l'écran d'accueil ».<br>
+      <b>Pas à l'aise ?</b> Le bouton vert « Scanner un bon client » dans l'appli fait exactement la même chose.
+    </div>
+  </div>
+
+  <!-- RAPPEL -->
+  <div class="bloc">
+    <h2>💚 Pourquoi récompenser vos clients</h2>
+    <p style="margin:0; font-size:15px;">
+      Plus vous récompensez, plus vos clients reviennent. Vous choisissez librement le montant que vous offrez : c'est votre geste de fidélité, et c'est ce qui fait revenir les habitants chez vous plutôt qu'ailleurs.
+    </p>
+  </div>
+
+  <footer>
+    Lokalist — votre plateforme locale · Une question ? contact@lokalist.fr
+  </footer>
+
+</div>
+</body>
+</html>
