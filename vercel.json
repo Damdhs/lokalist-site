@@ -1,4 +1,4 @@
-{
+﻿{
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/mairies", "destination": "/mairies.html" },
@@ -8,6 +8,7 @@
     { "source": "/courtiers", "destination": "/courtiers.html" },
     { "source": "/loisirs", "destination": "/loisirs.html" },
     { "source": "/idees-sorties", "destination": "/idees-sorties.html" },
+    { "source": "/proposer-un-evenement", "destination": "/proposer-un-evenement.html" },
     { "source": "/appels-offres", "destination": "/appels-offres.html" },
     { "source": "/tarifs", "destination": "/tarifs.html" },
     { "source": "/contact", "destination": "/contact.html" },
