@@ -384,6 +384,15 @@
         await fetch(FORMSPREE, { method:'POST', body:fd, headers:{ Accept:'application/json' } });
       } catch(_) {}
 
+      // Accusé de réception à l'organisateur (best-effort)
+      try {
+        await fetch('https://lokalist-api-production.up.railway.app/evenements/accuse-reception', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json' },
+          body: JSON.stringify({ orga_email: payload.orga_email, titre: payload.titre })
+        });
+      } catch(_) {}
+
       $('form-wrap').classList.add('form-hidden');
       $('form-success').classList.remove('form-hidden');
       $('form-success').scrollIntoView({ behavior:'smooth', block:'start' });
