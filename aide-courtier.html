@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokalist — Guide courtier</title>
+<style>
+  :root{
+    --vert:#1D9E75; --vertfonce:#0F6E56; --orange:#EF9F27; --bleu:#3B82F6;
+    --texte:#1f2937; --gris:#6b7280; --bgcard:#ffffff; --bg:#f5f7f6; --bord:#e5eae8;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--texte);
+    font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.55; }
+  .page{ max-width:800px; margin:0 auto; padding:24px 16px 56px; }
+
+  header{ background:linear-gradient(135deg,#0F6E56,#0d2840); color:#fff; border-radius:16px; padding:28px 30px; }
+  header .logo{ font-size:24px; font-weight:800; letter-spacing:.5px; }
+  header h1{ font-size:22px; margin:12px 0 6px; line-height:1.3; }
+  header p{ margin:0; color:#bfe6d6; font-size:14.5px; }
+
+  .somm{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:18px 22px; margin-top:18px; }
+  .somm h2{ font-size:14px; text-transform:uppercase; letter-spacing:.5px; color:var(--gris); margin:0 0 12px; }
+  .somm ol{ margin:0; padding-left:20px; font-size:14px; }
+  .somm li{ margin-bottom:6px; }
+  .somm a{ color:var(--vertfonce); text-decoration:none; }
+
+  .intro{ background:#eef6f2; border:1px solid #cfe8dd; border-radius:14px; padding:18px 22px; margin-top:18px; font-size:14.5px; color:#22503f; }
+  .intro b{ color:var(--vertfonce); }
+
+  .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .bloc h2{ font-size:18px; color:var(--vertfonce); margin:0 0 6px; display:flex; align-items:center; gap:9px; }
+  .bloc .role{ font-size:14.5px; color:var(--texte); margin:0 0 14px; }
+
+  .pourquoi{ background:#eef6f2; border-left:3px solid var(--vert); border-radius:0 8px 8px 0; padding:10px 14px; margin:14px 0 0; font-size:13.5px; color:#22503f; }
+  .pourquoi b{ color:var(--vertfonce); }
+
+  ol.steps{ margin:14px 0 0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:14.5px; }
+  ol.steps li::before{ content:counter(etape); position:absolute; left:0; top:7px;
+    width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
+    font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  ol.steps li .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
+
+  .puce{ list-style:none; margin:14px 0 0; padding:0; }
+  .puce li{ position:relative; padding:9px 0 9px 26px; font-size:14.5px; border-bottom:1px solid #f0f3f2; }
+  .puce li:last-child{ border-bottom:none; }
+  .puce li::before{ content:""; position:absolute; left:4px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--vert); }
+  .puce li b{ color:var(--texte); }
+  .puce li .sous{ color:var(--gris); font-size:13px; display:block; margin-top:2px; }
+
+  .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
+  .astuce b{ color:#b5740f; }
+
+  .tarif{ border:1.5px solid var(--bleu); border-radius:14px; padding:22px; background:#eff6ff; max-width:420px; }
+  .tarif .nom{ font-family:'Syne',sans-serif; font-weight:800; font-size:16px; color:#1e40af; }
+  .tarif .prix{ font-size:28px; font-weight:800; margin:6px 0 2px; }
+  .tarif .prix span{ font-size:14px; font-weight:500; color:var(--gris); }
+  .tarif .an{ font-size:12.5px; color:var(--vert); font-weight:700; margin-bottom:12px; }
+  .tarif ul{ list-style:none; margin:0; padding:0; }
+  .tarif ul li{ padding:6px 0 6px 24px; position:relative; font-size:14px; }
+  .tarif ul li::before{ content:"✓"; position:absolute; left:0; top:6px; color:var(--vert); font-weight:800; }
+
+  .contact{ text-align:center; background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .contact a{ color:var(--vertfonce); font-weight:700; text-decoration:none; }
+
+  footer{ text-align:center; color:var(--gris); font-size:12px; margin-top:24px; }
+  @media print{ body{ background:#fff; } .bloc,header{ break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">Lokalist</div>
+    <h1>💶 Guide de votre espace Courtier</h1>
+    <p>Recevez des emprunteurs de votre secteur et pilotez votre activité, simplement.</p>
+  </header>
+
+  <div class="intro">
+    Sur Lokalist, vous êtes <b>le courtier de votre zone</b> — pas une fiche perdue parmi des centaines. Les habitants qui ont un projet de financement (crédit immobilier, rachat de crédits, assurance emprunteur) vous trouvent en local, et leurs demandes arrivent directement dans votre espace. <b>0% de commission</b> sur vos dossiers : vous gardez 100% de vos honoraires. Ce guide vous explique chaque rubrique.
+  </div>
+
+  <!-- SOMMAIRE -->
+  <div class="somm">
+    <h2>Dans ce guide</h2>
+    <ol>
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#leads">Mes leads</a> — le cœur de votre activité</li>
+      <li><a href="#fiche">Mon profil</a></li>
+      <li><a href="#boost">Boosts</a></li>
+      <li><a href="#avis">Mes avis</a></li>
+      <li><a href="#stats">Statistiques</a></li>
+      <li><a href="#abo">Mon abonnement</a></li>
+      <li><a href="#tarif">Tarif</a></li>
+    </ol>
+  </div>
+
+  <!-- ACCUEIL -->
+  <div class="bloc" id="accueil">
+    <h2>🏠 Accueil</h2>
+    <p class="role">Votre tableau de bord d'arrivée : un aperçu de votre activité et des actions à mener (leads à traiter, boost disponible, profil à compléter), avec des conseils pour performer.</p>
+    <div class="pourquoi">👉 Un lead contacté dans l'heure a bien plus de chances de se convertir : commencez votre journée ici pour ne rien manquer.</div>
+  </div>
+
+  <!-- LEADS -->
+  <div class="bloc" id="leads">
+    <h2>📋 Mes leads <span style="font-size:12px;font-weight:400;color:var(--gris)">— le cœur de votre activité</span></h2>
+    <p class="role">Chaque fois qu'un habitant de votre zone dépose un projet de financement dans l'app, il arrive ici. Vous recevez le contexte du dossier et les coordonnées pour le rappeler.</p>
+    <ul class="puce">
+      <li><b>Trois onglets pour vous organiser</b> : Tous, À récupérer, Récupérés.</li>
+      <li>Les badges <b>Nouveau</b> et <b>Urgent</b> vous signalent les dossiers à traiter en priorité.</li>
+      <li>Vous <b>récupérez</b> un lead pour accéder à son téléphone et le contacter — il passe alors en « récupéré ».</li>
+    </ul>
+    <div class="astuce">
+      <b>La réactivité fait la différence.</b> Les leads contactés rapidement se convertissent beaucoup mieux. Activez les notifications push pour être prévenu dès qu'un nouveau dossier tombe — et soyez le premier à rappeler.
+    </div>
+    <div class="pourquoi">👉 Crédit immobilier, rachat de crédits, assurance emprunteur (loi Lemoine) : vos trois expertises arrivent ici, qualifiées, depuis votre rayon (30 à 150 km au choix).</div>
+  </div>
+
+  <!-- FICHE -->
+  <div class="bloc" id="fiche">
+    <h2>👤 Mon profil</h2>
+    <p class="role">Votre vitrine de courtier dans l'app : logo, photo, expertise, présentation. C'est ce que voient les habitants quand ils cherchent un financement près de chez eux.</p>
+    <ul class="puce">
+      <li>Soignez votre présentation et votre photo : un profil complet inspire confiance.</li>
+      <li><b>Cochez vos partenaires bancaires</b> : plus vous en affichez, plus les prospects vous trouvent crédibles pour porter leur dossier.</li>
+    </ul>
+    <div class="pourquoi">👉 Un profil complet et à jour, c'est le premier argument qui décide un emprunteur à vous contacter plutôt qu'un autre.</div>
+  </div>
+
+  <!-- BOOST -->
+  <div class="bloc" id="boost">
+    <h2>🚀 Boosts</h2>
+    <p class="role">Un boost met votre fiche en avant dans l'app pendant <b>7 jours</b> : vous passez devant les autres courtiers de votre secteur, au moment où les habitants cherchent un financement.</p>
+    <ul class="puce">
+      <li>Vous disposez d'un <b>quota de boosts par mois</b> (réinitialisé le 1er). Le compteur de boosts restants s'affiche dans votre espace.</li>
+      <li>Pendant un boost, les courtiers constatent en moyenne <b>3 à 5× plus de leads</b>.</li>
+      <li>Activer un nouveau boost remplace celui en cours.</li>
+    </ul>
+    <div class="pourquoi">👉 Astuce : activez un boost en <b>début de mois</b>, quand les projets démarrent — c'est là qu'il rapporte le plus.</div>
+  </div>
+
+  <!-- AVIS -->
+  <div class="bloc" id="avis">
+    <h2>⭐ Mes avis</h2>
+    <p class="role">Retrouvez les avis laissés par les clients que vous avez accompagnés, et votre note moyenne.</p>
+    <div class="pourquoi">👉 Une belle note est un argument fort : un emprunteur confie un projet de vie, il choisit un courtier en qui il a confiance.</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="bloc" id="stats">
+    <h2>📊 Statistiques</h2>
+    <p class="role">Suivez votre activité : nombre de leads reçus, votre temps moyen pour récupérer un lead, votre note moyenne et vos avis.</p>
+    <div class="pourquoi">👉 Surveillez votre temps de récupération : plus vous êtes rapide, plus vous convertissez. Et si les leads se font rares, un boost relance la visibilité.</div>
+  </div>
+
+  <!-- ABONNEMENT -->
+  <div class="bloc" id="abo">
+    <h2>💎 Mon abonnement</h2>
+    <p class="role">Consultez votre formule, vos factures et les informations de paiement. Vous gardez la main sur votre abonnement, sans engagement de durée.</p>
+  </div>
+
+  <!-- TARIF -->
+  <div class="bloc" id="tarif">
+    <h2>💶 Tarif</h2>
+    <p class="role">Un seul tarif, tout inclus, sans commission.</p>
+    <div class="tarif">
+      <div class="nom">Courtier Lokalist</div>
+      <div class="prix">19,90€<span> /mois</span></div>
+      <div class="an">ou 179,10€/an — 3 mois offerts · sans engagement</div>
+      <ul>
+        <li>Fiche courtier complète (logo, photo, expertise, avis)</li>
+        <li>Rayon d'action 30 à 150 km au choix</li>
+        <li>Leads crédit immobilier, rachat &amp; assurance emprunteur</li>
+        <li>Visible dans la rubrique Immo de l'app</li>
+        <li>Notifications push à chaque nouveau lead</li>
+        <li>Boosts de visibilité (7 jours)</li>
+        <li>Tableau de bord &amp; statistiques</li>
+        <li>0% de commission sur vos dossiers</li>
+      </ul>
+    </div>
+    <div class="astuce">
+      <b>Vous représentez un réseau de courtiers ?</b> Un accompagnement sur-mesure existe (multi-comptes, onboarding dédié, tarif négocié). Contactez Lokalist.
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <p style="margin:0 0 6px;font-weight:700">Une question ?</p>
+    <p style="margin:0;font-size:14px;color:var(--gris)">Écrivez à <a href="mailto:contact@lokalist.fr">contact@lokalist.fr</a> — réponse sous 24h.</p>
+  </div>
+
+  <footer>Lokalist · Guide courtier · lokalist.fr</footer>
+
+</div>
+</body>
+</html>
