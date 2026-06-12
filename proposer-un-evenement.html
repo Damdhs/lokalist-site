@@ -218,6 +218,19 @@
         <div class="form-group"><label>Téléphone *</label><input type="tel" id="ev-orga-tel" placeholder="06 XX XX XX XX" required/></div>
       </div>
 
+      <div class="form-group" id="ev-fact-bloc" style="margin-top:8px;padding-top:8px;border-top:1px solid #eee">
+        <label style="font-weight:800">Coordonnees de facturation *</label>
+        <div class="form-note" style="text-align:left;margin:4px 0 10px">Necessaire pour etablir votre facture.</div>
+        <input type="text" id="ev-fact-adresse" placeholder="Adresse (n, rue)" required style="margin-bottom:8px"/>
+        <div class="form-row">
+          <div class="form-group"><input type="text" id="ev-fact-cp" placeholder="Code postal" required/></div>
+          <div class="form-group"><input type="text" id="ev-fact-ville" placeholder="Ville" required/></div>
+        </div>
+        <div class="form-group form-hidden" id="ev-fact-siret-group" style="margin-top:8px">
+          <label>SIRET *</label>
+          <input type="text" id="ev-fact-siret" placeholder="XXX XXX XXX XXXXX"/>
+        </div>
+      </div>
       <button type="submit" class="submit-btn" id="ev-submit">✉️ Envoyer ma demande</button>
       <div class="form-note">Demande modérée par l'équipe Lokalist. Après validation, vous recevez une facture par email ; l'événement est mis en ligne une fois réglé. Vos données ne sont jamais revendues.</div>
     </form>
@@ -324,6 +337,18 @@
   }
 
   // ── Submit ──
+    // ── Facturation : SIRET visible pour pro/asso/collectivité ──
+  (function(){
+    var sel = document.getElementById("ev-orga-type");
+    var grp = document.getElementById("ev-fact-siret-group");
+    var sir = document.getElementById("ev-fact-siret");
+    function maj(){
+      var pro = ["professionnel","association","collectivite"].indexOf(sel.value) >= 0;
+      if(grp) grp.classList.toggle("form-hidden", !pro);
+      if(sir) sir.required = pro;
+    }
+    if(sel){ sel.addEventListener("change", maj); maj(); }
+  })();
   async function submitEvent(e){
     e.preventDefault();
     const btn = $('ev-submit');
@@ -332,7 +357,13 @@
     if(!villeData.lat || !villeData.nom){ alert('⚠️ Choisissez votre commune dans la liste de suggestions.'); return; }
     if(!val('ev-debut')){ alert('⚠️ Indiquez la date de début.'); return; }
 
-    btn.disabled = true; btn.innerHTML = '⏳ Envoi en cours...';
+    btn.disabled = true;
+    // Controle facturation
+    var _fa = val('ev-fact-adresse'), _fc = val('ev-fact-cp'), _fv = val('ev-fact-ville');
+    if(!_fa || !_fc || !_fv){ alert("Merci de remplir vos coordonnees de facturation (adresse, code postal, ville)."); btn.disabled=false; return; }
+    var _ot = val('ev-orga-type');
+    if(["professionnel","association","collectivite"].indexOf(_ot)>=0 && !val('ev-fact-siret')){ alert("Le SIRET est obligatoire pour un professionnel, une association ou une collectivite."); btn.disabled=false; return; }
+ btn.innerHTML = '⏳ Envoi en cours...';
 
     try {
       // Photo (non bloquant si échec)
@@ -361,7 +392,11 @@
         gratuit: gratuit,
         prix: gratuit ? null : (parseFloat(val('ev-prix').replace(',', '.')) || null),
         image_url: image_url,
-        lien_inscription: val('ev-lien') || null
+        lien_inscription: val('ev-lien') || null,
+        orga_adresse: val('ev-fact-adresse') || null,
+        orga_cp: val('ev-fact-cp') || null,
+        orga_ville: val('ev-fact-ville') || null,
+        orga_siret: val('ev-fact-siret') || null
         // statut / paye / mise_en_avant : laissés aux valeurs par défaut (RLS)
       };
 
