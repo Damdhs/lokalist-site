@@ -28,16 +28,19 @@
 
   .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
   .bloc h2{ font-size:18px; color:var(--vertfonce); margin:0 0 6px; display:flex; align-items:center; gap:9px; }
-  .bloc .stitre{ font-size:14px; color:var(--gris); margin:0 0 16px; }
+  .bloc .role{ font-size:14.5px; color:var(--texte); margin:0 0 14px; }
 
-  ol.steps{ margin:0; padding-left:0; counter-reset:etape; list-style:none; }
-  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:15px; }
+  .pourquoi{ background:#eef6f2; border-left:3px solid var(--vert); border-radius:0 8px 8px 0; padding:10px 14px; margin:14px 0 0; font-size:13.5px; color:#22503f; }
+  .pourquoi b{ color:var(--vertfonce); }
+
+  ol.steps{ margin:14px 0 0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:14.5px; }
   ol.steps li::before{ content:counter(etape); position:absolute; left:0; top:7px;
     width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
     font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
   ol.steps li .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
 
-  .puce{ list-style:none; margin:0; padding:0; }
+  .puce{ list-style:none; margin:14px 0 0; padding:0; }
   .puce li{ position:relative; padding:9px 0 9px 26px; font-size:14.5px; border-bottom:1px solid #f0f3f2; }
   .puce li:last-child{ border-bottom:none; }
   .puce li::before{ content:""; position:absolute; left:4px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--vert); }
@@ -47,10 +50,6 @@
   .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
   .astuce b{ color:#b5740f; }
 
-  .info{ background:#eef6f2; border:1px solid #cfe8dd; border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#22503f; }
-  .info b{ color:var(--vertfonce); }
-
-  /* Tarifs */
   .tarifs{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
   @media(max-width:560px){ .tarifs{ grid-template-columns:1fr; } }
   .tarif{ border:1px solid var(--bord); border-radius:14px; padding:20px; background:#fafbfb; }
@@ -79,144 +78,190 @@
   <header>
     <div class="logo">Lokalist</div>
     <h1>Bienvenue 👋 Voici comment tout fonctionne pour votre commerce</h1>
-    <p>Guide commerçant — tout est simple, on vous explique pas à pas.</p>
+    <p>Guide commerçant — chaque rubrique de votre espace, à quoi elle sert et pourquoi.</p>
   </header>
 
   <!-- SOMMAIRE -->
   <div class="somm">
     <h2>Dans ce guide</h2>
     <ol>
-      <li><a href="#fiche">Votre fiche</a></li>
-      <li><a href="#fidelite">La fidélité (QR code)</a></li>
-      <li><a href="#bons">Encaisser un bon</a></li>
-      <li><a href="#offres">Vos offres</a></li>
-      <li><a href="#boost">Mettre une offre en avant</a></li>
-      <li><a href="#ia">L'assistant IA</a></li>
+      <li><a href="#fiche">Ma fiche</a></li>
+      <li><a href="#qrcode">Mon QR code</a></li>
+      <li><a href="#scanner">Scanner un bon</a></li>
+      <li><a href="#stats">Mes stats</a></li>
+      <li><a href="#offres">Mes offres</a></li>
+      <li><a href="#boost">Mettre en avant (boost)</a></li>
       <li><a href="#communes">Offres communes</a></li>
-      <li><a href="#stats">Vos statistiques</a></li>
+      <li><a href="#agenda">Mon agenda</a></li>
+      <li><a href="#avis">Mes avis</a></li>
+      <li><a href="#bons">Mes bons</a></li>
+      <li><a href="#remb">Mes remboursements</a></li>
+      <li><a href="#ia">L'assistant IA</a></li>
+      <li><a href="#abo">Mon abonnement</a></li>
       <li><a href="#tarifs">Formules &amp; prix</a></li>
     </ol>
   </div>
 
   <!-- FICHE -->
   <div class="bloc" id="fiche">
-    <h2>🏪 Votre fiche commerce</h2>
-    <p class="stitre">C'est votre vitrine, vue par les habitants dans l'appli.</p>
+    <h2>🏠 Ma fiche</h2>
+    <p class="role">Votre vitrine sur Lokalist, vue par les habitants : photo, description, horaires.</p>
     <ul class="puce">
-      <li><b>Votre photo</b> — touchez l'icône appareil photo pour la changer (depuis la galerie ou l'appareil).</li>
-      <li><b>Votre description</b> — écrivez-la vous-même, ou laissez l'assistant IA vous proposer un texte, puis enregistrez.</li>
-      <li><b>Voir ma fiche publique</b> — pour visualiser exactement ce que voient vos clients.</li>
+      <li><b>Votre photo</b> — touchez l'icône appareil photo pour la changer.</li>
+      <li><b>Votre description</b> — écrivez-la, ou laissez l'assistant IA vous proposer un texte, puis enregistrez.</li>
+      <li><b>Voir ma fiche publique</b> — visualisez ce que voient vos clients.</li>
     </ul>
+    <div class="pourquoi">👉 Une fiche complète avec de belles photos et des horaires à jour inspire confiance et donne envie de pousser la porte.</div>
   </div>
 
-  <!-- FIDELITE -->
-  <div class="bloc" id="fidelite">
-    <h2>🎟️ La fidélité de vos clients</h2>
-    <p class="stitre">Vos clients cumulent des points à chaque passage. Aucun matériel à installer.</p>
-    <ol class="steps">
-      <li>Affichez votre QR code depuis votre espace.
-        <div class="sous">Le client le scanne avec son appli Lokalist.</div>
-      </li>
-      <li>Il gagne ses points automatiquement.
-        <div class="sous">Le nombre de points par passage est indiqué dans vos statistiques.</div>
-      </li>
-      <li>Il revient pour profiter de ses avantages.
-        <div class="sous">La fidélité tourne toute seule, sans carte ni papier.</div>
-      </li>
-    </ol>
+  <!-- QR CODE -->
+  <div class="bloc" id="qrcode">
+    <h2>📱 Mon QR code</h2>
+    <p class="role">C'est le cœur de la fidélité Lokalist. Quand un client le scanne, il gagne des points et sa visite est comptabilisée.</p>
+    <ul class="puce">
+      <li>Affichez-le en boutique.</li>
+      <li>Téléchargez-le pour l'imprimer.</li>
+    </ul>
+    <div class="pourquoi">👉 Placez-le bien en vue (caisse, vitrine, table) : plus il est scanné, plus vos clients reviennent.</div>
   </div>
 
-  <!-- BONS -->
-  <div class="bloc" id="bons">
-    <h2>💶 Encaisser un bon</h2>
-    <p class="stitre">Un client paie avec un bon ? Vous le validez en quelques secondes.</p>
+  <!-- SCANNER -->
+  <div class="bloc" id="scanner">
+    <h2>📷 Scanner un bon</h2>
+    <p class="role">Quand un client paie avec un bon, vous le validez en quelques secondes.</p>
     <ol class="steps">
-      <li>Touchez « Scanner un bon client » et visez le QR code qu'il vous présente.</li>
-      <li>Saisissez le montant utilisé, puis validez.
-        <div class="sous">Le solde du bon se met à jour automatiquement.</div>
-      </li>
+      <li>Touchez « Scanner un bon client » et visez le QR qu'il vous présente.</li>
+      <li>Saisissez le montant utilisé, puis validez. Le solde se met à jour automatiquement.</li>
     </ol>
     <div class="astuce">
-      <b>Le QR ne passe pas ?</b> Tapez simplement le code du bon à la main, indiquez le montant, validez. Le résultat est identique.
+      <b>Le QR ne passe pas ?</b> Tapez le code du bon à la main, indiquez le montant, validez. Résultat identique.
     </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="bloc" id="stats">
+    <h2>📊 Mes stats</h2>
+    <p class="role">Suivez votre activité Lokalist : scans, points distribués, note moyenne, bons encaissés et fréquentation. Le sélecteur en haut permet de choisir la période (7 j, 30 j, 90 j, 1 an).</p>
+    <div class="pourquoi">👉 Comparez les périodes pour mesurer l'effet d'une offre ou d'une campagne sur votre fréquentation.</div>
   </div>
 
   <!-- OFFRES -->
   <div class="bloc" id="offres">
-    <h2>🏷️ Vos offres</h2>
-    <p class="stitre">Mettez en avant une promo, un événement ou une nouveauté auprès des habitants.</p>
+    <h2>🏷️ Mes offres</h2>
+    <p class="role">Mettez en avant une promo, un événement ou une nouveauté auprès des habitants.</p>
     <ol class="steps">
       <li>Créez une offre : un titre, une description, une éventuelle réduction.</li>
       <li>Choisissez une date d'expiration.
         <div class="sous">L'offre disparaît toute seule de l'appli à cette date — vous gardez la main selon vos stocks ou la durée de votre promo.</div>
       </li>
-      <li>Publiez. Elle apparaît aussitôt auprès de vos clients.</li>
+      <li>Publiez. Elle apparaît aussitôt auprès de vos clients (Actives / Expirées / Brouillons).</li>
     </ol>
-
-    <div class="info">
-      <b>2 offres incluses par mois.</b> Pourquoi 2 et pas plus ? Pour que les offres restent <b>efficaces</b>. Si chaque commerce en publiait dix à la fois, les habitants seraient noyés et plus personne ne les remarquerait. En limitant à 2, vos offres tournent, restent visibles et gardent de l'impact. Chaque mois, votre compteur repart à 2.
+    <div class="pourquoi">
+      <b>2 offres incluses par mois.</b> Pourquoi 2 et pas plus ? Pour que vos offres restent <b>efficaces</b>. Si chaque commerce en publiait dix à la fois, les habitants seraient noyés et plus personne ne les remarquerait. En limitant à 2, vos offres tournent, restent visibles et gardent de l'impact. Chaque mois, votre compteur repart à 2.
     </div>
-
     <div class="astuce">
-      <b>Besoin d'une 3ᵉ offre dans le mois ?</b> C'est possible : une offre supplémentaire coûte <span class="prixtag">9,90€</span>. Depuis votre espace, indiquez la date souhaitée et envoyez votre demande. Prévoyez <b>3 à 4 jours</b> avant la date voulue : nous la validons manuellement avant la mise en ligne.
+      <b>Besoin d'une 3ᵉ offre dans le mois ?</b> Une offre supplémentaire coûte <span class="prixtag">9,90€</span>. Depuis votre espace, indiquez la date souhaitée et envoyez votre demande. Prévoyez <b>3 à 4 jours</b> avant la date voulue : nous la validons avant la mise en ligne.
     </div>
   </div>
 
   <!-- BOOST -->
   <div class="bloc" id="boost">
     <h2>⚡ Mettre une offre en avant (boost)</h2>
-    <p class="stitre">Un « boost » place votre offre en évidence pour gagner en visibilité.</p>
+    <p class="role">Un « boost » place l'une de vos offres en évidence pour gagner en visibilité. Il ne crée pas d'offre : il met en avant une offre déjà publiée.</p>
     <ul class="puce">
       <li><b>2 boosts inclus par mois.</b> Vous choisissez quelle offre mettre en avant.</li>
-      <li><b>Au-delà</b>, un boost supplémentaire est payant — une demande se fait depuis votre espace.</li>
+      <li><b>Au-delà</b>, un boost supplémentaire est payant — la demande se fait depuis votre espace.</li>
     </ul>
-    <div class="info">
-      Le boost ne crée pas une offre : il <b>met en avant</b> une offre que vous avez déjà publiée. Pensez-y pour un lancement ou un temps fort.
-    </div>
-  </div>
-
-  <!-- IA -->
-  <div class="bloc" id="ia">
-    <h2>✨ L'assistant IA</h2>
-    <p class="stitre">Il vous fait gagner du temps pour communiquer. Deux usages :</p>
-    <ul class="puce">
-      <li><b>Rédaction d'offres</b> — choisissez le sujet (promo, événement, nouveauté, fidéliser) et le ton ; l'assistant vous propose plusieurs textes prêts à publier.</li>
-      <li><b>Idées pour votre boutique</b> — des suggestions d'animations selon la période (Saint-Valentin, soldes, Noël…), pour anticiper les temps forts.</li>
-    </ul>
+    <div class="pourquoi">👉 Pensez-y pour un lancement, une grosse promo ou un temps fort à ne pas manquer.</div>
   </div>
 
   <!-- OFFRES COMMUNES -->
   <div class="bloc" id="communes">
     <h2>🤝 Offres communes <span style="font-size:12px;font-weight:400;color:var(--gris)">— formule Premium</span></h2>
-    <p class="stitre">Associez-vous à un autre commerce pour proposer une offre à deux.</p>
+    <p class="role">Associez-vous à un autre commerce pour proposer une offre à deux, plus attractive.</p>
     <ol class="steps">
       <li>Choisissez un commerce partenaire et donnez un titre à l'offre.
         <div class="sous">Par exemple « Duo Saint-Valentin » entre un fleuriste et un restaurant.</div>
       </li>
       <li>Envoyez votre proposition à l'autre commerce.</li>
-      <li>Il complète sa part et accepte — l'offre commune est créée.
-        <div class="sous">Vous suivez vos propositions reçues et envoyées depuis votre espace.</div>
-      </li>
+      <li>Il complète sa part et accepte — l'offre commune est créée. Vous suivez vos propositions reçues et envoyées.</li>
     </ol>
     <div class="astuce">
-      Cette fonctionnalité fait partie de la formule <b>Premium (24,90€/mois)</b>. Intéressé ? Contactez Lokalist.
+      Réservé à la formule <b>Premium (24,90€/mois)</b>. Intéressé ? Contactez Lokalist.
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="bloc" id="stats">
-    <h2>📊 Vos statistiques</h2>
-    <p class="stitre">Suivez votre activité d'un coup d'œil.</p>
+  <!-- AGENDA -->
+  <div class="bloc" id="agenda">
+    <h2>📅 Mon agenda</h2>
+    <p class="role">Publiez des événements ou des horaires spéciaux (animation, soirée, fermeture exceptionnelle…) qui <b>s'affichent sur votre fiche</b> avec un badge « à venir ». De quoi tenir vos clients informés de votre actualité.</p>
+    <ol class="steps">
+      <li>Touchez « + Nouvel événement », choisissez le type (fermeture, événement, promo).</li>
+      <li>Ajoutez un titre, une description, les dates de début et de fin.</li>
+    </ol>
+    <div class="pourquoi">👉 Annoncez vos temps forts à l'avance : c'est une raison de plus pour vos clients de passer.</div>
+  </div>
+
+  <!-- AVIS -->
+  <div class="bloc" id="avis">
+    <h2>⭐ Mes avis</h2>
+    <p class="role">Retrouvez tous les avis laissés par vos clients et votre note moyenne. Filtrez par étoiles ou n'affichez que les avis sans réponse.</p>
     <ul class="puce">
-      <li>Nombre de scans <b>aujourd'hui</b>, <b>ce mois</b> et au <b>total</b>.</li>
-      <li>Points attribués par passage.</li>
+      <li><b>Répondre</b> — vous pouvez répondre une fois à chaque avis. Votre réponse s'affiche publiquement sous l'avis, signée du nom de votre établissement.</li>
+      <li><b>Signaler</b> — un avis injurieux ou diffamatoire ? Signalez-le, notre équipe le traite.</li>
+    </ul>
+    <div class="pourquoi">👉 Répondez avec soin, même aux avis négatifs : une réponse posée inspire confiance aux futurs clients.</div>
+  </div>
+
+  <!-- BONS -->
+  <div class="bloc" id="bons">
+    <h2>🎫 Mes bons</h2>
+    <p class="role">Suivez les bons de réduction utilisés chez vous : combien ont été encaissés, le montant correspondant et ce qu'il reste à encaisser. Une vue claire de l'activité bons de votre établissement.</p>
+    <ul class="puce">
+      <li><b>Utilisés chez moi</b> · <b>En attente</b> · <b>Expirés</b> · <b>Tous</b> — pour tout retrouver d'un coup d'œil.</li>
+    </ul>
+    <div class="pourquoi">👉 Les bons financés par une mairie vous sont remboursés : leur suivi détaillé est dans « Mes remboursements ».</div>
+  </div>
+
+  <!-- REMBOURSEMENTS -->
+  <div class="bloc" id="remb">
+    <h2>💸 Mes remboursements</h2>
+    <p class="role">Suivez les sommes que Lokalist vous reverse pour les <b>bons Mairie</b> encaissés dans votre établissement : montant à recevoir, total déjà reçu, et détail mois par mois.</p>
+    <ol class="steps">
+      <li>Quand vous validez un bon mairie, une demande de remboursement est créée automatiquement.</li>
+      <li>La mairie paye Lokalist sous 30 jours selon ses conditions.</li>
+      <li>Lokalist vous reverse le montant après réception du paiement de la mairie.</li>
+      <li>Vous confirmez la réception en cliquant sur « J'ai reçu » (indiquez la référence du virement).</li>
+    </ol>
+    <div class="pourquoi">👉 Vérifiez régulièrement le « à recevoir » pour suivre vos remboursements en attente.</div>
+  </div>
+
+  <!-- IA -->
+  <div class="bloc" id="ia">
+    <h2>✨ L'assistant IA</h2>
+    <p class="role">Il vous fait gagner du temps pour communiquer. Deux usages :</p>
+    <ul class="puce">
+      <li><b>Rédaction d'offres</b> — choisissez le sujet (promo, événement, nouveauté, fidéliser) et le ton ; l'assistant propose plusieurs textes prêts à publier.</li>
+      <li><b>Idées pour votre boutique</b> — des suggestions d'animations selon la période (Saint-Valentin, soldes, Noël…), pour anticiper les temps forts.</li>
+    </ul>
+  </div>
+
+  <!-- ABONNEMENT -->
+  <div class="bloc" id="abo">
+    <h2>💳 Mon abonnement</h2>
+    <p class="role">Tout ce qui concerne votre formule et vos paiements, au même endroit.</p>
+    <ul class="puce">
+      <li><b>Mon abonnement actuel</b> — votre formule en cours.</li>
+      <li><b>Mon code parrainage</b> — partagez-le : parrainer d'autres pros vous fait gagner des avantages.</li>
+      <li><b>Mes parrainés</b> — la liste de ceux que vous avez parrainés.</li>
+      <li><b>Mes factures &amp; virement</b> — vos factures et les infos de paiement.</li>
     </ul>
   </div>
 
   <!-- TARIFS -->
   <div class="bloc" id="tarifs">
     <h2>💳 Formules &amp; prix</h2>
-    <p class="stitre">Deux formules simples. Aucune commission sur vos ventes, dans les deux cas.</p>
+    <p class="role">Deux formules simples. Aucune commission sur vos ventes, dans les deux cas.</p>
     <div class="tarifs">
       <div class="tarif">
         <div class="nom">Standard</div>
