@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokalist — Guide commerçant</title>
+<style>
+  :root{
+    --vert:#1D9E75; --vertfonce:#0F6E56; --orange:#EF9F27;
+    --texte:#1f2937; --gris:#6b7280; --bgcard:#ffffff; --bg:#f5f7f6; --bord:#e5eae8;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--texte);
+    font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.55; }
+  .page{ max-width:800px; margin:0 auto; padding:24px 16px 56px; }
+
+  header{ background:var(--vertfonce); color:#fff; border-radius:16px; padding:28px 30px; }
+  header .logo{ font-size:24px; font-weight:800; letter-spacing:.5px; }
+  header h1{ font-size:22px; margin:12px 0 6px; line-height:1.3; }
+  header p{ margin:0; color:#bfe6d6; font-size:14.5px; }
+
+  .somm{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:18px 22px; margin-top:18px; }
+  .somm h2{ font-size:14px; text-transform:uppercase; letter-spacing:.5px; color:var(--gris); margin:0 0 12px; }
+  .somm ol{ margin:0; padding-left:20px; columns:2; column-gap:24px; font-size:14px; }
+  .somm li{ margin-bottom:6px; }
+  .somm a{ color:var(--vertfonce); text-decoration:none; }
+  @media(max-width:560px){ .somm ol{ columns:1; } }
+
+  .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .bloc h2{ font-size:18px; color:var(--vertfonce); margin:0 0 6px; display:flex; align-items:center; gap:9px; }
+  .bloc .stitre{ font-size:14px; color:var(--gris); margin:0 0 16px; }
+
+  ol.steps{ margin:0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:15px; }
+  ol.steps li::before{ content:counter(etape); position:absolute; left:0; top:7px;
+    width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
+    font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  ol.steps li .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
+
+  .puce{ list-style:none; margin:0; padding:0; }
+  .puce li{ position:relative; padding:9px 0 9px 26px; font-size:14.5px; border-bottom:1px solid #f0f3f2; }
+  .puce li:last-child{ border-bottom:none; }
+  .puce li::before{ content:""; position:absolute; left:4px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--vert); }
+  .puce li b{ color:var(--texte); }
+  .puce li .sous{ color:var(--gris); font-size:13px; display:block; margin-top:2px; }
+
+  .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
+  .astuce b{ color:#b5740f; }
+
+  .info{ background:#eef6f2; border:1px solid #cfe8dd; border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#22503f; }
+  .info b{ color:var(--vertfonce); }
+
+  /* Tarifs */
+  .tarifs{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px; }
+  @media(max-width:560px){ .tarifs{ grid-template-columns:1fr; } }
+  .tarif{ border:1px solid var(--bord); border-radius:14px; padding:20px; background:#fafbfb; }
+  .tarif.prem{ border:1.5px solid var(--orange); background:linear-gradient(135deg,#fffaf2,#fff6e8); }
+  .tarif .nom{ font-family:'Syne',sans-serif; font-weight:800; font-size:16px; color:var(--texte); }
+  .tarif.prem .nom{ color:#b5740f; }
+  .tarif .prix{ font-size:26px; font-weight:800; margin:6px 0 2px; }
+  .tarif .prix span{ font-size:14px; font-weight:500; color:var(--gris); }
+  .tarif .an{ font-size:12.5px; color:var(--gris); margin-bottom:12px; }
+  .tarif ul{ list-style:none; margin:0; padding:0; }
+  .tarif ul li{ padding:6px 0 6px 24px; position:relative; font-size:14px; }
+  .tarif ul li::before{ content:"✓"; position:absolute; left:0; top:6px; color:var(--vert); font-weight:800; }
+
+  .prixtag{ display:inline-block; background:#fff; border:1px solid var(--orange); border-radius:100px; padding:4px 12px; font-weight:800; color:#b5740f; font-size:13px; }
+
+  .contact{ text-align:center; background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .contact a{ color:var(--vertfonce); font-weight:700; text-decoration:none; }
+
+  footer{ text-align:center; color:var(--gris); font-size:12px; margin-top:24px; }
+  @media print{ body{ background:#fff; } .bloc,header,.tarif{ break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">Lokalist</div>
+    <h1>Bienvenue 👋 Voici comment tout fonctionne pour votre commerce</h1>
+    <p>Guide commerçant — tout est simple, on vous explique pas à pas.</p>
+  </header>
+
+  <!-- SOMMAIRE -->
+  <div class="somm">
+    <h2>Dans ce guide</h2>
+    <ol>
+      <li><a href="#fiche">Votre fiche</a></li>
+      <li><a href="#fidelite">La fidélité (QR code)</a></li>
+      <li><a href="#bons">Encaisser un bon</a></li>
+      <li><a href="#offres">Vos offres</a></li>
+      <li><a href="#boost">Mettre une offre en avant</a></li>
+      <li><a href="#ia">L'assistant IA</a></li>
+      <li><a href="#communes">Offres communes</a></li>
+      <li><a href="#stats">Vos statistiques</a></li>
+      <li><a href="#tarifs">Formules &amp; prix</a></li>
+    </ol>
+  </div>
+
+  <!-- FICHE -->
+  <div class="bloc" id="fiche">
+    <h2>🏪 Votre fiche commerce</h2>
+    <p class="stitre">C'est votre vitrine, vue par les habitants dans l'appli.</p>
+    <ul class="puce">
+      <li><b>Votre photo</b> — touchez l'icône appareil photo pour la changer (depuis la galerie ou l'appareil).</li>
+      <li><b>Votre description</b> — écrivez-la vous-même, ou laissez l'assistant IA vous proposer un texte, puis enregistrez.</li>
+      <li><b>Voir ma fiche publique</b> — pour visualiser exactement ce que voient vos clients.</li>
+    </ul>
+  </div>
+
+  <!-- FIDELITE -->
+  <div class="bloc" id="fidelite">
+    <h2>🎟️ La fidélité de vos clients</h2>
+    <p class="stitre">Vos clients cumulent des points à chaque passage. Aucun matériel à installer.</p>
+    <ol class="steps">
+      <li>Affichez votre QR code depuis votre espace.
+        <div class="sous">Le client le scanne avec son appli Lokalist.</div>
+      </li>
+      <li>Il gagne ses points automatiquement.
+        <div class="sous">Le nombre de points par passage est indiqué dans vos statistiques.</div>
+      </li>
+      <li>Il revient pour profiter de ses avantages.
+        <div class="sous">La fidélité tourne toute seule, sans carte ni papier.</div>
+      </li>
+    </ol>
+  </div>
+
+  <!-- BONS -->
+  <div class="bloc" id="bons">
+    <h2>💶 Encaisser un bon</h2>
+    <p class="stitre">Un client paie avec un bon ? Vous le validez en quelques secondes.</p>
+    <ol class="steps">
+      <li>Touchez « Scanner un bon client » et visez le QR code qu'il vous présente.</li>
+      <li>Saisissez le montant utilisé, puis validez.
+        <div class="sous">Le solde du bon se met à jour automatiquement.</div>
+      </li>
+    </ol>
+    <div class="astuce">
+      <b>Le QR ne passe pas ?</b> Tapez simplement le code du bon à la main, indiquez le montant, validez. Le résultat est identique.
+    </div>
+  </div>
+
+  <!-- OFFRES -->
+  <div class="bloc" id="offres">
+    <h2>🏷️ Vos offres</h2>
+    <p class="stitre">Mettez en avant une promo, un événement ou une nouveauté auprès des habitants.</p>
+    <ol class="steps">
+      <li>Créez une offre : un titre, une description, une éventuelle réduction.</li>
+      <li>Choisissez une date d'expiration.
+        <div class="sous">L'offre disparaît toute seule de l'appli à cette date — vous gardez la main selon vos stocks ou la durée de votre promo.</div>
+      </li>
+      <li>Publiez. Elle apparaît aussitôt auprès de vos clients.</li>
+    </ol>
+
+    <div class="info">
+      <b>2 offres incluses par mois.</b> Pourquoi 2 et pas plus ? Pour que les offres restent <b>efficaces</b>. Si chaque commerce en publiait dix à la fois, les habitants seraient noyés et plus personne ne les remarquerait. En limitant à 2, vos offres tournent, restent visibles et gardent de l'impact. Chaque mois, votre compteur repart à 2.
+    </div>
+
+    <div class="astuce">
+      <b>Besoin d'une 3ᵉ offre dans le mois ?</b> C'est possible : une offre supplémentaire coûte <span class="prixtag">9,90€</span>. Depuis votre espace, indiquez la date souhaitée et envoyez votre demande. Prévoyez <b>3 à 4 jours</b> avant la date voulue : nous la validons manuellement avant la mise en ligne.
+    </div>
+  </div>
+
+  <!-- BOOST -->
+  <div class="bloc" id="boost">
+    <h2>⚡ Mettre une offre en avant (boost)</h2>
+    <p class="stitre">Un « boost » place votre offre en évidence pour gagner en visibilité.</p>
+    <ul class="puce">
+      <li><b>2 boosts inclus par mois.</b> Vous choisissez quelle offre mettre en avant.</li>
+      <li><b>Au-delà</b>, un boost supplémentaire est payant — une demande se fait depuis votre espace.</li>
+    </ul>
+    <div class="info">
+      Le boost ne crée pas une offre : il <b>met en avant</b> une offre que vous avez déjà publiée. Pensez-y pour un lancement ou un temps fort.
+    </div>
+  </div>
+
+  <!-- IA -->
+  <div class="bloc" id="ia">
+    <h2>✨ L'assistant IA</h2>
+    <p class="stitre">Il vous fait gagner du temps pour communiquer. Deux usages :</p>
+    <ul class="puce">
+      <li><b>Rédaction d'offres</b> — choisissez le sujet (promo, événement, nouveauté, fidéliser) et le ton ; l'assistant vous propose plusieurs textes prêts à publier.</li>
+      <li><b>Idées pour votre boutique</b> — des suggestions d'animations selon la période (Saint-Valentin, soldes, Noël…), pour anticiper les temps forts.</li>
+    </ul>
+  </div>
+
+  <!-- OFFRES COMMUNES -->
+  <div class="bloc" id="communes">
+    <h2>🤝 Offres communes <span style="font-size:12px;font-weight:400;color:var(--gris)">— formule Premium</span></h2>
+    <p class="stitre">Associez-vous à un autre commerce pour proposer une offre à deux.</p>
+    <ol class="steps">
+      <li>Choisissez un commerce partenaire et donnez un titre à l'offre.
+        <div class="sous">Par exemple « Duo Saint-Valentin » entre un fleuriste et un restaurant.</div>
+      </li>
+      <li>Envoyez votre proposition à l'autre commerce.</li>
+      <li>Il complète sa part et accepte — l'offre commune est créée.
+        <div class="sous">Vous suivez vos propositions reçues et envoyées depuis votre espace.</div>
+      </li>
+    </ol>
+    <div class="astuce">
+      Cette fonctionnalité fait partie de la formule <b>Premium (24,90€/mois)</b>. Intéressé ? Contactez Lokalist.
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="bloc" id="stats">
+    <h2>📊 Vos statistiques</h2>
+    <p class="stitre">Suivez votre activité d'un coup d'œil.</p>
+    <ul class="puce">
+      <li>Nombre de scans <b>aujourd'hui</b>, <b>ce mois</b> et au <b>total</b>.</li>
+      <li>Points attribués par passage.</li>
+    </ul>
+  </div>
+
+  <!-- TARIFS -->
+  <div class="bloc" id="tarifs">
+    <h2>💳 Formules &amp; prix</h2>
+    <p class="stitre">Deux formules simples. Aucune commission sur vos ventes, dans les deux cas.</p>
+    <div class="tarifs">
+      <div class="tarif">
+        <div class="nom">Standard</div>
+        <div class="prix">19,90€<span> /mois</span></div>
+        <div class="an">ou 179,10€/an — 3 mois offerts</div>
+        <ul>
+          <li>Votre fiche visible</li>
+          <li>Fidélité par QR code</li>
+          <li>Bons encaissables</li>
+          <li>2 offres / mois incluses</li>
+          <li>2 boosts / mois inclus</li>
+          <li>Assistant IA</li>
+          <li>0% commission</li>
+        </ul>
+      </div>
+      <div class="tarif prem">
+        <div class="nom">Premium</div>
+        <div class="prix">24,90€<span> /mois</span></div>
+        <div class="an">ou 298,80€/an — +5€/mois vs Standard</div>
+        <ul>
+          <li><b>Tout le Standard</b></li>
+          <li>Click &amp; Collect (commande + retrait)</li>
+          <li>Livraison (avec votre solution)</li>
+          <li>Offres communes (à deux commerces)</li>
+          <li>Packs Lokalist</li>
+          <li>0% commission</li>
+        </ul>
+      </div>
+    </div>
+    <div class="astuce">
+      <b>Options à l'unité :</b> offre supplémentaire dans le mois = <b>9,90€</b> · boost supplémentaire = sur demande. Tout se gère depuis votre espace.
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <p style="margin:0 0 6px;font-weight:700">Une question ?</p>
+    <p style="margin:0;font-size:14px;color:var(--gris)">Écrivez-nous à <a href="mailto:contact@lokalist.fr">contact@lokalist.fr</a> — réponse sous 24h.</p>
+  </div>
+
+  <footer>Lokalist · Guide commerçant · lokalist.fr</footer>
+
+</div>
+</body>
+</html>
