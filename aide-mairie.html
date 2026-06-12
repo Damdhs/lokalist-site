@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokalist — Guide mairie</title>
+<style>
+  :root{
+    --vert:#1D9E75; --vertfonce:#0F6E56; --orange:#EF9F27;
+    --texte:#1f2937; --gris:#6b7280; --bgcard:#ffffff; --bg:#f5f7f6; --bord:#e5eae8;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--texte);
+    font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.55; }
+  .page{ max-width:800px; margin:0 auto; padding:24px 16px 56px; }
+
+  header{ background:var(--vertfonce); color:#fff; border-radius:16px; padding:28px 30px; }
+  header .logo{ font-size:24px; font-weight:800; letter-spacing:.5px; }
+  header h1{ font-size:22px; margin:12px 0 6px; line-height:1.3; }
+  header p{ margin:0; color:#bfe6d6; font-size:14.5px; }
+
+  .somm{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:18px 22px; margin-top:18px; }
+  .somm h2{ font-size:14px; text-transform:uppercase; letter-spacing:.5px; color:var(--gris); margin:0 0 12px; }
+  .somm ol{ margin:0; padding-left:20px; columns:2; column-gap:24px; font-size:14px; }
+  .somm li{ margin-bottom:6px; }
+  .somm a{ color:var(--vertfonce); text-decoration:none; }
+  @media(max-width:560px){ .somm ol{ columns:1; } }
+
+  .intro{ background:#eef6f2; border:1px solid #cfe8dd; border-radius:14px; padding:18px 22px; margin-top:18px; font-size:14.5px; color:#22503f; }
+  .intro b{ color:var(--vertfonce); }
+
+  .groupe{ font-size:13px; text-transform:uppercase; letter-spacing:.6px; color:var(--gris); font-weight:700; margin:26px 4px 2px; }
+
+  .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:14px; }
+  .bloc h2{ font-size:18px; color:var(--vertfonce); margin:0 0 6px; display:flex; align-items:center; gap:9px; }
+  .bloc .role{ font-size:14.5px; color:var(--texte); margin:0 0 14px; }
+
+  .pourquoi{ background:#eef6f2; border-left:3px solid var(--vert); border-radius:0 8px 8px 0; padding:10px 14px; margin:14px 0 0; font-size:13.5px; color:#22503f; }
+  .pourquoi b{ color:var(--vertfonce); }
+
+  ol.steps{ margin:14px 0 0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:14.5px; }
+  ol.steps li::before{ content:counter(etape); position:absolute; left:0; top:7px;
+    width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
+    font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  ol.steps li .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
+
+  .puce{ list-style:none; margin:14px 0 0; padding:0; }
+  .puce li{ position:relative; padding:9px 0 9px 26px; font-size:14.5px; border-bottom:1px solid #f0f3f2; }
+  .puce li:last-child{ border-bottom:none; }
+  .puce li::before{ content:""; position:absolute; left:4px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--vert); }
+  .puce li b{ color:var(--texte); }
+  .puce li .sous{ color:var(--gris); font-size:13px; display:block; margin-top:2px; }
+
+  .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
+  .astuce b{ color:#b5740f; }
+
+  .lien{ background:#f0eefb; border:1px solid #d9d2f5; border-radius:10px; padding:11px 15px; margin-top:14px; font-size:13.5px; color:#3c3489; }
+  .lien b{ color:#2e2470; }
+
+  .contact{ text-align:center; background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .contact a{ color:var(--vertfonce); font-weight:700; text-decoration:none; }
+
+  footer{ text-align:center; color:var(--gris); font-size:12px; margin-top:24px; }
+  @media print{ body{ background:#fff; } .bloc,header{ break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">Lokalist</div>
+    <h1>🏛️ Guide de votre espace Mairie</h1>
+    <p>Tout ce que votre commune peut faire sur Lokalist, rubrique par rubrique.</p>
+  </header>
+
+  <div class="intro">
+    Votre espace Mairie vous permet d'<b>informer vos habitants</b>, d'<b>animer le commerce local</b> et de <b>recueillir leurs retours</b> — le tout depuis un seul tableau de bord. Ce guide explique chaque rubrique : à quoi elle sert, comment l'utiliser, et ce qu'en voient les habitants dans l'app.
+    <br><br>
+    💬 <b>Bon à savoir : tout ce que vous publiez nourrit Loki</b>, l'assistant intelligent de l'app. Vos événements, vos actualités, vos infos pratiques (déchets, démarches, transports…) lui permettent de répondre directement aux habitants — « où trier mes déchets ? », « quels événements ce week-end ? », « horaires de la mairie ? ». Plus votre espace est rempli, plus Loki est utile à vos administrés.
+  </div>
+
+  <!-- SOMMAIRE -->
+  <div class="somm">
+    <h2>Dans ce guide</h2>
+    <ol>
+      <li><a href="#overview">Vue d'ensemble</a></li>
+      <li><a href="#marches">Marchés</a></li>
+      <li><a href="#marchands">Marchands</a></li>
+      <li><a href="#campagnes">Campagnes (bons)</a></li>
+      <li><a href="#bons">Bons Mairie (suivi)</a></li>
+      <li><a href="#remb">Remboursements</a></li>
+      <li><a href="#alertes">Alertes</a></li>
+      <li><a href="#agenda">Agenda</a></li>
+      <li><a href="#actus">Actualités</a></li>
+      <li><a href="#infos">Infos commune</a></li>
+      <li><a href="#signalements">Signalements</a></li>
+      <li><a href="#sondages">Sondages</a></li>
+      <li><a href="#ao">Appels d'offres</a></li>
+      <li><a href="#bilan">Bilan IA</a></li>
+      <li><a href="#equipe">Mon équipe</a></li>
+    </ol>
+  </div>
+
+  <!-- VUE D'ENSEMBLE -->
+  <div class="bloc" id="overview">
+    <h2>📊 Vue d'ensemble</h2>
+    <p class="role">Votre tableau de bord d'accueil : les chiffres clés de votre commune sur Lokalist (bons, montants utilisés, activité) d'un coup d'œil.</p>
+    <div class="pourquoi">👉 Le point de départ pour suivre l'usage de Lokalist dans votre commune.</div>
+  </div>
+
+  <div class="groupe">Commerce &amp; marchés</div>
+
+  <!-- MARCHES -->
+  <div class="bloc" id="marches">
+    <h2>🏪 Marchés</h2>
+    <p class="role">Créez et gérez les marchés de plein air de votre commune (nom, ville, jour, lieu). Ils renseignent les habitants sur les marchés réguliers, et des statistiques de suivi s'affichent directement sur cette page.</p>
+    <ul class="puce">
+      <li><b>Prévoyez à l'avance</b> grâce à la récurrence : <b>ponctuel</b> (un marché de Noël, une foire), <b>hebdomadaire</b> (le marché du dimanche) ou <b>mensuel</b> (la brocante du 1er samedi).</li>
+    </ul>
+    <div class="pourquoi">👉 Renseignez vos marchés récurrents une fois : ils restent visibles tant qu'ils sont planifiés. Un marché bien affiché dans l'app, c'est plus de monde sur la place et plus de vie au centre-ville.</div>
+  </div>
+
+  <!-- MARCHANDS -->
+  <div class="bloc" id="marchands">
+    <h2>👤 Marchands</h2>
+    <p class="role">Gérez la liste des marchands de votre commune : ajout, modification, archivage. C'est votre carnet d'adresses interne.</p>
+    <div class="pourquoi">👉 Outil de gestion interne : c'est votre carnet d'adresses des marchands, distinct des marchés de plein air.</div>
+  </div>
+
+  <div class="groupe">Bons &amp; remboursements</div>
+
+  <div class="lien" style="background:#eef6f2;border-color:#cfe8dd;color:#22503f">
+    <b>Ces 3 rubriques fonctionnent ensemble</b>, dans l'ordre : vous <b>créez</b> les bons dans <b>Campagnes</b> → vous suivez leur usage dans <b>Bons Mairie</b> → vous réglez les commerçants dans <b>Remboursements</b>. C'est le cycle complet d'une opération de soutien au commerce local.
+  </div>
+
+  <!-- CAMPAGNES -->
+  <div class="bloc" id="campagnes">
+    <h2>📣 Campagnes</h2>
+    <p class="role">Lancez une campagne pour distribuer des bons de réduction Mairie à vos habitants : vous fixez la valeur et le nombre de bons, et rédigez la notification push qui les prévient. Un aperçu vous montre le total avant l'envoi. Les bons sont valables <b>90 jours</b>.</p>
+    <ol class="steps">
+      <li>Fixez la valeur du bon (ex. 10€) et le nombre de bons à distribuer.</li>
+      <li>Rédigez la notification qui préviendra les habitants.
+        <div class="sous">Ex. : « La Ville de Fécamp vous offre un bon de 10€ utilisable chez les commerçants partenaires Lokalist. Valable 90 jours ! »</div>
+      </li>
+      <li>Vérifiez l'aperçu, puis envoyez votre campagne pour validation.</li>
+    </ol>
+    <div class="astuce">
+      <b>Validation avant lancement.</b> Chaque campagne est validée par Lokalist avant d'être diffusée aux habitants : un garde-fou qui sécurise l'opération et vérifie que tout est en ordre avant l'envoi des notifications.
+    </div>
+    <div class="pourquoi">👉 C'est ici qu'on crée et distribue les bons. Leur suivi (utilisés, expirés) se fait ensuite dans « Bons Mairie », et leur paiement dans « Remboursements ».</div>
+  </div>
+
+  <!-- ENCART FINANCIER -->
+  <div class="bloc" style="border:1.5px solid var(--orange);background:linear-gradient(135deg,#fffaf2,#fff6e8)">
+    <h2 style="color:#b5740f">💡 Comment ça marche, côté budget ?</h2>
+    <p class="role">Le principe est simple et avantageux pour votre commune :</p>
+    <ul class="puce">
+      <li><b>Vous ne payez que les bons réellement utilisés.</b> Un bon distribué mais jamais dépensé (expiré au bout de 90 jours) ne vous coûte <b>rien</b>.</li>
+      <li><b>L'argent reste dans votre commune.</b> Les bons sont dépensés chez vos commerçants partenaires <b>de la commune</b> — pas ailleurs. C'est du pouvoir d'achat réinjecté directement dans le commerce local.</li>
+      <li><b>Répartition : 85% / 15%.</b> Sur chaque montant dépensé, <b>85% revient aux commerçants</b> de la commune, et <b>15% rémunère Lokalist</b> (la plateforme, les notifications, le suivi).</li>
+    </ul>
+    <div class="astuce" style="background:#fff;border-color:var(--orange)">
+      <b>Exemple — opération de Noël.</b> Vous distribuez 200 bons de 10€, soit 2 000€ engagés.<br>
+      • Si <b>tout est utilisé</b> (2 000€ dépensés en boutique) : <b>1 700€ pour vos commerçants</b>, <b>300€ pour Lokalist</b>. Coût pour la commune : 2 000€.<br>
+      • Si seulement <b>1 200€ sont dépensés</b> (le reste expire) : <b>1 020€ pour vos commerçants</b>, <b>180€ pour Lokalist</b>. Coût pour la commune : <b>1 200€ seulement</b> — vous ne payez pas les bons non utilisés.
+    </div>
+    <div class="pourquoi">👉 Vous gardez un suivi précis, au centime près : ce qui a été distribué, ce qui a été réellement dépensé, et ce que vous devez à chaque commerçant.</div>
+  </div>
+
+  <!-- BONS -->
+  <div class="bloc" id="bons">
+    <h2>🎟️ Bons Mairie</h2>
+    <p class="role">Suivez ici les bons distribués aux habitants de votre commune : leur code, leur montant, leur ville et leur statut (distribué, utilisé, expiré). Utilisez le filtre en haut pour ne voir qu'un statut.</p>
+    <div class="pourquoi">👉 Vue de suivi : vous consultez l'usage des bons (combien ont été utilisés, combien ont expiré). La création se fait dans « Campagnes », le paiement dans « Remboursements ».</div>
+  </div>
+
+  <!-- REMBOURSEMENTS -->
+  <div class="bloc" id="remb">
+    <h2>💸 Remboursements</h2>
+    <p class="role">Voici le volet financier : les bons Mairie réellement utilisés par les habitants chez vos commerçants partenaires. Ce sont les montants que <b>vous devez rembourser à ces commerçants</b> (leur part de 85%). Vous visualisez ce qui est dû, commerçant par commerçant, et marquez les remboursements effectués.</p>
+    <div class="pourquoi">👉 La contrepartie des bons dépensés en boutique. De son côté, chaque commerçant confirme la réception de votre virement dans son propre espace : tout le monde a une trace claire.</div>
+  </div>
+
+  <div class="groupe">Communication aux habitants</div>
+
+  <!-- ALERTES -->
+  <div class="bloc" id="alertes">
+    <h2>🚨 Alertes</h2>
+    <p class="role">Envoyez des alertes municipales avec notification push aux habitants proches (rayon de 30 km par défaut). Cinq types : info, urgence, travaux, événement, météo.</p>
+    <div class="pourquoi">👉 Réservez le type « urgence » aux situations qui le justifient, pour garder l'attention des habitants.</div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="bloc" id="agenda">
+    <h2>📅 Agenda</h2>
+    <p class="role">Publiez ici les événements de votre commune (marchés, concerts, brocantes, ateliers, fêtes…). Une fois publiés, ils apparaissent dans l'agenda des sorties de l'app, géolocalisés pour les habitants proches. Vous pouvez indiquer un lieu, une date, la gratuité ou un lien d'inscription.</p>
+    <div class="pourquoi">👉 Pensez à publier vos événements à l'avance : seuls les événements à venir sont mis en avant côté habitants. Et l'assistant <b>Loki</b> s'appuie sur votre agenda pour répondre quand un habitant demande « qu'est-ce qu'il y a à faire ce week-end ? ».</div>
+  </div>
+
+  <!-- ACTUS -->
+  <div class="bloc" id="actus">
+    <h2>📰 Actualités</h2>
+    <p class="role">Publiez les actualités de votre commune (texte + photo) : travaux, vie locale, infos pratiques… Elles s'affichent dans l'app des habitants. Enregistrez un brouillon puis publiez, ou dépubliez à tout moment.</p>
+    <div class="pourquoi">👉 Le bouton « Améliorer avec l'IA » reformule votre brouillon avant publication, pour un texte clair et soigné. Vos actus alimentent aussi <b>Loki</b>, qui peut informer les habitants des dernières nouvelles de la commune.</div>
+  </div>
+
+  <!-- INFOS -->
+  <div class="bloc" id="infos">
+    <h2>🏛️ Infos commune</h2>
+    <p class="role">Renseignez les liens utiles de votre commune — déchets &amp; collecte, démarches administratives, transports, associations — ainsi que la liste de vos services municipaux (police municipale, CCAS, état civil…) avec horaires, téléphone et adresse. Ces informations s'affichent dans l'app, rubrique « Ma commune ».</p>
+    <div class="pourquoi">👉 Bien remplis, ces liens et services permettent aussi à l'assistant Loki de répondre aux habitants (« où trier mes déchets ? », « horaires de la police municipale ? »).</div>
+  </div>
+
+  <div class="groupe">Écoute citoyenne</div>
+
+  <!-- SIGNALEMENTS -->
+  <div class="bloc" id="signalements">
+    <h2>📍 Signalements</h2>
+    <p class="role">Les habitants signalent un problème depuis l'app (voirie, propreté, éclairage…), avec photo et localisation. Vous les retrouvez ici, filtrables par statut. Pour chacun, le bouton « Traiter » permet de faire évoluer son statut (reçu → en cours → résolu) et d'ajouter un commentaire de suivi.</p>
+    <div class="pourquoi">👉 À consulter régulièrement pour ne laisser aucun signalement sans réponse. Le bilan mensuel (rubrique dédiée) s'appuie sur ces données.</div>
+  </div>
+
+  <!-- SONDAGES -->
+  <div class="bloc" id="sondages">
+    <h2>🗳️ Sondages</h2>
+    <p class="role">Consultez vos habitants en créant un sondage : choix unique ou multiple, note de 1 à 5, ou texte libre. Une fois publié (avec notification push possible), il apparaît dans l'app ; vous suivez les résultats en temps réel et pouvez clôturer le sondage quand vous le souhaitez.</p>
+    <div class="pourquoi">👉 Idéal pour recueillir un avis avant une décision (aménagement, horaires, événement).</div>
+  </div>
+
+  <div class="groupe">Marchés publics &amp; pilotage</div>
+
+  <!-- APPELS D'OFFRES -->
+  <div class="bloc" id="ao">
+    <h2>📋 Appels d'offres</h2>
+    <p class="role">Publiez un appel d'offres pour vos besoins (travaux, services) et mettez en concurrence les entreprises locales. Décrivez votre besoin et fixez une date limite ; les pros du secteur reçoivent l'annonce et déposent leurs candidatures, que vous consultez ensuite ici.</p>
+    <div class="pourquoi">👉 Pour les petits besoins sous les seuils affichés, c'est un moyen rapide de solliciter plusieurs devis locaux.</div>
+  </div>
+
+  <!-- BILAN IA -->
+  <div class="bloc" id="bilan">
+    <h2>📈 Bilan IA</h2>
+    <p class="role">Choisissez un mois et l'IA génère un compte-rendu mensuel de l'activité de votre commune (signalements traités, tendances…), présenté proprement, prêt à partager en interne.</p>
+    <div class="pourquoi">👉 À lancer une fois par mois, en début de mois sur le mois écoulé.</div>
+  </div>
+
+  <div class="groupe">Administration</div>
+
+  <!-- MON EQUIPE -->
+  <div class="bloc" id="equipe">
+    <h2>👥 Mon équipe</h2>
+    <p class="role">Gérez les accès de vos agents : invitez des membres de votre équipe municipale et définissez les permissions de chacun (qui peut voir et gérer quelles rubriques).</p>
+    <div class="pourquoi">👉 Donnez à chaque agent l'accès dont il a besoin, sans plus : c'est plus clair et plus sûr.</div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <p style="margin:0 0 6px;font-weight:700">Une question sur votre espace ?</p>
+    <p style="margin:0;font-size:14px;color:var(--gris)">Écrivez à <a href="mailto:contact@lokalist.fr">contact@lokalist.fr</a> — votre interlocuteur Lokalist vous répond.</p>
+  </div>
+
+  <footer>Lokalist · Guide mairie · lokalist.fr</footer>
+
+</div>
+</body>
+</html>
