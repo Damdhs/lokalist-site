@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokalist — Guide agence immobilière</title>
+<style>
+  :root{
+    --vert:#1D9E75; --vertfonce:#0F6E56; --orange:#EF9F27; --violet:#8B5CF6;
+    --texte:#1f2937; --gris:#6b7280; --bgcard:#ffffff; --bg:#f5f7f6; --bord:#e5eae8;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--texte);
+    font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.55; }
+  .page{ max-width:820px; margin:0 auto; padding:24px 16px 56px; }
+
+  header{ background:linear-gradient(135deg,#0F6E56,#1D9E75); color:#fff; border-radius:16px; padding:28px 30px; }
+  header .logo{ font-size:24px; font-weight:800; letter-spacing:.5px; }
+  header h1{ font-size:22px; margin:12px 0 6px; line-height:1.3; }
+  header p{ margin:0; color:#cdeede; font-size:14.5px; }
+
+  .somm{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:18px 22px; margin-top:18px; }
+  .somm h2{ font-size:14px; text-transform:uppercase; letter-spacing:.5px; color:var(--gris); margin:0 0 12px; }
+  .somm ol{ margin:0; padding-left:20px; columns:2; column-gap:24px; font-size:14px; }
+  .somm li{ margin-bottom:6px; }
+  .somm a{ color:var(--vertfonce); text-decoration:none; }
+  @media(max-width:560px){ .somm ol{ columns:1; } }
+
+  .intro{ background:#eef6f2; border:1px solid #cfe8dd; border-radius:14px; padding:18px 22px; margin-top:18px; font-size:14.5px; color:#22503f; }
+  .intro b{ color:var(--vertfonce); }
+
+  .loki{ background:#f0eefb; border:1px solid #d9d2f5; border-radius:14px; padding:18px 22px; margin-top:18px; font-size:14.5px; color:#3c3489; }
+  .loki b{ color:#2e2470; }
+
+  .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .bloc h2{ font-size:18px; color:var(--vertfonce); margin:0 0 6px; display:flex; align-items:center; gap:9px; }
+  .bloc h3{ font-size:14.5px; color:var(--texte); margin:18px 0 4px; }
+  .bloc .role{ font-size:14.5px; color:var(--texte); margin:0 0 14px; }
+
+  .pourquoi{ background:#eef6f2; border-left:3px solid var(--vert); border-radius:0 8px 8px 0; padding:10px 14px; margin:14px 0 0; font-size:13.5px; color:#22503f; }
+  .pourquoi b{ color:var(--vertfonce); }
+
+  ol.steps{ margin:14px 0 0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:14.5px; }
+  ol.steps li::before{ content:counter(etape); position:absolute; left:0; top:7px;
+    width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
+    font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  ol.steps li .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
+
+  .puce{ list-style:none; margin:14px 0 0; padding:0; }
+  .puce li{ position:relative; padding:9px 0 9px 26px; font-size:14.5px; border-bottom:1px solid #f0f3f2; }
+  .puce li:last-child{ border-bottom:none; }
+  .puce li::before{ content:""; position:absolute; left:4px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--vert); }
+  .puce li b{ color:var(--texte); }
+  .puce li .sous{ color:var(--gris); font-size:13px; display:block; margin-top:2px; }
+
+  .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
+  .astuce b{ color:#b5740f; }
+
+  .premium{ background:#f5f3ff; border:1.5px solid #ddd6fe; border-radius:10px; padding:10px 14px; margin-top:14px; font-size:13.5px; color:#5b21b6; }
+  .premium b{ color:#6d28d9; }
+
+  .flow{ background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; margin-top:14px; }
+  .flow .etapes{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12.5px; font-weight:700; }
+  .flow .et{ background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:6px 12px; color:#334155; }
+  .flow .ar{ color:#94a3b8; font-weight:800; }
+
+  .roles{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:14px; }
+  @media(max-width:560px){ .roles{ grid-template-columns:1fr; } }
+  .role-card{ border:1px solid var(--bord); border-radius:12px; padding:14px; background:#fafbfb; }
+  .role-card .rn{ font-weight:800; font-size:14px; margin-bottom:4px; }
+  .role-card .rd{ font-size:12.5px; color:var(--gris); line-height:1.5; }
+
+  .tarifs{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:6px; }
+  @media(max-width:560px){ .tarifs{ grid-template-columns:1fr; } }
+  .tarif{ border:1px solid var(--bord); border-radius:14px; padding:18px; background:#fafbfb; }
+  .tarif.prem{ border:1.5px solid var(--violet); background:linear-gradient(135deg,#faf8ff,#f3effe); }
+  .tarif .nom{ font-family:'Syne',sans-serif; font-weight:800; font-size:15px; color:var(--texte); }
+  .tarif.prem .nom{ color:#6d28d9; }
+  .tarif .prix{ font-size:23px; font-weight:800; margin:4px 0 10px; }
+  .tarif .prix span{ font-size:13px; font-weight:500; color:var(--gris); }
+  .tarif ul{ list-style:none; margin:0; padding:0; }
+  .tarif ul li{ padding:5px 0 5px 22px; position:relative; font-size:13px; }
+  .tarif ul li::before{ content:"✓"; position:absolute; left:0; top:5px; color:var(--vert); font-weight:800; }
+
+  .contact{ text-align:center; background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .contact a{ color:var(--vertfonce); font-weight:700; text-decoration:none; }
+
+  footer{ text-align:center; color:var(--gris); font-size:12px; margin-top:24px; }
+  @media print{ body{ background:#fff; } .bloc,header,.tarif{ break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">Lokalist</div>
+    <h1>🏠 Guide de votre espace Agence</h1>
+    <p>Publiez vos biens, captez des leads locaux, dialoguez avec les prospects et pilotez votre équipe.</p>
+  </header>
+
+  <div class="intro">
+    Votre espace agence réunit tout votre quotidien immobilier : vos <b>annonces</b> visibles des habitants, les <b>leads</b> de votre secteur, la <b>messagerie</b> avec vos prospects, votre <b>équipe</b> et votre <b>pipeline commercial</b>. Les habitants qui cherchent ou vendent près de chez vous vous trouvent en local. Ce guide détaille chaque rubrique et son fonctionnement.
+  </div>
+
+  <div class="loki">
+    🦊 <b>Loki, l'assistant de l'app, travaille pour vous.</b> Quand un habitant cherche un bien, Loki lui présente les annonces des agences <b>les plus proches</b> et l'invite à déposer une demande « Je cherche » ou « Je vends » — qui vous parvient ensuite comme lead. Loki s'appuie uniquement sur les vraies données Lokalist (il n'invente rien) et reste <b>neutre</b> : il ne met aucune agence en avant. Plus vos annonces et votre fiche sont complètes, plus Loki vous met naturellement en relation avec les bons prospects.
+  </div>
+
+  <!-- SOMMAIRE -->
+  <div class="somm">
+    <h2>Dans ce guide</h2>
+    <ol>
+      <li><a href="#dashboard">Tableau de bord</a></li>
+      <li><a href="#annonces">Mes annonces</a></li>
+      <li><a href="#boosts">Gestion des boosts</a></li>
+      <li><a href="#leads">Leads reçus &amp; messagerie</a></li>
+      <li><a href="#avis">Avis clients</a></li>
+      <li><a href="#profil">Mon profil agence</a></li>
+      <li><a href="#equipe">Mon équipe</a></li>
+      <li><a href="#abo">Mon abonnement</a></li>
+      <li><a href="#tarifs">Formules &amp; prix</a></li>
+    </ol>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="bloc" id="dashboard">
+    <h2>📊 Tableau de bord</h2>
+    <p class="role">Votre vue d'ensemble : annonces actives, leads à traiter, pipeline commercial et ventes signées ce mois. Tout l'essentiel de votre activité en un coup d'œil.</p>
+    <ul class="puce">
+      <li><b>Le pipeline commercial</b> suit vos leads par étape : <b>contactés</b> → <b>RDV pris</b> → <b>mandats signés</b>, et compte les <b>ventes signées</b> du mois en cours.</li>
+    </ul>
+    <div class="pourquoi">👉 Commencez votre journée ici pour repérer les leads non lus et les dossiers à relancer.</div>
+  </div>
+
+  <!-- ANNONCES -->
+  <div class="bloc" id="annonces">
+    <h2>🏠 Mes annonces</h2>
+    <p class="role">Créez et gérez vos biens publiés dans l'app Lokalist. Le nombre d'annonces actives dépend de votre formule (voir Formules &amp; prix).</p>
+    <h3>Pour chaque bien, ces champs sont obligatoires :</h3>
+    <ul class="puce">
+      <li><b>Photos</b> et <b>description</b> — la vitrine du bien.</li>
+      <li><b>Prix</b> et <b>DPE</b> (ou « DPE en cours »).</li>
+      <li><b>N° de mandat</b> — votre référence interne.</li>
+      <li><b>Agent attitré</b> — le membre de l'équipe qui suit ce bien, et qui sera identifié sur les leads de cette annonce.</li>
+    </ul>
+    <div class="premium">🎬 <b>Vidéo du bien</b> : ajoutez une vidéo à vos annonces avec les formules <b>Premium</b> et <b>Enterprise</b> (MP4, 60 s max, 100 Mo, idéalement filmée en 1080p). Un bien filmé attire nettement plus de contacts.</div>
+    <div class="pourquoi">👉 Une annonce complète, avec de belles photos et une description soignée, génère bien plus de contacts — et Loki la propose plus volontiers aux habitants qui cherchent.</div>
+  </div>
+
+  <!-- BOOSTS -->
+  <div class="bloc" id="boosts">
+    <h2>⚡ Gestion des boosts</h2>
+    <p class="role">Mettez une annonce en avant pendant <b>6 heures</b> dans l'app : elle ressort devant les autres biens de sa zone, au moment où les habitants cherchent.</p>
+    <ul class="puce">
+      <li>Votre <b>quota mensuel de boosts dépend de votre formule</b> (2 en Starter, 5 en Pro, 20 en Premium) et se remet à zéro le <b>1er de chaque mois</b>.</li>
+    </ul>
+    <div class="pourquoi">👉 Réservez vos boosts à vos biens phares ou à une annonce qui peine à décoller.</div>
+  </div>
+
+  <!-- LEADS + MESSAGERIE -->
+  <div class="bloc" id="leads">
+    <h2>📩 Leads reçus &amp; messagerie</h2>
+    <p class="role">Le cœur de votre activité. Toutes les demandes des habitants arrivent ici, et vous dialoguez avec eux via la messagerie intégrée.</p>
+
+    <h3>D'où viennent vos leads ?</h3>
+    <ul class="puce">
+      <li><b>Contact sur une annonce</b> — un habitant s'intéresse à l'un de vos biens. Le lead arrive à votre agence (l'agent attitré de l'annonce est identifié).</li>
+      <li><b>« Je cherche »</b> — un habitant décrit le bien qu'il recherche. La demande part aux agences <b>proches de lui</b> (par géolocalisation), dont la vôtre si vous êtes dans le secteur.</li>
+      <li><b>« Je vends »</b> — un habitant cherche une agence pour estimer et mettre en vente son bien. La demande est adressée aux agences du secteur.</li>
+    </ul>
+
+    <h3>Le suivi commercial (pipeline)</h3>
+    <p style="font-size:14px;color:var(--texte);margin:0">Chaque lead avance dans votre pipeline, et vous l'attribuez à l'agent concerné :</p>
+    <div class="flow">
+      <div class="etapes">
+        <span class="et">Nouveau</span><span class="ar">→</span>
+        <span class="et">Contacté</span><span class="ar">→</span>
+        <span class="et">RDV pris</span><span class="ar">→</span>
+        <span class="et">Mandat signé</span><span class="ar">→</span>
+        <span class="et">Signé (vente)</span>
+      </div>
+    </div>
+
+    <h3>Qui reçoit les leads dans l'agence ?</h3>
+    <ul class="puce">
+      <li><b>Tous les membres de l'agence sont notifiés par email</b> à chaque nouveau lead (« 🔔 Nouveau lead »), avec les coordonnées et le contexte du dossier. Personne ne rate une opportunité.</li>
+      <li>Le <b>patron</b> et le <b>directeur</b> ont un <b>accès complet</b> : ils voient tous les leads et peuvent les <b>réattribuer</b> à l'agent de leur choix.</li>
+      <li>Un <b>agent</b> se concentre sur les <b>leads qui lui sont attribués</b>.</li>
+    </ul>
+
+    <h3>La messagerie agence ↔ habitant</h3>
+    <ul class="puce">
+      <li>Chaque lead ouvre une <b>conversation dédiée</b>. Vous échangez avec le prospect <b>depuis votre espace</b> ; lui répond <b>depuis l'app</b>. Les messages non lus sont signalés.</li>
+      <li>Pour un « Je cherche » ou un « Je vends », plusieurs agences du secteur reçoivent la demande de départ — ensuite, <b>chaque agence mène sa propre conversation</b> avec l'habitant. La réactivité fait la différence.</li>
+    </ul>
+
+    <h3>Bon à savoir</h3>
+    <ul class="puce">
+      <li><b>Mandat existant</b> : quand un habitant dépose un bien à vendre, il indique s'il a <b>déjà confié un mandat à une autre agence</b>. Cette information vous est transmise (« ⚠️ Mandat existant avec une autre agence ») pour que vous sachiez à quoi vous attendre — un bien déjà mandaté ailleurs est plus difficile à décrocher.</li>
+      <li><b>Assistant IA</b> : il vous aide à qualifier un lead et à rédiger une relance, pour gagner du temps dès le premier échange.</li>
+      <li><b>Conservation</b> : sur un dossier <b>clôturé et resté sans activité pendant 6 mois</b>, l'historique des messages est purgé automatiquement (ménage des vieilles conversations terminées).</li>
+    </ul>
+
+    <div class="pourquoi">👉 Traitez les leads non lus en priorité : en immobilier, la première agence qui répond prend l'avantage.</div>
+  </div>
+
+  <!-- AVIS -->
+  <div class="bloc" id="avis">
+    <h2>⭐ Avis clients</h2>
+    <p class="role">Retrouvez les avis laissés par vos clients et votre note moyenne, et répondez-y publiquement.</p>
+    <div class="pourquoi">👉 Répondez toujours, surtout aux avis mitigés : une réponse posée rassure davantage qu'une note parfaite.</div>
+  </div>
+
+  <!-- PROFIL -->
+  <div class="bloc" id="profil">
+    <h2>🏢 Mon profil agence</h2>
+    <p class="role">Les informations de votre agence visibles par les habitants dans l'app : coordonnées, adresse, description. C'est votre vitrine.</p>
+    <div class="premium">🎬 <b>Vidéo de présentation</b> (formules <b>Premium</b> et <b>Enterprise</b>) : votre carte de visite vidéo sur votre fiche agence. Une seule vidéo, modifiable à tout moment, <b>sans limite mensuelle</b> (MP4, 60 s, 100 Mo).</div>
+    <div class="pourquoi">👉 Soignez la description et ajoutez une vidéo : une fiche vivante inspire confiance et attire plus de leads.</div>
+  </div>
+
+  <!-- EQUIPE -->
+  <div class="bloc" id="equipe">
+    <h2>👥 Mon équipe</h2>
+    <p class="role">Gérez les membres de votre agence : invitez-les par email, attribuez un rôle et une couleur pour repérer d'un coup d'œil qui suit quel bien et quel lead.</p>
+    <div class="roles">
+      <div class="role-card">
+        <div class="rn">👑 Patron</div>
+        <div class="rd">Accès complet à toute l'agence : annonces, leads, équipe, abonnement.</div>
+      </div>
+      <div class="role-card">
+        <div class="rn">🎖️ Directeur</div>
+        <div class="rd">Accès complet, comme le patron. Peut tout voir et réattribuer les leads.</div>
+      </div>
+      <div class="role-card">
+        <div class="rn">👤 Agent</div>
+        <div class="rd">Se concentre sur les leads qui lui sont assignés.</div>
+      </div>
+    </div>
+    <div class="pourquoi">👉 Donnez une couleur distincte à chaque membre : le suivi des annonces et des leads devient immédiat.</div>
+  </div>
+
+  <!-- ABONNEMENT -->
+  <div class="bloc" id="abo">
+    <h2>💳 Mon abonnement</h2>
+    <p class="role">Consultez votre formule, vos quotas (annonces, boosts, communes), votre date de renouvellement et vos factures. Profitez aussi du parrainage.</p>
+    <div class="pourquoi">👉 Surveillez la date de renouvellement et profitez du parrainage : chaque pro que vous amenez vous rapproche d'un palier.</div>
+  </div>
+
+  <!-- TARIFS -->
+  <div class="bloc" id="tarifs">
+    <h2>💳 Formules &amp; prix</h2>
+    <p class="role">Quatre formules, selon votre volume d'annonces, vos boosts et le nombre de communes couvertes.</p>
+    <div class="tarifs">
+      <div class="tarif">
+        <div class="nom">Starter</div>
+        <div class="prix">49,90€<span>/mois</span></div>
+        <ul>
+          <li>10 annonces</li>
+          <li>2 boosts / mois</li>
+          <li>1 commune</li>
+        </ul>
+      </div>
+      <div class="tarif">
+        <div class="nom">Pro</div>
+        <div class="prix">89,90€<span>/mois</span></div>
+        <ul>
+          <li>15 annonces</li>
+          <li>5 boosts / mois</li>
+          <li>3 communes</li>
+        </ul>
+      </div>
+      <div class="tarif prem">
+        <div class="nom">Premium</div>
+        <div class="prix">149,90€<span>/mois</span></div>
+        <ul>
+          <li>30 annonces</li>
+          <li>20 boosts / mois</li>
+          <li>10 communes</li>
+          <li>Vidéo des biens</li>
+          <li>Vidéo de présentation</li>
+        </ul>
+      </div>
+      <div class="tarif">
+        <div class="nom">Enterprise</div>
+        <div class="prix">Sur devis</div>
+        <ul>
+          <li>Quotas personnalisés</li>
+          <li>Annonces &amp; boosts sur-mesure</li>
+          <li>Communes étendues</li>
+          <li>Accompagnement dédié</li>
+        </ul>
+      </div>
+    </div>
+    <div class="astuce">
+      <b>Les fonctionnalités vidéo</b> (vidéo des biens + vidéo de présentation de l'agence) sont incluses à partir de la formule <b>Premium</b>.
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <p style="margin:0 0 6px;font-weight:700">Une question ?</p>
+    <p style="margin:0;font-size:14px;color:var(--gris)">Écrivez à <a href="mailto:contact@lokalist.fr">contact@lokalist.fr</a> — réponse sous 24h.</p>
+  </div>
+
+  <footer>Lokalist · Guide agence · lokalist.fr</footer>
+
+</div>
+</body>
+</html>
