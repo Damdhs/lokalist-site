@@ -4,3 +4,7 @@ patch-*.js
 patch-*.cjs
 *.bak
 *.bak2
+
+# Scripts de patch jetables
+*.cjs
+*.bak
