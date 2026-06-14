@@ -12,6 +12,7 @@ const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
+const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist'; // À mettre à jour quand iOS publié
 const SITE_URL       = 'https://lokalist.fr';
 
 // ─── Helpers ────────────────────────────────────────────────────
@@ -194,7 +195,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
     <h3>📱 Réserve cette sortie dans l'app</h3>
     <p>Réservation, code unique, et plein d'autres bons plans loisirs près de chez toi.</p>
     <a href="${deepLink}" class="cta-btn">Ouvrir dans l'app</a>
-    <a href="${PLAY_STORE_URL}" class="cta-btn-secondary">Télécharger</a>
+    <a href="${PLAY_STORE_URL}" id="btn-download" class="cta-btn-secondary">Télécharger</a>
   </div>
 </main>
 
@@ -204,6 +205,14 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
 </footer>
 
 <script>
+  // Route le bouton "Telecharger" vers le bon store selon l'OS
+  (function(){
+    var ua = navigator.userAgent || '';
+    if (/iPhone|iPad|iPod/i.test(ua)) {
+      var btn = document.getElementById('btn-download');
+      if (btn) btn.href = '${APP_STORE_URL}';
+    }
+  })();
   // Capture du code parrain (?ref=LOK-XXXXXX) — même stockage que i.html
   (function(){
     try {

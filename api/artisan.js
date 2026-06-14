@@ -1,26 +1,17 @@
 // ════════════════════════════════════════════════════════════════
-//  api/pro.js — Vercel Edge Function
-//  Page HTML SSR pour /pro/:id (fiche commerçant / resto / service / loisir)
-//  - Méta Open Graph dynamiques (preview WhatsApp/FB/Twitter)
-//  - Capture du code parrain ?ref= -> localStorage (modèle i.html)
-//  - Deep link lokalist://commercant/:id
+//  api/artisan.js — Vercel Edge Function
+//  Page HTML SSR pour /artisan/:id (clone de pro.js adapte artisans)
+//  - Open Graph + JSON-LD (LocalBusiness)
+//  - Deep link lokalist://artisan/:id (l'ecran existe dans l'app)
+//  - Bouton store iOS/Android, capture parrain ?ref=LOK-XXXXXX
 // ════════════════════════════════════════════════════════════════
-
 export const config = { runtime: 'edge' };
 
 const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
-
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
 const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist'; // À mettre à jour quand iOS publié
 const SITE_URL       = 'https://lokalist.fr';
-
-const TYPE_LABELS = {
-  commercant: { label: 'Commerce',   emoji: '🏪' },
-  restaurant: { label: 'Restaurant', emoji: '🍽️' },
-  service:    { label: 'Service',    emoji: '⚙️' },
-  loisir:     { label: 'Loisir',     emoji: '🎭' },
-};
 
 // ─── Helpers ────────────────────────────────────────────────────
 const escapeHtml = (str) => {
@@ -33,7 +24,6 @@ const escapeHtml = (str) => {
     .replace(/'/g, '&#39;');
 };
 
-// Valide un code parrain LOK-XXXXXX (sinon ignore)
 const sanitizeRef = (ref) => {
   if (!ref) return '';
   const up = String(ref).toUpperCase().trim();
@@ -47,13 +37,13 @@ const html404 = (msg) => `<!doctype html>
 <title>Page introuvable — Lokalist</title>
 <style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}</style>
 </head><body>
-<div style="font-size:64px">🏪</div>
+<div style="font-size:64px">🔧</div>
 <h1>${escapeHtml(msg)}</h1>
-<p style="color:#8A8FA8">Ce professionnel n'existe plus ou a été retiré.</p>
+<p style="color:#8A8FA8">Cet artisan n'existe plus ou a été retiré.</p>
 <p><a href="${SITE_URL}">← Retour à Lokalist</a></p>
 </body></html>`;
 
-const pageNotFound = (msg = "Professionnel introuvable") => new Response(html404(msg), {
+const pageNotFound = (msg = 'Artisan introuvable') => new Response(html404(msg), {
   status: 404,
   headers: { 'Content-Type': 'text/html; charset=utf-8' },
 });
@@ -66,30 +56,33 @@ export default async function handler(req) {
     const ref = sanitizeRef(url.searchParams.get('ref'));
 
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) {
-      return pageNotFound("Identifiant invalide");
+      return pageNotFound('Identifiant invalide');
     }
 
-    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=id,nom,ville,description,photo_url,note_moyenne,nb_avis,type_pro,adresse,points_par_scan,actif`;
+    const apiUrl = `${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,note_moyenne,nb_avis,rayon_intervention,actif,categories_artisans(nom,emoji)`;
     const r = await fetch(apiUrl, {
       headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` },
     });
 
-    if (!r.ok) return pageNotFound("Erreur lors du chargement");
+    if (!r.ok) return pageNotFound('Erreur lors du chargement');
     const list = await r.json();
     if (!list?.length) return pageNotFound();
-    const c = list[0];
+    const a = list[0];
 
-    if (c.actif === false) return pageNotFound("Ce professionnel n'est plus actif");
+    if (a.actif === false) return pageNotFound("Cet artisan n'est plus actif");
 
-    const typeInfo    = TYPE_LABELS[c.type_pro] || { label: 'Commerce', emoji: '🏪' };
-    const nom         = c.nom || 'Professionnel local';
-    const ville       = c.ville || '';
-    const description = c.description || `${typeInfo.label} à ${ville} — sur Lokalist, l'app de la vie locale`;
+    const cat         = a.categories_artisans || {};
+    const metierNom   = cat.nom || 'Artisan';
+    const metierEmoji = cat.emoji || '🔧';
+    const nom         = a.nom_entreprise || `${a.prenom || ''} ${a.nom || ''}`.trim() || 'Artisan local';
+    const ville       = a.ville || '';
+    const villeFull   = ville + (a.code_postal ? ` (${a.code_postal})` : '');
+    const description = a.description || `${metierNom} à ${ville} — sur Lokalist, l'app de la vie locale`;
     const descShort   = (description.length > 160 ? description.slice(0, 157) + '...' : description);
-    const photoMain   = c.photo_url || `${SITE_URL}/images/og-default.jpg`;
+    const photoMain   = a.photo_url || `${SITE_URL}/images/og-default.jpg`;
 
-    const canonical = `${SITE_URL}/pro/${id}`;
-    const deepLink  = `lokalist://commercant/${id}`;
+    const canonical = `${SITE_URL}/artisan/${id}`;
+    const deepLink  = `lokalist://artisan/${id}`;
 
     const jsonLd = {
       "@context": "https://schema.org",
@@ -98,11 +91,11 @@ export default async function handler(req) {
       "description": description,
       "image": photoMain,
       "url": canonical,
-      ...(c.adresse && {
-        "address": { "@type": "PostalAddress", "streetAddress": c.adresse, "addressLocality": ville, "addressCountry": "FR" }
+      ...(ville && {
+        "address": { "@type": "PostalAddress", "addressLocality": ville, "postalCode": a.code_postal || undefined, "addressCountry": "FR" }
       }),
-      ...(c.note_moyenne > 0 && {
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(c.note_moyenne).toFixed(1), "reviewCount": c.nb_avis || 0 }
+      ...(a.note_moyenne > 0 && {
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(a.note_moyenne).toFixed(1), "reviewCount": a.nb_avis || 0 }
       }),
     };
 
@@ -157,8 +150,6 @@ export default async function handler(req) {
   .section h2 { font-size:14px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px; }
   .section p { color:var(--text);font-size:14px;line-height:1.65;white-space:pre-line; }
   .info-row { display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text);margin-top:8px; }
-  .points-badge { display:flex;align-items:center;gap:10px;background:var(--primary-l);border-radius:12px;padding:14px;margin-top:14px; }
-  .points-badge strong { color:var(--primary); }
   .cta-block { background:var(--primary);color:#fff;margin-top:20px;margin-bottom:28px;border-radius:18px;padding:24px 20px;text-align:center;box-shadow:0 6px 18px rgba(29,158,117,0.25); }
   .cta-block h3 { font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-0.3px; }
   .cta-block p { font-size:13px;opacity:0.9;margin-bottom:16px; }
@@ -181,17 +172,17 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
 
 <main class="container">
   <article class="hero">
-    ${c.photo_url
+    ${a.photo_url
       ? `<img class="hero-img" src="${escapeHtml(photoMain)}" alt="${escapeHtml(nom)}" loading="eager"/>`
-      : `<div class="hero-img-fallback">${typeInfo.emoji}</div>`
+      : `<div class="hero-img-fallback">${metierEmoji}</div>`
     }
     <div class="badges">
-      <span class="badge">${typeInfo.emoji} ${typeInfo.label}</span>
+      <span class="badge">${metierEmoji} ${escapeHtml(metierNom)}</span>
     </div>
     <div class="head">
       <h1 class="titre">${escapeHtml(nom)}</h1>
-      ${ville ? `<div class="ville">📍 ${escapeHtml(ville)}</div>` : ''}
-      ${c.note_moyenne > 0 ? `<div class="note">⭐ ${Number(c.note_moyenne).toFixed(1)} (${c.nb_avis || 0} avis)</div>` : ''}
+      ${ville ? `<div class="ville">📍 ${escapeHtml(villeFull)}</div>` : ''}
+      ${a.note_moyenne > 0 ? `<div class="note">⭐ ${Number(a.note_moyenne).toFixed(1)} (${a.nb_avis || 0} avis)</div>` : ''}
     </div>
   </article>
 
@@ -199,13 +190,12 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
   <section class="section">
     <h2>📄 À propos</h2>
     <p>${escapeHtml(description)}</p>
-    ${c.adresse ? `<div class="info-row">📍 ${escapeHtml(c.adresse)}</div>` : ''}
-    ${c.points_par_scan > 0 ? `<div class="points-badge">📱 <span>Scanne en boutique et gagne <strong>${c.points_par_scan} pts</strong></span></div>` : ''}
+    ${a.rayon_intervention ? `<div class="info-row">📍 Intervient dans un rayon de ${escapeHtml(String(a.rayon_intervention))} km</div>` : ''}
   </section>` : ''}
 
   <div class="cta-block">
-    <h3>📱 Découvre ${escapeHtml(nom)} dans l'app</h3>
-    <p>Cumule des points, profite des bons plans locaux et soutiens les commerces de ta ville.</p>
+    <h3>📱 Contacte ${escapeHtml(nom)} dans l'app</h3>
+    <p>Devis, avis vérifiés, et tous les artisans de confiance près de chez toi.</p>
     <a href="${deepLink}" class="cta-btn">Ouvrir dans l'app</a>
     <a href="${PLAY_STORE_URL}" id="btn-download" class="cta-btn-secondary">Télécharger</a>
   </div>
@@ -250,7 +240,6 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
       },
     });
   } catch (e) {
-    console.error('[pro edge]', e);
     return pageNotFound('Erreur serveur');
   }
 }

@@ -22,7 +22,10 @@
     { "source": "/devis/:token", "destination": "/devis.html" },
     { "source": "/annonce/:id", "destination": "/api/annonce?id=:id" },
     { "source": "/pro/:id", "destination": "/api/pro?id=:id" },
+    { "source": "/artisan/:id", "destination": "/api/artisan?id=:id" },
     { "source": "/sortie/:id", "destination": "/api/sortie?id=:id" },
+    { "source": "/offre/:id", "destination": "/api/offre?id=:id" },
+    { "source": "/actu/:id", "destination": "/api/actu?id=:id" },
     { "source": "/contrats/:token", "destination": "/signer-contrat.html" }
   ],
   "headers": [

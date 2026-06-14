@@ -308,7 +308,7 @@ export default async function handler(req) {
     <h3>📱 Voir plus dans l'application</h3>
     <p>Photos, contact direct, financement, alertes nouvelles annonces…</p>
     <a href="${deepLink}" class="cta-btn">Ouvrir dans l'app</a>
-    <a href="${PLAY_STORE_URL}" class="cta-btn-secondary">Télécharger</a>
+    <a href="${PLAY_STORE_URL}" id="btn-download" class="cta-btn-secondary">Télécharger</a>
   </div>
 
 </main>
@@ -319,11 +319,15 @@ export default async function handler(req) {
 </footer>
 
 <script>
-  // Tente d'ouvrir l'app si on est sur mobile (sans bloquer si app pas installée)
+  // LOKALIST_STORE_IOS_PATCH : route le bouton "Telecharger" vers le bon store
   (function() {
-    const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent);
-    if (!isMobile) return;
-    // Pas de redirection auto agressive — on laisse l'user cliquer.
+    var ua = navigator.userAgent || '';
+    var isIOS = /iPhone|iPad|iPod/i.test(ua);
+    var btn = document.getElementById('btn-download');
+    if (btn && isIOS) {
+      btn.href = '${APP_STORE_URL}';
+    }
+    // Android et desktop : on garde le lien Play Store par defaut.
   })();
 </script>
 
