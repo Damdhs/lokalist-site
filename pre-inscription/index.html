@@ -88,6 +88,32 @@
   .benefit h3{font-size:15px;font-weight:700;margin-bottom:2px}
   .benefit p{font-size:14px;color:var(--muted)}
 
+  /* ---- Loki (assistant IA) ---- */
+  .loki{padding:30px 0 0}
+  .loki-card{background:linear-gradient(155deg,#0F6E56,#0B3F32);border-radius:var(--radius);padding:24px 22px;color:#EAF5F0;box-shadow:0 18px 50px rgba(15,110,86,.25)}
+  .loki-head{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .loki-orb{width:52px;height:52px;border-radius:16px;flex:0 0 52px;background:linear-gradient(145deg,#F6C45E,#EF9F27);display:flex;align-items:center;justify-content:center;color:#3A2400;box-shadow:0 6px 18px rgba(239,159,39,.4)}
+  .loki-eyebrow{color:#EF9F27;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:1px}
+  .loki-card h2{font-family:var(--serif);font-weight:600;font-size:clamp(22px,5.5vw,28px);color:#fff;line-height:1.12;margin:0}
+  .loki-text{color:#CFE7DE;font-size:15px;line-height:1.6;margin-bottom:18px}
+  .loki-feats{display:grid;grid-template-columns:1fr;gap:10px}
+  .loki-feat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);border-radius:12px;padding:12px 14px}
+  .loki-feat b{display:block;color:#fff;font-size:14px;margin-bottom:2px}
+  .loki-feat span{color:#AFD3C7;font-size:13px}
+  @media(min-width:620px){.loki-feats{grid-template-columns:repeat(3,1fr)}}
+
+  /* ---- Pitch par profil ---- */
+  .pitch{padding:26px 0 0}
+  #profilePitch{display:none}
+  .pitch-card{background:var(--green-soft);border:1px solid #CBE9DC;border-radius:var(--radius);padding:22px 20px}
+  .pitch-card h2{font-family:var(--serif);font-weight:600;font-size:clamp(20px,5vw,26px);color:var(--green-d);margin-bottom:8px}
+  .pitch-intro{color:#2C4A40;font-size:15px;margin-bottom:16px}
+  .pitch-list{list-style:none;display:grid;gap:11px;margin-bottom:18px}
+  .pitch-list li{position:relative;padding-left:30px;color:#244039;font-size:14.5px;line-height:1.5}
+  .pitch-list li::before{content:"\2713";position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .pitch-link{display:inline-flex;align-items:center;gap:6px;color:var(--green-d);font-weight:700;font-size:14px;text-decoration:none;border-bottom:2px solid var(--gold);padding-bottom:1px}
+  .pitch-link:hover{color:var(--green)}
+
   /* ---- Form ---- */
   .form-wrap{padding:14px 0 0}
   #formSection{display:none}
@@ -205,7 +231,7 @@
     </div>
     <div class="benefit">
       <span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a4 4 0 1 0-8 0"/><path d="M2 21a8 8 0 0 1 16 0"/><circle cx="18" cy="7" r="3"/></svg></span>
-      <div><h3>Offres croisées</h3><p>Montez des partenariats avec les autres commerces de la ville et touchez leur clientèle.</p></div>
+      <div><h3>Vos offres du moment</h3><p>Promos, nouveautés, temps forts : mettez-les en avant et soyez vu instantanément par les habitants.</p></div>
     </div>
     <div class="benefit">
       <span class="ic"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
@@ -218,6 +244,28 @@
   </section>
 
   <!-- FORM -->
+  <!-- LOKI : assistant IA (signature) -->
+  <section class="loki wrap" aria-label="Loki, votre assistant IA">
+    <div class="loki-card">
+      <div class="loki-head">
+        <span class="loki-orb"><svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M12 2l1.9 6.4L20 10l-6.1 1.6L12 18l-1.9-6.4L4 10l6.1-1.6z"/></svg></span>
+        <div>
+          <div class="loki-eyebrow">Exclusivité Lokalist</div>
+          <h2>Et surtout, il y a Loki.</h2>
+        </div>
+      </div>
+      <p class="loki-text">Loki est l'assistant IA de Lokalist, pensé pour les pros. Il connaît votre métier, répond à vos questions en langage naturel et vous aide à tirer le meilleur de la plateforme &mdash; comme un collaborateur disponible en continu.</p>
+      <div class="loki-feats">
+        <div class="loki-feat"><b>Il connaît votre activité</b><span>Des réponses adaptées à votre métier.</span></div>
+        <div class="loki-feat"><b>En langage naturel</b><span>Posez vos questions, simplement.</span></div>
+        <div class="loki-feat"><b>Toujours disponible</b><span>Un coup de main quand vous voulez.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PITCH PAR PROFIL (rempli dynamiquement au clic) -->
+  <section id="profilePitch" class="pitch wrap" aria-live="polite"></section>
+
   <section class="form-wrap wrap">
     <div id="formSection">
       <div class="card">
@@ -351,6 +399,91 @@
     courtier: "Cabinet / enseigne"
   };
 
+  /* ---- Contenu par profil (benefices + lien site) ---- */
+  /* Liens "En savoir plus" : adapte les URLs si tu as des pages dediees. */
+  const PROFILE_PITCH = {
+    commercant: {
+      title: "Vous êtes commerçant",
+      intro: "Transformez les habitants de votre ville en clients fidèles.",
+      points: [
+        "Votre vitrine digitale, visible par tous les habitants au moment où ils cherchent autour d'eux.",
+        "Mettez en avant vos offres du moment, vos promos et vos nouveautés en un clic.",
+        "Programme de fidélité intégré : vos clients scannent, cumulent des points et reviennent.",
+        "Click &amp; Collect (en option) : commande et retrait en boutique depuis l'appli.",
+        "Loki, votre assistant IA qui connaît votre commerce et vous épaule au quotidien."
+      ],
+      link: "https://lokalist.fr"
+    },
+    artisan: {
+      title: "Vous êtes artisan",
+      intro: "Recevez des chantiers près de chez vous et imposez votre savoir-faire.",
+      points: [
+        "Votre profil métier mis en avant auprès des habitants et des mairies de votre secteur.",
+        "Captez les demandes de devis et les appels d'offres de votre zone, en direct.",
+        "Vous fixez votre rayon d'intervention : que des demandes utiles, zéro perte de temps.",
+        "Vos réalisations et vos avis clients en vitrine pour inspirer confiance et signer plus vite.",
+        "Loki, votre assistant IA qui maîtrise votre métier et répond à toutes vos questions."
+      ],
+      link: "https://lokalist.fr"
+    },
+    mairie: {
+      title: "Vous êtes une mairie ou une collectivité",
+      intro: "Redonnez vie à votre commerce local et reconnectez-vous à vos habitants, depuis un seul outil.",
+      points: [
+        "Votre commune et tous ses commerces réunis dans une appli que les habitants ouvrent chaque jour.",
+        "Parlez directement à vos habitants : actualités, événements et alertes géolocalisées.",
+        "Lancez vos appels d'offres vers les artisans et pros de votre territoire en quelques clics.",
+        "Pilotez la vie économique locale depuis un tableau de bord clair et complet.",
+        "Un accompagnement dédié pour faire de Lokalist le réflexe local de votre commune."
+      ],
+      link: "https://lokalist.fr"
+    },
+    agence: {
+      title: "Vous êtes une agence immobilière",
+      intro: "Diffusez vos biens là où vivent vos futurs acheteurs et captez des leads 100% locaux.",
+      points: [
+        "Vos annonces au cœur de l'appli locale, vues par des habitants déjà sur le territoire.",
+        "Un espace agence dédié pour gérer vos biens, vos leads et vos contacts sans friction.",
+        "Boostez vos annonces avec la vidéo pour vendre plus vite.",
+        "Des leads acheteurs ET vendeurs qui arrivent directement dans votre tableau de bord.",
+        "Parrainage agences à avantages cumulatifs : plus vous recommandez, plus vous gagnez.",
+        "Loki, votre assistant IA immobilier qui vous fait gagner du temps chaque jour."
+      ],
+      link: "https://lokalist.fr/agences.html"
+    },
+    courtier: {
+      title: "Vous êtes courtier",
+      intro: "Captez les porteurs de projet au moment précis où ils en ont besoin, près de chez vous.",
+      points: [
+        "Visible auprès des habitants en plein projet d'achat ou de financement.",
+        "Des leads qualifiés en crédit immo, assurance et rachat, directement dans votre espace.",
+        "Boost de visibilité sur les annonces immobilières de votre secteur.",
+        "Mise en relation directe avec des prospects locaux prêts à avancer.",
+        "Loki, votre assistant IA qui vous fait gagner un temps précieux."
+      ],
+      link: "https://lokalist.fr/agences.html"
+    }
+  };
+
+  function renderPitch(p) {
+    const data = PROFILE_PITCH[p];
+    const box = document.getElementById("profilePitch");
+    if (!data || !box) return;
+    const lis = data.points.map(function (pt) { return "<li>" + pt + "</li>"; }).join("");
+    box.innerHTML =
+      '<div class="pitch-card">'
+      + '<h2>' + data.title + '</h2>'
+      + '<p class="pitch-intro">' + data.intro + '</p>'
+      + '<ul class="pitch-list">' + lis + '</ul>'
+      + '<a class="pitch-link" href="' + data.link + '" target="_blank" rel="noopener">En savoir plus sur Lokalist &rarr;</a>'
+      + '</div>';
+    box.style.display = "block";
+    const gb = document.querySelector(".benefits");
+    if (gb) gb.style.display = "none";
+    const lk = document.querySelector(".loki");
+    if (lk) lk.style.display = "none";
+  }
+
   const formSection = document.getElementById("formSection");
   const profilLabel = document.getElementById("profilLabel");
   const etabLabel   = document.getElementById("etabLabel");
@@ -362,9 +495,10 @@
       btn.classList.add("active");
       profilLabel.textContent = PROFILE_LABELS[selectedProfile];
       etabLabel.textContent   = ETAB_LABELS[selectedProfile];
+      renderPitch(selectedProfile);
       formSection.classList.add("show");
       document.getElementById("success").classList.remove("show");
-      formSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("profilePitch").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
 
