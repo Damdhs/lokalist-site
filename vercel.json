@@ -26,6 +26,9 @@
     { "source": "/sortie/:id", "destination": "/api/sortie?id=:id" },
     { "source": "/offre/:id", "destination": "/api/offre?id=:id" },
     { "source": "/actu/:id", "destination": "/api/actu?id=:id" },
+    { "source": "/evenement/:id", "destination": "/api/evenement?id=:id" },
+    { "source": "/agence/:id", "destination": "/api/agence?id=:id" },
+    { "source": "/courtier/:id", "destination": "/api/courtier?id=:id" },
     { "source": "/contrats/:token", "destination": "/signer-contrat.html" }
   ],
   "headers": [
