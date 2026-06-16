@@ -1,0 +1,7 @@
+# generated-by: lokalist-seo-script
+# robots.txt - lokalist.fr
+
+User-agent: *
+Allow: /
+
+Sitemap: https://lokalist.fr/sitemap.xml
