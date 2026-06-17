@@ -75,6 +75,39 @@
     .av-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
     .av-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
     .av-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+    /* === Strategie fidelite (2 modes) === */
+    .strat{padding:90px 5%;background:var(--bg)}
+    .strat-in{max-width:1180px;margin:0 auto}
+    .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+    .strat-card{position:relative;background:var(--surf);border:1px solid var(--bdr);border-radius:22px;padding:32px;overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+    .strat-card:hover{transform:translateY(-4px);box-shadow:0 22px 56px rgba(29,158,117,.1)}
+    .strat-card.is-a{border-top:4px solid var(--g)}
+    .strat-card.is-b{border-top:4px solid var(--a)}
+    .strat-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:6px 12px;border-radius:100px;margin-bottom:16px}
+    .strat-card.is-a .strat-tag{background:var(--gl);color:var(--gd)}
+    .strat-card.is-b .strat-tag{background:var(--al);color:#B26A00}
+    .strat-card h3{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:var(--dark);margin-bottom:10px;line-height:1.2}
+    .strat-card .strat-lead{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+    .strat-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+    .strat-list li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--dark);line-height:1.55}
+    .strat-list li::before{content:'';flex-shrink:0;width:7px;height:7px;border-radius:50%;margin-top:7px}
+    .strat-card.is-a .strat-list li::before{background:var(--g)}
+    .strat-card.is-b .strat-list li::before{background:var(--a)}
+    .strat-sub{margin-top:16px;padding:14px 16px;background:rgba(239,159,39,.07);border:1px dashed rgba(239,159,39,.4);border-radius:14px}
+    .strat-sub strong{font-family:'Syne',sans-serif;font-size:13px;color:var(--dark);display:block;margin-bottom:8px}
+    .strat-sub-row{display:flex;flex-direction:column;gap:8px}
+    .strat-sub-row div{font-size:12.5px;color:var(--muted);line-height:1.5}
+    .strat-sub-row em{font-style:normal;font-weight:700;color:#B26A00}
+    .strat-note{margin-top:32px;display:flex;flex-direction:column;gap:12px}
+    .strat-note-item{display:flex;gap:12px;align-items:flex-start;background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:16px 18px}
+    .strat-note-item .ico{flex-shrink:0;font-size:20px;line-height:1}
+    .strat-note-item p{font-size:13.5px;color:var(--muted);line-height:1.6;margin:0}
+    .strat-note-item p strong{color:var(--dark);font-weight:700}
+    .strat-cta{margin-top:32px;text-align:center;background:linear-gradient(135deg,var(--gl),#fff);border:1px solid var(--gm);border-radius:18px;padding:28px}
+    .strat-cta h4{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--dark);margin-bottom:6px}
+    .strat-cta p{font-size:14px;color:var(--muted);margin-bottom:18px}
+    .strat-cta a{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;transition:background .2s}
+    .strat-cta a:hover{background:var(--gd)}
     .bons{background:linear-gradient(135deg,var(--g),var(--gd));padding:80px 5%}
     .bons-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
     .bons h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
@@ -344,6 +377,69 @@
     <div class="av-card reveal"><div class="av-ico">📸</div><h3>Fiche vitrine complète</h3><p>Logo, photo du commerce, description, horaires, adresse, réseaux sociaux — tout ce qu'il faut pour convaincre un client de pousser votre porte.</p></div>
   </div>
 </section>
+<section class="strat" id="strategie">
+  <div class="strat-in">
+    <p class="sec-tag reveal">La fidélité, version locale</p>
+    <h2 class="sec-h reveal">Deux façons de fidéliser.<br/>Votre centre-ville choisit la sienne.</h2>
+    <p class="sec-p reveal">La fidélité ne se gère pas pareil partout. Certains centres-villes veulent jouer collectif pour redynamiser le cœur de ville, d'autres préfèrent que chacun cultive sa clientèle. Lokalist fait les deux — et vous, vous ne gérez rien.</p>
+
+    <div class="strat-grid">
+
+      <div class="strat-card is-a reveal">
+        <span class="strat-tag">🤝 Cumul commune</span>
+        <h3>Le centre-ville joue collectif</h3>
+        <p class="strat-lead">Le client cumule des points chez tous les commerces de la commune. À chaque palier, Lokalist lui propose 3 commerces du centre-ville où dépenser son bon — pour envoyer du trafic là où il en faut.</p>
+        <ul class="strat-list">
+          <li>Effet réseau : un client qui a cumulé ailleurs peut être orienté chez vous.</li>
+          <li>À l'encaissement, c'est vous qui fixez le montant déduit — vous protégez votre marge.</li>
+          <li>Idéal pour animer un centre-ville : fêtes de fin d'année, braderie, semaine du commerce local.</li>
+          <li>Pour les communes qui veulent un cœur de ville vivant et solidaire.</li>
+        </ul>
+      </div>
+
+      <div class="strat-card is-b reveal">
+        <span class="strat-tag">🎯 Carte par boutique</span>
+        <h3>Vos clients, votre récompense, vos règles</h3>
+        <p class="strat-lead">Chaque commerce a sa propre carte de fidélité. Le client cumule chez vous, et quand sa carte est pleine il récupère sa récompense chez vous — vous la validez en caisse en un geste.</p>
+        <ul class="strat-list">
+          <li>La fidélité classique, qui protège et récompense votre clientèle propre.</li>
+          <li>Vous décidez du seuil et de la récompense.</li>
+        </ul>
+        <div class="strat-sub">
+          <strong>Vous définissez votre récompense, on l'active avec vous :</strong>
+          <div class="strat-sub-row">
+            <div><em>En euros</em> — un palier de points = une remise que vous fixez.</div>
+            <div><em>Au passage</em> — X visites = la récompense que vous décidez (produit offert, remise, cadeau).</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="strat-note">
+      <div class="strat-note-item reveal">
+        <span class="ico">🗳️</span>
+        <p><strong>Le mode se décide entre commerçants du centre-ville</strong>, puis Lokalist l'active. Ce n'est pas imposé par la mairie, et il peut évoluer selon les saisons et les besoins.</p>
+      </div>
+      <div class="strat-note-item reveal">
+        <span class="ico">⚙️</span>
+        <p><strong>Zéro terminal, zéro carte plastique, zéro gestion.</strong> Quel que soit le mode, vous scannez — Lokalist fait le reste.</p>
+      </div>
+      <div class="strat-note-item reveal">
+        <span class="ico">🔒</span>
+        <p><strong>Vos scans ne sont jamais perdus.</strong> Si le mode de la commune change, les passages de vos clients restent comptés.</p>
+      </div>
+    </div>
+
+    <div class="strat-cta reveal">
+      <h4>Envie de lancer un mode dans votre commune ?</h4>
+      <p>Réunissez quelques commerçants de votre centre-ville et faites-en la demande — on s'occupe de l'activation.</p>
+      <a href="contact.html?type=fidelite">Faire une demande <span>→</span></a>
+    </div>
+
+  </div>
+</section>
+
 <section class="bons">
   <div class="bons-in">
     <div class="reveal">
