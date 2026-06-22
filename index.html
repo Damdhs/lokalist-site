@@ -465,7 +465,7 @@ img,svg,video{max-width:100%;height:auto}
 <!-- NAV -->
 <nav id="nav">
   <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
-      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
+      <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain" decoding="async"/></picture>
     </div>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
@@ -532,9 +532,9 @@ img,svg,video{max-width:100%;height:auto}
     <div class="phone-3d left">
       <div class="phone-notch"></div>
       <div class="phone-screen" style="padding:0;overflow:hidden;border-radius:inherit;background:#000">
-        <img src="/images/screen-commune.jpg"
+        <picture><source srcset="/images/screen-commune.webp" type="image/webp"><img src="/images/screen-commune.jpg"
           alt="Ma commune Lokalist"
-          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:inherit"/>
+          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:inherit" decoding="async" fetchpriority="high"/></picture>
       </div>
       <div class="phone-glow"></div>
     </div>
@@ -543,9 +543,9 @@ img,svg,video{max-width:100%;height:auto}
     <div class="phone-3d center">
       <div class="phone-notch"></div>
       <div class="phone-screen" style="padding:0;overflow:hidden;border-radius:inherit;background:#000">
-        <img src="/images/screen-home.jpg"
+        <picture><source srcset="/images/screen-home.webp" type="image/webp"><img src="/images/screen-home.jpg"
           alt="Accueil Lokalist"
-          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:inherit"/>
+          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:inherit" decoding="async" loading="lazy"/></picture>
       </div>
       <div class="phone-glow"></div>
     </div>
@@ -554,9 +554,9 @@ img,svg,video{max-width:100%;height:auto}
     <div class="phone-3d right">
       <div class="phone-notch"></div>
       <div class="phone-screen" style="padding:0;overflow:hidden;border-radius:inherit;background:#000">
-        <img src="/images/screen-commercant.jpg"
+        <picture><source srcset="/images/screen-commercant.webp" type="image/webp"><img src="/images/screen-commercant.jpg"
           alt="Fiche commerçant Lokalist"
-          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:inherit"/>
+          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:inherit" decoding="async" loading="lazy"/></picture>
       </div>
       <div class="phone-glow"></div>
     </div>
@@ -1124,7 +1124,7 @@ img,svg,video{max-width:100%;height:auto}
 <!-- FONDATEUR -->
 <section style="padding:60px 5%;background:var(--surf);border-top:1px solid var(--bdr)">
   <div id="fondateur-strip" style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap">
-    <img src="/images/damien.jpg" alt="Damien, fondateur de Lokalist" style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--gm);flex-shrink:0"/>
+    <picture><source srcset="/images/damien.webp" type="image/webp"><img src="/images/damien.jpg" alt="Damien, fondateur de Lokalist" style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid var(--gm);flex-shrink:0" decoding="async" loading="lazy"/></picture>
     <div style="flex:1;min-width:260px">
       <div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Le mot du fondateur</div>
       <p style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);line-height:1.5;margin-bottom:8px">"Lokalist est né d'une conviction simple : l'argent dépensé localement doit rester local. Chaque commune qui nous rejoint renforce son territoire."</p>

@@ -14,3 +14,7 @@ patch-*.cjs
 *.bak
 *.bak2
 *.backup-avant-*
+
+.img-backup/
+.html-backup/
+node_modules/
