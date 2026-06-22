@@ -8,3 +8,9 @@ patch-*.cjs
 # Scripts de patch jetables
 *.cjs
 *.bak
+
+# Residus scripts SEO et sauvegardes
+*.ps1
+*.bak
+*.bak2
+*.backup-avant-*
