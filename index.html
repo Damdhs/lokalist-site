@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
 <!-- == LOKALIST SEO+ (ajouts geres par script - ne pas editer) == -->
@@ -459,6 +459,24 @@ img,svg,video{max-width:100%;height:auto}
   .cc-grid{grid-template-columns:1fr !important}
 }
 </style><!-- /ccgrid-mobile-v1 -->
+<style id="phones-mobile-v2">
+@media(max-width:640px){
+  .phone-3d{border-width:4px !important;border-radius:26px !important;}
+  .phone-3d.left{width:122px !important;height:250px !important;opacity:.95 !important;transform:perspective(900px) rotateY(15deg) rotateX(1deg) scale(.92) !important;z-index:1 !important;}
+  .phone-3d.right{width:122px !important;height:250px !important;opacity:.95 !important;transform:perspective(900px) rotateY(-15deg) rotateX(1deg) scale(.92) !important;z-index:1 !important;}
+  .phone-3d.center{width:170px !important;height:340px !important;transform:translateY(-14px) !important;z-index:3 !important;}
+  .phone-notch{width:34px !important;height:11px !important;border-radius:0 0 8px 8px !important;}
+  .phone-glow{width:120px !important;height:40px !important;bottom:-16px !important;}
+  .phone-screen{padding:0 !important;}
+  .phone-screen img{width:100% !important;height:100% !important;object-fit:cover !important;object-position:top center !important;display:block;}
+}
+@media(max-width:480px){
+  .phone-3d{border-width:3px !important;border-radius:22px !important;}
+  .phone-3d.left,.phone-3d.right{width:106px !important;height:218px !important;}
+  .phone-3d.center{width:150px !important;height:300px !important;}
+  .phone-notch{width:28px !important;height:9px !important;}
+}
+</style>
 </head>
 <body>
 
