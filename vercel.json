@@ -32,6 +32,8 @@
     { "source": "/mairie/:id", "destination": "/api/mairie?id=:id" },
     { "source": "/mairie/:id.ics", "destination": "/api/mairie?id=:id&format=ics" },
 { "source": "/mairie/:id", "destination": "/api/mairie?id=:id" },
+{ "source": "/evenement/:id.ics", "destination": "/api/evenement?id=:id&format=ics" },
+{ "source": "/evenement/:id", "destination": "/api/evenement?id=:id" },
     { "source": "/contrats/:token", "destination": "/signer-contrat.html" }
   ],
   "headers": [
