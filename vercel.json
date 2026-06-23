@@ -30,6 +30,8 @@
     { "source": "/agence/:id", "destination": "/api/agence?id=:id" },
     { "source": "/courtier/:id", "destination": "/api/courtier?id=:id" },
     { "source": "/mairie/:id", "destination": "/api/mairie?id=:id" },
+    { "source": "/mairie/:id.ics", "destination": "/api/mairie?id=:id&format=ics" },
+{ "source": "/mairie/:id", "destination": "/api/mairie?id=:id" },
     { "source": "/contrats/:token", "destination": "/signer-contrat.html" }
   ],
   "headers": [

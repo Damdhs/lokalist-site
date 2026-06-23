@@ -59,6 +59,51 @@ const formatDate = (iso) => {
   }
 };
 
+// ── ICS (iCalendar) — pour "Ajouter à mon agenda" ───────────────
+const icsEscape = (s) => String(s || '')
+  .replace(/\\/g, '\\\\')
+  .replace(/;/g, '\\;')
+  .replace(/,/g, '\\,')
+  .replace(/\r?\n/g, '\\n');
+
+const icsDate = (iso) => {
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+};
+
+const buildIcs = (e, canonical) => {
+  const start = icsDate(e.date_debut);
+  // fin = date_fin si fournie, sinon début + 2h
+  let endIso = e.date_fin;
+  if (!endIso && e.date_debut) {
+    const d = new Date(e.date_debut);
+    if (!isNaN(d)) { d.setHours(d.getHours() + 2); endIso = d.toISOString(); }
+  }
+  const end   = icsDate(endIso);
+  const stamp = icsDate(new Date().toISOString());
+  const lieu  = [e.lieu, e.ville].filter(Boolean).join(', ');
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Lokalist//Agenda//FR',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:evt-${e.id}@lokalist.fr`,
+    `DTSTAMP:${stamp}`,
+    start ? `DTSTART:${start}` : '',
+    end ? `DTEND:${end}` : '',
+    `SUMMARY:${icsEscape(e.titre || 'Événement local')}`,
+    e.description ? `DESCRIPTION:${icsEscape(e.description)}` : '',
+    lieu ? `LOCATION:${icsEscape(lieu)}` : '',
+    `URL:${canonical}`,
+    e.statut === 'annule' ? 'STATUS:CANCELLED' : 'STATUS:CONFIRMED',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].filter(Boolean).join('\r\n');
+};
+
 const html404 = (msg) => `<!doctype html>
 <html lang="fr"><head>
 <meta charset="utf-8"/>
@@ -111,6 +156,18 @@ export default async function handler(req) {
 
     const canonical = `${SITE_URL}/mairie/${id}`;
     const deepLink  = `lokalist://evenement/${id}`;
+
+    // Variante .ics : "Ajouter à mon agenda" (ouvre Calendrier/Google Agenda/Outlook)
+    if (url.searchParams.get('format') === 'ics') {
+      return new Response(buildIcs(e, canonical), {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/calendar; charset=utf-8',
+          'Content-Disposition': 'attachment; filename="lokalist-evenement.ics"',
+          'Cache-Control': 'public, s-maxage=300',
+        },
+      });
+    }
 
     const jsonLd = {
       "@context": "https://schema.org",
@@ -187,6 +244,7 @@ export default async function handler(req) {
   .cta-block p { font-size:13px;opacity:0.9;margin-bottom:16px; }
   .cta-btn { display:inline-block;background:#fff;color:var(--primary);padding:14px 28px;border-radius:12px;font-weight:800;text-decoration:none;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1); }
   .cta-btn-secondary { display:inline-block;background:rgba(0,0,0,0.15);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:13px;margin-left:8px; }
+  .ics-btn { display:inline-flex;align-items:center;gap:8px;margin-top:12px;background:var(--surface);border:1.5px solid var(--primary);color:var(--primary-d);padding:12px 18px;border-radius:14px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,0.04); }
   .ref-banner { background:var(--accent);color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:600; }
   footer { text-align:center;padding:30px 20px 40px;color:var(--muted);font-size:12px; }
   footer a { color:var(--primary);text-decoration:none;font-weight:600; }
@@ -220,6 +278,8 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
       <div class="tarif">${e.gratuit ? '🎟️ Gratuit' : (e.prix ? `🎟️ ${Number(e.prix).toFixed(2)} €` : '')}</div>
     </div>
   </article>
+
+  ${!annule ? `<a href="${canonical}.ics" class="ics-btn">🗓️ Ajouter à mon agenda</a>` : ''}
 
   ${e.description ? `
   <section class="section">
