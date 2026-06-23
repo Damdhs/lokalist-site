@@ -172,7 +172,7 @@ export default async function handler(req) {
 </head>
 <body>
 
-${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts à ton inscription !</div>` : ''}
+${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokalist, l'app de la vie locale !</div>` : ''}
 
 <header class="top-bar">
   <a href="${SITE_URL}">🏡 Lokalist</a>
