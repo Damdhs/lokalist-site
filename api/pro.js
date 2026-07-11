@@ -48,6 +48,7 @@ const html404 = (msg) => `<!doctype html>
 <style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}  .avis-resume { display:flex;align-items:center;gap:10px;margin-bottom:14px; }
   .avis-resume-note { font-size:34px;font-weight:800;color:var(--text);line-height:1; }
   .avis-resume-stars { color:var(--accent);font-size:20px;letter-spacing:2px; }
+  .avis-auteur { font-weight:700;font-size:14px;color:var(--text);margin-bottom:2px; }
   .avis-card { padding:14px 0;border-top:1px solid var(--border); }
   .avis-head { display:flex;align-items:center;justify-content:space-between;margin-bottom:4px; }
   .avis-stars { color:var(--accent);font-size:15px;letter-spacing:2px; }
@@ -110,7 +111,7 @@ export default async function handler(req) {
     const fmtDate = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }); } catch { return ''; } };
     const avisHtml = avisListe.map((a) => `
       <div class="avis-card">
-        <div class="avis-head"><span class="avis-stars">${etoiles(a.note)}</span>${a.verified ? '<span class="avis-verif">✓ Vérifié</span>' : ''}</div>
+        <div class="avis-auteur">${escapeHtml(a.auteur_nom || 'Client')}</div><div class="avis-head"><span class="avis-stars">${etoiles(a.note)}</span>${a.verified ? '<span class="avis-verif">✓ Vérifié</span>' : ''}</div>
         ${a.titre ? `<div class="avis-titre">${escapeHtml(a.titre)}</div>` : ''}
         ${a.commentaire ? `<div class="avis-txt">${escapeHtml(a.commentaire)}</div>` : ''}
         <div class="avis-date">${fmtDate(a.date_publication)}</div>
