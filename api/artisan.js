@@ -35,7 +35,20 @@ const html404 = (msg) => `<!doctype html>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Page introuvable — Lokalist</title>
-<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}</style>
+<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}  .avis-resume { display:flex;align-items:center;gap:10px;margin-bottom:14px; }
+  .avis-resume-note { font-size:34px;font-weight:800;color:var(--text);line-height:1; }
+  .avis-resume-stars { color:var(--accent);font-size:20px;letter-spacing:2px; }
+  .avis-card { padding:14px 0;border-top:1px solid var(--border); }
+  .avis-head { display:flex;align-items:center;justify-content:space-between;margin-bottom:4px; }
+  .avis-stars { color:var(--accent);font-size:15px;letter-spacing:2px; }
+  .avis-verif { background:var(--primary-l);color:var(--primary-d);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px; }
+  .avis-titre { font-weight:700;font-size:14px;margin-bottom:2px; }
+  .avis-txt { font-size:14px;color:var(--text);line-height:1.55; }
+  .avis-date { font-size:12px;color:var(--muted);margin-top:6px; }
+  .avis-rep { margin-top:10px;margin-left:10px;padding-left:10px;border-left:2px solid var(--border);font-size:13px;color:var(--text); }
+  .avis-rep-lab { font-size:12px;font-weight:700;color:var(--primary);margin-bottom:2px; }
+  .avis-cta { display:inline-block;margin-top:16px;background:var(--primary);color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;text-decoration:none;font-size:14px; }
+</style>
 </head><body>
 <div style="font-size:64px">🔧</div>
 <h1>${escapeHtml(msg)}</h1>
@@ -68,6 +81,32 @@ export default async function handler(req) {
     const list = await r.json();
     if (!list?.length) return pageNotFound();
     const a = list[0];
+
+    // LKL_AVIS_BLOC — Avis verifies (nouveau systeme)
+    let avisMoyenne = 0, avisNb = 0, avisListe = [];
+    try {
+      const avUrl = `${SUPABASE_URL}/rest/v1/avis_public?cible_type=eq.artisan&cible_id=eq.${id}&order=date_publication.desc&limit=20`;
+      const agUrl = `${SUPABASE_URL}/rest/v1/avis_agrege?cible_type=eq.artisan&cible_id=eq.${id}`;
+      const [avR, agR] = await Promise.all([
+        fetch(avUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } }),
+        fetch(agUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } }),
+      ]);
+      avisListe = avR.ok ? (await avR.json()) : [];
+      const agg = agR.ok ? (await agR.json()) : [];
+      if (agg && agg[0]) { avisMoyenne = Number(agg[0].note_moyenne) || 0; avisNb = agg[0].nb_avis || 0; }
+    } catch (e) { console.error('[artisan avis]', e); }
+
+    const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+    const fmtDate = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }); } catch { return ''; } };
+    const avisHtml = avisListe.map((av) => `
+      <div class="avis-card">
+        <div class="avis-head"><span class="avis-stars">${etoiles(av.note)}</span>${av.verified ? '<span class="avis-verif">✓ Vérifié</span>' : ''}</div>
+        ${av.titre ? `<div class="avis-titre">${escapeHtml(av.titre)}</div>` : ''}
+        ${av.commentaire ? `<div class="avis-txt">${escapeHtml(av.commentaire)}</div>` : ''}
+        <div class="avis-date">${fmtDate(av.date_publication)}</div>
+        ${av.reponse ? `<div class="avis-rep"><div class="avis-rep-lab">Réponse du professionnel</div>${escapeHtml(av.reponse)}</div>` : ''}
+      </div>`).join('');
+
 
     if (a.actif === false) return pageNotFound("Cet artisan n'est plus actif");
 
@@ -182,7 +221,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
     <div class="head">
       <h1 class="titre">${escapeHtml(nom)}</h1>
       ${ville ? `<div class="ville">📍 ${escapeHtml(villeFull)}</div>` : ''}
-      ${a.note_moyenne > 0 ? `<div class="note">⭐ ${Number(a.note_moyenne).toFixed(1)} (${a.nb_avis || 0} avis)</div>` : ''}
+      ${avisNb > 0 ? `<div class="note">⭐ ${avisMoyenne.toFixed(1)} (${avisNb} avis)</div>` : ''}
     </div>
   </article>
 
@@ -192,6 +231,13 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — 50 points offerts �
     <p>${escapeHtml(description)}</p>
     ${a.rayon_intervention ? `<div class="info-row">📍 Intervient dans un rayon de ${escapeHtml(String(a.rayon_intervention))} km</div>` : ''}
   </section>` : ''}
+
+  <section class="section">
+    <h2>⭐ Avis${avisNb > 0 ? ` (${avisNb})` : ''}</h2>
+    ${avisNb > 0 ? `<div class="avis-resume"><span class="avis-resume-note">${avisMoyenne.toFixed(1)}</span><span class="avis-resume-stars">${etoiles(avisMoyenne)}</span></div>` : ''}
+    ${avisHtml || '<p style="color:var(--muted);font-size:14px;">Aucun avis pour le moment. Soyez le premier à partager votre expérience depuis l\'app.</p>'}
+    <a href="${deepLink}" class="avis-cta">✍️ Laisser un avis dans l\'app</a>
+  </section>
 
   <div class="cta-block">
     <h3>📱 Contacte ${escapeHtml(nom)} dans l'app</h3>
