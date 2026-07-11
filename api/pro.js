@@ -246,7 +246,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
     <h2>⭐ Avis${avisNb > 0 ? ` (${avisNb})` : ''}</h2>
     ${avisNb > 0 ? `<div class="avis-resume"><span class="avis-resume-note">${avisMoyenne.toFixed(1)}</span><span class="avis-resume-stars">${etoiles(avisMoyenne)}</span></div>` : ''}
     ${avisHtml || '<p style="color:var(--muted);font-size:14px;">Aucun avis pour le moment. Soyez le premier à partager votre expérience depuis l\'app.</p>'}
-    <a href="${deepLink}" class="avis-cta">✍️ Laisser un avis dans l\'app</a>
+    <a href="lokalist://avis?type=commercant&id=${id}" class="avis-cta">✍️ Laisser un avis dans l\'app</a>
   </section>
 
   <div class="cta-block">
