@@ -130,7 +130,7 @@
     .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:52px;max-width:500px}
     .cibles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .cible-card{background:var(--surf);border:1px solid var(--bdr);border-radius:22px;padding:30px 26px;position:relative;overflow:hidden;transition:all .3s;cursor:default}
-    .cible-card::after{content:'';position:absolute;inset:0;border-radius:22px;background:linear-gradient(135deg,rgba(29,158,117,.03),transparent);opacity:0;transition:opacity .3s}
+    .cible-card::after{content:'';position:absolute;inset:0;border-radius:22px;background:linear-gradient(135deg,rgba(29,158,117,.03),transparent);opacity:0;transition:opacity .3s;pointer-events:none}
     .cible-card:hover{transform:translateY(-5px);box-shadow:0 24px 60px rgba(29,158,117,.1);border-color:var(--gm)}
     .cible-card:hover::after{opacity:1}
     .cible-bar{height:3px;border-radius:2px;margin-bottom:24px;background:var(--g);transform:scaleX(.15);transform-origin:left;transition:transform .4s}
@@ -529,7 +529,7 @@ img,svg,video{max-width:100%;height:auto}
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-badge"><div class="live-dot"></div>🇫🇷 Disponible partout en France</div>
-  <h1>L'app qui fait vivre<br/><span class="accent">votre commerce local</span></h1>
+  <h1>L'app qui fait vivre<br/><span class="accent">l'économie locale</span></h1>
   <p class="hero-sub">Lokalist connecte habitants, commerçants, artisans, agences et mairies autour d'un programme de fidélité local intelligent. Gratuit pour les habitants, puissant pour les pros.</p>
   <div class="hero-btns">
     <a href="#telecharger" class="btn btn-g">📱 Télécharger l'app</a>
