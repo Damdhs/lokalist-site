@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>DÃ©poser un projet â€” Lokalist</title>
-<meta name="description" content="DÃ©crivez votre projet (travaux, jardin, dÃ©pannageâ€¦) et recevez des devis d'artisans locaux vÃ©rifiÃ©s, prÃ¨s de chez vous. Gratuit et sans engagement."/>
+<title>Déposer un projet — Lokalist</title>
+<meta name="description" content="Décrivez votre projet (travaux, jardin, dépannage…) et recevez des devis d'artisans locaux vérifiés, près de chez vous. Gratuit et sans engagement."/>
 <link rel="canonical" href="https://lokalist.fr/deposer-projet"/>
 
-<!-- Open Graph -->
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://lokalist.fr/deposer-projet"/>
-<meta property="og:title" content="DÃ©posez votre projet, recevez des devis d'artisans locaux"/>
-<meta property="og:description" content="DÃ©crivez votre besoin en 2 minutes. Les artisans vÃ©rifiÃ©s de votre secteur vous rÃ©pondent. Gratuit, sans engagement."/>
+<meta property="og:title" content="Déposez votre projet, recevez des devis d'artisans locaux"/>
+<meta property="og:description" content="Décrivez votre besoin en 2 minutes. Les artisans vérifiés de votre secteur vous répondent. Gratuit, sans engagement."/>
 <meta property="og:image" content="https://lokalist.fr/og-lokalist.png"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
-<meta property="og:image:alt" content="Lokalist â€” dÃ©posez votre projet, recevez des devis locaux"/>
+<meta property="og:image:alt" content="Lokalist — déposez votre projet, recevez des devis locaux"/>
 <meta property="og:site_name" content="Lokalist"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="DÃ©posez votre projet, recevez des devis d'artisans locaux"/>
-<meta name="twitter:description" content="DÃ©crivez votre besoin en 2 minutes. Les artisans vÃ©rifiÃ©s de votre secteur vous rÃ©pondent."/>
+<meta name="twitter:title" content="Déposez votre projet, recevez des devis d'artisans locaux"/>
+<meta name="twitter:description" content="Décrivez votre besoin en 2 minutes. Les artisans vérifiés de votre secteur vous répondent."/>
 <meta name="twitter:image" content="https://lokalist.fr/og-lokalist.png"/>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -32,8 +31,10 @@
   a{color:inherit}
   .wrap{max-width:720px;margin:0 auto;padding:32px 20px 80px}
   .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
-  .brand{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--dark);text-decoration:none}
-  .brand span{color:var(--g)}
+  .brand{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
+  .brand img{height:32px;display:block}
+  .brand .wm{color:var(--dark);font-family:'Syne',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.5px}
+  .brand .wm span{color:var(--a)}
   .back{font-size:13.5px;color:var(--muted);text-decoration:none;font-weight:500}
   .hero{text-align:center;margin-bottom:30px}
   .hero .tag{display:inline-block;background:var(--gl);color:var(--gd);font-size:12.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:14px}
@@ -46,14 +47,11 @@
   .step-lbl:first-child{margin-top:0}
   label.f{display:block;font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:6px}
   label.f .opt{color:var(--muted);font-weight:400}
-  /* DEPOT_UX_V1 */
   .rq{color:#E24B4A;font-weight:700}
-  .commune-ok{display:none;font-size:12.5px;color:var(--gd);font-weight:600;margin-top:6px}
-  .req-note{font-size:12.5px;color:var(--muted);text-align:center;margin:2px 0 14px}
-  input.valid-commune{border-color:var(--g)!important;background:var(--gl)!important}
   input[type=text],input[type=email],input[type=password],input[type=number],select,textarea{
     width:100%;background:var(--bg);border:1.5px solid var(--bdr);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;transition:border-color .15s}
   input:focus,select:focus,textarea:focus{border-color:var(--g)}
+  input.valid-commune{border-color:var(--g)!important;background:var(--gl)!important}
   textarea{resize:vertical;min-height:96px}
   .row{margin-bottom:16px}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -62,11 +60,13 @@
   .ac-drop{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--bdr);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.1);z-index:20;display:none;overflow:hidden;max-height:260px;overflow-y:auto}
   .ac-item{padding:10px 14px;font-size:14px;cursor:pointer}
   .ac-item:hover{background:var(--gl)}
+  .commune-ok{display:none;font-size:12.5px;color:var(--gd);font-weight:600;margin-top:6px}
   .photo-prev{margin-top:10px;display:none;border-radius:12px;overflow:hidden;border:1px solid var(--bdr)}
   .photo-prev img{width:100%;max-height:220px;object-fit:cover;display:block}
   .hint{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
   .cgu{font-size:12.5px;color:var(--muted);margin:18px 0;line-height:1.55}
   .cgu a{color:var(--gd);text-decoration:underline}
+  .req-note{font-size:12.5px;color:var(--muted);text-align:center;margin:2px 0 14px}
   .submit{width:100%;background:var(--g);color:#fff;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 10px 26px rgba(29,158,117,.3);transition:background .15s,transform .15s}
   .submit:hover{background:var(--gd);transform:translateY(-1px)}
   .submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
@@ -83,43 +83,40 @@
 <body>
 <div class="wrap">
   <div class="top">
-    <!-- BRAND_WORDMARK_V1 --><a href="/" class="brand" style="display:inline-flex;align-items:center;gap:9px;text-decoration:none"><img src="/logo.png" alt="Lokalist" style="height:32px" onerror="this.style.display='none'"/><span style="color:var(--dark);font-family:'Syne',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.5px">Lokal<span style="color:var(--a)">ist</span><!-- BRAND_LOWER_V1 --></span></a>
-    <a href="/appels-offres" class="back">â† Retour</a>
+    <a href="/" class="brand"><img src="/logo.png" alt="Lokalist" onerror="this.style.display='none'"/><span class="wm">Lokal<span>ist</span></span></a>
+    <a href="/appels-offres.html" class="back">← Retour</a>
   </div>
 
   <div class="hero">
-    <div class="tag">ðŸ“‹ Projet de particulier</div>
-    <h1>DÃ©crivez votre projet,<br/>recevez des devis locaux</h1>
-    <p>Travaux, jardin, dÃ©pannage, Ã©vÃ©nementâ€¦ Les artisans vÃ©rifiÃ©s de votre secteur vous rÃ©pondent. Gratuit, sans engagement.</p>
+    <div class="tag">📋 Projet de particulier</div>
+    <h1>Décrivez votre projet,<br/>recevez des devis locaux</h1>
+    <p>Travaux, jardin, dépannage, événement… Les artisans vérifiés de votre secteur vous répondent. Gratuit, sans engagement.</p>
     <div class="trust">
-      <span>âœ… Artisans vÃ©rifiÃ©s</span>
-      <span>ðŸ“ PrÃ¨s de chez vous</span>
-      <span>ðŸ†“ 100 % gratuit</span>
+      <span>✅ Artisans vérifiés</span>
+      <span>📍 Près de chez vous</span>
+      <span>🆓 100 % gratuit</span>
     </div>
   </div>
 
   <div class="card">
     <div id="alert" class="alert err"></div>
 
-    <!-- FORMULAIRE -->
     <div id="form-zone">
-      <div class="step-lbl">1 Â· Votre projet</div>
+      <div class="step-lbl">1 · Votre projet</div>
 
       <div class="row">
         <label class="f" for="p-titre">Titre du projet <span class="rq">*</span></label>
-        <input type="text" id="p-titre" placeholder="Ex : RÃ©novation salle de bain" maxlength="120"/>
+        <input type="text" id="p-titre" placeholder="Ex : Rénovation salle de bain" maxlength="120"/>
       </div>
 
       <div class="row">
-        <label class="f" for="p-metier">MÃ©tier recherchÃ© <span class="rq">*</span></label>
-        <select id="p-metier">
-          <option value="">â€” Choisissez un mÃ©tier â€”</option>
-        </select>
+        <label class="f" for="p-metier">Métier recherché <span class="rq">*</span></label>
+        <select id="p-metier"><option value="">— Choisissez un métier —</option></select>
       </div>
 
       <div class="row">
         <label class="f" for="p-desc">Description <span class="rq">*</span></label>
-        <textarea id="p-desc" placeholder="DÃ©crivez votre besoin : ce qu'il y a Ã  faire, la surface, les contraintes, le dÃ©lai souhaitÃ©â€¦" maxlength="1500"></textarea>
+        <textarea id="p-desc" placeholder="Décrivez votre besoin : ce qu'il y a à faire, la surface, les contraintes, le délai souhaité…" maxlength="1500"></textarea>
       </div>
 
       <div class="grid2">
@@ -127,43 +124,43 @@
           <label class="f" for="p-commune">Commune <span class="rq">*</span></label>
           <input type="text" id="p-commune" placeholder="Votre ville" autocomplete="off"/>
           <div class="ac-drop" id="p-commune-drop"></div>
-          <div class="hint">Commencez Ã  taper, puis <b>choisissez votre commune dans la liste</b>.</div>
-          <div class="commune-ok" id="p-commune-ok">âœ“ Commune sÃ©lectionnÃ©e</div>
+          <div class="hint">Commencez à taper, puis <b>choisissez votre commune dans la liste</b>.</div>
+          <div class="commune-ok" id="p-commune-ok">✓ Commune sélectionnée</div>
         </div>
         <div class="row">
-          <label class="f" for="p-urgence">DÃ©lai</label>
+          <label class="f" for="p-urgence">Délai</label>
           <select id="p-urgence">
-            <option value="normal">Pas pressÃ©</option>
-            <option value="rapide">DÃ¨s que possible</option>
+            <option value="normal">Pas pressé</option>
+            <option value="projet">Dès que possible</option>
             <option value="urgent">Urgent</option>
           </select>
         </div>
       </div>
 
       <div class="row">
-        <label class="f">Photo <span class="opt">(optionnel mais recommandÃ©)</span></label>
+        <label class="f">Photo <span class="opt">(optionnel mais recommandé)</span></label>
         <input type="file" id="p-photo" accept="image/*"/>
         <div class="photo-prev" id="p-photo-prev"><img id="p-photo-img" alt=""/></div>
-        <div class="hint">Une photo aide les artisans Ã  mieux comprendre et chiffrer votre projet.</div>
+        <div class="hint">Une photo aide les artisans à mieux comprendre et chiffrer votre projet.</div>
       </div>
 
       <div class="grid2">
         <div class="row">
-          <label class="f" for="p-budmin">Budget min <span class="opt">(â‚¬, optionnel)</span></label>
+          <label class="f" for="p-budmin">Budget min <span class="opt">(€, optionnel)</span></label>
           <input type="number" id="p-budmin" min="0" placeholder="Ex : 500"/>
         </div>
         <div class="row">
-          <label class="f" for="p-budmax">Budget max <span class="opt">(â‚¬, optionnel)</span></label>
+          <label class="f" for="p-budmax">Budget max <span class="opt">(€, optionnel)</span></label>
           <input type="number" id="p-budmax" min="0" placeholder="Ex : 3000"/>
         </div>
       </div>
 
-      <div class="step-lbl">2 Â· Votre compte Lokalist</div>
-      <div class="hint" style="margin:-6px 0 14px">On crÃ©e votre compte pour que vous puissiez suivre les devis reÃ§us dans l'application, avec les mÃªmes identifiants.</div>
+      <div class="step-lbl">2 · Votre compte Lokalist</div>
+      <div class="hint" style="margin:-6px 0 14px">On crée votre compte pour suivre les devis dans l'application, avec les mêmes identifiants. Déjà un compte ? Entrez votre mot de passe habituel.</div>
 
       <div class="row">
         <label class="f" for="p-nom">Votre nom <span class="rq">*</span></label>
-        <input type="text" id="p-nom" placeholder="PrÃ©nom Nom" maxlength="80"/>
+        <input type="text" id="p-nom" placeholder="Prénom Nom" maxlength="80"/>
       </div>
       <div class="grid2">
         <div class="row">
@@ -172,181 +169,173 @@
         </div>
         <div class="row">
           <label class="f" for="p-pass">Mot de passe <span class="rq">*</span></label>
-          <input type="password" id="p-pass" placeholder="8 caractÃ¨res minimum" autocomplete="new-password"/>
+          <input type="password" id="p-pass" placeholder="8 caractères minimum" autocomplete="current-password"/>
         </div>
       </div>
 
-      <!-- Honeypot anti-bot -->
       <input type="text" id="p-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
 
       <div class="cgu">
-        En dÃ©posant votre projet, vous acceptez les <a href="/cgu" target="_blank">CGU</a> et notre <a href="/confidentialite" target="_blank">politique de confidentialitÃ©</a>. Votre projet est vÃ©rifiÃ© par notre Ã©quipe avant d'Ãªtre transmis aux artisans.
+        En déposant votre projet, vous acceptez les <a href="/cgu" target="_blank">CGU</a> et notre <a href="/confidentialite" target="_blank">politique de confidentialité</a>. Votre projet est vérifié par notre équipe avant d'être transmis aux artisans.
       </div>
 
       <div class="req-note"><span class="rq">*</span> Champs obligatoires</div>
-      <button class="submit" id="p-submit">ðŸ“‹ DÃ©poser mon projet</button>
+      <button class="submit" id="p-submit">📋 Déposer mon projet</button>
     </div>
 
-    <!-- CONFIRMATION -->
     <div id="done" class="done">
-      <div class="ic">ðŸŽ‰</div>
-      <h2>Projet reÃ§u !</h2>
-      <p>Notre Ã©quipe vÃ©rifie votre projet, puis les artisans de votre secteur seront prÃ©venus. Vous serez recontactÃ© par ceux que Ã§a intÃ©resse.</p>
-      <p>Votre compte est crÃ©Ã© : suivez les devis dans l'application Lokalist avec l'email et le mot de passe que vous venez de choisir.</p>
-      <a href="/" class="btn">Retour Ã  l'accueil</a>
+      <div class="ic">🎉</div>
+      <h2>Projet reçu !</h2>
+      <p>Notre équipe vérifie votre projet, puis les artisans de votre secteur seront prévenus. Vous serez recontacté par ceux que ça intéresse.</p>
+      <p>Suivez les devis dans l'application Lokalist avec votre email et votre mot de passe.</p>
+      <a href="/" class="btn">Retour à l'accueil</a>
     </div>
   </div>
 </div>
 
 <script>
-  const SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
-  const API = 'https://lokalist-api-production.up.railway.app';
+  var SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
+  var API = 'https://lokalist-api-production.up.railway.app';
 
-  const $ = (id) => document.getElementById(id);
-  const val = (id) => ($(id) ? $(id).value.trim() : '');
+  var $ = function(id){ return document.getElementById(id); };
+  var val = function(id){ return $(id) ? $(id).value.trim() : ''; };
 
-  // MÃ©tiers (libellÃ©s exacts = ceux des pros, pour le matching)
-  const METIERS = [
-    ['BÃ¢timent & travaux', ['MaÃ§onnerie','Carrelage','Plomberie','Ã‰lectricitÃ©','Chauffage / Climatisation','Menuiserie','Peinture','Serrurerie']],
-    ['ExtÃ©rieur & espaces verts', ['Jardinage / Paysagiste','Voirie & espaces publics']],
+  var METIERS = [
+    ['Bâtiment & travaux', ['Maçonnerie','Carrelage','Plomberie','Électricité','Chauffage / Climatisation','Menuiserie','Peinture','Serrurerie']],
+    ['Extérieur & espaces verts', ['Jardinage / Paysagiste','Voirie & espaces publics']],
     ['Multi-services', ['Multi-services / Bricolage']],
-    ['Restauration & Ã©vÃ©nementiel', ['Ã‰vÃ©nementiel & animation','Traiteur','Restaurant','Location de salle']],
-    ['Services aux entreprises', ['Nettoyage & propretÃ©','SÃ©curitÃ© & gardiennage','Informatique & tÃ©lÃ©com','Transport & logistique','Fournitures & Ã©quipement']],
+    ['Restauration & événementiel', ['Événementiel & animation','Traiteur','Restaurant','Location de salle']],
+    ['Services aux entreprises', ['Nettoyage & propreté','Sécurité & gardiennage','Informatique & télécom','Transport & logistique','Fournitures & équipement']],
     ['Divers', ['Autres']]
   ];
-  (function fillMetiers(){
-    const sel = $('p-metier');
+  (function(){
+    var sel = $('p-metier');
     METIERS.forEach(function(grp){
-      const og = document.createElement('optgroup'); og.label = grp[0];
-      grp[1].forEach(function(m){ const o = document.createElement('option'); o.value = m; o.textContent = m; og.appendChild(o); });
+      var og = document.createElement('optgroup'); og.label = grp[0];
+      grp[1].forEach(function(m){ var o = document.createElement('option'); o.value = m; o.textContent = m; og.appendChild(o); });
       sel.appendChild(og);
     });
   })();
 
-  function showErr(msg){ const a = $('alert'); a.textContent = msg; a.style.display = 'block'; window.scrollTo({top:0,behavior:'smooth'}); }
-  function hideErr(){ $('alert').style.display = 'none'; }
+  function showErr(msg){ var a=$('alert'); a.textContent=msg; a.style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
+  function hideErr(){ $('alert').style.display='none'; }
 
-  // AperÃ§u photo
   $('p-photo').addEventListener('change', function(){
-    const f = this.files[0];
+    var f=this.files[0];
     if(!f){ $('p-photo-prev').style.display='none'; return; }
-    $('p-photo-img').src = URL.createObjectURL(f);
-    $('p-photo-prev').style.display = 'block';
+    $('p-photo-img').src=URL.createObjectURL(f);
+    $('p-photo-prev').style.display='block';
   });
 
-  // AutocomplÃ©tion commune (geo.api.gouv.fr) â€” donne aussi lat/lng
-  let villeData = { nom:'', cp:'', lat:null, lng:null };
-  const villeInput = $('p-commune'), villeDrop = $('p-commune-drop');
-  let villeTimer = null;
+  var villeData = { nom:'', cp:'', lat:null, lng:null };
+  var villeInput = $('p-commune'), villeDrop = $('p-commune-drop'), villeTimer=null;
   villeInput.addEventListener('input', function(){
     villeData = { nom:'', cp:'', lat:null, lng:null };
     villeInput.classList.remove('valid-commune');
-    var _okc0 = document.getElementById('p-commune-ok'); if(_okc0) _okc0.style.display='none';
-    const q = villeInput.value.trim();
+    var okc0=$('p-commune-ok'); if(okc0) okc0.style.display='none';
+    var q=villeInput.value.trim();
     if(villeTimer) clearTimeout(villeTimer);
-    if(q.length < 2){ villeDrop.style.display='none'; return; }
-    villeTimer = setTimeout(async function(){
+    if(q.length<2){ villeDrop.style.display='none'; return; }
+    villeTimer=setTimeout(async function(){
       try{
-        const r = await fetch('https://geo.api.gouv.fr/communes?nom='+encodeURIComponent(q)+'&fields=nom,codesPostaux,centre&boost=population&limit=8&format=json');
-        const arr = await r.json();
-        villeDrop._arr = Array.isArray(arr) ? arr : [];
-        villeDrop.innerHTML = villeDrop._arr.map(function(c,i){
+        var r=await fetch('https://geo.api.gouv.fr/communes?nom='+encodeURIComponent(q)+'&fields=nom,codesPostaux,centre&boost=population&limit=8&format=json');
+        var arr=await r.json();
+        villeDrop._arr=Array.isArray(arr)?arr:[];
+        villeDrop.innerHTML=villeDrop._arr.map(function(c,i){
           return '<div class="ac-item" data-i="'+i+'">'+c.nom+' <span style="color:var(--muted)">'+((c.codesPostaux&&c.codesPostaux[0])||'')+'</span></div>';
         }).join('');
-        villeDrop.style.display = villeDrop._arr.length ? 'block' : 'none';
+        villeDrop.style.display=villeDrop._arr.length?'block':'none';
       }catch(e){ villeDrop.style.display='none'; }
-    }, 300);
+    },300);
   });
   villeDrop.addEventListener('click', function(e){
-    const it = e.target.closest('.ac-item'); if(!it) return;
-    const c = villeDrop._arr[+it.dataset.i]; if(!c) return;
-    const coords = c.centre && c.centre.coordinates;
-    villeData = { nom:c.nom, cp:((c.codesPostaux&&c.codesPostaux[0])||''), lat:coords?coords[1]:null, lng:coords?coords[0]:null };
-    villeInput.value = c.nom;
+    var it=e.target.closest('.ac-item'); if(!it) return;
+    var c=villeDrop._arr[+it.dataset.i]; if(!c) return;
+    var coords=c.centre&&c.centre.coordinates;
+    villeData={ nom:c.nom, cp:((c.codesPostaux&&c.codesPostaux[0])||''), lat:coords?coords[1]:null, lng:coords?coords[0]:null };
+    villeInput.value=c.nom;
     villeInput.classList.add('valid-commune');
-    var _okc = document.getElementById('p-commune-ok'); if(_okc) _okc.style.display='block';
-    villeDrop.style.display = 'none';
+    var okc=$('p-commune-ok'); if(okc) okc.style.display='block';
+    villeDrop.style.display='none';
   });
   document.addEventListener('click', function(e){ if(!e.target.closest('#p-commune') && !e.target.closest('#p-commune-drop')) villeDrop.style.display='none'; });
 
-  // Upload photo dans mp-medias (best effort, calquÃ© sur proposer-un-evenement)
-  async function uploadPhoto(file){
-    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
-    const path = 'web_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.'+ext;
-    const r = await fetch(SUPABASE_URL+'/storage/v1/object/mp-medias/'+path, {
-      method:'POST',
-      headers:{ apikey:SUPABASE_ANON_KEY, Authorization:'Bearer '+SUPABASE_ANON_KEY, 'Content-Type':(file.type||'image/jpeg'), 'x-upsert':'true' },
-      body:file
+  // Redimensionne l'image (max 1200px) puis renvoie un Blob JPEG leger
+  function resizeImage(file, maxW){
+    return new Promise(function(resolve,reject){
+      var img=new Image();
+      img.onload=function(){
+        var scale=Math.min(1, maxW/img.width);
+        var w=Math.round(img.width*scale), h=Math.round(img.height*scale);
+        var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        cv.toBlob(function(b){ resolve(b); }, 'image/jpeg', 0.82);
+      };
+      img.onerror=reject;
+      img.src=URL.createObjectURL(file);
     });
-    if(!r.ok) throw new Error('upload');
+  }
+
+  // Upload direct dans le bucket public mp-medias (via cle anon)
+  async function uploadPhoto(file){
+    var blob = await resizeImage(file, 1200).catch(function(){ return file; });
+    var path='web_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.jpg';
+    var r=await fetch(SUPABASE_URL+'/storage/v1/object/mp-medias/'+path, {
+      method:'POST',
+      headers:{ apikey:SUPABASE_ANON_KEY, Authorization:'Bearer '+SUPABASE_ANON_KEY, 'Content-Type':'image/jpeg', 'x-upsert':'true' },
+      body:blob
+    });
+    if(!r.ok){ throw new Error('upload '+r.status); }
     return SUPABASE_URL+'/storage/v1/object/public/mp-medias/'+path;
   }
 
-  // Soumission
   $('p-submit').addEventListener('click', async function(){
     hideErr();
-    const titre = val('p-titre'), metier = val('p-metier'), desc = val('p-desc');
-    const nom = val('p-nom'), email = val('p-email'), pass = $('p-pass').value;
+    var titre=val('p-titre'), metier=val('p-metier'), desc=val('p-desc');
+    var nom=val('p-nom'), email=val('p-email'), pass=$('p-pass').value;
 
     if(!titre){ return showErr('Indiquez un titre pour votre projet.'); }
-    if(!metier){ return showErr('Choisissez le mÃ©tier recherchÃ©.'); }
-    if(!desc){ return showErr('DÃ©crivez votre projet.'); }
-    if(desc.length < 20){ return showErr('Ajoutez plus de dÃ©tails (au moins 20 caractÃ¨res) pour que les artisans puissent bien chiffrer.'); }
+    if(!metier){ return showErr('Choisissez le métier recherché.'); }
+    if(!desc){ return showErr('Décrivez votre projet.'); }
+    if(desc.length<20){ return showErr('Ajoutez plus de détails (au moins 20 caractères) pour que les artisans puissent bien chiffrer.'); }
     if(!villeData.nom || !villeData.cp){ return showErr('Choisissez votre commune dans la liste de suggestions.'); }
     if(!nom){ return showErr('Indiquez votre nom.'); }
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return showErr('Indiquez un email valide.'); }
-    if(pass.length < 8){ return showErr('Le mot de passe doit faire au moins 8 caractÃ¨res.'); }
+    if(pass.length<8){ return showErr('Le mot de passe doit faire au moins 8 caractères.'); }
 
-    const btn = $('p-submit');
-    btn.disabled = true; btn.textContent = 'â³ Envoi en coursâ€¦';
+    var btn=$('p-submit');
+    btn.disabled=true; btn.textContent='⏳ Envoi en cours…';
 
     try{
-      // Photo (non bloquant)
-      let media = null;
-      const f = $('p-photo').files[0];
-      if(f){ try{ media = await uploadPhoto(f); }catch(e){ console.warn('Photo non envoyÃ©e:', e); } }
+      var media=null;
+      var f=$('p-photo').files[0];
+      if(f){ try{ media=await uploadPhoto(f); }catch(e){ console.warn('Photo non envoyée:', e); } }
 
-      const body = {
-        titre: titre,
-        metier: metier,
-        categorie: 'travaux',
-        description: desc,
-        ville: villeData.nom,
-        cp: villeData.cp,
-        lat: villeData.lat,
-        lng: villeData.lng,
-        urgence: val('p-urgence') || 'normal',
-        budget_min: val('p-budmin') || null,
-        budget_max: val('p-budmax') || null,
-        medias: media ? [media] : [],
-        nom: nom,
-        email: email,
-        password: pass,
-        hp: $('p-hp').value
+      var body={
+        titre:titre, metier:metier, categorie:'travaux', description:desc,
+        ville:villeData.nom, cp:villeData.cp, lat:villeData.lat, lng:villeData.lng,
+        urgence:val('p-urgence')||'normal',
+        budget_min:val('p-budmin')||null, budget_max:val('p-budmax')||null,
+        medias:media?[media]:[], nom:nom, email:email, password:pass, hp:$('p-hp').value
       };
 
-      const r = await fetch(API+'/mp/projets/web', {
-        method:'POST',
-        headers:{ 'Content-Type':'application/json' },
-        body: JSON.stringify(body)
-      });
-      const data = await r.json().catch(function(){ return {}; });
+      var r=await fetch(API+'/mp/projets/web', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
+      var data=await r.json().catch(function(){ return {}; });
 
       if(!r.ok){
-        btn.disabled = false; btn.textContent = 'ðŸ“‹ DÃ©poser mon projet';
-        if(r.status === 409){ return showErr('Un compte existe dÃ©jÃ  pour cet email. Connectez-vous dans l\'application Lokalist pour dÃ©poser votre projet.'); }
-        if(r.status === 429){ return showErr('Trop de dÃ©pÃ´ts rÃ©cents. RÃ©essayez dans un moment.'); }
-        return showErr((data && data.message) || 'Une erreur est survenue. RÃ©essayez.');
+        btn.disabled=false; btn.textContent='📋 Déposer mon projet';
+        if(r.status===401 || r.status===409){ return showErr((data&&data.message)||'Un compte existe déjà : entrez votre mot de passe habituel pour redéposer.'); }
+        if(r.status===429){ return showErr('Trop de dépôts récents. Réessayez dans un moment.'); }
+        return showErr((data&&data.message)||'Une erreur est survenue. Réessayez.');
       }
 
-      // SuccÃ¨s
-      $('form-zone').style.display = 'none';
-      $('done').style.display = 'block';
+      $('form-zone').style.display='none';
+      $('done').style.display='block';
       window.scrollTo({top:0,behavior:'smooth'});
     }catch(e){
-      btn.disabled = false; btn.textContent = 'ðŸ“‹ DÃ©poser mon projet';
-      showErr('Erreur rÃ©seau. VÃ©rifiez votre connexion et rÃ©essayez.');
+      btn.disabled=false; btn.textContent='📋 Déposer mon projet';
+      showErr('Erreur réseau. Vérifiez votre connexion et réessayez.');
     }
   });
 </script>
