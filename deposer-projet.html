@@ -172,6 +172,7 @@
           <input type="password" id="p-pass" placeholder="8 caractères minimum" autocomplete="current-password"/>
         </div>
       </div>
+      <div class="hint" style="margin:-6px 0 4px"><!-- DEPOT_FORGOT_V1 --><b>Vos identifiants sont les mêmes que sur l'application Lokalist.</b> <a href="#" id="p-forgot" style="color:var(--gd);text-decoration:underline">Mot de passe oublié ?</a></div>
 
       <input type="text" id="p-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
 
@@ -276,6 +277,18 @@
       img.src=URL.createObjectURL(file);
     });
   }
+
+  var _fg = $('p-forgot');
+  if(_fg){ _fg.addEventListener('click', async function(e){
+    e.preventDefault();
+    var em = prompt('Entrez votre email pour recevoir un lien de réinitialisation :', val('p-email'));
+    if(!em) return;
+    try{
+      var r = await fetch(API+'/mp/reset-password', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email: em.trim() }) });
+      await r.json().catch(function(){return{};});
+      alert('Si un compte existe pour cet email, un lien de réinitialisation vient d\'être envoyé. Vérifiez votre boîte mail.');
+    }catch(err){ alert('Erreur réseau, réessayez.'); }
+  }); }
 
   $('p-submit').addEventListener('click', async function(){
     hideErr();
