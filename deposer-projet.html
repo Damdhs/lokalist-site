@@ -194,8 +194,6 @@
 </div>
 
 <script>
-  var SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
   var API = 'https://lokalist-api-production.up.railway.app';
 
   var $ = function(id){ return document.getElementById(id); };
@@ -261,8 +259,10 @@
   });
   document.addEventListener('click', function(e){ if(!e.target.closest('#p-commune') && !e.target.closest('#p-commune-drop')) villeDrop.style.display='none'; });
 
-  // Redimensionne l'image (max 1200px) puis renvoie un Blob JPEG leger
-  function resizeImage(file, maxW){
+  // Redimensionne l'image (max 1200px) et renvoie une dataURL JPEG legere.
+  // Elle est envoyee au serveur, qui fait l'upload en service-role
+  // (ni cle anon ni policy Storage cote navigateur).
+  function resizeToDataUrl(file, maxW){
     return new Promise(function(resolve,reject){
       var img=new Image();
       img.onload=function(){
@@ -270,24 +270,11 @@
         var w=Math.round(img.width*scale), h=Math.round(img.height*scale);
         var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
         cv.getContext('2d').drawImage(img,0,0,w,h);
-        cv.toBlob(function(b){ resolve(b); }, 'image/jpeg', 0.82);
+        resolve(cv.toDataURL('image/jpeg', 0.82));
       };
       img.onerror=reject;
       img.src=URL.createObjectURL(file);
     });
-  }
-
-  // Upload direct dans le bucket public mp-medias (via cle anon)
-  async function uploadPhoto(file){
-    var blob = await resizeImage(file, 1200).catch(function(){ return file; });
-    var path='web_'+Date.now()+'_'+Math.random().toString(36).slice(2,8)+'.jpg';
-    var r=await fetch(SUPABASE_URL+'/storage/v1/object/mp-medias/'+path, {
-      method:'POST',
-      headers:{ apikey:SUPABASE_ANON_KEY, Authorization:'Bearer '+SUPABASE_ANON_KEY, 'Content-Type':'image/jpeg', 'x-upsert':'true' },
-      body:blob
-    });
-    if(!r.ok){ throw new Error('upload '+r.status); }
-    return SUPABASE_URL+'/storage/v1/object/public/mp-medias/'+path;
   }
 
   $('p-submit').addEventListener('click', async function(){
@@ -308,16 +295,16 @@
     btn.disabled=true; btn.textContent='⏳ Envoi en cours…';
 
     try{
-      var media=null;
+      var photo_base64=null;
       var f=$('p-photo').files[0];
-      if(f){ try{ media=await uploadPhoto(f); }catch(e){ console.warn('Photo non envoyée:', e); } }
+      if(f){ try{ photo_base64=await resizeToDataUrl(f,1200); }catch(e){ console.warn('Photo non traitée:', e); } }
 
       var body={
         titre:titre, metier:metier, categorie:'travaux', description:desc,
         ville:villeData.nom, cp:villeData.cp, lat:villeData.lat, lng:villeData.lng,
         urgence:val('p-urgence')||'normal',
         budget_min:val('p-budmin')||null, budget_max:val('p-budmax')||null,
-        medias:media?[media]:[], nom:nom, email:email, password:pass, hp:$('p-hp').value
+        photo_base64:photo_base64, nom:nom, email:email, password:pass, hp:$('p-hp').value
       };
 
       var r=await fetch(API+'/mp/projets/web', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
