@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>Mes projets — Lokalist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+<style>
+  :root{
+    --vert:#1D9E75; --vert-d:#0F6E56; --or:#EF9F27;
+    --txt:#111827; --muted:#6B7280; --bg:#F6F7F5; --surface:#fff;
+    --border:#E5E7EB; --border2:#EDEFEC; --danger:#B91C1C; --danger-bg:#FEECEC;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'DM Sans',system-ui,sans-serif;color:var(--txt);background:var(--bg);
+    line-height:1.5;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Syne',sans-serif;margin:0}
+  a{color:var(--vert-d)}
+  .wrap{max-width:760px;margin:0 auto;padding:20px 18px 60px}
+  header.top{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:14px 18px;background:var(--surface);border-bottom:1px solid var(--border);
+    position:sticky;top:0;z-index:50;
+  }
+  header.top .brand{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--vert-d)}
+  header.top .brand .dot{width:26px;height:26px;border-radius:8px;background:var(--vert);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+  .btn{
+    font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;
+    border-radius:10px;padding:11px 18px;border:none;background:var(--vert);color:#fff;
+    transition:filter .15s ease,opacity .15s ease;
+  }
+  .btn:hover{filter:brightness(.96)}
+  .btn:disabled{opacity:.55;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--txt);border:1.5px solid var(--border)}
+  .btn.sm{padding:8px 14px;font-size:13px}
+  .btn.link{background:none;border:none;color:var(--muted);padding:6px 0;font-size:12.5px;text-decoration:underline;cursor:pointer}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px}
+  .muted{color:var(--muted)}
+  .hidden{display:none !important}
+
+  /* ---- AUTH ---- */
+  #view-auth{max-width:420px;margin:40px auto 0}
+  #view-auth h1{font-size:24px;color:var(--txt);margin-bottom:6px}
+  #view-auth .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field input{
+    width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;
+    font-family:'DM Sans',sans-serif;font-size:15px;outline:none;background:#fff;
+  }
+  .field input:focus{border-color:var(--vert)}
+  .err{background:var(--danger-bg);color:var(--danger);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+  .ok{background:#E1F5EE;color:var(--vert-d);border-radius:10px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+
+  /* ---- LISTE ---- */
+  .page-title{font-size:22px;margin:6px 0 4px}
+  .page-sub{color:var(--muted);font-size:14px;margin-bottom:20px}
+  .proj{cursor:pointer;margin-bottom:14px;transition:box-shadow .15s ease,transform .05s ease}
+  .proj:hover{box-shadow:0 4px 18px rgba(0,0,0,.06)}
+  .proj:active{transform:translateY(1px)}
+  .proj .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .proj .titre{font-family:'Syne',sans-serif;font-weight:700;font-size:16px}
+  .proj .meta{font-size:13px;color:var(--muted);margin-top:6px}
+  .badge{font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .badge.green{background:#E1F5EE;color:var(--vert-d)}
+  .badge.gray{background:#EEF0ED;color:#5B6560}
+  .badge.or{background:#FBEED7;color:#8A5A12}
+  .chev{color:var(--muted);font-size:18px}
+
+  /* ---- DETAIL ---- */
+  .back{background:none;border:none;color:var(--vert-d);font-weight:600;font-size:14px;cursor:pointer;padding:6px 0;margin-bottom:8px;display:inline-flex;align-items:center;gap:6px}
+  .lot{margin-bottom:16px}
+  .lot .lot-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:2px}
+  .lot .metier{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--vert-d);text-transform:capitalize}
+  .lot .desc{font-size:13.5px;color:var(--muted);margin:4px 0 12px}
+  .devis-label{font-size:13px;font-weight:700;margin:10px 0 8px}
+  .devis{background:#FafBfa;border:1px solid var(--border2);border-radius:10px;padding:12px 14px;margin-bottom:10px}
+  .devis .montant{font-size:15px;font-weight:700}
+  .devis .msg{font-size:13.5px;color:#374151;margin:6px 0 10px;white-space:pre-wrap}
+  .devis .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .attribue-box{background:#E1F5EE;border-radius:10px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .attribue-box .t{font-weight:700;color:var(--vert-d);font-size:14px}
+  .empty{color:var(--muted);font-size:13.5px;padding:6px 0}
+  .empty-state{text-align:center;padding:48px 16px;color:var(--muted)}
+  .empty-state .emoji{font-size:34px;margin-bottom:8px}
+
+  /* ---- MODALE ---- */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:16px;z-index:100}
+  .modal{background:#fff;border-radius:var(--radius);max-width:460px;width:100%;padding:22px}
+  .modal h3{font-size:18px;margin-bottom:6px}
+  .modal .m-sub{color:var(--muted);font-size:13.5px;margin-bottom:16px}
+  .modal textarea,.modal select{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;resize:vertical}
+  .modal textarea:focus,.modal select:focus{border-color:var(--vert)}
+  .stars{display:flex;gap:6px;margin:4px 0 14px}
+  .star{font-size:28px;cursor:pointer;color:#D6DAD7;line-height:1;user-select:none}
+  .star.on{color:var(--or)}
+  .m-actions{display:flex;gap:10px;margin-top:16px}
+  .m-actions .btn{flex:1}
+
+  #toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:200;padding:12px 20px;border-radius:12px;color:#fff;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s ease}
+  #toast.show{opacity:1}
+  .spinner{display:inline-block;width:18px;height:18px;border:2.5px solid rgba(255,255,255,.5);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite;vertical-align:-3px}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .loading-full{text-align:center;padding:50px 0;color:var(--muted)}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand"><span class="dot">🦊</span> Lokalist</div>
+  <button id="btn-logout" class="btn ghost sm hidden" onclick="deconnexion()">Se déconnecter</button>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ AUTH ============ -->
+  <section id="view-auth" class="hidden">
+    <h1>Suivre mes projets</h1>
+    <div class="sub">Connectez-vous avec les mêmes identifiants que sur l'application Lokalist pour voir vos devis et les accepter.</div>
+    <div id="auth-err" class="err hidden"></div>
+    <div id="auth-ok" class="ok hidden"></div>
+    <div class="field">
+      <label for="in-email">Email</label>
+      <input type="email" id="in-email" placeholder="vous@email.fr" autocomplete="email"/>
+    </div>
+    <div class="field">
+      <label for="in-pass">Mot de passe</label>
+      <input type="password" id="in-pass" placeholder="Votre mot de passe" autocomplete="current-password"/>
+    </div>
+    <button id="btn-login" class="btn" style="width:100%;margin-top:4px" onclick="connexion()">Se connecter</button>
+    <div style="text-align:center;margin-top:12px">
+      <button class="btn link" onclick="motDePasseOublie()">Mot de passe oublié ?</button>
+    </div>
+  </section>
+
+  <!-- ============ LISTE ============ -->
+  <section id="view-list" class="hidden">
+    <h2 class="page-title">Mes projets</h2>
+    <div class="page-sub">Retrouvez vos demandes et les devis reçus des professionnels.</div>
+    <div id="list-body"><div class="loading-full"><span class="spinner" style="border-top-color:var(--vert);border-color:#ddd"></span> Chargement…</div></div>
+  </section>
+
+  <!-- ============ DETAIL ============ -->
+  <section id="view-detail" class="hidden">
+    <button class="back" onclick="retourListe()">← Mes projets</button>
+    <div id="detail-body"><div class="loading-full"><span class="spinner" style="border-top-color:var(--vert);border-color:#ddd"></span> Chargement…</div></div>
+  </section>
+
+</div>
+
+<div id="toast"></div>
+
+<!-- Supabase JS (UMD) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+/* =====================================================================
+   Mes projets — suivi web des projets/devis habitant (Mon Projet)
+   Auth : Supabase signInWithPassword (compte web = compte app)
+   Routes API (habitantAuth / Bearer) :
+     GET  /mp/projets
+     GET  /mp/projets/:id
+     POST /mp/devis/:id/accepter
+     POST /mp/lots/:id/avis        body { note(1-5), commentaire, titre? }
+     POST /mp/devis/:id/signaler   body { motif, message? }
+   Reset : POST /mp/reset-password  body { email }
+   ===================================================================== */
+
+// ⚠️ À REMPLIR (valeurs publiques, identiques à lib/supabase.ts de l'app) :
+var SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
+var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
+
+var API = 'https://lokalist-api-production.up.railway.app';
+
+var sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false }
+});
+
+// ---- helpers ----
+function $(id){ return document.getElementById(id); }
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+function show(id){ $(id).classList.remove('hidden'); }
+function hide(id){ $(id).classList.add('hidden'); }
+function toast(msg, danger){
+  var t=$('toast'); t.textContent=msg;
+  t.style.background = danger ? '#E24B4A' : 'var(--vert)';
+  t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 3200);
+}
+async function token(){
+  var r = await sbClient.auth.getSession();
+  return (r && r.data && r.data.session) ? r.data.session.access_token : null;
+}
+async function apiGet(path){
+  var t = await token();
+  var r = await fetch(API+path, { headers:{ Authorization:'Bearer '+t } });
+  if(!r.ok){ var e=await r.json().catch(function(){return{};}); throw new Error((e&&(e.message||e.error))||('HTTP '+r.status)); }
+  return r.json();
+}
+async function apiPost(path, body){
+  var t = await token();
+  var r = await fetch(API+path, { method:'POST', headers:{ 'Content-Type':'application/json', Authorization:'Bearer '+t }, body:JSON.stringify(body||{}) });
+  var data = await r.json().catch(function(){return{};});
+  if(!r.ok){ throw new Error((data&&(data.message||data.error))||('HTTP '+r.status)); }
+  return data;
+}
+
+// ---- statuts (alignés sur l'app) ----
+function statutProjet(s){
+  if(s==='ouvert') return { label:'Ouvert', cls:'green' };
+  return { label:'Clos', cls:'gray' };
+}
+function statutLot(s){
+  if(s==='attribue') return { label:'attribue', cls:'green' };
+  if(s==='clos')     return { label:'clos', cls:'gray' };
+  if(s==='complet')  return { label:'complet', cls:'or' };
+  return { label:'ouvert', cls:'green' };
+}
+function montantTxt(d){
+  if(d.statut==='ferme' && d.montant_ttc==null && d.montant_ht==null) return 'Devis fermé';
+  if(d.montant_ttc!=null) return d.montant_ttc+' € TTC';
+  if(d.montant_ht!=null)  return d.montant_ht+' € HT';
+  return 'Devis';
+}
+
+// ---- AUTH ----
+function authErr(msg){ var e=$('auth-err'); e.textContent=msg; e.classList.remove('hidden'); $('auth-ok').classList.add('hidden'); }
+function authOk(msg){ var e=$('auth-ok'); e.textContent=msg; e.classList.remove('hidden'); $('auth-err').classList.add('hidden'); }
+
+async function connexion(){
+  var email=($('in-email').value||'').trim();
+  var pass=$('in-pass').value||'';
+  $('auth-err').classList.add('hidden'); $('auth-ok').classList.add('hidden');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return authErr('Indiquez un email valide.'); }
+  if(!pass){ return authErr('Saisissez votre mot de passe.'); }
+  var btn=$('btn-login'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
+  try{
+    var r = await sbClient.auth.signInWithPassword({ email:email, password:pass });
+    if(r.error){ throw r.error; }
+    await entrerApp();
+  }catch(e){
+    var m = (e && e.message) || 'Connexion impossible.';
+    if(/invalid login credentials/i.test(m)) m='Email ou mot de passe incorrect.';
+    else if(/email not confirmed/i.test(m)) m='Votre email n\'est pas encore confirmé.';
+    authErr(m);
+  }finally{
+    btn.disabled=false; btn.textContent='Se connecter';
+  }
+}
+
+async function motDePasseOublie(){
+  var email=($('in-email').value||'').trim();
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return authErr('Saisissez d\'abord votre email ci-dessus, puis recliquez.'); }
+  try{
+    await fetch(API+'/mp/reset-password', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ email:email }) });
+    authOk('Si un compte existe pour cet email, un lien de réinitialisation vient d\'être envoyé.');
+  }catch(e){
+    authOk('Si un compte existe pour cet email, un lien de réinitialisation vient d\'être envoyé.');
+  }
+}
+
+async function deconnexion(){
+  try{ await sbClient.auth.signOut(); }catch(e){}
+  hide('view-list'); hide('view-detail'); hide('btn-logout');
+  $('in-pass').value='';
+  show('view-auth');
+}
+
+// ---- LISTE ----
+async function entrerApp(){
+  hide('view-auth'); hide('view-detail'); show('btn-logout'); show('view-list');
+  $('list-body').innerHTML='<div class="loading-full"><span class="spinner" style="border-top-color:var(--vert);border-color:#ddd"></span> Chargement…</div>';
+  try{
+    var projets = await apiGet('/mp/projets');
+    renderListe(projets||[]);
+  }catch(e){
+    $('list-body').innerHTML='<div class="card"><div class="empty">Impossible de charger vos projets : '+esc(e.message)+'</div></div>';
+  }
+}
+
+function renderListe(projets){
+  if(!projets.length){
+    $('list-body').innerHTML='<div class="empty-state"><div class="emoji">📭</div><p>Vous n\'avez pas encore de projet.<br>Déposez-en un depuis <a href="/deposer-projet">Déposer un projet</a>.</p></div>';
+    return;
+  }
+  var html = projets.map(function(p){
+    var lots = p.mp_lots || [];
+    var nbDevis = lots.reduce(function(a,l){ return a + ((l.mp_devis||[]).filter(function(d){return d.statut!=='refuse';}).length); }, 0);
+    var st = statutProjet(p.statut);
+    return ''+
+      '<div class="card proj" onclick="ouvrirProjet(\''+esc(p.id)+'\')">'+
+        '<div class="row">'+
+          '<div class="titre">'+esc(p.titre)+'</div>'+
+          '<span class="badge '+st.cls+'">'+st.label+'</span>'+
+        '</div>'+
+        '<div class="row" style="align-items:flex-end">'+
+          '<div class="meta">'+lots.length+' lot'+(lots.length>1?'s':'')+' · '+nbDevis+' devis reçu'+(nbDevis>1?'s':'')+'</div>'+
+          '<span class="chev">›</span>'+
+        '</div>'+
+      '</div>';
+  }).join('');
+  $('list-body').innerHTML = html;
+}
+
+function retourListe(){ hide('view-detail'); show('view-list'); }
+
+// ---- DETAIL ----
+var _detail = null;
+
+async function ouvrirProjet(id){
+  hide('view-list'); show('view-detail');
+  $('detail-body').innerHTML='<div class="loading-full"><span class="spinner" style="border-top-color:var(--vert);border-color:#ddd"></span> Chargement…</div>';
+  try{
+    _detail = await apiGet('/mp/projets/'+id);
+    renderDetail(_detail);
+  }catch(e){
+    $('detail-body').innerHTML='<div class="card"><div class="empty">Impossible de charger ce projet : '+esc(e.message)+'</div></div>';
+  }
+}
+
+function renderDetail(p){
+  var lots = p.mp_lots || [];
+  var st = statutProjet(p.statut);
+  var head = ''+
+    '<div class="row" style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px">'+
+      '<h2 class="page-title" style="margin:0">'+esc(p.titre)+'</h2>'+
+      '<span class="badge '+st.cls+'">'+st.label+'</span>'+
+    '</div>';
+
+  var body = lots.map(function(lot){
+    var ls = statutLot(lot.statut);
+    var devis = (lot.mp_devis||[]).filter(function(d){ return d.statut!=='refuse'; });
+    var attribue = lot.statut==='attribue';
+    var inner;
+    if(attribue){
+      inner = '<div class="attribue-box">'+
+                '<span class="t">✅ Lot attribué</span>'+
+                '<button class="btn sm" onclick="ouvrirAvis(\''+esc(lot.id)+'\')">Laisser un avis</button>'+
+              '</div>';
+    } else if(!devis.length){
+      inner = '<div class="empty">Aucun devis reçu pour l\'instant. Les professionnels de votre secteur ont été notifiés.</div>';
+    } else {
+      inner = '<div class="devis-label">Devis reçus ('+devis.length+')</div>'+
+        devis.map(function(d){
+          var delai = (d.delai_jours!=null) ? ' · '+d.delai_jours+' j' : '';
+          return '<div class="devis">'+
+            '<div class="montant">'+esc(montantTxt(d))+esc(delai)+'</div>'+
+            (d.message ? '<div class="msg">'+esc(d.message)+'</div>' : '')+
+            '<div class="actions">'+
+              '<button class="btn sm" onclick="confirmerAccepter(\''+esc(d.id)+'\')">Accepter ce devis</button>'+
+              '<button class="btn link" onclick="ouvrirSignaler(\''+esc(d.id)+'\')">Signaler ce devis</button>'+
+            '</div>'+
+          '</div>';
+        }).join('');
+    }
+    return '<div class="card lot">'+
+      '<div class="lot-head">'+
+        '<span class="metier">'+esc(lot.metier||'Lot')+'</span>'+
+        '<span class="badge '+ls.cls+'">'+ls.label+'</span>'+
+      '</div>'+
+      (lot.description ? '<div class="desc">'+esc(lot.description)+'</div>' : '')+
+      inner+
+    '</div>';
+  }).join('');
+
+  $('detail-body').innerHTML = head + (body || '<div class="empty-state"><div class="emoji">📋</div><p>Ce projet ne contient aucun lot.</p></div>');
+}
+
+// ---- ACCEPTER ----
+function confirmerAccepter(devisId){
+  if(!window.confirm('Accepter ce devis ?\n\nLe lot sera attribué à ce professionnel et les autres devis seront refusés. Cette action est définitive.')) return;
+  accepter(devisId);
+}
+async function accepter(devisId){
+  try{
+    await apiPost('/mp/devis/'+devisId+'/accepter', {});
+    toast('Devis accepté — le professionnel va être notifié.');
+    if(_detail){ await ouvrirProjet(_detail.id); }
+  }catch(e){
+    toast(e.message||'Erreur lors de l\'acceptation.', true);
+  }
+}
+
+// ---- AVIS ----
+var _avisLotId=null, _avisNote=0;
+function ouvrirAvis(lotId){
+  _avisLotId=lotId; _avisNote=0;
+  var m=document.createElement('div');
+  m.className='overlay'; m.id='modal-avis';
+  m.innerHTML='<div class="modal">'+
+    '<h3>Laisser un avis</h3>'+
+    '<div class="m-sub">Votre retour aide les autres habitants à choisir un professionnel de confiance.</div>'+
+    '<div style="font-size:13px;font-weight:600;margin-bottom:4px">Votre note</div>'+
+    '<div class="stars" id="avis-stars">'+
+      [1,2,3,4,5].map(function(n){ return '<span class="star" data-n="'+n+'" onclick="setNote('+n+')">★</span>'; }).join('')+
+    '</div>'+
+    '<textarea id="avis-comment" rows="4" placeholder="Décrivez votre expérience"></textarea>'+
+    '<div class="m-actions">'+
+      '<button class="btn ghost" onclick="fermerModale(\'modal-avis\')">Annuler</button>'+
+      '<button class="btn" id="avis-submit" onclick="envoyerAvis()">Envoyer mon avis</button>'+
+    '</div>'+
+  '</div>';
+  document.body.appendChild(m);
+}
+function setNote(n){
+  _avisNote=n;
+  var stars=document.querySelectorAll('#avis-stars .star');
+  Array.prototype.forEach.call(stars, function(s){
+    s.classList.toggle('on', parseInt(s.getAttribute('data-n'),10)<=n);
+  });
+}
+async function envoyerAvis(){
+  if(!_avisNote){ toast('Choisissez une note (1 à 5 étoiles).', true); return; }
+  var comment=($('avis-comment').value||'').trim();
+  if(!comment){ toast('Un commentaire est requis.', true); return; }
+  var btn=$('avis-submit'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
+  try{
+    await apiPost('/mp/lots/'+_avisLotId+'/avis', {
+      note:_avisNote,
+      commentaire:comment
+    });
+    fermerModale('modal-avis');
+    toast('Merci, votre avis a été enregistré.');
+  }catch(e){
+    btn.disabled=false; btn.textContent='Envoyer mon avis';
+    toast(e.message||'Erreur lors de l\'envoi.', true);
+  }
+}
+
+// ---- SIGNALER ----
+var _signalDevisId=null;
+function ouvrirSignaler(devisId){
+  _signalDevisId=devisId;
+  var m=document.createElement('div');
+  m.className='overlay'; m.id='modal-signaler';
+  m.innerHTML='<div class="modal">'+
+    '<h3>Signaler ce devis</h3>'+
+    '<div class="m-sub">Signalez un devis abusif, hors sujet ou suspect. Notre équipe le vérifiera.</div>'+
+    '<select id="signal-motif" style="margin-bottom:12px">'+
+      '<option value="">Choisir un motif…</option>'+
+      '<option value="hors_sujet">Hors sujet</option>'+
+      '<option value="abusif">Prix ou contenu abusif</option>'+
+      '<option value="coordonnees">Tentative de contact hors plateforme</option>'+
+      '<option value="suspect">Comportement suspect</option>'+
+      '<option value="autre">Autre</option>'+
+    '</select>'+
+    '<textarea id="signal-message" rows="3" placeholder="Précisez si besoin (facultatif)"></textarea>'+
+    '<div class="m-actions">'+
+      '<button class="btn ghost" onclick="fermerModale(\'modal-signaler\')">Annuler</button>'+
+      '<button class="btn" id="signal-submit" onclick="envoyerSignalement()">Envoyer le signalement</button>'+
+    '</div>'+
+  '</div>';
+  document.body.appendChild(m);
+}
+async function envoyerSignalement(){
+  var motif=$('signal-motif').value;
+  if(!motif){ toast('Choisissez un motif.', true); return; }
+  var btn=$('signal-submit'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span>';
+  try{
+    await apiPost('/mp/devis/'+_signalDevisId+'/signaler', {
+      motif:motif,
+      message:($('signal-message').value||'').trim() || null
+    });
+    fermerModale('modal-signaler');
+    toast('Signalement envoyé. Merci.');
+  }catch(e){
+    btn.disabled=false; btn.textContent='Envoyer le signalement';
+    toast(e.message||'Erreur lors de l\'envoi.', true);
+  }
+}
+
+function fermerModale(id){ var m=$(id); if(m) m.remove(); }
+
+// ---- BOOT : session déjà active ? ----
+(async function boot(){
+  try{
+    var r = await sbClient.auth.getSession();
+    if(r && r.data && r.data.session){ await entrerApp(); return; }
+  }catch(e){}
+  show('view-auth');
+})();
+
+// Entrée clavier sur le formulaire de login
+document.addEventListener('keydown', function(ev){
+  if(ev.key==='Enter' && !$('view-auth').classList.contains('hidden')){
+    var a=document.activeElement;
+    if(a && (a.id==='in-email' || a.id==='in-pass')){ ev.preventDefault(); connexion(); }
+  }
+});
+</script>
+</body>
+</html>

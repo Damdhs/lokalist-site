@@ -145,6 +145,10 @@
                          "destination":  "/deposer-projet.html"
                      },
                      {
+                         "source":  "/mes-projets",
+                         "destination":  "/mes-projets.html"
+                     },
+                     {
                          "source":  "/paiement/evenement-ok",
                          "destination":  "/paiement-evenement-ok.html"
                      }
