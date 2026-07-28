@@ -30,6 +30,9 @@
     position:sticky;top:0;z-index:50;
   }
   header.top .brand{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--vert-d)}
+  header.top .brand img{height:30px;display:block} /* MP_LOGO_FIX_V1 */
+  header.top .brand .wm{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.5px;color:var(--vert-d)}
+  header.top .brand .wm span{color:var(--or)}
   header.top .brand .dot{width:26px;height:26px;border-radius:8px;background:var(--vert);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
   .btn{
     font-family:'DM Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;
@@ -115,7 +118,7 @@
 <body>
 
 <header class="top">
-  <div class="brand"><span class="dot">🦊</span> Lokalist</div>
+  <a href="/" class="brand"><img src="/logo.png" alt="Lokalist" onerror="this.style.display='none'"/><span class="wm">Lokal<span>ist</span></span></a>
   <button id="btn-logout" class="btn ghost sm hidden" onclick="deconnexion()">Se déconnecter</button>
 </header>
 
