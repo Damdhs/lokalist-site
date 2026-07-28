@@ -141,6 +141,10 @@
                          "destination":  "/signer-contrat.html"
                      },
                      {
+                         "source":  "/deposer-projet",
+                         "destination":  "/deposer-projet.html"
+                     },
+                     {
                          "source":  "/paiement/evenement-ok",
                          "destination":  "/paiement-evenement-ok.html"
                      }
