@@ -46,6 +46,11 @@
   .step-lbl:first-child{margin-top:0}
   label.f{display:block;font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:6px}
   label.f .opt{color:var(--muted);font-weight:400}
+  /* DEPOT_UX_V1 */
+  .rq{color:#E24B4A;font-weight:700}
+  .commune-ok{display:none;font-size:12.5px;color:var(--gd);font-weight:600;margin-top:6px}
+  .req-note{font-size:12.5px;color:var(--muted);text-align:center;margin:2px 0 14px}
+  input.valid-commune{border-color:var(--g)!important;background:var(--gl)!important}
   input[type=text],input[type=email],input[type=password],input[type=number],select,textarea{
     width:100%;background:var(--bg);border:1.5px solid var(--bdr);border-radius:12px;padding:12px 14px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;transition:border-color .15s}
   input:focus,select:focus,textarea:focus{border-color:var(--g)}
@@ -78,7 +83,7 @@
 <body>
 <div class="wrap">
   <div class="top">
-    <a href="/" class="brand">Lokalist<span>.</span></a>
+    <a href="/" class="brand"><img src="/logo.png" alt="Lokalist" style="height:34px;display:block" onerror="this.outerHTML='Lokalist<span style=&quot;color:var(--g)&quot;>.</span>'"/></a>
     <a href="/appels-offres" class="back">← Retour</a>
   </div>
 
@@ -101,27 +106,29 @@
       <div class="step-lbl">1 · Votre projet</div>
 
       <div class="row">
-        <label class="f" for="p-titre">Titre du projet</label>
+        <label class="f" for="p-titre">Titre du projet <span class="rq">*</span></label>
         <input type="text" id="p-titre" placeholder="Ex : Rénovation salle de bain" maxlength="120"/>
       </div>
 
       <div class="row">
-        <label class="f" for="p-metier">Métier recherché</label>
+        <label class="f" for="p-metier">Métier recherché <span class="rq">*</span></label>
         <select id="p-metier">
           <option value="">— Choisissez un métier —</option>
         </select>
       </div>
 
       <div class="row">
-        <label class="f" for="p-desc">Description</label>
+        <label class="f" for="p-desc">Description <span class="rq">*</span></label>
         <textarea id="p-desc" placeholder="Décrivez votre besoin : ce qu'il y a à faire, la surface, les contraintes, le délai souhaité…" maxlength="1500"></textarea>
       </div>
 
       <div class="grid2">
         <div class="row ac">
-          <label class="f" for="p-commune">Commune</label>
+          <label class="f" for="p-commune">Commune <span class="rq">*</span></label>
           <input type="text" id="p-commune" placeholder="Votre ville" autocomplete="off"/>
           <div class="ac-drop" id="p-commune-drop"></div>
+          <div class="hint">Commencez à taper, puis <b>choisissez votre commune dans la liste</b>.</div>
+          <div class="commune-ok" id="p-commune-ok">✓ Commune sélectionnée</div>
         </div>
         <div class="row">
           <label class="f" for="p-urgence">Délai</label>
@@ -155,16 +162,16 @@
       <div class="hint" style="margin:-6px 0 14px">On crée votre compte pour que vous puissiez suivre les devis reçus dans l'application, avec les mêmes identifiants.</div>
 
       <div class="row">
-        <label class="f" for="p-nom">Votre nom</label>
+        <label class="f" for="p-nom">Votre nom <span class="rq">*</span></label>
         <input type="text" id="p-nom" placeholder="Prénom Nom" maxlength="80"/>
       </div>
       <div class="grid2">
         <div class="row">
-          <label class="f" for="p-email">Email</label>
+          <label class="f" for="p-email">Email <span class="rq">*</span></label>
           <input type="email" id="p-email" placeholder="vous@email.fr" autocomplete="email"/>
         </div>
         <div class="row">
-          <label class="f" for="p-pass">Mot de passe</label>
+          <label class="f" for="p-pass">Mot de passe <span class="rq">*</span></label>
           <input type="password" id="p-pass" placeholder="8 caractères minimum" autocomplete="new-password"/>
         </div>
       </div>
@@ -176,6 +183,7 @@
         En déposant votre projet, vous acceptez les <a href="/cgu" target="_blank">CGU</a> et notre <a href="/confidentialite" target="_blank">politique de confidentialité</a>. Votre projet est vérifié par notre équipe avant d'être transmis aux artisans.
       </div>
 
+      <div class="req-note"><span class="rq">*</span> Champs obligatoires</div>
       <button class="submit" id="p-submit">📋 Déposer mon projet</button>
     </div>
 
@@ -233,6 +241,8 @@
   let villeTimer = null;
   villeInput.addEventListener('input', function(){
     villeData = { nom:'', cp:'', lat:null, lng:null };
+    villeInput.classList.remove('valid-commune');
+    var _okc0 = document.getElementById('p-commune-ok'); if(_okc0) _okc0.style.display='none';
     const q = villeInput.value.trim();
     if(villeTimer) clearTimeout(villeTimer);
     if(q.length < 2){ villeDrop.style.display='none'; return; }
@@ -254,6 +264,8 @@
     const coords = c.centre && c.centre.coordinates;
     villeData = { nom:c.nom, cp:((c.codesPostaux&&c.codesPostaux[0])||''), lat:coords?coords[1]:null, lng:coords?coords[0]:null };
     villeInput.value = c.nom;
+    villeInput.classList.add('valid-commune');
+    var _okc = document.getElementById('p-commune-ok'); if(_okc) _okc.style.display='block';
     villeDrop.style.display = 'none';
   });
   document.addEventListener('click', function(e){ if(!e.target.closest('#p-commune') && !e.target.closest('#p-commune-drop')) villeDrop.style.display='none'; });
@@ -280,6 +292,7 @@
     if(!titre){ return showErr('Indiquez un titre pour votre projet.'); }
     if(!metier){ return showErr('Choisissez le métier recherché.'); }
     if(!desc){ return showErr('Décrivez votre projet.'); }
+    if(desc.length < 20){ return showErr('Ajoutez plus de détails (au moins 20 caractères) pour que les artisans puissent bien chiffrer.'); }
     if(!villeData.nom || !villeData.cp){ return showErr('Choisissez votre commune dans la liste de suggestions.'); }
     if(!nom){ return showErr('Indiquez votre nom.'); }
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return showErr('Indiquez un email valide.'); }
