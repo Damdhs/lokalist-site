@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "fr.lokalist.app",
+      "sha256_cert_fingerprints": [
+        "C5:B1:1A:63:AB:03:C1:A8:76:72:BC:B2:CF:D6:51:DC:98:41:BA:0F:52:41:AD:4C:E1:16:A7:93:AE:1D:64:D5"
+      ]
+    }
+  }
+]
