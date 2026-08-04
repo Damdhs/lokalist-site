@@ -109,6 +109,21 @@
 
     /* Bandeau Enterprise */
     .enterprise-banner{background:linear-gradient(135deg,#0B1612 0%,#1A3028 50%,#0F6E56 100%);border-radius:24px;padding:36px 40px;position:relative;overflow:hidden;margin-top:16px}
+
+    /* ENCART CRÉDITS AGENCE (pivot) */
+    .credits-encart-t{background:var(--surf,#fff);border:1.5px solid var(--bdr,#D8E8E2);border-radius:20px;padding:32px 28px;text-align:center;margin-top:28px}
+    .credits-tag-t{display:inline-block;font-size:11px;font-weight:700;color:var(--b,#3B82F6);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+    .credits-h-t{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark,#0B1612);margin-bottom:6px}
+    .credits-p-t{font-size:13px;color:var(--muted,#5C7268);line-height:1.7;max-width:560px;margin:0 auto 22px}
+    .credits-packs-t{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:600px;margin:0 auto}
+    .credit-pack-t{border:1.5px solid var(--bdr,#D8E8E2);border-radius:14px;padding:18px 14px;transition:all .25s}
+    .credit-pack-t:hover{border-color:var(--b,#3B82F6);transform:translateY(-3px)}
+    .credit-pack-t.featured{border-color:var(--b,#3B82F6);background:var(--bl,#EFF6FF)}
+    .cp-nb{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--muted,#5C7268);margin-bottom:5px}
+    .cp-prix{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--dark,#0B1612);line-height:1}
+    .cp-unit{font-size:11.5px;color:var(--b,#3B82F6);font-weight:600;margin-top:5px}
+    @media(max-width:640px){.credits-packs-t{grid-template-columns:1fr}}
+
     .enterprise-banner::before{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;border-radius:50%;background:rgba(239,159,39,.06)}
     .enterprise-banner::after{content:'';position:absolute;bottom:-30px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(29,158,117,.08)}
     .enterprise-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center}
@@ -568,90 +583,96 @@
       <div class="tarif-section-ico">🏠</div>
       <div>
         <div class="tarif-section-title">Agences immobilières</div>
-        <div class="tarif-section-sub">Abonnement mensuel fixe — 0% de commission sur vos transactions</div>
+        <div class="tarif-section-sub">Accès annuel — 0% de commission sur vos transactions</div>
       </div>
     </div>
 
     <div class="tarif-cards cols3">
       <div class="tarif-card">
-        <div class="tarif-card-name">Starter</div>
-        <div class="tarif-card-price">49<span>,90€<small>/mois</small></span></div>
-        <div class="tarif-card-sub">15 communes · 10 annonces actives</div>
+        <div class="tarif-card-name">Essentielle</div>
+        <div class="tarif-card-price">490<span>€<small>/an</small></span></div>
+        <div class="tarif-card-sub">390 €/an dès la 2ᵉ agence</div>
         <ul class="tarif-feats">
           <li>Fiche agence complète</li>
-          <li>10 annonces actives</li>
-          <li>Leads acquéreurs & vendeurs</li>
-          <li>2 boosts annonce/mois</li>
-          <li>Carte GPS agence</li>
-          <li class="off">Multi-communes</li>
-          <li class="off">🎬 Vidéos immobilières</li>
-          <li class="off">Badge Premium</li>
-          <li class="off">Account manager</li>
+          <li>Tous les modules inclus</li>
+          <li>Leads qualifiés (secteur &amp; spécialité)</li>
+          <li>Messagerie &amp; avis vérifiés</li>
+          <li>4 boosts de visibilité / an</li>
+          <li class="off">🎬 Vidéo de présentation</li>
+          <li class="off">Logo premium</li>
+          <li class="off">Préférence Loki</li>
         </ul>
         <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Commencer →</a>
       </div>
 
       <div class="tarif-card">
-        <div class="tarif-card-name">Pro</div>
-        <div class="tarif-card-price">89<span>,90€<small>/mois</small></span></div>
-        <div class="tarif-card-sub">20 communes · 15 annonces actives</div>
+        <div class="tarif-card-name">Vitrine ⭐</div>
+        <div class="tarif-card-price">890<span>€<small>/an</small></span></div>
+        <div class="tarif-card-sub">690 €/an dès la 2ᵉ agence</div>
         <ul class="tarif-feats">
-          <li>Fiche agence premium</li>
-          <li>15 annonces actives</li>
-          <li>Leads prioritaires</li>
-          <li>5 boosts annonce/mois</li>
+          <li>Tout Essentielle inclus</li>
+          <li>Leads qualifiés (secteur &amp; spécialité)</li>
+          <li>12 boosts de visibilité / an</li>
+          <li>🎬 Vidéo de présentation agence</li>
+          <li>Logo premium sur votre fiche</li>
+          <li>Préférence Loki — mieux référencée</li>
           <li>Stats avancées</li>
-          <li>Carte GPS agence</li>
-          <li class="off">Multi-communes (10+)</li>
-          <li class="off">🎬 Vidéos immobilières</li>
-          <li class="off">Badge Premium</li>
         </ul>
-        <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Choisir Pro →</a>
+        <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Choisir Vitrine →</a>
       </div>
 
       <div class="tarif-card">
-        <div class="tarif-card-name">Premium ⭐</div>
-        <div class="tarif-card-price">149<span>,90€<small>/mois</small></span></div>
-        <div class="tarif-card-sub">25 communes · 30 annonces actives</div>
+        <div class="tarif-card-name">Multi-agences</div>
+        <div class="tarif-card-price" style="font-size:28px;color:var(--p)">Sur devis</div>
+        <div class="tarif-card-sub">Réseaux &amp; groupes · tarif dégressif</div>
         <ul class="tarif-feats">
-          <li>Tout Pro inclus</li>
-          <li>25 communes couvertes</li>
-          <li>30 annonces actives</li>
-          <li>20 boosts/mois</li>
-          <li>🎬 2 vidéos de biens/mois</li>
-          <li>🎬 Vidéo de présentation agence</li>
-          <li>Badge ⭐ Premium affiché</li>
-          <li>Account manager dédié</li>
-          <li>Rapport mensuel personnalisé</li>
+          <li>Tarif dégressif par agence</li>
+          <li>Facturation par entité (SIRET)</li>
+          <li>Boosts &amp; crédits mutualisés</li>
+          <li>Accompagnement sur-mesure</li>
+          <li>Onboarding dédié</li>
+          <li>Tarif négocié</li>
         </ul>
-        <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Choisir Premium →</a>
+        <a href="/contact?type=agence-enterprise" class="btn btn-o" style="width:100%;justify-content:center">Demander un devis →</a>
       </div>
     </div>
 
-    <!-- Bandeau Enterprise -->
+    <!-- Encart crédits -->
+    <div class="credits-encart-t">
+      <div class="credits-tag-t">💳 Publication à l'usage</div>
+      <div class="credits-h-t">Des crédits, pas d'engagement</div>
+      <p class="credits-p-t">1 crédit = 1 annonce publiée · 2 crédits si vidéo. Achetez des packs quand vous en avez besoin, sans abonnement supplémentaire.</p>
+      <div class="credits-packs-t">
+        <div class="credit-pack-t"><div class="cp-nb">25 crédits</div><div class="cp-prix">300 €</div><div class="cp-unit">12 € / annonce</div></div>
+        <div class="credit-pack-t featured"><div class="cp-nb">50 crédits</div><div class="cp-prix">550 €</div><div class="cp-unit">11 € / annonce</div></div>
+        <div class="credit-pack-t"><div class="cp-nb">100 crédits</div><div class="cp-prix">1 000 €</div><div class="cp-unit">10 € / annonce</div></div>
+      </div>
+    </div>
+
+    <!-- Bandeau Réseaux -->
     <div class="enterprise-banner">
       <div class="enterprise-grid">
         <div>
           <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(239,159,39,.15);border:1px solid rgba(239,159,39,.3);border-radius:100px;padding:5px 14px;margin-bottom:14px">
             <span style="width:6px;height:6px;border-radius:50%;background:var(--a);display:inline-block"></span>
-            <span style="font-size:11px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:1px">Enterprise · Sur mesure</span>
+            <span style="font-size:11px;font-weight:700;color:var(--a);text-transform:uppercase;letter-spacing:1px">Réseaux · Sur mesure</span>
           </div>
-          <h3 style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px">Un réseau, plusieurs agences ?<br/>On construit votre offre Enterprise</h3>
-          <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:20px;max-width:540px">Pour les réseaux d'agences, franchises ou groupes immobiliers — communes, annonces et fonctionnalités personnalisées selon votre activité.</p>
+          <h3 style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1.15;margin-bottom:12px">Un réseau, plusieurs agences ?<br/>On construit votre offre sur-mesure</h3>
+          <p style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:20px;max-width:540px">Pour les réseaux d'agences, franchises ou groupes immobiliers — chaque agence garde son accès annuel avec un tarif dégressif et une facturation séparée par SIRET.</p>
           <div class="enterprise-tags">
-            <div class="enterprise-tag">📍 25 à 100+ communes</div>
-            <div class="enterprise-tag">🏠 50 à 200+ annonces</div>
-            <div class="enterprise-tag">🎯 Boosts illimités</div>
-            <div class="enterprise-tag">🎬 Vidéos personnalisées</div>
+            <div class="enterprise-tag">📉 Tarif dégressif dès la 2ᵉ</div>
+            <div class="enterprise-tag">🧾 Facturation par SIRET</div>
+            <div class="enterprise-tag">🎯 Boosts mutualisés</div>
+            <div class="enterprise-tag">🎬 Vidéos de présentation</div>
             <div class="enterprise-tag">🤝 Account manager dédié</div>
             <div class="enterprise-tag">📊 Rapports personnalisés</div>
           </div>
         </div>
         <div style="text-align:center">
-          <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">À partir de</div>
-          <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1">199€<span style="font-size:14px;font-weight:400;color:rgba(255,255,255,.5)">/mois</span></div>
-          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:18px">Tarif sur devis</div>
-          <a href="/contact?type=agence" class="btn btn-a" style="white-space:nowrap">Demander un devis →</a>
+          <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Tarif</div>
+          <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1">Sur devis</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:18px">Selon votre réseau</div>
+          <a href="/contact?type=agence-enterprise" class="btn btn-a" style="white-space:nowrap">Demander un devis →</a>
         </div>
       </div>
     </div>
@@ -662,9 +683,9 @@
       <p class="pourquoi-sub">Reprenez le contrôle de votre visibilité locale et touchez directement les habitants de votre secteur — sans dépendre des portails nationaux qui captent vos leads.</p>
       <div class="pourquoi-list">
         <div class="pourquoi-item"><span class="pourquoi-check">✓</span>0% de commission sur vos mandats et transactions</div>
-        <div class="pourquoi-item"><span class="pourquoi-check">✓</span>Leads acquéreurs & vendeurs qualifiés (zone GPS personnalisée)</div>
+        <div class="pourquoi-item"><span class="pourquoi-check">✓</span>Leads acquéreurs &amp; vendeurs qualifiés (zone GPS personnalisée)</div>
         <div class="pourquoi-item"><span class="pourquoi-check">✓</span>Visibilité auprès des habitants connectés au quotidien</div>
-        <div class="pourquoi-item"><span class="pourquoi-check">✓</span>Demandes d'estimation & visites directement depuis l'app</div>
+        <div class="pourquoi-item"><span class="pourquoi-check">✓</span>Demandes d'estimation &amp; visites directement depuis l'app</div>
       </div>
       <a href="/contact?type=agence" class="btn btn-g" style="margin-top:20px;width:100%;justify-content:center">Rejoindre comme agence →</a>
     </div>
@@ -878,7 +899,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Les agences paient-elles une commission sur les transactions ?<span class="faq-q-ico">+</span></div>
-        <div class="faq-a">Non. L'abonnement agence est un tarif fixe mensuel. Aucune commission sur les mandats, transactions ou leads convertis. Vous payez uniquement l'accès à la plateforme Lokalist.</div>
+        <div class="faq-a">Non. L'accès agence est un abonnement annuel fixe. Aucune commission sur les mandats, transactions ou leads convertis. Vous payez uniquement votre accès annuel à la plateforme, plus des crédits à l'usage pour publier vos annonces.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Comment ça marche pour les courtiers ?<span class="faq-q-ico">+</span></div>
@@ -886,11 +907,11 @@
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Les agences peuvent-elles ajouter des vidéos ?<span class="faq-q-ico">+</span></div>
-        <div class="faq-a">Oui, à partir de la formule Premium. Vous pouvez ajouter jusqu'à 2 vidéos de biens par mois directement sur vos annonces, ainsi qu'une vidéo de présentation de votre agence affichée sur votre fiche. Format MP4, 60 secondes maximum. Les vidéos déjà publiées restent visibles, le quota de 2 se recharge chaque mois. L'offre Enterprise permet un volume de vidéos personnalisé.</div>
+        <div class="faq-a">Oui, avec la formule Vitrine. Elle inclut une vidéo de présentation de votre agence affichée sur votre fiche, ainsi que la possibilité d'ajouter des vidéos à vos biens. Format MP4, 60 secondes maximum. Les réseaux multi-agences bénéficient d'un accompagnement vidéo sur-mesure.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q" onclick="toggleFaq(this)">Qu'est-ce que l'offre Enterprise pour les agences ?<span class="faq-q-ico">+</span></div>
-        <div class="faq-a">L'offre Enterprise s'adresse aux réseaux d'agences, franchises et groupes immobiliers couvrant plus de 10 communes. Le tarif démarre à 199€/mois et est établi sur devis selon votre nombre de communes (25 à 100+), votre volume d'annonces (50 à 200+) et vos besoins spécifiques. Vous bénéficiez d'un account manager dédié et de rapports personnalisés.</div>
+        <div class="faq-q" onclick="toggleFaq(this)">Comment ça marche pour un réseau ou plusieurs agences ?<span class="faq-q-ico">+</span></div>
+        <div class="faq-a">Chaque agence garde son propre accès annuel, avec un tarif dégressif dès la 2ᵉ (490 €/an puis 390 €/an, ou 890 €/an puis 690 €/an en Vitrine). La facturation est séparée par entité (SIRET), et les boosts comme les crédits peuvent être mutualisés au niveau du réseau. Le tout est établi sur devis, avec un account manager dédié et des rapports personnalisés.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q" onclick="toggleFaq(this)">Puis-je changer de formule ou résilier ?<span class="faq-q-ico">+</span></div>
