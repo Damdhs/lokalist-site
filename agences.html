@@ -84,9 +84,21 @@
     .lead-badge.new{background:rgba(59,130,246,.2);color:#93C5FD}
     .lead-badge.hot{background:rgba(239,159,39,.2);color:var(--a)}
 
-    /* PALIERS — 4 colonnes (Starter / Pro / Premium / Enterprise) */
+    /* PALIERS — 3 colonnes (Essentielle / Vitrine / Multi-agences) */
     .paliers{padding:90px 5%;max-width:1280px;margin:0 auto}
-    .paliers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .paliers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1000px;margin:0 auto}
+    /* ENCART CRÉDITS */
+    .credits-encart{max-width:1000px;margin:56px auto 0;background:var(--surf);border:1.5px solid var(--bdr);border-radius:22px;padding:36px 32px;text-align:center}
+    .credits-tag{display:inline-block;font-size:11px;font-weight:700;color:var(--b);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+    .credits-h{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dark);margin-bottom:8px}
+    .credits-p{font-size:13.5px;color:var(--muted);line-height:1.7;max-width:560px;margin:0 auto 26px}
+    .credits-packs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px;margin:0 auto}
+    .credit-pack{border:1.5px solid var(--bdr);border-radius:16px;padding:20px 16px;transition:all .25s}
+    .credit-pack:hover{border-color:var(--b);transform:translateY(-3px);box-shadow:0 14px 34px rgba(59,130,246,.10)}
+    .credit-pack.featured{border-color:var(--b);background:var(--bl)}
+    .credit-nb{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--muted);margin-bottom:6px}
+    .credit-prix{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:var(--dark);line-height:1}
+    .credit-unit{font-size:12px;color:var(--b);font-weight:600;margin-top:6px}
     .palier-card{background:var(--surf);border:1.5px solid var(--bdr);border-radius:22px;padding:28px 22px;text-align:center;transition:all .3s;position:relative;display:flex;flex-direction:column}
     .palier-card.pro{border-color:var(--g);box-shadow:0 20px 56px rgba(29,158,117,.12);transform:translateY(-4px)}
     .palier-card.enterprise{background:linear-gradient(155deg,#fff 0%,#F5F3FF 100%);border-color:#DDD6FE}
@@ -168,6 +180,8 @@
        ═══════════════════════════════════════════════ */
     @media(max-width:640px){
       .paliers-grid{grid-template-columns:1fr;gap:14px}
+      .credits-packs{grid-template-columns:1fr}
+      .credits-encart{padding:28px 22px}
       .palier-card{padding:24px 22px}
       .offres-grid{grid-template-columns:1fr}
     }
@@ -675,92 +689,96 @@
 </section>
 <!-- ═══════════════ FIN BLOC PARRAINAGE AGENCES ═══════════════ -->
 <section class="paliers">
-  <p class="sec-tag reveal">Abonnements agences</p>
-  <h2 class="sec-h reveal">Choisissez votre niveau<br/>de visibilité</h2>
-  <p class="sec-p reveal">Tarif fixe mensuel, sans commission sur vos transactions. Vous gardez 100% de vos honoraires.</p>
+  <p class="sec-tag reveal">Accès agences</p>
+  <h2 class="sec-h reveal">Un accès annuel,<br/>sans commission</h2>
+  <p class="sec-p reveal">Vous gardez 100% de vos honoraires. Votre abonnement annuel ouvre tous les modules et votre visibilité — la publication d'annonces se fait à l'usage, en crédits. Vous ne payez que ce que vous publiez.</p>
 
   <div class="paliers-grid">
 
-    <!-- STARTER -->
+    <!-- ESSENTIELLE -->
     <div class="palier-card reveal">
-      <div class="palier-name">Starter</div>
-      <div class="palier-price">49<span>,90€/mois</span></div>
-      <div class="palier-sub">15 communes · 10 annonces</div>
+      <div class="palier-name">Essentielle</div>
+      <div class="palier-price">490<span>€/an</span></div>
+      <div class="palier-sub">390 €/an dès la 2ᵉ agence</div>
       <ul class="palier-feats">
         <li>Fiche agence complète</li>
-        <li>10 annonces actives</li>
-        <li>Leads acquéreurs &amp; vendeurs</li>
-        <li>2 boosts annonce/mois</li>
-        <li>Stats de base</li>
-        <li class="muted">🎬 Vidéos annonces</li>
-        <li class="muted">Multi-locaux</li>
+        <li>Tous les modules inclus</li>
+        <li>Leads qualifiés (secteur &amp; spécialité)</li>
+        <li>Messagerie &amp; avis vérifiés</li>
+        <li>4 boosts de visibilité / an</li>
+        <li class="muted">🎬 Vidéo de présentation</li>
+        <li class="muted">Logo premium</li>
+        <li class="muted">Préférence Loki</li>
       </ul>
       <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Commencer →</a>
     </div>
 
-    <!-- PRO (mis en avant) -->
+    <!-- VITRINE (mis en avant) -->
     <div class="palier-card pro reveal">
-      <div class="palier-name">Pro</div>
-      <div class="palier-price">89<span>,90€/mois</span></div>
-      <div class="palier-sub">20 communes · 15 annonces</div>
+      <div class="palier-top g">⭐ Recommandé</div>
+      <div class="palier-name">Vitrine</div>
+      <div class="palier-price">890<span>€/an</span></div>
+      <div class="palier-sub">690 €/an dès la 2ᵉ agence</div>
       <ul class="palier-feats">
-        <li>Fiche agence premium</li>
-        <li>15 annonces actives</li>
-        <li>Leads acquéreurs &amp; vendeurs</li>
-        <li>5 boosts annonce/mois</li>
+        <li>Tout Essentielle inclus</li>
+        <li>Leads qualifiés (secteur &amp; spécialité)</li>
+        <li>12 boosts de visibilité / an</li>
+        <li class="gold">🎬 Vidéo de présentation</li>
+        <li class="gold">Logo premium sur votre fiche</li>
+        <li class="gold">Préférence Loki — mieux référencée</li>
         <li>Stats avancées</li>
-        <li>20 communes couvertes</li>
-        <li class="muted">🎬 Vidéos annonces</li>
-        <li class="muted">Multi-locaux</li>
       </ul>
-      <a href="/contact?type=agence" class="btn btn-g" style="width:100%;justify-content:center">Choisir Pro →</a>
+      <a href="/contact?type=agence" class="btn btn-g" style="width:100%;justify-content:center">Choisir Vitrine →</a>
     </div>
 
-    <!-- PREMIUM -->
-    <div class="palier-card reveal">
-      <div class="palier-top a">🚀 Multi-zones</div>
-      <div class="palier-name">Premium</div>
-      <div class="palier-price">149<span>,90€/mois</span></div>
-      <div class="palier-sub">25 communes · 30 annonces</div>
-      <ul class="palier-feats">
-        <li>Tout Pro inclus</li>
-        <li>30 annonces actives</li>
-        <li>20 boosts annonce/mois</li>
-        <li>25 communes couvertes</li>
-        <li>Badge ⭐ Premium</li>
-        <li class="gold">🎬 2 vidéos de biens/mois + vidéo agence</li>
-        <li>Account manager dédié</li>
-        <li>Rapport mensuel personnalisé</li>
-        <li class="muted">Multi-locaux illimités</li>
-      </ul>
-      <a href="/contact?type=agence" class="btn btn-b" style="width:100%;justify-content:center">Choisir Premium →</a>
-    </div>
-
-    <!-- ENTERPRISE -->
+    <!-- RÉSEAUX & MULTI-AGENCES -->
     <div class="palier-card enterprise reveal">
       <div class="palier-top p">🏢 Réseaux &amp; Groupes</div>
-      <div class="palier-name">Enterprise</div>
+      <div class="palier-name">Multi-agences</div>
       <div class="palier-price devis">Sur devis</div>
-      <div class="palier-sub">Agences multi-locaux<br/>&amp; réseaux nationaux</div>
+      <div class="palier-sub">Plusieurs locaux<br/>ou réseau national</div>
       <ul class="palier-feats">
-        <li>Tout Premium inclus</li>
-        <li>Annonces personnalisées</li>
-        <li>Boosts personnalisés</li>
-        <li class="gold">🎬 Vidéos personnalisées</li>
-        <li>Communes au choix</li>
+        <li>Tarif dégressif par agence</li>
+        <li class="gold">Facturation par entité (SIRET)</li>
+        <li class="gold">Boosts &amp; crédits mutualisés</li>
         <li class="gold">Accompagnement sur-mesure</li>
-        <li class="gold">Multi-locaux centralisés</li>
         <li class="gold">Onboarding dédié</li>
-        <li class="gold">Tarif négocié</li>
+        <li>Tarif négocié</li>
       </ul>
       <a href="/contact?type=agence-enterprise" class="btn btn-p" style="width:100%;justify-content:center">Demander un devis →</a>
     </div>
   </div>
 
-  <!-- Note Enterprise -->
+  <!-- ENCART CRÉDITS -->
+  <div class="reveal credits-encart">
+    <div class="credits-head">
+      <div class="credits-tag">💳 Publication à l'usage</div>
+      <h3 class="credits-h">Des crédits, pas d'engagement</h3>
+      <p class="credits-p">1 crédit = 1 annonce publiée · 2 crédits si vidéo. Achetez des packs quand vous en avez besoin, sans abonnement supplémentaire.</p>
+    </div>
+    <div class="credits-packs">
+      <div class="credit-pack">
+        <div class="credit-nb">25 crédits</div>
+        <div class="credit-prix">300 €</div>
+        <div class="credit-unit">12 € / annonce</div>
+      </div>
+      <div class="credit-pack featured">
+        <div class="credit-nb">50 crédits</div>
+        <div class="credit-prix">550 €</div>
+        <div class="credit-unit">11 € / annonce</div>
+      </div>
+      <div class="credit-pack">
+        <div class="credit-nb">100 crédits</div>
+        <div class="credit-prix">1 000 €</div>
+        <div class="credit-unit">10 € / annonce</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Note Réseaux -->
   <div class="reveal" style="max-width:760px;margin:48px auto 0;padding:24px;background:var(--pl);border:1px solid #DDD6FE;border-radius:16px;text-align:center">
     <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏢 Vous êtes un groupe ou un réseau ?</div>
-    <p style="font-size:14px;color:var(--muted);line-height:1.7">Si votre agence dispose de plusieurs locaux ou si vous représentez un réseau (Century 21, Orpi, Foncia, Stéphane Plaza...), nous proposons un accompagnement <strong style="color:var(--p)">Enterprise sur-mesure</strong> avec onboarding dédié, multi-locaux centralisés et tarif négocié.</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.7">Plusieurs locaux ou un réseau (Century 21, Orpi, Foncia, Stéphane Plaza...) ? Chaque agence garde son accès annuel avec un <strong style="color:var(--p)">tarif dégressif dès la 2ᵉ</strong>, une facturation séparée par SIRET, et un accompagnement sur-mesure.</p>
   </div>
 </section>
 
