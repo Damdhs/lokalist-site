@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+<head><!-- BRICOLAGE_SWAP_V1 -->
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lokalist — Proposer un événement</title>
   <meta name="description" content="Organisez un événement local ? Présentez-le aux habitants de votre commune dans la rubrique Idée sortie de Lokalist."/>
   <link rel="canonical" href="https://lokalist.fr/proposer-un-evenement"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -24,11 +24,11 @@
     .mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
     .hero{padding:110px 5% 40px;text-align:center;max-width:720px;margin:0 auto}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);color:var(--gd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:20px;text-transform:uppercase;letter-spacing:.6px;animation:fadeUp .5s ease both}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:16px;animation:fadeUp .6s .08s ease both}
+    .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(32px,4.5vw,52px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:16px;animation:fadeUp .6s .08s ease both}
     .hero-sub{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;animation:fadeUp .6s .16s ease both}
     .form-container{max-width:700px;margin:0 auto 80px;padding:0 5%}
     .form-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:40px;box-shadow:0 8px 40px rgba(0,0,0,.06)}
-    .section-lbl{font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--gd);text-transform:uppercase;letter-spacing:.5px;margin:6px 0 14px;display:flex;align-items:center;gap:8px}
+    .section-lbl{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:800;color:var(--gd);text-transform:uppercase;letter-spacing:.5px;margin:6px 0 14px;display:flex;align-items:center;gap:8px}
     .form-group{margin-bottom:18px;position:relative}
     .form-group label{display:block;font-size:13px;font-weight:700;color:var(--text);margin-bottom:7px}
     .form-group input,.form-group select,.form-group textarea{width:100%;padding:13px 16px;border:1.5px solid var(--bdr);border-radius:12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--bg);transition:border-color .2s;outline:none}
@@ -42,7 +42,7 @@
     .formule:hover{border-color:var(--gm)}
     .formule.active{border-color:var(--g);background:var(--gl);box-shadow:0 0 0 3px rgba(29,158,117,.12)}
     .formule input{position:absolute;opacity:0;pointer-events:none}
-    .formule-price{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark)}
+    .formule-price{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--dark)}
     .formule-name{font-size:13px;font-weight:700;color:var(--g);margin:2px 0 6px}
     .formule-desc{font-size:11.5px;color:var(--muted);line-height:1.5}
     .formule.mea.active{border-color:var(--a);background:var(--al);box-shadow:0 0 0 3px rgba(239,159,39,.15)}
@@ -61,16 +61,16 @@
     /* photo preview */
     .photo-prev{margin-top:10px;display:none;border-radius:12px;overflow:hidden;border:1px solid var(--bdr)}
     .photo-prev img{width:100%;max-height:200px;object-fit:cover;display:block}
-    .submit-btn{width:100%;padding:16px;background:var(--g);color:#fff;border:none;border-radius:14px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all .25s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
+    .submit-btn{width:100%;padding:16px;background:var(--g);color:#fff;border:none;border-radius:14px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all .25s;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px}
     .submit-btn:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 8px 24px rgba(29,158,117,.3)}
     .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
     .form-note{font-size:11.5px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6}
     .form-hidden{display:none}
     .success-card{text-align:center;padding:48px 32px}
     .success-ico{font-size:64px;margin-bottom:16px}
-    .success-title{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--dark);margin-bottom:10px}
+    .success-title{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:var(--dark);margin-bottom:10px}
     .success-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:28px}
-    .btn-g{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:var(--g);color:#fff;transition:all .25s}
+    .btn-g{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:var(--g);color:#fff;transition:all .25s}
     .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
     footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
     .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
@@ -108,7 +108,7 @@
     <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
       <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain" decoding="async"/></picture>
     </div>
-    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
@@ -265,7 +265,7 @@
 
 <footer>
   <div class="foot-in">
-    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain" decoding="async"/></picture></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain" decoding="async"/></picture></div><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokal<span style="color:#EF9F27">ist</span></span></div>
     <div class="foot-links"><a href="/">Accueil</a><a href="/loisirs">Loisirs</a><a href="/idees-sorties">Idées Sorties</a><a href="/tarifs">Tarifs</a><a href="/contact">Contact</a><a href="/mentions-legales">Mentions légales</a><a href="/cgv">CGV</a></div>
     <div class="foot-copy">© 2026 Lokalist</div>
   </div>

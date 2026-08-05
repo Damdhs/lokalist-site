@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+<head><!-- BRICOLAGE_SWAP_V1 -->
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lokalist Loisirs — Cinéma, bowling, escape game et activités locales</title>
   <meta name="description" content="Lokalist référence les lieux de loisirs locaux — cinéma, bowling, escape game, karting, cours de yoga, ateliers. Cumulez des points fidélité et utilisez vos bons mairie."/>
   <meta name="keywords" content="loisirs locaux, cinéma local, bowling, escape game, activités famille, cours yoga, atelier cuisine, fidélité loisirs, bons mairie loisirs, loisirs locaux fidélité, bowling programme points, escape game local, cinéma local bons mairie, activités famille commune, yoga local fidélité"/>
   <link rel="canonical" href="https://lokalist.fr/loisirs"/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--p:#8B5CF6;--pl:#F5F3FF;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -30,7 +30,7 @@
     .mob,.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
     .mob.open,.mobile-menu.open{display:flex}
     .mob a,.mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
     .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
     .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
     .btn-p{background:var(--p);color:#fff;box-shadow:0 8px 24px rgba(139,92,246,.28)}
@@ -38,14 +38,14 @@
     .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
     .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
     .sec-tag{font-size:11px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
-    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-h{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
     .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:500px}
     @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
     .reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
     .reveal.visible{opacity:1;transform:translateY(0)}
     .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--pl);border:1px solid #DDD6FE;color:#5B21B6;font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
-    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
     .hero h1 em{font-style:normal;color:var(--p)}
     .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:480px}
     .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
@@ -58,7 +58,7 @@
     .prev-card.boost{border-color:var(--a);background:linear-gradient(135deg,#FFFBEB,#fff)}
     .prev-ava{width:48px;height:48px;border-radius:13px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
     .prev-info{flex:1}
-    .prev-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark)}
+    .prev-name{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark)}
     .prev-meta{font-size:11.5px;color:var(--muted);margin-top:2px}
     .prev-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
     .boost-tag{font-size:10px;font-weight:700;color:var(--a);background:rgba(239,159,39,.12);border-radius:5px;padding:3px 8px}
@@ -73,7 +73,7 @@
     .cat-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:20px 16px;text-align:center;transition:all .2s;cursor:default}
     .cat-card:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);transform:translateY(-3px)}
     .cat-ico{font-size:32px;margin-bottom:10px}
-    .cat-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
+    .cat-name{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:700;color:#fff;margin-bottom:4px}
     .cat-ex{font-size:11px;color:rgba(255,255,255,.4)}
     .avantages{padding:90px 5%;max-width:1280px;margin:0 auto}
     .av-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -82,19 +82,19 @@
     .av-card:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(139,92,246,.09);border-color:#DDD6FE}
     .av-card:hover::before{transform:scaleX(1)}
     .av-ico{width:48px;height:48px;border-radius:13px;background:var(--pl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-    .av-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .av-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
     .av-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
     .fidelite{background:linear-gradient(135deg,var(--p),#6D28D9);padding:80px 5%}
     .fid-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-    .fidelite h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+    .fidelite h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
     .fidelite p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:28px}
     .fid-steps{display:flex;flex-direction:column;gap:14px}
     .fid-step{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px}
-    .fid-n{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--p);font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .fid-txt h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+    .fid-n{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--p);font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .fid-txt h4{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
     .fid-txt p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5;margin:0}
     .fid-visual{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:28px}
-    .fid-pts{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;color:#fff;line-height:1;margin-bottom:6px}
+    .fid-pts{font-family:'Bricolage Grotesque',sans-serif;font-size:52px;font-weight:800;color:#fff;line-height:1;margin-bottom:6px}
     .fid-pts-lbl{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px}
     .fid-bar-wrap{background:rgba(255,255,255,.15);border-radius:100px;height:10px;margin-bottom:8px;overflow:hidden}
     .fid-bar{height:100%;background:var(--a);border-radius:100px;width:72%}
@@ -102,14 +102,14 @@
     .fid-paliers{display:flex;flex-direction:column;gap:8px}
     .fid-palier{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.08);border-radius:10px;padding:10px 14px}
     .fid-palier-name{font-size:12px;color:rgba(255,255,255,.7);font-weight:500}
-    .fid-palier-val{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--a)}
+    .fid-palier-val{font-family:'Bricolage Grotesque',sans-serif;font-size:12px;font-weight:700;color:var(--a)}
     .steps-sect{padding:90px 5%;background:var(--bg);max-width:1280px;margin:0 auto}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
     .step{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;text-align:center;transition:all .3s}
     .step:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(139,92,246,.08);border-color:#DDD6FE}
-    .step-n{width:52px;height:52px;border-radius:50%;background:var(--p);color:#fff;font-family:'Syne',sans-serif;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+    .step-n{width:52px;height:52px;border-radius:50%;background:var(--p);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
     .step-i{font-size:26px;margin-bottom:10px}
-    .step h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .step h3{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
     .step p{font-size:13px;color:var(--muted);line-height:1.6}
     .tarif-sect{background:var(--pl);padding:90px 5%}
     .tarif-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
@@ -121,10 +121,10 @@
     .cta{background:linear-gradient(135deg,var(--dark),#1A1A2E);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
     .cta::before{content:'🎳';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
     .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
-    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
     .cta h2 em{font-style:normal;color:#C4B5FD}
     .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
-    .btn-w{background:#fff;color:var(--p);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w{background:#fff;color:var(--p);padding:15px 34px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
     .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
     .cta-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
     footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
@@ -203,7 +203,7 @@
     <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
       <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain" decoding="async"/></picture>
     </div>
-    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
@@ -427,24 +427,24 @@
       <h2 class="sec-h reveal">Simple, transparent,<br/>sans commission</h2>
       <p class="sec-p reveal">Lokalist ne prend aucune commission sur vos entrées ou recettes. Vous payez un abonnement fixe et gardez 100% de vos revenus.</p>
       <div style="display:flex;flex-direction:column;gap:10px">
-        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">📲 QR code fidélité</span><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">🗺️ Fiche sur la carte + liste loisirs</span><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">🎟️ Encaissement bons mairie</span><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">⚡ 2 boosts 12h offerts/mois</span><span style="font-family:'Syne',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">⭐ Commission sur vos revenus</span><span style="font-family:'Syne',sans-serif;font-weight:700;color:#10B981">0%</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">📲 QR code fidélité</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">🗺️ Fiche sur la carte + liste loisirs</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">🎟️ Encaissement bons mairie</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">⚡ 2 boosts 12h offerts/mois</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:var(--g)">Inclus</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--surf);border:1px solid var(--bdr);border-radius:10px;padding:14px" class="reveal"><span style="font-size:13.5px;font-weight:500;color:var(--text)">⭐ Commission sur vos revenus</span><span style="font-family:'Bricolage Grotesque',sans-serif;font-weight:700;color:#10B981">0%</span></div>
       </div>
     </div>
     <div class="tarif-card reveal">
       <div class="tarif-top">🎳 Partenaire Loisirs Lokalist</div>
       <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Abonnement</div>
       <div style="background:var(--al);border-radius:8px;padding:6px 12px;display:inline-block;font-size:11px;font-weight:700;color:#92400E;margin-bottom:12px">🎁 3 mois offerts à l'inscription</div>
-      <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">19<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
+      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">19<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:20px">ou <strong style="color:var(--p)">179,10€/an</strong> — 3 mois offerts inclus</div>
       <ul class="tarif-feats"><li>Fiche loisirs complète avec photos</li><li>Catégorie dédiée sur la carte</li><li>QR code fidélité unique</li><li>Encaissement bons mairie</li><li>2 boosts 12h offerts/mois</li><li>Dashboard analytics temps réel</li><li>Mise en ligne en 48h</li></ul>
       <a href="/contact?type=loisirs" class="btn btn-p" style="width:100%;justify-content:center;margin-bottom:10px">🎁 Commencer — 3 mois offerts</a>
       <div style="display:flex;gap:8px">
-        <div style="flex:1;text-align:center;background:var(--pl);border:1px solid #DDD6FE;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--p)">19,90€</div><div style="font-size:11px;color:var(--muted);margin-top:2px">/mois</div></div>
-        <div style="flex:1;text-align:center;background:var(--al);border:1px solid #FCD34D;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--a)">179,10€</div><div style="font-size:11px;color:var(--muted);margin-top:2px">/an · 3 mois offerts</div></div>
+        <div style="flex:1;text-align:center;background:var(--pl);border:1px solid #DDD6FE;border-radius:10px;padding:10px 8px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--p)">19,90€</div><div style="font-size:11px;color:var(--muted);margin-top:2px">/mois</div></div>
+        <div style="flex:1;text-align:center;background:var(--al);border:1px solid #FCD34D;border-radius:10px;padding:10px 8px"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;color:var(--a)">179,10€</div><div style="font-size:11px;color:var(--muted);margin-top:2px">/an · 3 mois offerts</div></div>
       </div>
     </div>
   </div>
@@ -474,28 +474,28 @@
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">👨‍👩‍👧‍👦</div>
-        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Familles</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Familles</div>
         <div style="font-size:11px;color:var(--muted)">Sorties enfants, ateliers, parcs</div>
       </div>
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;transition:all .25s"
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">💑</div>
-        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Couples</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Couples</div>
         <div style="font-size:11px;color:var(--muted)">Spa, resto, soirées romantiques</div>
       </div>
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;transition:all .25s"
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">🍻</div>
-        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Amis</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Amis</div>
         <div style="font-size:11px;color:var(--muted)">Bowling, bars, escape, karting</div>
       </div>
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;transition:all .25s"
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">🚶</div>
-        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Solo</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Solo</div>
         <div style="font-size:11px;color:var(--muted)">Musées, ateliers, cours, café</div>
       </div>
     </div>
@@ -507,7 +507,7 @@
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:24px;padding:36px;position:relative">
         <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Standard</div>
         <div style="background:var(--gl);border-radius:8px;padding:6px 12px;display:inline-block;font-size:11px;font-weight:700;color:var(--gd);margin-bottom:16px">🎁 3 mois offerts</div>
-        <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">19<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">19<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
         <div style="font-size:13px;color:var(--muted);margin-bottom:24px">L'essentiel pour fidéliser</div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px">
           <li style="font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px"><span style="color:var(--g);font-weight:800">✓</span> QR code fidélité</li>
@@ -525,7 +525,7 @@
         <div style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#EC4899;color:#fff;font-size:11px;font-weight:700;padding:6px 18px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap;box-shadow:0 8px 20px rgba(236,72,153,.35)">⭐ Recommandé</div>
         <div style="font-size:11px;color:#EC4899;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:8px">Premium</div>
         <div style="background:#FCE7F3;border-radius:8px;padding:6px 12px;display:inline-block;font-size:11px;font-weight:700;color:#9D174D;margin-bottom:16px">🎁 1 mois offert</div>
-        <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">24<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;color:var(--dark);margin-bottom:4px">24<span style="font-size:16px;color:var(--muted);font-weight:400">,90€/mois</span></div>
         <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Standard + Packs combinés activés</div>
         <div style="font-size:12px;color:#EC4899;font-weight:700;margin-bottom:18px">+5€ seulement vs Standard</div>
         <ul style="list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:24px">
@@ -537,28 +537,28 @@
           <li style="font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px"><span style="color:#EC4899;font-weight:800">✓</span> <strong>0 % de commission au pourcentage</strong> sur les packs — forfait de mise en relation de 9,90 € / 10 packs encaissés</li>
           <li style="font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px"><span style="color:#EC4899;font-weight:800">✓</span> Stats packs en temps réel</li>
         </ul>
-        <a href="/contact?type=loisirs&formule=premium" class="btn" style="width:100%;justify-content:center;background:#EC4899;color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.35);font-family:'Syne',sans-serif;font-weight:700;padding:13px 26px;border-radius:100px;text-decoration:none">🚀 Passer en Premium</a>
+        <a href="/contact?type=loisirs&formule=premium" class="btn" style="width:100%;justify-content:center;background:#EC4899;color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.35);font-family:'Bricolage Grotesque',sans-serif;font-weight:700;padding:13px 26px;border-radius:100px;text-decoration:none">🚀 Passer en Premium</a>
       </div>
     </div>
 
     <!-- Comment ça marche les packs -->
     <div style="margin-top:64px;text-align:center">
       <p class="sec-tag" style="color:#EC4899">Comment ça marche</p>
-      <h3 style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--dark);margin-bottom:32px">Un pack en 3 temps</h3>
+      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:var(--dark);margin-bottom:32px">Un pack en 3 temps</h3>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto" class="steps-pack">
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
-          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">1</div>
-          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">On crée votre pack</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">1</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">On crée votre pack</div>
           <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Visio 30 min : on combine votre activité avec un autre partenaire local cohérent (resto, spa...).</div>
         </div>
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
-          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">2</div>
-          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">L'utilisateur réserve</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">2</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">L'utilisateur réserve</div>
           <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Il découvre votre pack dans "Idées Sorties", il réserve, reçoit un code unique. Paiement sur place chez vous.</div>
         </div>
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
-          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">3</div>
-          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Vous validez le code</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">3</div>
+          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Vous validez le code</div>
           <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Le client présente son code, vous le validez en 1 clic. Pas de commission, pas de complications.</div>
         </div>
       </div>
@@ -576,7 +576,7 @@
 </section>
 <footer>
   <div class="foot-in">
-    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain" decoding="async"/></picture></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain" decoding="async"/></picture></div><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokal<span style="color:#EF9F27">ist</span></span></div>
     <div class="foot-links"><a href="/proposer-un-evenement">Proposer un événement</a><a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/loisirs">Loisirs</a><a href="/agences">Agences Immo</a><a href="/courtiers">💶 Courtiers</a><a href="/tarifs">Tarifs</a><a href="/contact">Contact</a></div>
     <div class="foot-legal"><a href="/mentions-legales">Mentions légales</a><a href="/cgv">CGV</a>
         <a href="/cgu">CGU</a><a href="/confidentialite">Confidentialité</a><a href="/cookies">Cookies</a></div>
