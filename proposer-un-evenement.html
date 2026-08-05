@@ -162,7 +162,8 @@
           <div class="formule-desc">En tête de rubrique + badge « À la une » + notification aux habitants du secteur.</div>
         </label>
       </div>
-      <div class="hint">Tarif par événement. Vous serez facturé après validation — aucun paiement en ligne ici.</div>
+      <div class="hint" id="ev-hint-facturation">Tarif par événement. Vous serez facturé après validation — aucun paiement en ligne ici.</div>
+      <div id="ev-zone-gratuite" style="display:none;margin-top:8px;padding:12px 14px;background:var(--gl);border:1.5px solid var(--g);border-radius:12px;color:var(--gd);font-size:13.5px;font-weight:700">✅ Publication offerte — zone lancement Normandie. Aucun paiement à prévoir.</div>
 
       <div class="section-lbl" style="margin-top:24px">📋 L'événement</div>
       <div class="form-group"><label>Titre de l'événement *</label><input type="text" id="ev-titre" placeholder="Ex: Marché de Noël de l'Abbaye du Gruchet-le-Valasse" required/></div>
@@ -304,6 +305,32 @@
   }
 
   // ── Autocomplete commune (geo.api.gouv.fr) ──
+  /* >>> ZONE_GRATUITE_B3 : bandeau publication offerte selon zone geo */
+  var API_BASE_ZG = 'https://lokalist-api-production.up.railway.app';
+  function masquerZoneGratuite(){
+    var b = $('ev-zone-gratuite'); if(b) b.style.display = 'none';
+    var h = $('ev-hint-facturation'); if(h){ h.style.opacity=''; h.style.textDecoration=''; }
+    document.querySelectorAll('.formule-price').forEach(function(el){ el.style.textDecoration=''; el.style.opacity=''; });
+  }
+  async function verifierZoneGratuite(){
+    if(!villeData || (!villeData.nom && !villeData.cp)){ masquerZoneGratuite(); return; }
+    try {
+      var r = await fetch(API_BASE_ZG + '/evenements/verifier-zone', {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json' },
+        body: JSON.stringify({ ville: villeData.nom || null, code_postal: villeData.cp || null })
+      });
+      var j = await r.json().catch(function(){ return {}; });
+      if(j && j.gratuit === true){
+        var bb = $('ev-zone-gratuite'); if(bb) bb.style.display = 'block';
+        var hh = $('ev-hint-facturation'); if(hh){ hh.style.opacity='.45'; hh.style.textDecoration='line-through'; }
+        document.querySelectorAll('.formule-price').forEach(function(el){ el.style.textDecoration='line-through'; el.style.opacity='.5'; });
+      } else {
+        masquerZoneGratuite();
+      }
+    } catch(e){ masquerZoneGratuite(); }
+  }
+  /* <<< ZONE_GRATUITE_B3 */
   let villeTimer = null;
   let villeData = { nom:'', cp:'', lat:null, lng:null };
   const villeInput = $('ev-commune');
@@ -311,6 +338,7 @@
 
   villeInput.addEventListener('input', () => {
     villeData = { nom:'', cp:'', lat:null, lng:null };
+    masquerZoneGratuite();
     const q = villeInput.value.trim();
     if(villeTimer) clearTimeout(villeTimer);
     if(q.length < 2){ villeDrop.style.display='none'; return; }
@@ -334,6 +362,7 @@
     villeData = { nom:c.nom, cp:(c.codesPostaux?.[0]||''), lat:coords?coords[1]:null, lng:coords?coords[0]:null };
     villeInput.value = c.nom;
     villeDrop.style.display = 'none';
+    verifierZoneGratuite();
   });
   document.addEventListener('click', (e) => { if(!e.target.closest('#ev-commune') && !e.target.closest('#ev-commune-drop')) villeDrop.style.display='none'; });
 

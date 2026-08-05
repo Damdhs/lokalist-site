@@ -19,3 +19,7 @@ patch-*.cjs
 .html-backup/
 node_modules/
 images/_old-screens/
+
+*.bak*
+
+*.bak*
