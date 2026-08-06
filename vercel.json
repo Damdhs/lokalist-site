@@ -1,6 +1,14 @@
 {
     "rewrites":  [
                      {
+                         "source":  "/villes",
+                         "destination":  "/api/villes"
+                     },
+                     {
+                         "source":  "/sitemap-villes.xml",
+                         "destination":  "/api/sitemap-villes"
+                     },
+                     {
                          "source":  "/villes/:slug",
                          "destination":  "/api/ville?slug=:slug"
                      },

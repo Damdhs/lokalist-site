@@ -12,6 +12,8 @@ const SUPABASE_ANON  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmF
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
 const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist';
 const SITE_URL       = 'https://lokalist.fr';
+const FB_URL         = 'https://www.facebook.com/profile.php?id=61577501867273';
+const IG_URL         = 'https://www.instagram.com/lokalist.fr/';
 
 const escapeHtml = (str) => {
   if (!str) return '';
@@ -211,6 +213,10 @@ export default async function handler(req) {
 <meta name="twitter:description" content="${escapeHtml(desc)}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
@@ -285,6 +291,10 @@ export default async function handler(req) {
   .cta-btn-2 { display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;padding:15px 26px;border-radius:14px;font-weight:700;font-size:14px;transition:background .15s; }
   .cta-btn-2:hover { background:rgba(255,255,255,.26); }
 
+  .socials { display:flex;gap:12px;justify-content:center;margin-bottom:16px; }
+  .socials a { width:40px;height:40px;border-radius:50%;background:var(--primary-l);color:var(--primary-d);display:flex;align-items:center;justify-content:center;transition:background .15s,transform .15s,color .15s; }
+  .socials a:hover { background:var(--primary);color:#fff;transform:translateY(-2px); }
+  .socials svg { width:19px;height:19px; }
   footer { text-align:center;padding:26px 20px 48px;color:var(--muted);font-size:12.5px; }
   footer a { color:var(--primary);font-weight:600; }
 
@@ -333,6 +343,10 @@ export default async function handler(req) {
 </main>
 
 <footer>
+  <div class="socials">
+    <a href="${FB_URL}" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.8 3.7-3.8 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.7l-.4 2.9h-2.3v7A10 10 0 0 0 22 12z"/></svg></a>
+    <a href="${IG_URL}" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+  </div>
   <p>© Lokalist · La fidélité locale réinventée</p>
   <p style="margin-top:6px;"><a href="${SITE_URL}">Accueil</a> · <a href="${SITE_URL}/villes">Toutes les villes</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
 </footer>
