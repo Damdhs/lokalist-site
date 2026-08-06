@@ -2,9 +2,8 @@
 //  api/ville.js — Vercel Edge Function  [ville-page-v1]
 //  Page HTML SSR indexable pour /villes/:slug
 //  Agrège, pour une commune : commerçants, artisans, agences, courtiers
-//  (tous ACTIFS uniquement) + la mairie partenaire.
-//  Source de résolution du nom de commune : communes_ref (slug JS).
-//  Lecture base en direct (cache s-maxage=300) → reflète la base en continu.
+//  (ACTIFS uniquement) + mairie partenaire. Résolution via communes_ref.
+//  Lecture base en direct (cache s-maxage=300).
 // ════════════════════════════════════════════════════════════════
 export const config = { runtime: 'edge' };
 
@@ -57,32 +56,27 @@ const notFound = (msg = 'Commune introuvable') => new Response(html404(msg), {
   headers: { 'Content-Type': 'text/html; charset=utf-8', 'X-Robots-Tag': 'noindex, follow' },
 });
 
-// Résout le nom canonique de la commune à partir du slug (communes_ref).
 async function resolveCommune(wantedSlug) {
-  // 1) tentative ciblée (rapide) : ilike large sur les segments du slug
   const loose = '%' + wantedSlug.split('-').filter(Boolean).join('%') + '%';
   let rows = await sb(`communes_ref?select=nom,code_postal,code_insee,lat,lng&nom=ilike.${encodeURIComponent(loose)}&limit=200`);
   let hit = rows.find((c) => slugify(c.nom) === wantedSlug);
   if (hit) return hit;
-  // 2) fallback (accents) : chargement complet + match slug JS
   rows = await sb('communes_ref?select=nom,code_postal,code_insee,lat,lng&limit=40000');
   return rows.find((c) => slugify(c.nom) === wantedSlug) || null;
 }
 
 const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
 
-// Carte pro générique
 function card(href, img, emoji, nom, ville, note, nbAvis, tag) {
   const noteHtml = (note > 0)
-    ? `<div class="card-note">${etoiles(note)} <span>${Number(note).toFixed(1)}${nbAvis ? ` · ${nbAvis} avis` : ''}</span></div>`
+    ? `<div class="card-note"><span class="stars">${etoiles(note)}</span> <span class="nt">${Number(note).toFixed(1)}${nbAvis ? ` · ${nbAvis} avis` : ''}</span></div>`
     : '';
   const media = img
     ? `<img class="card-img" src="${escapeHtml(img)}" alt="${escapeHtml(nom)}" loading="lazy"/>`
     : `<div class="card-img card-img-fb">${emoji}</div>`;
   return `<a class="card" href="${href}">
-    ${media}
+    <div class="card-media">${media}${tag ? `<span class="card-tag">${tag}</span>` : ''}</div>
     <div class="card-body">
-      ${tag ? `<span class="card-tag">${tag}</span>` : ''}
       <div class="card-name">${escapeHtml(nom)}</div>
       ${ville ? `<div class="card-city">📍 ${escapeHtml(ville)}</div>` : ''}
       ${noteHtml}
@@ -93,7 +87,7 @@ function card(href, img, emoji, nom, ville, note, nbAvis, tag) {
 function section(titre, emoji, cardsHtml, count) {
   if (!count) return '';
   return `<section class="section">
-    <h2>${emoji} ${titre} <span class="count">${count}</span></h2>
+    <h2><span class="s-emoji">${emoji}</span> ${titre} <span class="count">${count}</span></h2>
     <div class="grid">${cardsHtml}</div>
   </section>`;
 }
@@ -112,7 +106,6 @@ export default async function handler(req) {
     const cp    = commune.code_postal || '';
     const vEnc  = encodeURIComponent(ville);
 
-    // Contenu (tous ACTIFS uniquement) — en parallèle
     const [commercants, artisans, courtiers, agences, mairies] = await Promise.all([
       sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis&statut=eq.actif&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
@@ -124,10 +117,8 @@ export default async function handler(req) {
     const mairie = mairies && mairies[0] ? mairies[0] : null;
     const total  = commercants.length + artisans.length + courtiers.length + agences.length;
 
-    // Pas de page vide : rien à montrer ET pas de mairie → 404 (SEO propre)
     if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
 
-    // ─── Sections ───
     const secCommercants = section('Commerçants', '🏪',
       commercants.map((c) => card(`/pro/${c.id}`, c.photo_url || c.logo_url, '🏪', c.nom, c.ville, +c.note_moyenne, c.nb_avis)).join(''),
       commercants.length);
@@ -135,7 +126,7 @@ export default async function handler(req) {
     const secArtisans = section('Artisans', '🔧',
       artisans.map((a) => card(`/artisan/${a.id}`, a.photo_url, '🔧',
         a.nom_entreprise || a.nom, a.ville, +a.note_moyenne, a.nb_avis,
-        a.certifie_rge ? 'RGE' : (a.badge_verifie ? 'Vérifié' : ''))).join(''),
+        a.certifie_rge ? 'RGE' : (a.badge_verifie ? '✓ Vérifié' : ''))).join(''),
       artisans.length);
 
     const secAgences = section('Agences immobilières', '🏠',
@@ -146,7 +137,6 @@ export default async function handler(req) {
       courtiers.map((co) => card(`/courtier/${co.id}`, co.logo_url, '💶', co.nom, co.ville, +co.note_moyenne, co.nb_avis)).join(''),
       courtiers.length);
 
-    // ─── Encart mairie ───
     const mairieHtml = mairie ? `<section class="mairie">
       <div class="mairie-head">
         ${mairie.logo_url ? `<img class="mairie-logo" src="${escapeHtml(mairie.logo_url)}" alt="Mairie de ${escapeHtml(ville)}"/>` : '<div class="mairie-logo mairie-logo-fb">🏛️</div>'}
@@ -175,6 +165,8 @@ export default async function handler(req) {
     const title = `Commerçants, artisans et services à ${ville}${cp ? ' (' + cp + ')' : ''} — Lokalist`;
     const desc  = `Découvrez ${resume} à ${ville} sur Lokalist, l'app qui fait vivre l'économie locale. Bons plans, fidélité et commerces de proximité.`;
 
+    const pillsHtml = nbLabel.map((p) => `<span class="pill">${p}</span>`).join('');
+
     const allBiz = [
       ...commercants.map((c) => ({ n: c.nom, u: `${SITE_URL}/pro/${c.id}` })),
       ...artisans.map((a) => ({ n: a.nom_entreprise || a.nom, u: `${SITE_URL}/artisan/${a.id}` })),
@@ -193,8 +185,7 @@ export default async function handler(req) {
       },
       ...(allBiz.length ? {
         "mainEntity": {
-          "@type": "ItemList",
-          "numberOfItems": allBiz.length,
+          "@type": "ItemList", "numberOfItems": allBiz.length,
           "itemListElement": allBiz.map((b, i) => ({ "@type": "ListItem", "position": i + 1, "name": b.n, "url": b.u })),
         }
       } : {}),
@@ -212,7 +203,7 @@ export default async function handler(req) {
 <meta property="og:site_name" content="Lokalist"/>
 <meta property="og:title" content="${escapeHtml(title)}"/>
 <meta property="og:description" content="${escapeHtml(desc)}"/>
-<meta property="og:image" content="${SITE_URL}/images/og-default.jpg"/>
+<meta property="og:image" content="${SITE_URL}/og-lokalist.png"/>
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -220,76 +211,111 @@ export default async function handler(req) {
 <meta name="twitter:description" content="${escapeHtml(desc)}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet">
 <style>
-  :root { --primary:#1D9E75;--primary-d:#0F6E56;--primary-l:#E8F8F2;--accent:#EF9F27;--bg:#F9F8F6;--surface:#FFF;--border:#EDEDED;--text:#1A1A2E;--muted:#8A8FA8; }
+  :root { --primary:#1D9E75;--primary-d:#0F6E56;--primary-l:#E8F8F2;--accent:#EF9F27;--bg:#F9F8F6;--surface:#FFF;--border:#ECEFEC;--text:#15231D;--muted:#7C8A83;--disp:'Bricolage Grotesque',system-ui,sans-serif; }
   * { box-sizing:border-box;margin:0;padding:0; }
-  html,body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55; }
+  html { scroll-behavior:smooth; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased; }
   a { color:inherit;text-decoration:none; }
-  .top-bar { background:var(--surface);border-bottom:1px solid var(--border);padding:11px 20px;display:flex;align-items:center;justify-content:space-between; }
-  .top-bar .brand { display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px;letter-spacing:-0.6px; }
-  .top-bar .brand img { width:28px;height:28px;border-radius:7px;display:block; }
-  .brand .n1 { color:var(--primary-d); }
-  .brand .n2 { color:var(--accent); }
-  .top-bar .btn-app { background:var(--primary);padding:8px 15px;border-radius:18px;font-size:13px;font-weight:700;color:#fff; }
-  .container { max-width:1040px;margin:0 auto;padding:0 16px; }
-  .crumb { font-size:12.5px;color:var(--muted);padding:14px 2px 0; }
-  .crumb a { color:var(--muted); } .crumb a:hover { color:var(--primary); }
-  .hero { padding:10px 2px 4px; }
-  .hero h1 { font-size:30px;font-weight:800;letter-spacing:-0.6px;line-height:1.15; }
-  .hero .sub { color:var(--muted);font-size:15px;margin-top:6px; }
-  .intro { color:var(--text);font-size:14.5px;line-height:1.7;margin-top:14px;max-width:700px; }
-  .mairie { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .mairie-head { display:flex;align-items:center;gap:14px; }
-  .mairie-logo { width:56px;height:56px;border-radius:12px;object-fit:cover;background:var(--primary-l); }
-  .mairie-logo-fb { display:flex;align-items:center;justify-content:center;font-size:30px; }
-  .mairie-tag { font-size:12px;font-weight:700;color:var(--primary-d);text-transform:uppercase;letter-spacing:0.5px; }
-  .mairie-nom { font-size:19px;font-weight:800;letter-spacing:-0.3px; }
-  .mairie-desc { color:var(--text);font-size:14px;margin-top:10px;line-height:1.6;white-space:pre-line; }
-  .mairie-links { display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
-  .mairie-links a { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:600;padding:7px 13px;border-radius:20px; }
-  .section { margin-top:26px; }
-  .section h2 { font-size:16px;font-weight:800;letter-spacing:-0.2px;display:flex;align-items:center;gap:8px;margin-bottom:12px; }
-  .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:12px;font-weight:700;padding:2px 9px;border-radius:20px; }
-  .grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px; }
-  .card { background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.04);transition:transform .15s ease,box-shadow .15s ease;display:flex;flex-direction:column; }
-  .card:hover { transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.08); }
-  .card-img { width:100%;height:130px;object-fit:cover;background:var(--primary-l);display:block; }
-  .card-img-fb { display:flex;align-items:center;justify-content:center;font-size:44px; }
-  .card-body { padding:12px 14px 14px; }
-  .card-tag { display:inline-block;background:var(--accent);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:12px;margin-bottom:6px; }
-  .card-name { font-size:15px;font-weight:700;letter-spacing:-0.2px;line-height:1.3; }
-  .card-city { color:var(--muted);font-size:12.5px;margin-top:3px; }
-  .card-note { color:var(--accent);font-size:12.5px;margin-top:6px; } .card-note span { color:var(--muted); }
-  .cta-block { background:var(--primary);color:#fff;margin:32px 0 30px;border-radius:18px;padding:26px 20px;text-align:center;box-shadow:0 6px 18px rgba(29,158,117,0.25); }
-  .cta-block h3 { font-size:19px;font-weight:800;margin-bottom:6px;letter-spacing:-0.3px; }
-  .cta-block p { font-size:13.5px;opacity:0.92;margin-bottom:16px;max-width:460px;margin-left:auto;margin-right:auto; }
-  .cta-btn { display:inline-block;background:#fff;color:var(--primary);padding:14px 28px;border-radius:12px;font-weight:800;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1); }
-  .cta-btn-2 { display:inline-block;background:rgba(0,0,0,0.15);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;font-size:13px;margin-left:8px; }
-  footer { text-align:center;padding:24px 20px 44px;color:var(--muted);font-size:12px; }
+  .wrap { max-width:1120px;margin:0 auto;padding:0 22px; }
+
+  /* Header */
+  .top-bar { position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--border); }
+  .top-inner { max-width:1120px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;justify-content:space-between; }
+  .brand { display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:-0.6px; }
+  .brand img { width:30px;height:30px;border-radius:8px;display:block; }
+  .brand .n1 { color:var(--primary-d); } .brand .n2 { color:var(--accent); }
+  .btn-app { background:var(--primary);padding:9px 17px;border-radius:22px;font-size:13.5px;font-weight:700;color:#fff;box-shadow:0 4px 14px rgba(29,158,117,.28);transition:transform .15s; }
+  .btn-app:hover { transform:translateY(-1px); }
+
+  /* Hero */
+  .hero { position:relative;overflow:hidden;background:linear-gradient(135deg,#0F6E56 0%,#1D9E75 62%,#25b184 100%);color:#fff; }
+  .hero::before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 30% 0%,#000 30%,transparent 75%); }
+  .hero::after { content:'';position:absolute;top:-120px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(239,159,39,.35),transparent 65%);pointer-events:none; }
+  .hero-inner { position:relative;padding:26px 0 40px; }
+  .crumb { font-size:13px;color:rgba(255,255,255,.75);margin-bottom:22px; }
+  .crumb a { color:rgba(255,255,255,.75); } .crumb a:hover { color:#fff; }
+  .hero h1 { font-family:var(--disp);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.02;letter-spacing:-1.5px; }
+  .hero h1 .cp { font-size:.42em;font-weight:700;color:rgba(255,255,255,.8);letter-spacing:-.5px;margin-left:6px;vertical-align:middle; }
+  .hero .lead { font-size:clamp(15px,1.6vw,18px);color:rgba(255,255,255,.92);margin-top:14px;max-width:640px;line-height:1.6; }
+  .pills { display:flex;flex-wrap:wrap;gap:9px;margin-top:20px; }
+  .pill { background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(4px);padding:7px 14px;border-radius:22px;font-size:13.5px;font-weight:600; }
+  .hero-cta { display:inline-flex;align-items:center;gap:8px;margin-top:26px;background:#fff;color:var(--primary-d);font-weight:800;font-size:15px;padding:14px 26px;border-radius:14px;box-shadow:0 10px 26px rgba(0,0,0,.18);transition:transform .15s; }
+  .hero-cta:hover { transform:translateY(-2px); }
+
+  /* Body */
+  main.wrap { padding-top:6px;padding-bottom:10px; }
+  .mairie { background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px 22px;margin-top:-26px;position:relative;z-index:5;box-shadow:0 10px 30px rgba(16,40,32,.08); }
+  .mairie-head { display:flex;align-items:center;gap:15px; }
+  .mairie-logo { width:60px;height:60px;border-radius:14px;object-fit:cover;background:var(--primary-l);flex-shrink:0; }
+  .mairie-logo-fb { display:flex;align-items:center;justify-content:center;font-size:32px; }
+  .mairie-tag { font-size:11.5px;font-weight:800;color:var(--primary-d);text-transform:uppercase;letter-spacing:.6px; }
+  .mairie-nom { font-family:var(--disp);font-size:21px;font-weight:800;letter-spacing:-.4px;margin-top:1px; }
+  .mairie-desc { color:var(--text);font-size:14.5px;margin-top:12px;line-height:1.6;white-space:pre-line; }
+  .mairie-links { display:flex;flex-wrap:wrap;gap:9px;margin-top:14px; }
+  .mairie-links a { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:700;padding:8px 14px;border-radius:22px;transition:background .15s; }
+  .mairie-links a:hover { background:#d5f0e6; }
+
+  .section { margin-top:34px; }
+  .section h2 { font-family:var(--disp);font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;gap:9px;margin-bottom:16px; }
+  .section h2 .s-emoji { font-size:.9em; }
+  .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:800;padding:2px 11px;border-radius:22px; }
+  .grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px; }
+  .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(16,40,32,.05);transition:transform .18s ease,box-shadow .18s ease;display:flex;flex-direction:column; }
+  .card:hover { transform:translateY(-5px);box-shadow:0 16px 34px rgba(16,40,32,.13); }
+  .card-media { position:relative; }
+  .card-img { width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--primary-l);display:block; }
+  .card-img-fb { display:flex;align-items:center;justify-content:center;font-size:54px;background:linear-gradient(135deg,var(--primary-l),#d3efe4); }
+  .card-tag { position:absolute;top:10px;left:10px;background:var(--accent);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;box-shadow:0 3px 10px rgba(239,159,39,.4); }
+  .card-body { padding:14px 16px 16px; }
+  .card-name { font-size:16px;font-weight:700;letter-spacing:-.3px;line-height:1.3; }
+  .card-city { color:var(--muted);font-size:13px;margin-top:4px; }
+  .card-note { margin-top:8px;font-size:13px; } .card-note .stars { color:var(--accent);letter-spacing:1px; } .card-note .nt { color:var(--muted); }
+
+  .cta-block { background:linear-gradient(135deg,#0F6E56,#1D9E75);color:#fff;margin:44px 0 34px;border-radius:22px;padding:38px 24px;text-align:center;box-shadow:0 14px 34px rgba(29,158,117,.28);position:relative;overflow:hidden; }
+  .cta-block::after { content:'';position:absolute;bottom:-100px;left:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(239,159,39,.28),transparent 65%); }
+  .cta-block h3 { font-family:var(--disp);font-size:clamp(20px,2.6vw,26px);font-weight:800;margin-bottom:8px;letter-spacing:-.5px;position:relative; }
+  .cta-block p { font-size:14.5px;opacity:.94;margin:0 auto 20px;max-width:500px;position:relative; }
+  .cta-actions { display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative; }
+  .cta-btn { display:inline-block;background:#fff;color:var(--primary-d);padding:15px 30px;border-radius:14px;font-weight:800;font-size:15px;box-shadow:0 6px 18px rgba(0,0,0,.15);transition:transform .15s; }
+  .cta-btn:hover { transform:translateY(-2px); }
+  .cta-btn-2 { display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;padding:15px 26px;border-radius:14px;font-weight:700;font-size:14px;transition:background .15s; }
+  .cta-btn-2:hover { background:rgba(255,255,255,.26); }
+
+  footer { text-align:center;padding:26px 20px 48px;color:var(--muted);font-size:12.5px; }
   footer a { color:var(--primary);font-weight:600; }
-  @media (max-width:600px){
-    .hero h1{font-size:24px;}
-    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;}
-    .card-img{height:104px;}
-    .cta-btn-2{display:block;margin:12px auto 0;width:fit-content;}
+
+  @media (max-width:640px){
+    .hero-inner{padding:20px 0 34px;} .crumb{margin-bottom:16px;}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
+    .card-body{padding:11px 12px 13px;} .card-name{font-size:14.5px;}
+    .mairie{margin-top:-18px;padding:16px 16px;}
+    .cta-btn,.cta-btn-2{width:100%;}
   }
 </style>
 </head>
 <body>
 <header class="top-bar">
-  <a class="brand" href="${SITE_URL}"><img src="/favicon.svg" alt="Lokalist"/><span><span class="n1">Lokal</span><span class="n2">ist</span></span></a>
-  <a class="btn-app" href="${PLAY_STORE_URL}" id="btn-download">Télécharger l'app →</a>
+  <div class="top-inner">
+    <a class="brand" href="${SITE_URL}"><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="30" height="30"/></picture><span><span class="n1">Lokal</span><span class="n2">ist</span></span></a>
+    <a class="btn-app" href="${PLAY_STORE_URL}" id="btn-download">Télécharger l'app</a>
+  </div>
 </header>
 
-<main class="container">
-  <nav class="crumb"><a href="${SITE_URL}">Accueil</a> › ${escapeHtml(ville)}</nav>
-
-  <div class="hero">
-    <h1>${escapeHtml(ville)}${cp ? ` <span style="color:var(--muted);font-weight:600;font-size:18px">(${escapeHtml(cp)})</span>` : ''}</h1>
-    <div class="sub">Commerçants, artisans et services locaux${total ? ` · ${total} acteur${total > 1 ? 's' : ''} près de chez vous` : ''}</div>
-    <p class="intro">À ${escapeHtml(ville)}, retrouvez les commerçants, artisans, agences et services de proximité qui font vivre la commune. Lokalist met en avant les professionnels locaux et leurs bons plans — soutenez l'économie de votre ville, directement depuis votre téléphone.</p>
+<section class="hero">
+  <div class="wrap hero-inner">
+    <nav class="crumb"><a href="${SITE_URL}">Accueil</a> › <a href="${SITE_URL}/villes">Villes</a> › ${escapeHtml(ville)}</nav>
+    <h1>${escapeHtml(ville)}${cp ? `<span class="cp">${escapeHtml(cp)}</span>` : ''}</h1>
+    <p class="lead">Tous les commerçants, artisans et services de proximité de ${escapeHtml(ville)} réunis au même endroit. Soutenez l'économie locale et profitez des bons plans près de chez vous.</p>
+    ${pillsHtml ? `<div class="pills">${pillsHtml}</div>` : ''}
+    <a class="hero-cta" href="${PLAY_STORE_URL}" id="btn-download-hero">📱 Télécharger Lokalist</a>
   </div>
+</section>
 
+<main class="wrap">
   ${mairieHtml}
   ${secCommercants}
   ${secArtisans}
@@ -297,23 +323,25 @@ export default async function handler(req) {
   ${secCourtiers}
 
   <div class="cta-block">
-    <h3>📱 Toute la vie locale de ${escapeHtml(ville)} dans votre poche</h3>
-    <p>Bons plans, fidélité, commerces et actus de votre commune. Gratuit pour les habitants.</p>
-    <a href="${PLAY_STORE_URL}" class="cta-btn" id="btn-download-2">Télécharger Lokalist</a>
-    <a href="${SITE_URL}/mairies" class="cta-btn-2">Vous êtes une mairie ?</a>
+    <h3>Toute la vie locale de ${escapeHtml(ville)} dans votre poche</h3>
+    <p>Bons plans, programme de fidélité, commerces et actus de votre commune. 100% gratuit pour les habitants.</p>
+    <div class="cta-actions">
+      <a href="${PLAY_STORE_URL}" class="cta-btn" id="btn-download-2">Télécharger l'app</a>
+      <a href="${SITE_URL}/mairies" class="cta-btn-2">Vous êtes une mairie ?</a>
+    </div>
   </div>
 </main>
 
 <footer>
   <p>© Lokalist · La fidélité locale réinventée</p>
-  <p style="margin-top:6px;"><a href="${SITE_URL}">Accueil</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
+  <p style="margin-top:6px;"><a href="${SITE_URL}">Accueil</a> · <a href="${SITE_URL}/villes">Toutes les villes</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
 </footer>
 
 <script>
   (function(){
     var ua = navigator.userAgent || '';
     if (/iPhone|iPad|iPod/i.test(ua)) {
-      ['btn-download','btn-download-2'].forEach(function(id){
+      ['btn-download','btn-download-hero','btn-download-2'].forEach(function(id){
         var b = document.getElementById(id); if (b) b.href = '${APP_STORE_URL}';
       });
     }
