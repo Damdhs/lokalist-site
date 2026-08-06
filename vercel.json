@@ -1,6 +1,10 @@
 {
     "rewrites":  [
                      {
+                         "source":  "/villes/:slug",
+                         "destination":  "/api/ville?slug=:slug"
+                     },
+                     {
                          "source":  "/",
                          "destination":  "/index.html"
                      },
