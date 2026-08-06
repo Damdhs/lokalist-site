@@ -225,15 +225,19 @@ export default async function handler(req) {
   * { box-sizing:border-box;margin:0;padding:0; }
   html,body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55; }
   a { color:inherit;text-decoration:none; }
-  .top-bar { background:var(--primary);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between; }
-  .top-bar .brand { color:#fff;font-weight:800;font-size:18px;letter-spacing:-0.3px; }
-  .top-bar .btn-app { background:rgba(0,0,0,0.18);padding:7px 13px;border-radius:18px;font-size:13px;font-weight:600;color:#fff; }
+  .top-bar { background:var(--surface);border-bottom:1px solid var(--border);padding:11px 20px;display:flex;align-items:center;justify-content:space-between; }
+  .top-bar .brand { display:flex;align-items:center;gap:9px;font-weight:800;font-size:21px;letter-spacing:-0.6px; }
+  .top-bar .brand img { width:28px;height:28px;border-radius:7px;display:block; }
+  .brand .n1 { color:var(--primary-d); }
+  .brand .n2 { color:var(--accent); }
+  .top-bar .btn-app { background:var(--primary);padding:8px 15px;border-radius:18px;font-size:13px;font-weight:700;color:#fff; }
   .container { max-width:1040px;margin:0 auto;padding:0 16px; }
   .crumb { font-size:12.5px;color:var(--muted);padding:14px 2px 0; }
   .crumb a { color:var(--muted); } .crumb a:hover { color:var(--primary); }
   .hero { padding:10px 2px 4px; }
   .hero h1 { font-size:30px;font-weight:800;letter-spacing:-0.6px;line-height:1.15; }
   .hero .sub { color:var(--muted);font-size:15px;margin-top:6px; }
+  .intro { color:var(--text);font-size:14.5px;line-height:1.7;margin-top:14px;max-width:700px; }
   .mairie { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 2px 8px rgba(0,0,0,0.04); }
   .mairie-head { display:flex;align-items:center;gap:14px; }
   .mairie-logo { width:56px;height:56px;border-radius:12px;object-fit:cover;background:var(--primary-l); }
@@ -273,7 +277,7 @@ export default async function handler(req) {
 </head>
 <body>
 <header class="top-bar">
-  <a class="brand" href="${SITE_URL}">🏡 Lokalist</a>
+  <a class="brand" href="${SITE_URL}"><img src="/favicon.svg" alt="Lokalist"/><span><span class="n1">Lokal</span><span class="n2">ist</span></span></a>
   <a class="btn-app" href="${PLAY_STORE_URL}" id="btn-download">Télécharger l'app →</a>
 </header>
 
@@ -283,6 +287,7 @@ export default async function handler(req) {
   <div class="hero">
     <h1>${escapeHtml(ville)}${cp ? ` <span style="color:var(--muted);font-weight:600;font-size:18px">(${escapeHtml(cp)})</span>` : ''}</h1>
     <div class="sub">Commerçants, artisans et services locaux${total ? ` · ${total} acteur${total > 1 ? 's' : ''} près de chez vous` : ''}</div>
+    <p class="intro">À ${escapeHtml(ville)}, retrouvez les commerçants, artisans, agences et services de proximité qui font vivre la commune. Lokalist met en avant les professionnels locaux et leurs bons plans — soutenez l'économie de votre ville, directement depuis votre téléphone.</p>
   </div>
 
   ${mairieHtml}
