@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><!-- LOGO_BICOLOR_V3 -->
+<head><!-- LOGO_IMG_WORDMARK_V1 -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="theme-color" content="#1D9E75">
   <title>Lokalist — Supprimer mon compte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root{--vert:#1D9E75;--vert-fonce:#0F6E56;--or:#EF9F27;--gris:#5b6b66;--bg:#f5f2eb;}
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -13,7 +16,11 @@
     a:hover{text-decoration:underline;}
     header{background:#fff;border-bottom:1px solid #e9e6df;}
     .nav{max-width:1080px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-    .brand{font-weight:800;font-size:20px;color:var(--vert);display:flex;align-items:center;gap:8px;}
+    .brand{display:inline-flex;align-items:center;gap:10px;}
+    .brand:hover{text-decoration:none;}
+    .brand-mark{display:block;width:34px;height:34px;border-radius:8px;}
+    .brand-word{font-family:"Syne",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:800;font-size:23px;letter-spacing:-.02em;color:var(--vert);line-height:1;}
+    .brand-word .accent{color:var(--or);}
     .nav-links{display:flex;gap:18px;flex-wrap:wrap;font-size:14px;}
     .nav-links a{color:#3a4a44;}
     .hero{background:linear-gradient(160deg,var(--vert),var(--vert-fonce));color:#fff;padding:48px 20px;}
@@ -32,6 +39,9 @@
     .note{font-size:14px;color:var(--gris);}
     footer{background:#0f1f1a;color:#cdd6d2;padding:32px 20px;}
     .foot-inner{max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:14px;}
+    .foot-brand{display:inline-flex;align-items:center;gap:10px;}
+    .foot-brand .brand-word{color:#fff;}
+    .foot-brand .brand-word .accent{color:var(--or);}
     .foot-links{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;}
     .foot-links a{color:#cdd6d2;}
     .foot-legal{font-size:13px;opacity:.75;}
@@ -43,7 +53,13 @@
 <body>
   <header>
     <div class="nav">
-      <a href="https://www.lokalist.fr/" class="brand">📍 Lokal<span style="color:#EF9F27">ist</span></a>
+      <a href="https://www.lokalist.fr/" class="brand" aria-label="Lokalist — accueil">
+        <picture>
+          <source srcset="https://www.lokalist.fr/assets/lokalist-logo-192.webp" type="image/webp">
+          <img class="brand-mark" src="https://www.lokalist.fr/assets/lokalist-logo-192.png" width="34" height="34" alt="Logo Lokalist">
+        </picture>
+        <span class="brand-word">Lokal<span class="accent">ist</span></span>
+      </a>
       <nav class="nav-links">
         <a href="https://www.lokalist.fr/mairies">Mairies</a>
         <a href="https://www.lokalist.fr/commercants">Commerçants</a>
@@ -99,7 +115,13 @@
 
   <footer>
     <div class="foot-inner">
-      <div class="brand" style="color:#fff;">📍 Lokal<span style="color:#EF9F27">ist</span></div>
+      <div class="foot-brand">
+        <picture>
+          <source srcset="https://www.lokalist.fr/assets/lokalist-logo-192.webp" type="image/webp">
+          <img class="brand-mark" src="https://www.lokalist.fr/assets/lokalist-logo-192.png" width="30" height="30" alt="Logo Lokalist" loading="lazy">
+        </picture>
+        <span class="brand-word">Lokal<span class="accent">ist</span></span>
+      </div>
       <div class="foot-links"><a href="/proposer-un-evenement">Proposer un événement</a>
         <a href="https://www.lokalist.fr/">Accueil</a>
         <a href="https://www.lokalist.fr/mentions-legales">Mentions légales</a>
