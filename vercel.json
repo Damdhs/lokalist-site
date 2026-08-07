@@ -1,6 +1,10 @@
 {
     "rewrites":  [
                      {
+                         "source":  "/supprimer-compte",
+                         "destination":  "/supprimer-compte.html"
+                     },
+                     {
                          "source":  "/villes",
                          "destination":  "/api/villes"
                      },
