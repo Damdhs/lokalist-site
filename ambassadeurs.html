@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le mur des ambassadeurs — Lokalist</title>
+<meta name="description" content="Ils font vivre le local partout en France. Découvrez les ambassadeurs Lokalist qui font découvrir les commerçants et artisans de leur région.">
+
+<!-- Favicons (déjà présents à la racine du site) -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Open Graph / partage réseaux -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lokalist">
+<meta property="og:title" content="Le mur des ambassadeurs — Lokalist">
+<meta property="og:description" content="Ils font vivre le local partout en France. Rejoignez les ambassadeurs Lokalist.">
+<meta property="og:image" content="https://lokalist.fr/og-ambassadeurs.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://lokalist.fr/ambassadeurs">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Le mur des ambassadeurs — Lokalist">
+<meta name="twitter:description" content="Ils font vivre le local partout en France.">
+<meta name="twitter:image" content="https://lokalist.fr/og-ambassadeurs.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --vert:#1D9E75; --vert-d:#0F6E56; --vert-l:#E8F8F2;
+    --orange:#EF9F27; --texte:#14261F; --muted:#5B6B63;
+    --or1:#F5C451; --or2:#E8912A; --or-t:#7A4A10;
+    --ar1:#EDEFF2; --ar2:#B8BEC7; --ar-t:#454B54;
+    --br1:#ECC19B; --br2:#C67B3E; --br-t:#763B12;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--texte);background:#F4FBF8;line-height:1.55}
+  .syne{font-family:'Syne','Inter',sans-serif}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.9);backdrop-filter:blur(8px);border-bottom:1px solid #E3EDE8}
+  .hbar{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .hbar img{height:34px;display:block}
+  .hbar .cta{background:var(--vert);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:9px 16px;border-radius:12px}
+
+  /* Hero */
+  .hero{background:linear-gradient(135deg,var(--vert) 0%,var(--vert-d) 100%);color:#fff;padding:56px 0 64px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:50%;background:rgba(255,255,255,.06)}
+  .hero h1{font-size:clamp(34px,6vw,58px);font-weight:800;line-height:1.02;letter-spacing:-1px}
+  .hero .bar{width:120px;height:7px;background:var(--orange);border-radius:5px;margin:18px 0}
+  .hero p{font-size:clamp(16px,2.4vw,20px);max-width:620px;color:rgba(255,255,255,.92)}
+  .hero .stat{display:inline-flex;gap:8px;align-items:baseline;margin-top:26px;background:rgba(255,255,255,.12);padding:10px 16px;border-radius:14px}
+  .hero .stat b{font-size:26px;font-weight:800}
+
+  /* Layout carte + contenu */
+  .board{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;margin:-40px auto 0;position:relative;z-index:5}
+  .card{background:#fff;border:1px solid #E3EDE8;border-radius:20px;box-shadow:0 10px 30px rgba(15,110,86,.08)}
+  .mapcard{padding:18px}
+  .mapcard h2,.side h2{font-size:15px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:12px}
+  svg.france{width:100%;height:auto;display:block}
+  .france .land{fill:#E8F8F2;stroke:#BFE6D6;stroke-width:2}
+  .pin{cursor:pointer}
+  .pin circle{stroke:#fff;stroke-width:2.5}
+  .pin.or circle{fill:url(#gor)} .pin.argent circle{fill:url(#gar)} .pin.bronze circle{fill:url(#gbr)}
+  .pin text{font-size:11px;font-weight:800;fill:#fff;text-anchor:middle;dominant-baseline:central}
+  .tip{position:fixed;pointer-events:none;background:#14261F;color:#fff;font-size:12px;font-weight:600;padding:6px 10px;border-radius:8px;opacity:0;transform:translate(-50%,-140%);transition:opacity .12s;z-index:50;white-space:nowrap}
+
+  /* Podium */
+  .side{padding:18px}
+  .podium{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+  .pod{border-radius:14px;padding:14px 10px;text-align:center;color:#fff}
+  .pod.or{background:linear-gradient(160deg,var(--or1),var(--or2))}
+  .pod.argent{background:linear-gradient(160deg,var(--ar1),var(--ar2));color:var(--ar-t)}
+  .pod.bronze{background:linear-gradient(160deg,var(--br1),var(--br2))}
+  .pod .medal{font-size:24px}
+  .pod .nom{font-weight:800;margin-top:4px;font-size:14px}
+  .pod .ville{font-size:11px;opacity:.9}
+  .pod .nb{font-size:12px;font-weight:700;margin-top:4px}
+
+  /* Filtre + liste */
+  .filter{margin:18px 0 12px}
+  .filter input{width:100%;padding:11px 14px;border:1px solid #D5E3DC;border-radius:12px;font-family:inherit;font-size:14px}
+  .list{display:flex;flex-direction:column;gap:8px;max-height:360px;overflow:auto}
+  .row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid #EDF3F0;border-radius:12px}
+  .badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;flex-shrink:0}
+  .badge.or{background:linear-gradient(160deg,var(--or1),var(--or2))}
+  .badge.argent{background:linear-gradient(160deg,var(--ar1),var(--ar2));color:var(--ar-t)}
+  .badge.bronze{background:linear-gradient(160deg,var(--br1),var(--br2))}
+  .row .nom{font-weight:700}
+  .row .ville{font-size:12px;color:var(--muted)}
+  .row .cnt{margin-left:auto;font-size:12px;font-weight:700;color:var(--vert-d);background:var(--vert-l);padding:3px 10px;border-radius:10px}
+
+  .empty{text-align:center;padding:40px 20px;color:var(--muted)}
+  .empty .big{font-size:40px}
+  .loading{text-align:center;padding:30px;color:var(--muted)}
+
+  /* Concept + CTA */
+  .concept{padding:56px 0}
+  .concept .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+  .step{background:#fff;border:1px solid #E3EDE8;border-radius:16px;padding:20px}
+  .step .n{width:34px;height:34px;border-radius:10px;background:var(--vert-l);color:var(--vert-d);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .step h3{font-size:16px;margin-bottom:6px}
+  .step p{font-size:14px;color:var(--muted)}
+
+  .cta-band{background:linear-gradient(135deg,var(--vert) 0%,var(--vert-d) 100%);color:#fff;text-align:center;padding:50px 20px;border-radius:24px;margin:0 0 50px}
+  .cta-band h2{font-size:clamp(24px,4vw,34px);font-weight:800}
+  .cta-band p{opacity:.9;margin:10px 0 22px}
+  .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{background:#fff;color:var(--vert-d);text-decoration:none;font-weight:800;padding:14px 24px;border-radius:14px;font-size:16px}
+  .btn.ghost{background:rgba(255,255,255,.14);color:#fff}
+  .soon{font-size:12.5px;opacity:.85;margin-top:14px}
+
+  footer{padding:26px 0 40px;text-align:center;color:var(--muted);font-size:13px}
+
+  @media(max-width:860px){
+    .board{grid-template-columns:1fr;margin-top:-24px}
+    .concept .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hbar">
+    <a href="https://lokalist.fr"><img src="/logo.png" alt="Lokalist"></a>
+    <a class="cta" href="https://lokalist.fr">Télécharger l'app</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1 class="syne">Le mur des<br>ambassadeurs</h1>
+    <div class="bar"></div>
+    <p>Ils font vivre le local partout en France. Ces habitants font découvrir les commerçants, artisans et professionnels de leur région — et leur ouvrent les portes de Lokalist.</p>
+    <div class="stat"><b id="stat-nb">—</b><span>ambassadeurs actifs</span></div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="board">
+    <!-- Carte -->
+    <div class="card mapcard">
+      <h2>🗺️ Partout en France</h2>
+      <svg class="france" viewBox="0 0 600 600" id="map" role="img" aria-label="Carte des ambassadeurs en France">
+        <defs>
+          <radialGradient id="gor" cx="35%" cy="30%"><stop offset="0%" stop-color="#F7D06E"/><stop offset="100%" stop-color="#E8912A"/></radialGradient>
+          <radialGradient id="gar" cx="35%" cy="30%"><stop offset="0%" stop-color="#F3F5F7"/><stop offset="100%" stop-color="#AEB5BF"/></radialGradient>
+          <radialGradient id="gbr" cx="35%" cy="30%"><stop offset="0%" stop-color="#EBC59E"/><stop offset="100%" stop-color="#C67B3E"/></radialGradient>
+        </defs>
+        <path id="land" class="land" d=""></path>
+        <path id="corse" class="land" d=""></path>
+        <g id="pins"></g>
+      </svg>
+      <div style="font-size:12px;color:var(--muted);margin-top:6px">Position au niveau de la commune. Survolez une médaille pour voir l'ambassadeur.</div>
+    </div>
+
+    <!-- Podium + liste -->
+    <div class="card side">
+      <h2>🏆 Podium</h2>
+      <div class="podium" id="podium"></div>
+      <div class="filter"><input id="filtre" type="text" placeholder="🔎 Filtrer par commune ou prénom…"></div>
+      <div class="list" id="liste"><div class="loading">Chargement des ambassadeurs…</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="concept">
+  <div class="wrap">
+    <h2 class="syne" style="font-size:28px">Comment devenir ambassadeur ?</h2>
+    <div class="grid">
+      <div class="step"><div class="n">1</div><h3>Vous connaissez un pro</h3><p>Un artisan, un commerçant, une agence près de chez vous, pas encore sur Lokalist.</p></div>
+      <div class="step"><div class="n">2</div><h3>Vous en parlez à Loki</h3><p>Dans l'app, dites-le à Loki : il transmet à l'équipe qui prend contact.</p></div>
+      <div class="step"><div class="n">3</div><h3>Le pro rejoint Lokalist</h3><p>Vous gagnez votre badge d'ambassadeur — la reconnaissance de faire grandir le local.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta-band">
+    <h2 class="syne">Faites vivre le local, vous aussi</h2>
+    <p>Téléchargez Lokalist et découvrez les commerces, artisans et bons plans près de chez vous.</p>
+    <div class="btns" id="store-btns">
+      <a class="btn" href="https://lokalist.fr">Télécharger l'app</a>
+    </div>
+    <div class="soon" id="soon">Bientôt sur l'App Store et Google Play</div>
+  </div>
+</div>
+
+<footer>© <span id="yr"></span> Lokalist — La vie locale, ensemble.</footer>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+  "use strict";
+  // ─── CONFIG : remplace par les vrais liens quand les apps sont publiées ───
+  var CONFIG = {
+    API: "https://lokalist-api-production.up.railway.app/ambassadeurs-publics",
+    APP_STORE: "",      // ex: "https://apps.apple.com/app/idXXXXXXXX"
+    GOOGLE_PLAY: ""     // ex: "https://play.google.com/store/apps/details?id=fr.lokalist.app"
+  };
+
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Si les liens stores sont fournis, on affiche 2 vrais boutons + on masque "bientôt"
+  (function storeButtons(){
+    if(CONFIG.APP_STORE || CONFIG.GOOGLE_PLAY){
+      var box=document.getElementById('store-btns'); box.innerHTML='';
+      if(CONFIG.APP_STORE){ var a=document.createElement('a'); a.className='btn'; a.href=CONFIG.APP_STORE; a.textContent='App Store'; box.appendChild(a); }
+      if(CONFIG.GOOGLE_PLAY){ var g=document.createElement('a'); g.className='btn ghost'; g.href=CONFIG.GOOGLE_PLAY; g.textContent='Google Play'; box.appendChild(g); }
+      var s=document.getElementById('soon'); if(s) s.style.display='none';
+    }
+  })();
+
+  // ─── Projection géo -> SVG (équirectangulaire, corrigée en longitude) ───
+  var LNG_MIN=-5.2, LNG_MAX=9.7, LAT_MIN=41.2, LAT_MAX=51.2;
+  var MIDLAT=(LAT_MIN+LAT_MAX)/2, K=Math.cos(MIDLAT*Math.PI/180);
+  var PAD=40, VB=600;
+  var spanX=(LNG_MAX-LNG_MIN)*K, spanY=(LAT_MAX-LAT_MIN);
+  var SCALE=(VB-2*PAD)/Math.max(spanX,spanY);
+  var offX=PAD+((VB-2*PAD)-spanX*SCALE)/2, offY=PAD+((VB-2*PAD)-spanY*SCALE)/2;
+  function proj(lng,lat){
+    var x=offX+((lng-LNG_MIN)*K)*SCALE;
+    var y=offY+((LAT_MAX-lat))*SCALE;
+    return [x,y];
+  }
+
+  // Contour France métropolitaine (lng,lat) — approx, sens horaire depuis le Nord
+  var BORDER=[
+    [2.37,51.03],[4.2,50.5],[4.9,49.8],[7.8,48.9],[7.55,47.6],[6.1,46.2],[6.9,45.9],
+    [7.5,43.75],[5.4,43.3],[3.9,43.45],[3.0,42.5],[1.4,42.6],[-1.5,43.4],[-1.2,44.6],
+    [-1.2,46.1],[-2.2,47.2],[-4.7,48.02],[-4.5,48.4],[-2.0,48.6],[-1.6,49.7],[0.1,49.5],
+    [1.1,49.9],[1.85,50.95]
+  ];
+  var CORSE=[[9.45,42.7],[9.35,43.0],[8.55,42.35],[8.7,41.9],[9.2,41.36],[9.42,42.2]];
+  function pathFrom(coords){
+    return coords.map(function(c,i){var p=proj(c[0],c[1]);return (i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1);}).join(' ')+' Z';
+  }
+  document.getElementById('land').setAttribute('d', pathFrom(BORDER));
+  document.getElementById('corse').setAttribute('d', pathFrom(CORSE));
+
+  // ─── Helpers ───
+  function nomAffiche(a){ return (a.prenom||'') + (a.initiale? ' '+a.initiale : ''); }
+  function medal(b){ return b==='or'?'🥇':b==='argent'?'🥈':'🥉'; }
+  function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  var DATA=[];
+  var tip=document.getElementById('tip');
+  function showTip(e,txt){ tip.textContent=txt; tip.style.left=e.clientX+'px'; tip.style.top=e.clientY+'px'; tip.style.opacity='1'; }
+  function hideTip(){ tip.style.opacity='0'; }
+
+  function renderMap(list){
+    var g=document.getElementById('pins'); g.innerHTML='';
+    list.forEach(function(a){
+      if(a.lat==null||a.lng==null) return;
+      var p=proj(Number(a.lng),Number(a.lat));
+      if(!isFinite(p[0])||!isFinite(p[1])) return;
+      var ns='http://www.w3.org/2000/svg';
+      var grp=document.createElementNS(ns,'g'); grp.setAttribute('class','pin '+a.badge); grp.setAttribute('transform','translate('+p[0].toFixed(1)+','+p[1].toFixed(1)+')');
+      var c=document.createElementNS(ns,'circle'); c.setAttribute('r','13'); grp.appendChild(c);
+      var t=document.createElementNS(ns,'text'); t.textContent=a.nb_converti; grp.appendChild(t);
+      var label=nomAffiche(a)+' · '+(a.ville||'')+' — '+a.nb_converti+' pro'+(a.nb_converti>1?'s':'');
+      grp.addEventListener('mousemove',function(e){showTip(e,label);});
+      grp.addEventListener('mouseleave',hideTip);
+      g.appendChild(grp);
+    });
+  }
+
+  function renderPodium(list){
+    var box=document.getElementById('podium');
+    var top=list.slice(0,3);
+    if(!top.length){ box.innerHTML=''; return; }
+    box.innerHTML=top.map(function(a){
+      return '<div class="pod '+a.badge+'"><div class="medal">'+medal(a.badge)+'</div>'+
+             '<div class="nom">'+esc(nomAffiche(a))+'</div>'+
+             '<div class="ville">'+esc(a.ville||'')+'</div>'+
+             '<div class="nb">'+a.nb_converti+' pro'+(a.nb_converti>1?'s':'')+'</div></div>';
+    }).join('');
+  }
+
+  function renderList(list){
+    var box=document.getElementById('liste');
+    if(!list.length){
+      box.innerHTML='<div class="empty"><div class="big">🏅</div><p><b>Les premiers ambassadeurs arrivent bientôt.</b><br>Vous connaissez un pro à faire découvrir ? Parlez-en à Loki dans l\'app.</p></div>';
+      return;
+    }
+    box.innerHTML=list.map(function(a){
+      return '<div class="row"><div class="badge '+a.badge+'">'+medal(a.badge)+'</div>'+
+             '<div><div class="nom">'+esc(nomAffiche(a))+'</div><div class="ville">'+esc(a.ville||'')+'</div></div>'+
+             '<div class="cnt">'+a.nb_converti+' pro'+(a.nb_converti>1?'s':'')+'</div></div>';
+    }).join('');
+  }
+
+  function applyFilter(){
+    var q=(document.getElementById('filtre').value||'').toLowerCase().trim();
+    var f = q ? DATA.filter(function(a){ return (nomAffiche(a).toLowerCase().indexOf(q)!==-1) || ((a.ville||'').toLowerCase().indexOf(q)!==-1); }) : DATA;
+    renderList(f); renderMap(f);
+  }
+  document.getElementById('filtre').addEventListener('input', applyFilter);
+
+  // ─── Fetch ───
+  fetch(CONFIG.API,{headers:{'Accept':'application/json'}})
+    .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+    .then(function(j){
+      DATA=(j.ambassadeurs||[]).filter(function(a){return a && a.nb_converti>=1;});
+      DATA.sort(function(x,y){return (y.nb_converti-x.nb_converti);});
+      document.getElementById('stat-nb').textContent=DATA.length;
+      renderPodium(DATA); renderList(DATA); renderMap(DATA);
+    })
+    .catch(function(e){
+      console.error('[ambassadeurs]',e);
+      document.getElementById('stat-nb').textContent='0';
+      document.getElementById('liste').innerHTML='<div class="empty"><div class="big">🏅</div><p><b>Les premiers ambassadeurs arrivent bientôt.</b><br>Revenez très vite !</p></div>';
+    });
+})();
+</script>
+</body>
+</html>
