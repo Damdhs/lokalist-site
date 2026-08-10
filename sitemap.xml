@@ -2,14 +2,14 @@
 <!-- generated-by: lokalist-seo-script -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://lokalist.fr/</loc><lastmod>2026-06-16</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://lokalist.fr/commercants.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lokalist.fr/artisans.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lokalist.fr/mairies.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lokalist.fr/agences.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lokalist.fr/courtiers.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://lokalist.fr/contact.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://lokalist.fr/mentions-legales.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://lokalist.fr/confidentialite.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://lokalist.fr/cgu.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
-  <url><loc>https://lokalist.fr/cgv.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/commercants</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/artisans</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/mairies</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/agences</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/courtiers</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/contact</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lokalist.fr/mentions-legales</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/confidentialite</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/cgu</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/cgv</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
 </urlset>
