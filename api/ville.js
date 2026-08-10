@@ -169,11 +169,12 @@ export default async function handler(req) {
 
     const pillsHtml = nbLabel.map((p) => `<span class="pill">${p}</span>`).join('');
 
+    /* LOKALIST_VILLE_LB_V1 */
     const allBiz = [
-      ...commercants.map((c) => ({ n: c.nom, u: `${SITE_URL}/pro/${c.id}` })),
-      ...artisans.map((a) => ({ n: a.nom_entreprise || a.nom, u: `${SITE_URL}/artisan/${a.id}` })),
-      ...agences.map((ag) => ({ n: ag.nom, u: `${SITE_URL}/agence/${ag.id}` })),
-      ...courtiers.map((co) => ({ n: co.nom, u: `${SITE_URL}/courtier/${co.id}` })),
+      ...commercants.map((c) => ({ n: c.nom, u: `${SITE_URL}/pro/${c.id}`, t: 'Store' })),
+      ...artisans.map((a) => ({ n: a.nom_entreprise || a.nom, u: `${SITE_URL}/artisan/${a.id}`, t: 'HomeAndConstructionBusiness' })),
+      ...agences.map((ag) => ({ n: ag.nom, u: `${SITE_URL}/agence/${ag.id}`, t: 'RealEstateAgent' })),
+      ...courtiers.map((co) => ({ n: co.nom, u: `${SITE_URL}/courtier/${co.id}`, t: 'FinancialService' })),
     ];
     const jsonLd = {
       "@context": "https://schema.org",
@@ -188,7 +189,7 @@ export default async function handler(req) {
       ...(allBiz.length ? {
         "mainEntity": {
           "@type": "ItemList", "numberOfItems": allBiz.length,
-          "itemListElement": allBiz.map((b, i) => ({ "@type": "ListItem", "position": i + 1, "name": b.n, "url": b.u })),
+          "itemListElement": allBiz.map((b, i) => ({ "@type": "ListItem", "position": i + 1, "item": { "@type": b.t || "LocalBusiness", "name": b.n, "url": b.u, "address": { "@type": "PostalAddress", "addressLocality": ville, ...(cp ? { "postalCode": cp } : {}), "addressCountry": "FR" } } })),
         }
       } : {}),
     };
