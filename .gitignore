@@ -23,3 +23,11 @@ images/_old-screens/
 *.bak*
 
 *.bak*
+
+patch-hero-video-3d-v1.cjs
+*.bak
+
+# Patchs & backups locaux
+*.cjs
+*.bak
+*.html-backup/
