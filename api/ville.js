@@ -94,6 +94,31 @@ function section(titre, emoji, cardsHtml, count) {
   </section>`;
 }
 
+/* LOKALIST_VILLE_EVENTS_V1:HELPERS:START */
+const EVT_TYPE_EMOJI = { evenement:'📅', marche:'🛒', conseil:'🏛️', sport:'⚽', culture:'🎭', autre:'📌' };
+const evtDateCourte = (iso) => {
+  if (!iso) return '';
+  try {
+    const t = new Intl.DateTimeFormat('fr-FR', { timeZone:'Europe/Paris', weekday:'short', day:'numeric', month:'short' }).format(new Date(iso));
+    return t.charAt(0).toUpperCase() + t.slice(1);
+  } catch (e) { const d = new Date(iso); return isNaN(d) ? '' : d.toISOString().slice(0,10); }
+};
+function eventCard(e) {
+  const emoji = EVT_TYPE_EMOJI[e.type] || '📅';
+  const media = e.image_url
+    ? `<img class="card-img" src="${escapeHtml(e.image_url)}" alt="${escapeHtml(e.titre||'Evenement')}" loading="lazy"/>`
+    : `<div class="card-img card-img-fb">${emoji}</div>`;
+  const dTxt = evtDateCourte(e.date_debut);
+  const tag  = e.statut === 'annule' ? 'Annule' : (e.statut === 'reporte' ? 'Reporte' : (e.gratuit ? 'Gratuit' : ''));
+  return `<a class="card" href="/mairie/${e.id}">
+    <div class="card-media">${media}${tag ? `<span class="card-tag">${tag}</span>` : ''}</div>
+    <div class="card-body">
+      <div class="card-name">${escapeHtml(e.titre||'Evenement local')}</div>
+      ${dTxt ? `<div class="card-city">🗓️ ${escapeHtml(dTxt)}${e.lieu ? ' · '+escapeHtml(e.lieu) : ''}</div>` : ''}
+    </div>
+  </a>`;
+}
+/* LOKALIST_VILLE_EVENTS_V1:HELPERS:END */
 export default async function handler(req) {
   try {
     const url  = new URL(req.url);
@@ -117,6 +142,13 @@ export default async function handler(req) {
     ]);
 
     const mairie = mairies && mairies[0] ? mairies[0] : null;
+    /* LOKALIST_VILLE_EVENTS_V1:FETCH:START */
+    const nowIso = new Date().toISOString();
+    const evenements = await sb(`evenements_mairie?select=id,titre,ville,lieu,type,statut,date_debut,date_fin,image_url,gratuit,prix,description&ville=ilike.${vEnc}&date_debut=gte.${encodeURIComponent(nowIso)}&order=date_debut.asc&limit=8`);
+    const secEvenements = section('Agenda & evenements', '📅',
+      evenements.map((e) => eventCard(e)).join(''),
+      evenements.length);
+    /* LOKALIST_VILLE_EVENTS_V1:FETCH:END */
     const total  = commercants.length + artisans.length + courtiers.length + agences.length;
 
     if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
@@ -194,6 +226,20 @@ export default async function handler(req) {
       } : {}),
     };
 
+    /* LOKALIST_VILLE_EVENTS_V1:LD:START */
+    const eventsLd = evenements.length ? `<script type="application/ld+json">${JSON.stringify(evenements.map((e) => ({
+      "@context":"https://schema.org","@type":"Event","name":e.titre||"Evenement local",
+      "url":`${SITE_URL}/mairie/${e.id}`,
+      ...(e.image_url ? { "image": e.image_url } : {}),
+      ...(e.date_debut ? { "startDate": e.date_debut } : {}),
+      ...(e.date_fin ? { "endDate": e.date_fin } : {}),
+      ...(e.statut === 'annule' ? { "eventStatus":"https://schema.org/EventCancelled" } : {}),
+      ...(e.statut === 'reporte' ? { "eventStatus":"https://schema.org/EventPostponed" } : {}),
+      "location": { "@type":"Place","name":e.lieu||ville,"address":{ "@type":"PostalAddress","addressLocality":ville,...(cp?{"postalCode":cp}:{}),"addressCountry":"FR" } },
+      ...(e.description ? { "description": String(e.description).slice(0,300) } : {}),
+      "organizer": { "@type":"Organization","name":`Mairie de ${ville}` }
+    })))}</script>` : '';
+    /* LOKALIST_VILLE_EVENTS_V1:LD:END */
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -213,6 +259,7 @@ export default async function handler(req) {
 <meta name="twitter:title" content="${escapeHtml(title)}"/>
 <meta name="twitter:description" content="${escapeHtml(desc)}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+${eventsLd}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
@@ -328,6 +375,7 @@ export default async function handler(req) {
 
 <main class="wrap">
   ${mairieHtml}
+  ${secEvenements}
   ${secCommercants}
   ${secArtisans}
   ${secAgences}
