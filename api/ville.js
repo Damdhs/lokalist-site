@@ -45,7 +45,18 @@ const html404 = (msg) => `<!doctype html>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Ville introuvable — Lokalist</title>
-<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:60px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:26px;margin:20px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}</style>
+<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:60px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:26px;margin:20px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}  /* LOKALIST_VILLE_SERVICES_V1:CSS:START */
+  .serv-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px; }
+  .serv-card { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 18px 16px;box-shadow:0 2px 10px rgba(16,40,32,.05);transition:transform .18s ease,box-shadow .18s ease;display:flex;flex-direction:column; }
+  .serv-card:hover { transform:translateY(-4px);box-shadow:0 14px 30px rgba(16,40,32,.12); }
+  .serv-emoji { font-size:30px;line-height:1;margin-bottom:10px; }
+  .serv-t { font-weight:800;font-size:16px;letter-spacing:-.3px; }
+  .serv-d { color:var(--muted);font-size:13px;margin-top:5px;line-height:1.5; }
+  .cta-pros { background:linear-gradient(135deg,#0F6E56,#177a5f); }
+  .cta-pros .cta-actions { gap:10px; }
+  .cta-pros .cta-btn { padding:13px 22px;font-size:14.5px; }
+  /* LOKALIST_VILLE_SERVICES_V1:CSS:END */
+</style>
 </head><body>
 <div style="font-size:56px">📍</div>
 <h1>${escapeHtml(msg)}</h1>
@@ -381,6 +392,39 @@ ${eventsLd}
   ${secAgences}
   ${secCourtiers}
 
+  <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
+  <section class="section">
+    <h2><span class="s-emoji">🎉</span> Sortir &amp; bouger à ${escapeHtml(ville)}</h2>
+    <div class="serv-grid">
+      <a class="serv-card" href="${SITE_URL}/idees-sorties">
+        <div class="serv-emoji">🎪</div>
+        <div class="serv-t">Idées de sorties</div>
+        <div class="serv-d">Activités, loisirs et bons plans près de ${escapeHtml(ville)}</div>
+      </a>
+      <a class="serv-card" href="${SITE_URL}/proposer-un-evenement">
+        <div class="serv-emoji">📣</div>
+        <div class="serv-t">Proposer un événement</div>
+        <div class="serv-d">Organisateur ? Publiez votre animation locale gratuitement</div>
+      </a>
+      <a class="serv-card" href="${SITE_URL}/deposer-projet">
+        <div class="serv-emoji">🛠️</div>
+        <div class="serv-t">Projet de travaux</div>
+        <div class="serv-d">Recevez des devis d'artisans de ${escapeHtml(ville)}</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="cta-block cta-pros">
+    <h3>Vous êtes un professionnel à ${escapeHtml(ville)} ?</h3>
+    <p>Commerçant, artisan, agence immobilière ou courtier : référencez votre activité sur Lokalist et gagnez en visibilité auprès des habitants de ${escapeHtml(ville)}.</p>
+    <div class="cta-actions">
+      <a href="${SITE_URL}/commercants" class="cta-btn">🏪 Commerçant</a>
+      <a href="${SITE_URL}/artisans" class="cta-btn">🔧 Artisan</a>
+      <a href="${SITE_URL}/agences" class="cta-btn">🏠 Agence immo</a>
+      <a href="${SITE_URL}/courtiers" class="cta-btn">💶 Courtier</a>
+    </div>
+  </div>
+  <!-- LOKALIST_VILLE_SERVICES_V1:HTML:END -->
   <div class="cta-block">
     <h3>Toute la vie locale de ${escapeHtml(ville)} dans votre poche</h3>
     <p>Bons plans, programme de fidélité, commerces et actus de votre commune. 100% gratuit pour les habitants.</p>
