@@ -65,6 +65,13 @@ const html404 = (msg) => `<!doctype html>
   .loisir-price .now small { font-size:12px;font-weight:600;color:var(--muted); }
   .loisir-price .was { font-size:13px;color:var(--muted);text-decoration:line-through; }
   /* LOKALIST_VILLE_COMMERCE_V1:CSS:END */
+  /* LOKALIST_VILLE_ACTUS_V1:CSS:START */
+  .card-date { color:var(--primary-d);font-size:12.5px;font-weight:700;margin-top:4px; }
+  .card-excerpt { color:var(--muted);font-size:13px;margin-top:7px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
+  .shop-tag { position:absolute;top:10px;left:10px;background:var(--primary-d);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:20px;box-shadow:0 3px 10px rgba(15,110,86,.35); }
+  .shop-btn { display:inline-block;margin-top:10px;background:var(--primary);color:#fff;font-size:13px;font-weight:800;padding:9px 16px;border-radius:11px;transition:background .15s; }
+  .card:hover .shop-btn { background:var(--primary-d); }
+  /* LOKALIST_VILLE_ACTUS_V1:CSS:END */
 </style>
 </head><body>
 <div style="font-size:56px">📍</div>
@@ -177,6 +184,44 @@ function sectionLoisirs(titre, emoji, cardsHtml, count) {
   </section>`;
 }
 /* LOKALIST_VILLE_COMMERCE_V1:HELPERS:END */
+/* LOKALIST_VILLE_ACTUS_V1:HELPERS:START */
+const ACTU_MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+function actuDateShort(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return d.getDate() + ' ' + ACTU_MOIS[d.getMonth()] + ' ' + d.getFullYear();
+}
+function actuCard(a) {
+  const media = a.photo_url
+    ? `<img class="card-img" src="${escapeHtml(a.photo_url)}" alt="${escapeHtml(a.titre||'Actualite')}" loading="lazy"/>`
+    : `<div class="card-img card-img-fb">📰</div>`;
+  const raw = a.texte ? String(a.texte).replace(/\s+/g, ' ').trim() : '';
+  const ex  = raw.slice(0, 110);
+  return `<a class="card" href="/actu/${a.id}">
+    <div class="card-media">${media}</div>
+    <div class="card-body">
+      <div class="card-name">${escapeHtml(a.titre||'Actualité')}</div>
+      ${a.created_at ? `<div class="card-date">📅 ${escapeHtml(actuDateShort(a.created_at))}</div>` : ''}
+      ${ex ? `<div class="card-excerpt">${escapeHtml(ex)}${raw.length > 110 ? '…' : ''}</div>` : ''}
+    </div>
+  </a>`;
+}
+function boutiqueCard(c) {
+  const img = c.photo_url || c.logo_url;
+  const media = img
+    ? `<img class="card-img" src="${escapeHtml(img)}" alt="${escapeHtml(c.nom||'Boutique')}" loading="lazy"/>`
+    : `<div class="card-img card-img-fb">🛍️</div>`;
+  return `<a class="card" href="/pro/${c.id}">
+    <div class="card-media">${media}<span class="shop-tag">🛍️ Click &amp; Collect</span></div>
+    <div class="card-body">
+      <div class="card-name">${escapeHtml(c.nom||'Boutique')}</div>
+      ${c.ville ? `<div class="card-city">📍 ${escapeHtml(c.ville)}</div>` : ''}
+      <span class="shop-btn">Commander →</span>
+    </div>
+  </a>`;
+}
+/* LOKALIST_VILLE_ACTUS_V1:HELPERS:END */
 export default async function handler(req) {
   try {
     const url  = new URL(req.url);
@@ -200,6 +245,18 @@ export default async function handler(req) {
     ]);
 
     const mairie = mairies && mairies[0] ? mairies[0] : null;
+    /* LOKALIST_VILLE_ACTUS_V1:FETCH:START */
+    const [actus, boutiques] = await Promise.all([
+      (mairie && mairie.id)
+        ? sb(`actus_mairie?mairie_id=eq.${mairie.id}&statut=eq.publie&select=id,titre,texte,photo_url,created_at&order=created_at.desc&limit=6`)
+        : Promise.resolve([]),
+      sb(`commercants?select=id,nom,ville,logo_url,photo_url&statut=eq.actif&ville=ilike.${vEnc}&cc_pack_actif=eq.true&order=note_moyenne.desc.nullslast&limit=8`),
+    ]);
+    const secActus = section('Actualités de la commune', '📰',
+      (actus || []).map((a) => actuCard(a)).join(''), (actus || []).length);
+    const secBoutiques = section('Commander en ligne', '🛍️',
+      (boutiques || []).map((c) => boutiqueCard(c)).join(''), (boutiques || []).length);
+    /* LOKALIST_VILLE_ACTUS_V1:FETCH:END */
     /* LOKALIST_VILLE_EVENTS_V1:FETCH:START */
     const nowIso = new Date().toISOString();
     const evenements = await sb(`evenements_mairie?select=id,titre,ville,lieu,type,statut,date_debut,date_fin,image_url,gratuit,prix,description&ville=ilike.${vEnc}&date_debut=gte.${encodeURIComponent(nowIso)}&order=date_debut.asc&limit=8`);
@@ -446,7 +503,9 @@ ${eventsLd}
 <main class="wrap">
   ${mairieHtml}
   ${secEvenements}
+  ${secActus}
   ${secCommercants}
+  ${secBoutiques}
   ${secArtisans}
   ${secBonsPlans}
   ${secAgences}
