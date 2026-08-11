@@ -17,6 +17,10 @@
       "destination": "/api/sitemap-villes"
     },
     {
+      "source": "/sitemap-contenus.xml",
+      "destination": "/api/sitemap-contenus"
+    },
+    {
       "source": "/villes/:slug",
       "destination": "/api/ville?slug=:slug"
     },

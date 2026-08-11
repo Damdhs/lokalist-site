@@ -6,3 +6,4 @@ Allow: /
 
 Sitemap: https://lokalist.fr/sitemap.xml
 Sitemap: https://lokalist.fr/sitemap-villes.xml
+Sitemap: https://lokalist.fr/sitemap-contenus.xml
