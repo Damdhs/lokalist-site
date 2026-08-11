@@ -56,6 +56,15 @@ const html404 = (msg) => `<!doctype html>
   .cta-pros .cta-actions { gap:10px; }
   .cta-pros .cta-btn { padding:13px 22px;font-size:14.5px; }
   /* LOKALIST_VILLE_SERVICES_V1:CSS:END */
+  /* LOKALIST_VILLE_COMMERCE_V1:CSS:START */
+  .deal-tag { position:absolute;top:10px;right:10px;background:#C0392B;color:#fff;font-size:12px;font-weight:800;padding:4px 11px;border-radius:20px;box-shadow:0 3px 10px rgba(192,57,43,.35); }
+  .sec-loisirs .count { background:#FDF2F8;color:#EC4899; }
+  .card-tag.pink { background:#EC4899;box-shadow:0 3px 10px rgba(236,72,153,.4); }
+  .loisir-price { margin-top:9px;display:flex;align-items:baseline;gap:8px; }
+  .loisir-price .now { font-family:var(--disp);font-size:20px;font-weight:800;color:#EC4899;letter-spacing:-.5px; }
+  .loisir-price .now small { font-size:12px;font-weight:600;color:var(--muted); }
+  .loisir-price .was { font-size:13px;color:var(--muted);text-decoration:line-through; }
+  /* LOKALIST_VILLE_COMMERCE_V1:CSS:END */
 </style>
 </head><body>
 <div style="font-size:56px">📍</div>
@@ -130,6 +139,44 @@ function eventCard(e) {
   </a>`;
 }
 /* LOKALIST_VILLE_EVENTS_V1:HELPERS:END */
+/* LOKALIST_VILLE_COMMERCE_V1:HELPERS:START */
+function offreCard(o) {
+  const c = o.commercants || {};
+  const media = o.photo_url
+    ? `<img class="card-img" src="${escapeHtml(o.photo_url)}" alt="${escapeHtml(o.titre||'Offre')}" loading="lazy"/>`
+    : `<div class="card-img card-img-fb">🏷️</div>`;
+  return `<a class="card" href="/offre/${o.id}">
+    <div class="card-media">${media}${o.reduction ? `<span class="deal-tag">${escapeHtml(o.reduction)}</span>` : ''}</div>
+    <div class="card-body">
+      <div class="card-name">${escapeHtml(o.titre||'Bon plan')}</div>
+      ${c.nom ? `<div class="card-city">🏪 ${escapeHtml(c.nom)}</div>` : ''}
+    </div>
+  </a>`;
+}
+function packCard(p) {
+  const media = p.photo_url
+    ? `<img class="card-img" src="${escapeHtml(p.photo_url)}" alt="${escapeHtml(p.nom||'Sortie')}" loading="lazy"/>`
+    : `<div class="card-img card-img-fb">🎉</div>`;
+  const now = p.prix_pack != null ? Number(p.prix_pack).toFixed(0) : null;
+  const was = (p.prix_normal != null && p.prix_pack != null && Number(p.prix_normal) > Number(p.prix_pack)) ? Number(p.prix_normal).toFixed(0) : null;
+  const reduc = p.reduction_pct > 0 ? `-${p.reduction_pct}%` : '';
+  return `<a class="card" href="/sortie/${p.id}">
+    <div class="card-media">${media}${reduc ? `<span class="card-tag pink">${reduc}</span>` : ''}</div>
+    <div class="card-body">
+      <div class="card-name">${escapeHtml(p.nom||'Sortie')}</div>
+      ${p.ville ? `<div class="card-city">📍 ${escapeHtml(p.ville)}</div>` : ''}
+      ${now ? `<div class="loisir-price"><span class="now">${now}€<small>/pers</small></span>${was ? `<span class="was">${was}€</span>` : ''}</div>` : ''}
+    </div>
+  </a>`;
+}
+function sectionLoisirs(titre, emoji, cardsHtml, count) {
+  if (!count) return '';
+  return `<section class="section sec-loisirs">
+    <h2><span class="s-emoji">${emoji}</span> ${titre} <span class="count">${count}</span></h2>
+    <div class="grid">${cardsHtml}</div>
+  </section>`;
+}
+/* LOKALIST_VILLE_COMMERCE_V1:HELPERS:END */
 export default async function handler(req) {
   try {
     const url  = new URL(req.url);
@@ -161,6 +208,18 @@ export default async function handler(req) {
       evenements.length);
     /* LOKALIST_VILLE_EVENTS_V1:FETCH:END */
     const total  = commercants.length + artisans.length + courtiers.length + agences.length;
+    /* LOKALIST_VILLE_COMMERCE_V1:FETCH:START */
+    const [offresV, packsV] = await Promise.all([
+      sb(`offres?select=id,titre,reduction,photo_url,type_offre,date_debut,expire_at,commercants!inner(nom,ville)&statut=eq.active&commercants.ville=ilike.${vEnc}&order=date_debut.desc&limit=8`),
+      sb(`packs_loisir?select=id,nom,ville,photo_url,prix_pack,prix_normal,reduction_pct,actif&actif=eq.true&ville=ilike.${vEnc}&order=reduction_pct.desc.nullslast&limit=8`),
+    ]);
+    const nowMs = Date.now();
+    const offres = (offresV || []).filter((o) => !o.expire_at || new Date(o.expire_at).getTime() >= nowMs);
+    const secBonsPlans = section('Bons plans du moment', '🏷️',
+      offres.map((o) => offreCard(o)).join(''), offres.length);
+    const secSorties = sectionLoisirs('Idées de sorties', '🎉',
+      (packsV || []).map((p) => packCard(p)).join(''), (packsV || []).length);
+    /* LOKALIST_VILLE_COMMERCE_V1:FETCH:END */
 
     if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
 
@@ -389,8 +448,10 @@ ${eventsLd}
   ${secEvenements}
   ${secCommercants}
   ${secArtisans}
+  ${secBonsPlans}
   ${secAgences}
   ${secCourtiers}
+  ${secSorties}
 
   <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
   <section class="section">
