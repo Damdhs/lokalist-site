@@ -313,14 +313,35 @@ fbq('track','PageView');
   }
 
   // ── Autocomplete commune (geo.api.gouv.fr) ──
-  /* >>> ZONE_GRATUITE_B3 : bandeau publication offerte selon zone geo */
+  /* >>> ZONE_GRATUITE_B3 :: ZONE_GRATUITE_B3B : offert => masque tarifs + facturation + message */
   var API_BASE_ZG = 'https://lokalist-api-production.up.railway.app';
+  var __MSG_PAYANT = null, __lblFormule = null, __zgReady = false;
+  function __zgInit(){
+    if(__zgReady) return;
+    var ss = document.querySelector('#form-success .success-sub');
+    __MSG_PAYANT = ss ? ss.innerHTML : '';
+    __lblFormule = null;
+    document.querySelectorAll('.section-lbl').forEach(function(el){
+      if(/Formule/.test(el.textContent||'')) __lblFormule = el;
+    });
+    __zgReady = true;
+  }
+  var __MSG_OFFERT = "Merci ! Votre &eacute;v&eacute;nement est en cours de validation.<br/><br/><strong>Publication offerte</strong> (zone lancement Normandie) : <strong>aucun paiement</strong> &agrave; pr&eacute;voir.<br/><br/>Apr&egrave;s validation, il appara&icirc;t dans la rubrique <strong>Id&eacute;e sortie</strong> de l'app, jusqu'&agrave; sa date.<br/><br/>Une question ? <a href='mailto:contact@lokalist.fr' style='color:var(--g);font-weight:700'>contact@lokalist.fr</a>";
   function masquerZoneGratuite(){
+    __zgInit();
+    window.__zoneGratuite = false;
     var b = $('ev-zone-gratuite'); if(b) b.style.display = 'none';
-    var h = $('ev-hint-facturation'); if(h){ h.style.opacity=''; h.style.textDecoration=''; }
+    var h = $('ev-hint-facturation'); if(h){ h.style.opacity=''; h.style.textDecoration=''; h.style.display=''; }
     document.querySelectorAll('.formule-price').forEach(function(el){ el.style.textDecoration=''; el.style.opacity=''; });
+    var fm = document.querySelector('.formules'); if(fm) fm.style.display='';
+    if(__lblFormule) __lblFormule.style.display='';
+    var fb = $('ev-fact-bloc'); if(fb) fb.style.display='';
+    ['ev-fact-adresse','ev-fact-cp','ev-fact-ville'].forEach(function(id){ var el=$(id); if(el) el.required=true; });
+    var ss = document.querySelector('#form-success .success-sub'); if(ss && __MSG_PAYANT) ss.innerHTML = __MSG_PAYANT;
+    if(typeof window.__majSiret==='function') window.__majSiret();
   }
   async function verifierZoneGratuite(){
+    __zgInit();
     if(!villeData || (!villeData.nom && !villeData.cp)){ masquerZoneGratuite(); return; }
     try {
       var r = await fetch(API_BASE_ZG + '/evenements/verifier-zone', {
@@ -330,14 +351,21 @@ fbq('track','PageView');
       });
       var j = await r.json().catch(function(){ return {}; });
       if(j && j.gratuit === true){
+        window.__zoneGratuite = true;
         var bb = $('ev-zone-gratuite'); if(bb) bb.style.display = 'block';
-        var hh = $('ev-hint-facturation'); if(hh){ hh.style.opacity='.45'; hh.style.textDecoration='line-through'; }
-        document.querySelectorAll('.formule-price').forEach(function(el){ el.style.textDecoration='line-through'; el.style.opacity='.5'; });
+        var fm = document.querySelector('.formules'); if(fm) fm.style.display='none';
+        if(__lblFormule) __lblFormule.style.display='none';
+        var hh = $('ev-hint-facturation'); if(hh) hh.style.display='none';
+        var fb = $('ev-fact-bloc'); if(fb) fb.style.display='none';
+        ['ev-fact-adresse','ev-fact-cp','ev-fact-ville','ev-fact-siret'].forEach(function(id){ var el=$(id); if(el) el.required=false; });
+        var ss = document.querySelector('#form-success .success-sub'); if(ss) ss.innerHTML = __MSG_OFFERT;
+        if(typeof window.__majSiret==='function') window.__majSiret();
       } else {
         masquerZoneGratuite();
       }
     } catch(e){ masquerZoneGratuite(); }
   }
+  try{ __zgInit(); }catch(e){}
   /* <<< ZONE_GRATUITE_B3 */
   let villeTimer = null;
   let villeData = { nom:'', cp:'', lat:null, lng:null };
@@ -395,9 +423,11 @@ fbq('track','PageView');
     var sir = document.getElementById("ev-fact-siret");
     function maj(){
       var pro = ["professionnel","association","collectivite"].indexOf(sel.value) >= 0;
+      if(window.__zoneGratuite){ pro = false; } /* B3B */
       if(grp) grp.classList.toggle("form-hidden", !pro);
       if(sir) sir.required = pro;
     }
+    window.__majSiret = maj; /* B3B */
     if(sel){ sel.addEventListener("change", maj); maj(); }
   })();
   async function submitEvent(e){
@@ -409,11 +439,13 @@ fbq('track','PageView');
     if(!val('ev-debut')){ alert('⚠️ Indiquez la date de début.'); return; }
 
     btn.disabled = true;
+    if(!window.__zoneGratuite){ /* B3B: skip facturation en zone offerte */
     // Controle facturation
     var _fa = val('ev-fact-adresse'), _fc = val('ev-fact-cp'), _fv = val('ev-fact-ville');
     if(!_fa || !_fc || !_fv){ alert("Merci de remplir vos coordonnees de facturation (adresse, code postal, ville)."); btn.disabled=false; return; }
     var _ot = val('ev-orga-type');
     if(["professionnel","association","collectivite"].indexOf(_ot)>=0 && !val('ev-fact-siret')){ alert("Le SIRET est obligatoire pour un professionnel, une association ou une collectivite."); btn.disabled=false; return; }
+    } /* <<< B3B */
  btn.innerHTML = '⏳ Envoi en cours...';
 
     try {
