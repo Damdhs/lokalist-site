@@ -313,36 +313,85 @@ fbq('track','PageView');
   }
 
   // ── Autocomplete commune (geo.api.gouv.fr) ──
-  /* >>> ZONE_GRATUITE_B3 :: ZONE_GRATUITE_B3B : offert => masque tarifs + facturation + message */
+  /* >>> ZONE_GRATUITE_B3 :: ZONE_GRATUITE_B3C : commune en 1er + tarif en attente */
   var API_BASE_ZG = 'https://lokalist-api-production.up.railway.app';
   var __MSG_PAYANT = null, __lblFormule = null, __zgReady = false;
+  var __MSG_OFFERT = "Merci ! Votre &eacute;v&eacute;nement est en cours de validation.<br/><br/><strong>Publication offerte</strong> (zone lancement Normandie) : <strong>aucun paiement</strong> &agrave; pr&eacute;voir.<br/><br/>Apr&egrave;s validation, il appara&icirc;t dans la rubrique <strong>Id&eacute;e sortie</strong> de l'app, jusqu'&agrave; sa date.<br/><br/>Une question ? <a href='mailto:contact@lokalist.fr' style='color:var(--g);font-weight:700'>contact@lokalist.fr</a>";
+  function __show(el,d){ if(el) el.style.display = (d||''); }
+  function __setReq(ids,v){ ids.forEach(function(id){ var el=document.getElementById(id); if(el) el.required=v; }); }
   function __zgInit(){
     if(__zgReady) return;
     var ss = document.querySelector('#form-success .success-sub');
     __MSG_PAYANT = ss ? ss.innerHTML : '';
     __lblFormule = null;
-    document.querySelectorAll('.section-lbl').forEach(function(el){
-      if(/Formule/.test(el.textContent||'')) __lblFormule = el;
-    });
+    document.querySelectorAll('.section-lbl').forEach(function(el){ if(/Formule/.test(el.textContent||'')) __lblFormule = el; });
+    var form = document.getElementById('formEvent');
+    var ci = document.getElementById('ev-commune');
+    if(form && ci && !document.getElementById('ev-lbl-commune')){
+      var grp = ci.closest ? ci.closest('.form-group') : ci.parentNode;
+      if(grp){
+        var lbl = document.createElement('div');
+        lbl.className='section-lbl'; lbl.id='ev-lbl-commune'; lbl.style.marginTop='0';
+        lbl.innerHTML='\uD83D\uDCCD Votre commune';
+        form.insertBefore(grp, form.firstChild);
+        form.insertBefore(lbl, grp);
+      }
+      document.querySelectorAll('.section-lbl').forEach(function(el){
+        if(el.id!=='ev-lbl-commune' && /Lieu/.test(el.textContent||'')) el.innerHTML='\uD83D\uDCCD Lieu pr\u00e9cis (optionnel)';
+      });
+    }
+    if(!document.getElementById('ev-tarif-pending')){
+      var fm0 = document.querySelector('.formules');
+      if(fm0){
+        var p = document.createElement('div');
+        p.id='ev-tarif-pending'; p.className='hint';
+        p.style.cssText='margin-top:8px;padding:12px 14px;background:#f6f6f4;border:1px dashed #cbd5cc;border-radius:12px;color:#5f7166;font-weight:600';
+        p.innerHTML='\uD83D\uDCCD Choisissez votre commune ci-dessus pour afficher le tarif.';
+        fm0.parentNode.insertBefore(p, fm0.nextSibling);
+      }
+    }
     __zgReady = true;
   }
-  var __MSG_OFFERT = "Merci ! Votre &eacute;v&eacute;nement est en cours de validation.<br/><br/><strong>Publication offerte</strong> (zone lancement Normandie) : <strong>aucun paiement</strong> &agrave; pr&eacute;voir.<br/><br/>Apr&egrave;s validation, il appara&icirc;t dans la rubrique <strong>Id&eacute;e sortie</strong> de l'app, jusqu'&agrave; sa date.<br/><br/>Une question ? <a href='mailto:contact@lokalist.fr' style='color:var(--g);font-weight:700'>contact@lokalist.fr</a>";
-  function masquerZoneGratuite(){
-    __zgInit();
-    window.__zoneGratuite = false;
-    var b = $('ev-zone-gratuite'); if(b) b.style.display = 'none';
-    var h = $('ev-hint-facturation'); if(h){ h.style.opacity=''; h.style.textDecoration=''; h.style.display=''; }
-    document.querySelectorAll('.formule-price').forEach(function(el){ el.style.textDecoration=''; el.style.opacity=''; });
-    var fm = document.querySelector('.formules'); if(fm) fm.style.display='';
+  function etatPending(){
+    __zgInit(); window.__zoneGratuite = false;
+    __show(document.getElementById('ev-zone-gratuite'),'none');
+    __show(document.querySelector('.formules'),'none');
+    __show(document.getElementById('ev-hint-facturation'),'none');
     if(__lblFormule) __lblFormule.style.display='';
-    var fb = $('ev-fact-bloc'); if(fb) fb.style.display='';
-    ['ev-fact-adresse','ev-fact-cp','ev-fact-ville'].forEach(function(id){ var el=$(id); if(el) el.required=true; });
-    var ss = document.querySelector('#form-success .success-sub'); if(ss && __MSG_PAYANT) ss.innerHTML = __MSG_PAYANT;
+    __show(document.getElementById('ev-tarif-pending'),'');
+    __show(document.getElementById('ev-fact-bloc'),'');
+    __setReq(['ev-fact-adresse','ev-fact-cp','ev-fact-ville'],true);
+    var ss=document.querySelector('#form-success .success-sub'); if(ss&&__MSG_PAYANT) ss.innerHTML=__MSG_PAYANT;
     if(typeof window.__majSiret==='function') window.__majSiret();
   }
+  function etatPayant(){
+    __zgInit(); window.__zoneGratuite = false;
+    __show(document.getElementById('ev-zone-gratuite'),'none');
+    __show(document.getElementById('ev-tarif-pending'),'none');
+    __show(document.querySelector('.formules'),'');
+    __show(document.getElementById('ev-hint-facturation'),'');
+    if(__lblFormule) __lblFormule.style.display='';
+    __show(document.getElementById('ev-fact-bloc'),'');
+    __setReq(['ev-fact-adresse','ev-fact-cp','ev-fact-ville'],true);
+    var ss=document.querySelector('#form-success .success-sub'); if(ss&&__MSG_PAYANT) ss.innerHTML=__MSG_PAYANT;
+    if(typeof window.__majSiret==='function') window.__majSiret();
+  }
+  function etatGratuit(){
+    __zgInit(); window.__zoneGratuite = true;
+    __show(document.getElementById('ev-zone-gratuite'),'block');
+    __show(document.getElementById('ev-tarif-pending'),'none');
+    __show(document.querySelector('.formules'),'none');
+    __show(document.getElementById('ev-hint-facturation'),'none');
+    if(__lblFormule) __lblFormule.style.display='none';
+    __show(document.getElementById('ev-fact-bloc'),'none');
+    __setReq(['ev-fact-adresse','ev-fact-cp','ev-fact-ville','ev-fact-siret'],false);
+    var ss=document.querySelector('#form-success .success-sub'); if(ss) ss.innerHTML=__MSG_OFFERT;
+    if(typeof window.__majSiret==='function') window.__majSiret();
+  }
+  var masquerZoneGratuite = etatPending;
   async function verifierZoneGratuite(){
     __zgInit();
-    if(!villeData || (!villeData.nom && !villeData.cp)){ masquerZoneGratuite(); return; }
+    if(!villeData || (!villeData.nom && !villeData.cp)){ etatPending(); return; }
     try {
       var r = await fetch(API_BASE_ZG + '/evenements/verifier-zone', {
         method:'POST',
@@ -350,22 +399,11 @@ fbq('track','PageView');
         body: JSON.stringify({ ville: villeData.nom || null, code_postal: villeData.cp || null })
       });
       var j = await r.json().catch(function(){ return {}; });
-      if(j && j.gratuit === true){
-        window.__zoneGratuite = true;
-        var bb = $('ev-zone-gratuite'); if(bb) bb.style.display = 'block';
-        var fm = document.querySelector('.formules'); if(fm) fm.style.display='none';
-        if(__lblFormule) __lblFormule.style.display='none';
-        var hh = $('ev-hint-facturation'); if(hh) hh.style.display='none';
-        var fb = $('ev-fact-bloc'); if(fb) fb.style.display='none';
-        ['ev-fact-adresse','ev-fact-cp','ev-fact-ville','ev-fact-siret'].forEach(function(id){ var el=$(id); if(el) el.required=false; });
-        var ss = document.querySelector('#form-success .success-sub'); if(ss) ss.innerHTML = __MSG_OFFERT;
-        if(typeof window.__majSiret==='function') window.__majSiret();
-      } else {
-        masquerZoneGratuite();
-      }
-    } catch(e){ masquerZoneGratuite(); }
+      if(j && j.gratuit === true){ etatGratuit(); } else { etatPayant(); }
+    } catch(e){ etatPayant(); }
   }
-  try{ __zgInit(); }catch(e){}
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', function(){ try{ __zgInit(); etatPending(); }catch(e){} }); }
+  else { try{ __zgInit(); etatPending(); }catch(e){} }
   /* <<< ZONE_GRATUITE_B3 */
   let villeTimer = null;
   let villeData = { nom:'', cp:'', lat:null, lng:null };
