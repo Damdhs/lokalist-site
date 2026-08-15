@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/i/:code",
+      "destination": "/i.html"
+    },
+    {
       "source": "/supprimer-compte",
       "destination": "/supprimer-compte.html"
     },
