@@ -508,14 +508,19 @@ const metierMap = {};
     try {
       const _mLat = 0.07, _mLng = 0.11;
       const _dbbox = `lat=gte.${commune.lat - _mLat}&lat=lte.${commune.lat + _mLat}&lon=gte.${commune.lng - _mLng}&lon=lte.${commune.lng + _mLng}`;
-      const _defs = await sb(`defibrillateurs?select=nom,adresse,commune,lat,lon&commune=ilike.*${encodeURIComponent(ville)}*&limit=300`);
-      (_defs || []).forEach(function(d){ if (d.lat && d.lon) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:(d.nom || 'Défibrillateur'), url:'' }); });
+      const _rLa = 0.25, _rLn = 0.36;
+      const [_defs, _stns] = await Promise.all([
+        sb(`defibrillateurs?select=nom,lat,lon&lat=gte.${commune.lat-_rLa}&lat=lte.${commune.lat+_rLa}&lon=gte.${commune.lng-_rLn}&lon=lte.${commune.lng+_rLn}&limit=600`),
+        sb(`stations_carburant?select=ville,adresse,latitude,longitude,prix_gazole&latitude=gte.${commune.lat-_rLa}&latitude=lte.${commune.lat+_rLa}&longitude=gte.${commune.lng-_rLn}&longitude=lte.${commune.lng+_rLn}&limit=600`),
+      ]);
+      (_defs || []).forEach(function(d){ if (d.lat && d.lon) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:('❤️ ' + (d.nom || 'Défibrillateur')), url:'' }); });
+      (_stns || []).forEach(function(s){ if (s.latitude && s.longitude) _markers.push({ lat:s.latitude, lng:s.longitude, type:'station', name:('⛽ ' + (s.ville||'') + (s.prix_gazole ? ' · Gazole ' + String(s.prix_gazole).replace('.', ',') + ' €' : '')), url:'' }); });
     } catch (e) { console.error('[ville carte]', e); }
     const secCarte = _markers.length ? `
     <section class='section'>
       <h2><span class='s-emoji'>🗺️</span> Le réseau Lokalist</h2>
       <div class='ville-map' id='ville-map' data-clat='${commune.lat}' data-clng='${commune.lng}'></div>
-      <div class='map-legend'><span class='ml-pro'>● Commerçants & artisans</span><span class='ml-mai'>● Mairies partenaires</span><span class='ml-def'>● Défibrillateurs</span></div>
+      <div class='map-toggles'><button type='button' class='map-toggle' data-layer='pro'>🟢 Commerces</button><button type='button' class='map-toggle' data-layer='mairie'>🔵 Mairies</button><button type='button' class='map-toggle' data-layer='defib'>🔴 Défibrillateurs</button><button type='button' class='map-toggle' data-layer='station'>⛽ Stations</button></div>
       <div id='map-pts' hidden>${_markers.map(function(m){ return `<span class='map-pt' data-lat='${m.lat}' data-lng='${m.lng}' data-type='${m.type}' data-name='${escapeHtml(String(m.name||''))}' data-url='${m.url}'></span>`; }).join('')}</div>
     </section>` : '';
     const secMairieCta = mairie ? '' : `
@@ -668,6 +673,9 @@ ${eventsLd}
   .map-legend .ml-pro { color:#1D9E75; }
   .map-legend .ml-def { color:#E24B4A; }
   .map-legend .ml-mai { color:#2563EB; }
+  .map-toggles { display:flex;flex-wrap:wrap;gap:8px; }
+  .map-toggle { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:7px 12px;border-radius:20px;font-size:12.5px;font-weight:700;transition:opacity .12s; }
+  .map-toggle.off { opacity:.4;text-decoration:line-through; }
   .urg-112 { display:flex;align-items:center;gap:14px;background:#E24B4A;color:#fff;border-radius:16px;padding:16px 18px;text-decoration:none;margin-bottom:10px; }
   .urg-112-n { font-size:24px;font-weight:800; }
   .urg-112-s { font-size:13px;opacity:.92; }
@@ -871,6 +879,8 @@ ${eventsLd}
   var map = L.map('ville-map', { scrollWheelZoom: false }).setView([clat, clng], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
   var bounds = [];
+  var groups = { pro: L.layerGroup(), mairie: L.layerGroup(), defib: L.layerGroup(), station: L.layerGroup() };
+  var colors = { pro: '#1D9E75', mairie: '#2563EB', defib: '#E24B4A', station: '#EF9F27' };
   pts.forEach(function(p){
     var lat = parseFloat(p.getAttribute('data-lat'));
     var lng = parseFloat(p.getAttribute('data-lng'));
@@ -878,14 +888,25 @@ ${eventsLd}
     var type = p.getAttribute('data-type');
     var name = p.getAttribute('data-name') || '';
     var url = p.getAttribute('data-url') || '';
-    var color = (type === 'defib') ? '#E24B4A' : (type === 'mairie' ? '#2563EB' : '#1D9E75');
-    var icon = L.divIcon({ className: '', iconSize: [16,16], iconAnchor: [8,8], html: '<div style="width:16px;height:16px;border-radius:50%;background:' + color + ';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>' });
-    var mk = L.marker([lat, lng], { icon: icon }).addTo(map);
+    var color = colors[type] || '#1D9E75';
+    var icon = L.divIcon({ className: '', iconSize: [14,14], iconAnchor: [7,7], html: '<div style="width:14px;height:14px;border-radius:50%;background:' + color + ';border:2px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,.4)"></div>' });
+    var mk = L.marker([lat, lng], { icon: icon });
     if (url) mk.bindPopup('<a href="' + url + '" style="font-weight:700;color:#1D9E75">' + name + '</a>');
-    else mk.bindPopup('<strong>' + (type === 'defib' ? '❤️ ' : '') + name + '</strong>');
-    bounds.push([lat, lng]);
+    else mk.bindPopup('<strong>' + name + '</strong>');
+    (groups[type] || groups.pro).addLayer(mk);
+    if (type === 'pro' || type === 'mairie') bounds.push([lat, lng]);
   });
-  if (bounds.length > 1) { try { map.fitBounds(bounds, { padding: [30,30], maxZoom: 16 }); } catch(e){} }
+  Object.keys(groups).forEach(function(k){ groups[k].addTo(map); });
+  if (bounds.length > 1) { try { map.fitBounds(bounds, { padding: [30,30], maxZoom: 14 }); } catch(e){} }
+  var tgs = document.querySelectorAll('.map-toggle');
+  for (var i=0;i<tgs.length;i++){
+    tgs[i].addEventListener('click', function(){
+      var ly = this.getAttribute('data-layer');
+      if (!groups[ly]) return;
+      if (map.hasLayer(groups[ly])) { map.removeLayer(groups[ly]); this.classList.add('off'); }
+      else { map.addLayer(groups[ly]); this.classList.remove('off'); }
+    });
+  }
 })();
 </script>
 <script>
