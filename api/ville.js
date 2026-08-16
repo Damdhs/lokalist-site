@@ -89,6 +89,21 @@ const html404 = (msg) => `<!doctype html>
 <h1>${escapeHtml(msg)}</h1>
 <p style="color:#8A8FA8">Cette commune n'est pas encore couverte par Lokalist.</p>
 <p style="margin-top:14px"><a href="${SITE_URL}">← Retour à Lokalist</a></p>
+<button id="to-top" class="to-top" type="button" aria-label="Retour en haut">↑</button>
+<script>
+(function(){
+  var cp = document.getElementById('partage-copy');
+  if (cp) cp.addEventListener('click', function(){
+    var u = cp.getAttribute('data-url') || location.href;
+    if (navigator.clipboard) navigator.clipboard.writeText(u).then(function(){ cp.textContent = 'Lien copié !'; setTimeout(function(){ cp.textContent = 'Copier le lien'; }, 1800); });
+  });
+  var tt = document.getElementById('to-top');
+  if (tt) {
+    window.addEventListener('scroll', function(){ if (window.pageYOffset > 400) tt.classList.add('show'); else tt.classList.remove('show'); });
+    tt.addEventListener('click', function(){ window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  }
+})();
+</script>
 </body></html>`;
 
 const notFound = (msg = 'Commune introuvable') => new Response(html404(msg), {
@@ -520,7 +535,7 @@ const metierMap = {};
     <section class='section'>
       <h2><span class='s-emoji'>🗺️</span> Le réseau Lokalist</h2>
       <div class='ville-map' id='ville-map' data-clat='${commune.lat}' data-clng='${commune.lng}'></div>
-      <div class='map-toggles'><button type='button' class='map-toggle' data-layer='pro'>🟢 Commerces</button><button type='button' class='map-toggle' data-layer='mairie'>🔵 Mairies</button><button type='button' class='map-toggle' data-layer='defib'>🔴 Défibrillateurs</button><button type='button' class='map-toggle' data-layer='station'>⛽ Stations</button></div>
+      <div class='map-toggles'><button type='button' class='map-toggle' data-layer='pro'>🟢 Commerces</button><button type='button' class='map-toggle' data-layer='mairie'>🔵 Mairies</button><button type='button' class='map-toggle off' data-layer='defib'>🔴 Défibrillateurs</button><button type='button' class='map-toggle off' data-layer='station'>⛽ Stations</button></div>
       <div id='map-pts' hidden>${_markers.map(function(m){ return `<span class='map-pt' data-lat='${m.lat}' data-lng='${m.lng}' data-type='${m.type}' data-name='${escapeHtml(String(m.name||''))}' data-url='${m.url}'></span>`; }).join('')}</div>
     </section>` : '';
     const secMairieCta = mairie ? '' : `
@@ -551,6 +566,13 @@ const metierMap = {};
       <script type='application/ld+json'>${faqLd ? JSON.stringify(faqLd) : ''}</script>
     </section>` : '';
     const canonical = `${SITE_URL}/villes/${want}`;
+    const secPartage = `
+    <section class='partage'>
+      <span class='partage-lbl'>Partager cette page :</span>
+      <a class='partage-btn pb-fb' href='https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(canonical)}' target='_blank' rel='noopener'>Facebook</a>
+      <a class='partage-btn pb-wa' href='https://wa.me/?text=${encodeURIComponent(ville + ' sur Lokalist ' + canonical)}' target='_blank' rel='noopener'>WhatsApp</a>
+      <button type='button' class='partage-btn pb-cp' id='partage-copy' data-url='${escapeHtml(canonical)}'>Copier le lien</button>
+    </section>`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
     if (artisans.length)    nbLabel.push(`${artisans.length} artisan${artisans.length > 1 ? 's' : ''}`);
@@ -678,6 +700,13 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .partage { display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:34px; }
+  .partage-lbl { font-size:13px;font-weight:700;color:var(--muted);margin-right:4px; }
+  .partage-btn { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:9px 16px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none; }
+  .pb-fb:hover { border-color:#1877F2;color:#1877F2; }
+  .pb-wa:hover { border-color:#25D366;color:#128C4A; }
+  .to-top { position:fixed;right:18px;bottom:18px;width:46px;height:46px;border-radius:50%;border:none;background:var(--primary);color:#fff;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s;z-index:1000; }
+  .to-top.show { opacity:1;pointer-events:auto; }
   .faq-item { border:1px solid var(--border);border-radius:12px;margin-bottom:8px;background:var(--surface);overflow:hidden; }
   .faq-item summary { cursor:pointer;padding:14px 16px;font-weight:700;font-size:14px;color:var(--text);list-style:none;display:flex;justify-content:space-between;gap:12px; }
   .faq-item summary::-webkit-details-marker { display:none; }
@@ -840,6 +869,7 @@ ${eventsLd}
 
   ${secUrgences}
   ${secFaq}
+  ${secPartage}
   <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
   <section class="section">
     <h2><span class="s-emoji">🎉</span> Sortir &amp; bouger à ${escapeHtml(ville)}</h2>
@@ -921,7 +951,7 @@ ${eventsLd}
     (groups[type] || groups.pro).addLayer(mk);
     if (type === 'pro' || type === 'mairie') bounds.push([lat, lng]);
   });
-  Object.keys(groups).forEach(function(k){ groups[k].addTo(map); });
+  groups.pro.addTo(map); groups.mairie.addTo(map);
   if (bounds.length > 1) { try { map.fitBounds(bounds, { padding: [30,30], maxZoom: 14 }); } catch(e){} }
   var tgs = document.querySelectorAll('.map-toggle');
   for (var i=0;i<tgs.length;i++){
