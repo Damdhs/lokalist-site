@@ -532,6 +532,24 @@ const metierMap = {};
       </div>
       <a class='mairie-cta-btn' href='${SITE_URL}/mairies'>Découvrir l'espace mairie</a>
     </section>`;
+    // FAQ dynamique par metier (SEO longue traine)
+    const _faqCats = {};
+    (commercants || []).forEach(function(c){ if (c.categorie) _faqCats[String(c.categorie).trim()] = true; });
+    (artisans || []).forEach(function(a){ var _mm = (typeof metierMap !== 'undefined') ? metierMap[a.categorie_id] : null; if (_mm && _mm.nom) _faqCats[String(_mm.nom).trim()] = true; });
+    const _faqKeys = Object.keys(_faqCats).slice(0, 8);
+    const _faq = [];
+    if (commercants.length || artisans.length) {
+      _faq.push({ q: 'Combien de commerçants et artisans y a-t-il à ' + ville + ' ?', a: 'Lokalist référence actuellement ' + commercants.length + ' commerçant(s) et ' + artisans.length + ' artisan(s) à ' + ville + ', avec fiche, coordonnées, avis et bons plans.' });
+    }
+    _faqKeys.forEach(function(cat){ _faq.push({ q: cat + ' à ' + ville + ' : où en trouver ?', a: 'Retrouvez les professionnels de la catégorie « ' + cat + ' » à ' + ville + ' sur Lokalist : fiche détaillée, horaires, contact et prise de rendez-vous quand elle est proposée.' }); });
+    _faq.push({ q: 'Comment soutenir les commerces de ' + ville + ' ?', a: 'Téléchargez l application Lokalist pour découvrir les commerces et artisans de ' + ville + ', cumuler des points de fidélité et profiter des offres locales.' });
+    const faqLd = _faq.length ? { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: _faq.map(function(f){ return { '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } }; }) } : null;
+    const secFaq = _faq.length ? `
+    <section class='section'>
+      <h2><span class='s-emoji'>❓</span> Questions fréquentes à ${escapeHtml(ville)}</h2>
+      ${_faq.map(function(f){ return `<details class='faq-item'><summary>${escapeHtml(f.q)}</summary><div class='faq-a'>${escapeHtml(f.a)}</div></details>`; }).join('')}
+      <script type='application/ld+json'>${faqLd ? JSON.stringify(faqLd) : ''}</script>
+    </section>` : '';
     const canonical = `${SITE_URL}/villes/${want}`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
@@ -660,6 +678,12 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .faq-item { border:1px solid var(--border);border-radius:12px;margin-bottom:8px;background:var(--surface);overflow:hidden; }
+  .faq-item summary { cursor:pointer;padding:14px 16px;font-weight:700;font-size:14px;color:var(--text);list-style:none;display:flex;justify-content:space-between;gap:12px; }
+  .faq-item summary::-webkit-details-marker { display:none; }
+  .faq-item summary::after { content:'+';color:var(--primary);font-weight:800; }
+  .faq-item[open] summary::after { content:'−'; }
+  .faq-a { padding:0 16px 14px;font-size:13.5px;color:var(--muted);line-height:1.6; }
   .mairie-cta { display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(135deg,#0F6E56,#1D9E75);color:#fff;border-radius:18px;padding:22px 24px;margin-top:20px;box-shadow:0 8px 24px rgba(15,110,86,.22); }
   .mairie-cta-ic { font-size:38px;line-height:1;flex-shrink:0; }
   .mairie-cta-txt { flex:1;min-width:220px;display:flex;flex-direction:column;gap:4px; }
@@ -815,6 +839,7 @@ ${eventsLd}
   ${secVoisines}
 
   ${secUrgences}
+  ${secFaq}
   <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
   <section class="section">
     <h2><span class="s-emoji">🎉</span> Sortir &amp; bouger à ${escapeHtml(ville)}</h2>
