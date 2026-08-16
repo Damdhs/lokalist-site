@@ -392,6 +392,37 @@ const metierMap = {};
     </section>` : '';
 
     // ─── SEO ───
+    // Communes voisines avec contenu (maillage SEO)
+    let voisines = [];
+    try {
+      const _dLat = 0.25, _dLng = 0.35;
+      const _bbox = `lat=gte.${commune.lat - _dLat}&lat=lte.${commune.lat + _dLat}&lng=gte.${commune.lng - _dLng}&lng=lte.${commune.lng + _dLng}`;
+      const [_proche, _cv, _av, _mv] = await Promise.all([
+        sb(`communes_ref?select=nom,code_postal,lat,lng&${_bbox}&limit=400`),
+        sb(`commercants?select=ville&statut=eq.actif&demo=is.false`),
+        sb(`artisans?select=ville&statut=eq.actif&suspendu_plainte=eq.false`),
+        sb(`mairies_partenaires?select=ville&statut=eq.actif`),
+      ]);
+      const _content = {};
+      [].concat(_cv || [], _av || [], _mv || []).forEach(function(r){ if (r && r.ville) _content[slugify(r.ville)] = true; });
+      const _R = 6371, _toRad = function(d){ return d * Math.PI / 180; };
+      voisines = (_proche || [])
+        .filter(function(c){ return c && c.nom && c.lat != null && c.lng != null && slugify(c.nom) !== want && _content[slugify(c.nom)]; })
+        .map(function(c){
+          const _dla = _toRad(c.lat - commune.lat), _dln = _toRad(c.lng - commune.lng);
+          const _a = Math.sin(_dla/2)*Math.sin(_dla/2) + Math.cos(_toRad(commune.lat))*Math.cos(_toRad(c.lat))*Math.sin(_dln/2)*Math.sin(_dln/2);
+          return { nom: c.nom, cp: c.code_postal, dist: _R * 2 * Math.atan2(Math.sqrt(_a), Math.sqrt(1 - _a)) };
+        })
+        .sort(function(x, y){ return x.dist - y.dist; })
+        .slice(0, 8);
+    } catch (e) { console.error('[ville voisines]', e); }
+    const secVoisines = voisines.length ? `
+    <section class='section'>
+      <h2><span class='s-emoji'>📍</span> Communes voisines</h2>
+      <div class='voisines-grid'>
+        ${voisines.map(function(v){ return `<a class='voisine-chip' href='${SITE_URL}/villes/${slugify(v.nom)}'>${escapeHtml(v.nom)}${v.cp ? ` <span>${escapeHtml(v.cp)}</span>` : ''}</a>`; }).join('')}
+      </div>
+    </section>` : '';
     const canonical = `${SITE_URL}/villes/${want}`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
@@ -520,6 +551,10 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .voisines-grid { display:flex;flex-wrap:wrap;gap:8px; }
+  .voisine-chip { display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:all .12s; }
+  .voisine-chip:hover { border-color:var(--primary);color:var(--primary-d); }
+  .voisine-chip span { font-weight:600;color:var(--muted);font-size:12px; }
   .section h2 { font-family:var(--disp);font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;gap:9px;margin-bottom:16px; }
   .section h2 .s-emoji { font-size:.9em; }
   .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:800;padding:2px 11px;border-radius:22px; }
@@ -605,6 +640,7 @@ ${eventsLd}
   ${secAgences}
   ${secCourtiers}
   ${secSorties}
+  ${secVoisines}
 
   <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
   <section class="section">
