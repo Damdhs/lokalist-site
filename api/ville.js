@@ -151,6 +151,27 @@ function emojiCommerce(cat) {
   return '🏪';
 }
 
+function fmtPrix(p) {
+  if (p == null || p === '') return '';
+  var n = Number(p);
+  if (!isFinite(n) || n <= 0) return '';
+  return n.toFixed(3).replace('.', ',') + ' €';
+}
+function carbCard(s) {
+  var fuels = [['Gazole', s.prix_gazole], ['SP95', s.prix_sp95], ['SP98', s.prix_sp98], ['E10', s.prix_e10], ['E85', s.prix_e85], ['GPL', s.prix_gpl]];
+  var rows = fuels.filter(function(f){ return fmtPrix(f[1]); }).map(function(f){ return `<div class='carb-fuel'><span class='carb-fn'>${f[0]}</span><span class='carb-fp'>${fmtPrix(f[1])}</span></div>`; }).join('');
+  if (!rows) return '';
+  var lieu = s.adresse ? s.adresse : (s.ville || '');
+  var distTxt = (s._dist != null) ? s._dist.toFixed(1).replace('.', ',') + ' km' : '';
+  var dDist = (s._dist != null) ? s._dist.toFixed(2) : '999';
+  var dPrix = (Number(s.prix_gazole) > 0) ? Number(s.prix_gazole).toFixed(3) : '9.999';
+  return `<div class='carb-card' data-dist='${dDist}' data-prix='${dPrix}'>` +
+    `<div class='carb-top'><span class='carb-ville'>${escapeHtml(s.ville || '')}</span>${distTxt ? `<span class='carb-dist'>${distTxt}</span>` : ''}</div>` +
+    (lieu ? `<div class='carb-adr'>${escapeHtml(lieu)}</div>` : '') +
+    `<div class='carb-fuels'>${rows}</div>` +
+  `</div>`;
+}
+
 function section(titre, emoji, cardsHtml, count) {
   if (!count) return '';
   return `<section class="section">
@@ -423,6 +444,36 @@ const metierMap = {};
         ${voisines.map(function(v){ return `<a class='voisine-chip' href='${SITE_URL}/villes/${slugify(v.nom)}'>${escapeHtml(v.nom)}${v.cp ? ` <span>${escapeHtml(v.cp)}</span>` : ''}</a>`; }).join('')}
       </div>
     </section>` : '';
+    // Carburants proches (rayon ~10km)
+    let stations = [];
+    try {
+      const _kLat = 0.09, _kLng = 0.14;
+      const _cbbox = `latitude=gte.${commune.lat - _kLat}&latitude=lte.${commune.lat + _kLat}&longitude=gte.${commune.lng - _kLng}&longitude=lte.${commune.lng + _kLng}`;
+      const _st = await sb(`stations_carburant?select=id,ville,adresse,code_postal,latitude,longitude,prix_gazole,prix_sp95,prix_sp98,prix_e10,prix_e85,prix_gpl&${_cbbox}&limit=200`);
+      const _R3 = 6371, _rad = function(d){ return d * Math.PI / 180; };
+      stations = (_st || [])
+        .filter(function(s){ return s && s.latitude != null && s.longitude != null && (s.prix_gazole || s.prix_sp95 || s.prix_sp98 || s.prix_e10 || s.prix_e85 || s.prix_gpl); })
+        .map(function(s){
+          const _dla = _rad(s.latitude - commune.lat), _dln = _rad(s.longitude - commune.lng);
+          const _a = Math.sin(_dla/2)*Math.sin(_dla/2) + Math.cos(_rad(commune.lat))*Math.cos(_rad(s.latitude))*Math.sin(_dln/2)*Math.sin(_dln/2);
+          s._dist = _R3 * 2 * Math.atan2(Math.sqrt(_a), Math.sqrt(1 - _a));
+          return s;
+        })
+        .sort(function(a, b){ return a._dist - b._dist; })
+        .slice(0, 8);
+    } catch (e) { console.error('[ville carburants]', e); }
+    const secCarburants = stations.length ? `
+    <section class='section'>
+      <div class='carb-head'>
+        <h2><span class='s-emoji'>⛽</span> Carburants près de ${escapeHtml(ville)}</h2>
+        <div class='carb-sort'>
+          <button type='button' class='carb-sortbtn on' data-sort='dist'>📍 Plus proche</button>
+          <button type='button' class='carb-sortbtn' data-sort='prix'>💶 Moins cher</button>
+        </div>
+      </div>
+      <div class='carb-grid' id='carb-grid'>${stations.map(function(s){ return carbCard(s); }).join('')}</div>
+      <div class='carb-note'>Prix indicatifs (open data). Le tri « moins cher » se base sur le gazole.</div>
+    </section>` : '';
     const canonical = `${SITE_URL}/villes/${want}`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
@@ -551,6 +602,21 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .carb-head { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px; }
+  .carb-sort { display:flex;gap:6px; }
+  .carb-sortbtn { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:7px 12px;border-radius:20px;font-size:12.5px;font-weight:700; }
+  .carb-sortbtn.on { background:var(--primary);color:#fff;border-color:var(--primary); }
+  .carb-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px; }
+  .carb-card { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px; }
+  .carb-top { display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:2px; }
+  .carb-ville { font-weight:800;font-size:15px;color:var(--text); }
+  .carb-dist { font-size:12px;font-weight:700;color:var(--primary-d);background:var(--primary-l);padding:2px 8px;border-radius:10px;white-space:nowrap; }
+  .carb-adr { font-size:12px;color:var(--muted);margin-bottom:8px; }
+  .carb-fuels { display:flex;flex-wrap:wrap;gap:6px; }
+  .carb-fuel { display:flex;flex-direction:column;background:var(--primary-l);border-radius:8px;padding:6px 10px;min-width:62px; }
+  .carb-fn { font-size:10.5px;font-weight:700;color:var(--primary-d);text-transform:uppercase;letter-spacing:.4px; }
+  .carb-fp { font-size:14px;font-weight:800;color:var(--text); }
+  .carb-note { font-size:11px;color:var(--muted);margin-top:10px;font-style:italic; }
   .voisines-grid { display:flex;flex-wrap:wrap;gap:8px; }
   .voisine-chip { display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:all .12s; }
   .voisine-chip:hover { border-color:var(--primary);color:var(--primary-d); }
@@ -639,6 +705,7 @@ ${eventsLd}
   ${secBonsPlans}
   ${secAgences}
   ${secCourtiers}
+  ${secCarburants}
   ${secSorties}
   ${secVoisines}
 
@@ -693,6 +760,27 @@ ${eventsLd}
   <p>© Lokalist · La fidélité locale réinventée</p>
   <p style="margin-top:6px;"><a href="${SITE_URL}">Accueil</a> · <a href="${SITE_URL}/villes">Toutes les villes</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
 </footer>
+<script>
+(function(){
+  var grid = document.getElementById('carb-grid');
+  if (!grid) return;
+  var btns = document.querySelectorAll('.carb-sortbtn');
+  function sortBy(key){
+    var attr = (key === 'prix') ? 'data-prix' : 'data-dist';
+    var cards = [].slice.call(grid.querySelectorAll('.carb-card'));
+    cards.sort(function(a,b){ return parseFloat(a.getAttribute(attr)) - parseFloat(b.getAttribute(attr)); });
+    cards.forEach(function(c){ grid.appendChild(c); });
+  }
+  for (var i=0;i<btns.length;i++){
+    btns[i].addEventListener('click', function(){
+      var k = this.getAttribute('data-sort');
+      for (var j=0;j<btns.length;j++) btns[j].classList.remove('on');
+      this.classList.add('on');
+      sortBy(k);
+    });
+  }
+})();
+</script>
 
 <script>
 (function(){
