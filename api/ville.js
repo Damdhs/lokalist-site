@@ -863,7 +863,7 @@ ${eventsLd}
   ${secCommercants}
   ${secBoutiques}
   <div class='projet-cta'>
-    <div class='projet-cta-txt'><strong>🛠️ Un projet de travaux à ${escapeHtml(ville)} ?</strong><span>Décrivez votre besoin, recevez des devis d'artisans locaux — gratuit.</span></div>
+    <div class='projet-cta-txt'><strong>🛠️ Un besoin à ${escapeHtml(ville)} ? Travaux, traiteur, service…</strong><span>Décrivez votre projet, recevez des devis de professionnels locaux — gratuit.</span></div>
     <a class='projet-cta-btn' href='${SITE_URL}/deposer-projet'>Déposer un projet</a>
   </div>
   ${secArtisans}
