@@ -40,6 +40,37 @@ const sanitizeRef = (ref) => {
   return /^LOK-[A-Z0-9]{6}$/.test(up) ? up : '';
 };
 
+// LKL_RESA — reservation (Planity/Doctolib...) + reseaux
+function normUrl(v) {
+  if (!v) return '';
+  var u = String(v).trim();
+  while (u.charAt(0) === '/') u = u.slice(1);
+  var low = u.toLowerCase();
+  if (low.indexOf('http://') !== 0 && low.indexOf('https://') !== 0) u = 'https://' + u;
+  return u;
+}
+function resaLabel(v) {
+  var s = String(v || '').toLowerCase();
+  if (s.indexOf('planity') !== -1)   return 'Prendre RDV sur Planity';
+  if (s.indexOf('doctolib') !== -1)  return 'Prendre RDV sur Doctolib';
+  if (s.indexOf('fresha') !== -1)    return 'Réserver sur Fresha';
+  if (s.indexOf('treatwell') !== -1) return 'Réserver sur Treatwell';
+  if (s.indexOf('kalendes') !== -1)  return 'Réserver sur Kalendes';
+  return 'Prendre rendez-vous';
+}
+function socialUrl(kind, v) {
+  if (!v) return '';
+  var raw = String(v).trim();
+  var low = raw.toLowerCase();
+  if (low.indexOf('http://') === 0 || low.indexOf('https://') === 0) return raw;
+  var handle = raw.charAt(0) === '@' ? raw.slice(1) : raw;
+  while (handle.charAt(0) === '/') handle = handle.slice(1);
+  if (kind === 'instagram') return 'https://instagram.com/' + handle;
+  if (kind === 'tiktok')    return 'https://tiktok.com/@' + handle;
+  if (kind === 'facebook')  return 'https://facebook.com/' + handle;
+  return normUrl(raw);
+}
+
 const html404 = (msg) => `<!doctype html>
 <html lang="fr"><head>
 <meta charset="utf-8"/>
@@ -83,7 +114,7 @@ export default async function handler(req) {
       return pageNotFound("Identifiant invalide");
     }
 
-    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=id,nom,ville,description,photo_url,note_moyenne,nb_avis,type_pro,adresse,points_par_scan,actif`;
+    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=id,nom,ville,description,photo_url,note_moyenne,nb_avis,type_pro,adresse,points_par_scan,actif,site_web,instagram,facebook,tiktok,lien_reservation,telephone`;
     const r = await fetch(apiUrl, {
       headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` },
     });
@@ -144,6 +175,18 @@ export default async function handler(req) {
       ...(c.note_moyenne > 0 && {
         "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(c.note_moyenne).toFixed(1), "reviewCount": c.nb_avis || 0 }
       }),
+      ...(c.telephone && { telephone: c.telephone }),
+      ...((c.site_web || c.instagram || c.facebook || c.tiktok) && { sameAs: [
+        ...(c.site_web ? [normUrl(c.site_web)] : []),
+        ...(c.instagram ? [socialUrl('instagram', c.instagram)] : []),
+        ...(c.facebook ? [socialUrl('facebook', c.facebook)] : []),
+        ...(c.tiktok ? [socialUrl('tiktok', c.tiktok)] : []),
+      ] }),
+      ...(c.lien_reservation && { potentialAction: {
+        '@type': 'ReserveAction',
+        target: normUrl(c.lien_reservation),
+        name: resaLabel(c.lien_reservation),
+      } }),
     };
 
     const body = `<!doctype html>
@@ -199,6 +242,9 @@ export default async function handler(req) {
   .info-row { display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text);margin-top:8px; }
   .points-badge { display:flex;align-items:center;gap:10px;background:var(--primary-l);border-radius:12px;padding:14px;margin-top:14px; }
   .points-badge strong { color:var(--primary); }
+  .resa-btn { display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;padding:15px;border-radius:14px;font-weight:800;text-decoration:none;font-size:15px;margin-bottom:12px;box-shadow:0 4px 12px rgba(29,158,117,0.25); }
+  .liens-grid { display:flex;flex-wrap:wrap;gap:8px; }
+  .lien-chip { display:inline-flex;align-items:center;gap:6px;background:var(--primary-l);color:var(--primary-d);padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;font-size:13px;border:1px solid #D4EDE3; }
   .cta-block { background:var(--primary);color:#fff;margin-top:20px;margin-bottom:28px;border-radius:18px;padding:24px 20px;text-align:center;box-shadow:0 6px 18px rgba(29,158,117,0.25); }
   .cta-block h3 { font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-0.3px; }
   .cta-block p { font-size:13px;opacity:0.9;margin-bottom:16px; }
@@ -241,6 +287,19 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
     <p>${escapeHtml(description)}</p>
     ${c.adresse ? `<div class="info-row">📍 ${escapeHtml(c.adresse)}</div>` : ''}
     ${c.points_par_scan > 0 ? `<div class="points-badge">📱 <span>Scanne en boutique et gagne <strong>${c.points_par_scan} pts</strong></span></div>` : ''}
+  </section>` : ''}
+
+  ${(c.lien_reservation || c.site_web || c.instagram || c.facebook || c.tiktok || c.telephone) ? `
+  <section class='section'>
+    <h2>🔗 Contact &amp; liens</h2>
+    ${c.lien_reservation ? `<a class='resa-btn' href='${escapeHtml(normUrl(c.lien_reservation))}' target='_blank' rel='noopener nofollow'>📅 ${escapeHtml(resaLabel(c.lien_reservation))}</a>` : ''}
+    <div class='liens-grid'>
+      ${c.site_web ? `<a class='lien-chip' href='${escapeHtml(normUrl(c.site_web))}' target='_blank' rel='noopener nofollow'>🌐 Site web</a>` : ''}
+      ${c.instagram ? `<a class='lien-chip' href='${escapeHtml(socialUrl('instagram', c.instagram))}' target='_blank' rel='noopener nofollow'>📷 Instagram</a>` : ''}
+      ${c.facebook ? `<a class='lien-chip' href='${escapeHtml(socialUrl('facebook', c.facebook))}' target='_blank' rel='noopener nofollow'>👍 Facebook</a>` : ''}
+      ${c.tiktok ? `<a class='lien-chip' href='${escapeHtml(socialUrl('tiktok', c.tiktok))}' target='_blank' rel='noopener nofollow'>🎵 TikTok</a>` : ''}
+      ${c.telephone ? `<a class='lien-chip' href='tel:${escapeHtml(c.telephone)}'>📞 ${escapeHtml(c.telephone)}</a>` : ''}
+    </div>
   </section>` : ''}
 
   <section class="section">
