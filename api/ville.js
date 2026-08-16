@@ -509,6 +509,9 @@ ${eventsLd}
   .mairie-head { display:flex;align-items:center;gap:15px; }
   .mairie-logo { width:60px;height:60px;border-radius:14px;object-fit:cover;background:var(--primary-l);flex-shrink:0; }
   .mairie-logo-fb { display:flex;align-items:center;justify-content:center;font-size:32px; }
+  .hero-mairie { display:inline-flex;align-items:center;gap:9px;margin-top:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:6px 14px 6px 6px;border-radius:30px; }
+  .hero-mairie img { width:34px;height:34px;border-radius:50%;object-fit:cover;background:#fff;flex-shrink:0; }
+  .hero-mairie span { font-size:13px;font-weight:700;color:#fff;letter-spacing:.2px; }
   .mairie-tag { font-size:11.5px;font-weight:800;color:var(--primary-d);text-transform:uppercase;letter-spacing:.6px; }
   .mairie-nom { font-family:var(--disp);font-size:21px;font-weight:800;letter-spacing:-.4px;margin-top:1px; }
   .mairie-desc { color:var(--text);font-size:14.5px;margin-top:12px;line-height:1.6;white-space:pre-line; }
@@ -578,6 +581,7 @@ ${eventsLd}
   <div class="wrap hero-inner">
     <nav class="crumb"><a href="${SITE_URL}">Accueil</a> › <a href="${SITE_URL}/villes">Villes</a> › ${escapeHtml(ville)}</nav>
     <h1>${escapeHtml(ville)}${cp ? `<span class="cp">${escapeHtml(cp)}</span>` : ''}</h1>
+    ${mairie && mairie.logo_url ? `<div class="hero-mairie"><img src="${escapeHtml(mairie.logo_url)}" alt="Mairie de ${escapeHtml(ville)}" loading="lazy"/><span>🏛️ Mairie partenaire</span></div>` : ''}
     <p class="lead">Tous les commerçants, artisans et services de proximité de ${escapeHtml(ville)} réunis au même endroit. Soutenez l'économie locale et profitez des bons plans près de chez vous.</p>
     ${pillsHtml ? `<div class="pills">${pillsHtml}</div>` : ''}
     <a class="hero-cta" href="${PLAY_STORE_URL}" id="btn-download-hero">📱 Télécharger Lokalist</a>
