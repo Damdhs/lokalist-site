@@ -923,6 +923,9 @@ ${eventsLd}
 </footer>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 <script>
 (function(){
   var el = document.getElementById('ville-map');
@@ -934,7 +937,8 @@ ${eventsLd}
   var map = L.map('ville-map', { scrollWheelZoom: false }).setView([clat, clng], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
   var bounds = [];
-  var groups = { pro: L.layerGroup(), mairie: L.layerGroup(), defib: L.layerGroup(), station: L.layerGroup() };
+  var _mkGrp = (typeof L.markerClusterGroup === 'function') ? function(){ return L.markerClusterGroup({ chunkedLoading: true, maxClusterRadius: 55 }); } : function(){ return L.layerGroup(); };
+  var groups = { pro: _mkGrp(), mairie: _mkGrp(), defib: _mkGrp(), station: _mkGrp() };
   var colors = { pro: '#1D9E75', mairie: '#2563EB', defib: '#E24B4A', station: '#EF9F27' };
   pts.forEach(function(p){
     var lat = parseFloat(p.getAttribute('data-lat'));
