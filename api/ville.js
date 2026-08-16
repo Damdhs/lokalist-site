@@ -324,8 +324,8 @@ export default async function handler(req) {
     const vEnc  = encodeURIComponent(ville);
 
     const [commercants, artisans, courtiers, agences, mairies] = await Promise.all([
-      sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis,categorie&statut=eq.actif&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
-      sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie,categorie_id&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
+      sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis,categorie,latitude,longitude&statut=eq.actif&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
+      sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie,categorie_id,latitude,longitude&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`courtiers_immo?select=id,nom,ville,logo_url,note_moyenne,nb_avis&actif=eq.true&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`agences_immo?select=id,nom,communes,logo_url,note_moyenne,nb_avis&actif=eq.true&communes=cs.${encodeURIComponent('{"' + ville + '"}')}&order=note_moyenne.desc.nullslast`),
       sb(`mairies_partenaires?select=*&statut=eq.actif&ville=ilike.${vEnc}&limit=1`),
@@ -493,6 +493,23 @@ const metierMap = {};
       </div>
       <p class='urg-note'>En cas d'urgence vitale, appelez le 112. Lokalist ne remplace pas les services de secours.</p>
     </section>`;
+    // Carte : marqueurs pros + defibrillateurs
+    let _markers = [];
+    (commercants || []).forEach(function(c){ if (c.latitude && c.longitude) _markers.push({ lat:c.latitude, lng:c.longitude, type:'pro', name:c.nom, url:'/pro/'+c.id }); });
+    (artisans || []).forEach(function(a){ if (a.latitude && a.longitude) _markers.push({ lat:a.latitude, lng:a.longitude, type:'pro', name:(a.nom_entreprise||a.nom), url:'/artisan/'+a.id }); });
+    try {
+      const _mLat = 0.07, _mLng = 0.11;
+      const _dbbox = `lat=gte.${commune.lat - _mLat}&lat=lte.${commune.lat + _mLat}&lon=gte.${commune.lng - _mLng}&lon=lte.${commune.lng + _mLng}`;
+      const _defs = await sb(`defibrillateurs?select=nom,adresse,commune,lat,lon&${_dbbox}&limit=300`);
+      (_defs || []).forEach(function(d){ if (d.lat && d.lon) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:(d.nom || 'Défibrillateur'), url:'' }); });
+    } catch (e) { console.error('[ville carte]', e); }
+    const secCarte = _markers.length ? `
+    <section class='section'>
+      <h2><span class='s-emoji'>🗺️</span> Carte de ${escapeHtml(ville)}</h2>
+      <div class='ville-map' id='ville-map' data-clat='${commune.lat}' data-clng='${commune.lng}'></div>
+      <div class='map-legend'><span class='ml-pro'>● Commerçants & artisans</span><span class='ml-def'>● Défibrillateurs</span></div>
+      <div id='map-pts' hidden>${_markers.map(function(m){ return `<span class='map-pt' data-lat='${m.lat}' data-lng='${m.lng}' data-type='${m.type}' data-name='${escapeHtml(String(m.name||''))}' data-url='${m.url}'></span>`; }).join('')}</div>
+    </section>` : '';
     const canonical = `${SITE_URL}/villes/${want}`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
@@ -621,6 +638,10 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .ville-map { height:380px;border-radius:16px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px;z-index:0; }
+  .map-legend { display:flex;flex-wrap:wrap;gap:16px;font-size:12px;font-weight:700; }
+  .map-legend .ml-pro { color:#1D9E75; }
+  .map-legend .ml-def { color:#E24B4A; }
   .urg-112 { display:flex;align-items:center;gap:14px;background:#E24B4A;color:#fff;border-radius:16px;padding:16px 18px;text-decoration:none;margin-bottom:10px; }
   .urg-112-n { font-size:24px;font-weight:800; }
   .urg-112-s { font-size:13px;opacity:.92; }
@@ -735,6 +756,7 @@ ${eventsLd}
 
 <main class="wrap">
   ${mairieHtml}
+  ${secCarte}
   ${secAlertes}
   ${secEvenements}
   ${secActus}
@@ -809,6 +831,36 @@ ${eventsLd}
   <p>© Lokalist · La fidélité locale réinventée</p>
   <p style="margin-top:6px;"><a href="${SITE_URL}">Accueil</a> · <a href="${SITE_URL}/villes">Toutes les villes</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
 </footer>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+  var el = document.getElementById('ville-map');
+  if (!el || typeof L === 'undefined') return;
+  var pts = [].slice.call(document.querySelectorAll('#map-pts .map-pt'));
+  if (!pts.length) return;
+  var clat = parseFloat(el.getAttribute('data-clat'));
+  var clng = parseFloat(el.getAttribute('data-clng'));
+  var map = L.map('ville-map', { scrollWheelZoom: false }).setView([clat, clng], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+  var bounds = [];
+  pts.forEach(function(p){
+    var lat = parseFloat(p.getAttribute('data-lat'));
+    var lng = parseFloat(p.getAttribute('data-lng'));
+    if (isNaN(lat) || isNaN(lng)) return;
+    var type = p.getAttribute('data-type');
+    var name = p.getAttribute('data-name') || '';
+    var url = p.getAttribute('data-url') || '';
+    var color = (type === 'defib') ? '#E24B4A' : '#1D9E75';
+    var icon = L.divIcon({ className: '', iconSize: [16,16], iconAnchor: [8,8], html: '<div style="width:16px;height:16px;border-radius:50%;background:' + color + ';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>' });
+    var mk = L.marker([lat, lng], { icon: icon }).addTo(map);
+    if (url) mk.bindPopup('<a href="' + url + '" style="font-weight:700;color:#1D9E75">' + name + '</a>');
+    else mk.bindPopup('<strong>' + (type === 'defib' ? '❤️ ' : '') + name + '</strong>');
+    bounds.push([lat, lng]);
+  });
+  if (bounds.length > 1) { try { map.fitBounds(bounds, { padding: [30,30], maxZoom: 16 }); } catch(e){} }
+})();
+</script>
 <script>
 (function(){
   var grid = document.getElementById('carb-grid');
