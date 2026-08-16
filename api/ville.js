@@ -510,6 +510,15 @@ const metierMap = {};
       <div class='map-legend'><span class='ml-pro'>● Commerçants & artisans</span><span class='ml-def'>● Défibrillateurs</span></div>
       <div id='map-pts' hidden>${_markers.map(function(m){ return `<span class='map-pt' data-lat='${m.lat}' data-lng='${m.lng}' data-type='${m.type}' data-name='${escapeHtml(String(m.name||''))}' data-url='${m.url}'></span>`; }).join('')}</div>
     </section>` : '';
+    const secMairieCta = mairie ? '' : `
+    <section class='mairie-cta'>
+      <div class='mairie-cta-ic'>🏛️</div>
+      <div class='mairie-cta-txt'>
+        <strong>Vous êtes élu·e à ${escapeHtml(ville)} ?</strong>
+        <span>Alertes, agenda, actualités, sondages, signalements : offrez à vos habitants un véritable espace municipal sur Lokalist.</span>
+      </div>
+      <a class='mairie-cta-btn' href='${SITE_URL}/mairies'>Découvrir l'espace mairie</a>
+    </section>`;
     const canonical = `${SITE_URL}/villes/${want}`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
@@ -638,6 +647,14 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .mairie-cta { display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:linear-gradient(135deg,#0F6E56,#1D9E75);color:#fff;border-radius:18px;padding:22px 24px;margin-top:20px;box-shadow:0 8px 24px rgba(15,110,86,.22); }
+  .mairie-cta-ic { font-size:38px;line-height:1;flex-shrink:0; }
+  .mairie-cta-txt { flex:1;min-width:220px;display:flex;flex-direction:column;gap:4px; }
+  .mairie-cta-txt strong { font-size:18px;font-weight:800;letter-spacing:-.3px; }
+  .mairie-cta-txt span { font-size:13.5px;opacity:.94;line-height:1.5; }
+  .mairie-cta-btn { background:#fff;color:var(--primary-d);font-weight:800;font-size:14px;padding:13px 22px;border-radius:12px;text-decoration:none;white-space:nowrap; }
+  .mairie-cta-btn:hover { transform:translateY(-1px); }
+  @media (max-width:600px){ .mairie-cta-btn{width:100%;text-align:center;} }
   .ville-map { height:380px;border-radius:16px;overflow:hidden;border:1px solid var(--border);margin-bottom:8px;z-index:0; }
   .map-legend { display:flex;flex-wrap:wrap;gap:16px;font-size:12px;font-weight:700; }
   .map-legend .ml-pro { color:#1D9E75; }
@@ -756,6 +773,7 @@ ${eventsLd}
 
 <main class="wrap">
   ${mairieHtml}
+  ${secMairieCta}
   ${secCarte}
   ${secAlertes}
   ${secEvenements}
