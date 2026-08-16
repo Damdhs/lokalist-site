@@ -495,8 +495,16 @@ const metierMap = {};
     </section>`;
     // Carte : marqueurs pros + defibrillateurs
     let _markers = [];
-    (commercants || []).forEach(function(c){ if (c.latitude && c.longitude) _markers.push({ lat:c.latitude, lng:c.longitude, type:'pro', name:c.nom, url:'/pro/'+c.id }); });
-    (artisans || []).forEach(function(a){ if (a.latitude && a.longitude) _markers.push({ lat:a.latitude, lng:a.longitude, type:'pro', name:(a.nom_entreprise||a.nom), url:'/artisan/'+a.id }); });
+    try {
+      const [_allC, _allA, _allM] = await Promise.all([
+        sb(`commercants?select=id,nom,latitude,longitude&statut=eq.actif&demo=is.false&limit=3000`),
+        sb(`artisans?select=id,nom,nom_entreprise,latitude,longitude&statut=eq.actif&suspendu_plainte=eq.false&limit=3000`),
+        sb(`mairies_partenaires?select=id,nom,ville,latitude,longitude&statut=eq.actif&demo=is.false&limit=3000`),
+      ]);
+      (_allC || []).forEach(function(c){ if (c.latitude && c.longitude) _markers.push({ lat:c.latitude, lng:c.longitude, type:'pro', name:c.nom, url:'/pro/'+c.id }); });
+      (_allA || []).forEach(function(a){ if (a.latitude && a.longitude) _markers.push({ lat:a.latitude, lng:a.longitude, type:'pro', name:(a.nom_entreprise||a.nom), url:'/artisan/'+a.id }); });
+      (_allM || []).forEach(function(m){ if (m.latitude && m.longitude) _markers.push({ lat:m.latitude, lng:m.longitude, type:'mairie', name:('🏛️ Mairie de '+(m.ville||m.nom||'')), url:'/villes/'+slugify(m.ville||m.nom||'') }); });
+    } catch (e) { console.error('[ville carte reseau]', e); }
     try {
       const _mLat = 0.07, _mLng = 0.11;
       const _dbbox = `lat=gte.${commune.lat - _mLat}&lat=lte.${commune.lat + _mLat}&lon=gte.${commune.lng - _mLng}&lon=lte.${commune.lng + _mLng}`;
@@ -505,9 +513,9 @@ const metierMap = {};
     } catch (e) { console.error('[ville carte]', e); }
     const secCarte = _markers.length ? `
     <section class='section'>
-      <h2><span class='s-emoji'>🗺️</span> Carte de ${escapeHtml(ville)}</h2>
+      <h2><span class='s-emoji'>🗺️</span> Le réseau Lokalist</h2>
       <div class='ville-map' id='ville-map' data-clat='${commune.lat}' data-clng='${commune.lng}'></div>
-      <div class='map-legend'><span class='ml-pro'>● Commerçants & artisans</span><span class='ml-def'>● Défibrillateurs</span></div>
+      <div class='map-legend'><span class='ml-pro'>● Commerçants & artisans</span><span class='ml-mai'>● Mairies partenaires</span><span class='ml-def'>● Défibrillateurs</span></div>
       <div id='map-pts' hidden>${_markers.map(function(m){ return `<span class='map-pt' data-lat='${m.lat}' data-lng='${m.lng}' data-type='${m.type}' data-name='${escapeHtml(String(m.name||''))}' data-url='${m.url}'></span>`; }).join('')}</div>
     </section>` : '';
     const secMairieCta = mairie ? '' : `
@@ -659,6 +667,7 @@ ${eventsLd}
   .map-legend { display:flex;flex-wrap:wrap;gap:16px;font-size:12px;font-weight:700; }
   .map-legend .ml-pro { color:#1D9E75; }
   .map-legend .ml-def { color:#E24B4A; }
+  .map-legend .ml-mai { color:#2563EB; }
   .urg-112 { display:flex;align-items:center;gap:14px;background:#E24B4A;color:#fff;border-radius:16px;padding:16px 18px;text-decoration:none;margin-bottom:10px; }
   .urg-112-n { font-size:24px;font-weight:800; }
   .urg-112-s { font-size:13px;opacity:.92; }
@@ -869,7 +878,7 @@ ${eventsLd}
     var type = p.getAttribute('data-type');
     var name = p.getAttribute('data-name') || '';
     var url = p.getAttribute('data-url') || '';
-    var color = (type === 'defib') ? '#E24B4A' : '#1D9E75';
+    var color = (type === 'defib') ? '#E24B4A' : (type === 'mairie' ? '#2563EB' : '#1D9E75');
     var icon = L.divIcon({ className: '', iconSize: [16,16], iconAnchor: [8,8], html: '<div style="width:16px;height:16px;border-radius:50%;background:' + color + ';border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.4)"></div>' });
     var mk = L.marker([lat, lng], { icon: icon }).addTo(map);
     if (url) mk.bindPopup('<a href="' + url + '" style="font-weight:700;color:#1D9E75">' + name + '</a>');
