@@ -525,8 +525,8 @@ const metierMap = {};
       const _dbbox = `lat=gte.${commune.lat - _mLat}&lat=lte.${commune.lat + _mLat}&lon=gte.${commune.lng - _mLng}&lon=lte.${commune.lng + _mLng}`;
       const _rLa = 0.25, _rLn = 0.36;
       const [_defs, _stns] = await Promise.all([
-        sb(`defibrillateurs?select=nom,lat,lon&lat=gte.${commune.lat-_rLa}&lat=lte.${commune.lat+_rLa}&lon=gte.${commune.lng-_rLn}&lon=lte.${commune.lng+_rLn}&limit=600`),
-        sb(`stations_carburant?select=ville,adresse,latitude,longitude,prix_gazole&latitude=gte.${commune.lat-_rLa}&latitude=lte.${commune.lat+_rLa}&longitude=gte.${commune.lng-_rLn}&longitude=lte.${commune.lng+_rLn}&limit=600`),
+        sb(`defibrillateurs?select=nom,lat,lon&lat=gte.${commune.lat-_rLa}&lat=lte.${commune.lat+_rLa}&lon=gte.${commune.lng-_rLn}&lon=lte.${commune.lng+_rLn}&limit=3000`),
+        sb(`stations_carburant?select=ville,adresse,latitude,longitude,prix_gazole&latitude=gte.${commune.lat-_rLa}&latitude=lte.${commune.lat+_rLa}&longitude=gte.${commune.lng-_rLn}&longitude=lte.${commune.lng+_rLn}&limit=3000`),
       ]);
       (_defs || []).forEach(function(d){ if (d.lat && d.lon) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:('❤️ ' + (d.nom || 'Défibrillateur')), url:'' }); });
       (_stns || []).forEach(function(s){ if (s.latitude && s.longitude) _markers.push({ lat:s.latitude, lng:s.longitude, type:'station', name:('⛽ ' + (s.ville||'') + (s.prix_gazole ? ' · Gazole ' + String(s.prix_gazole).replace('.', ',') + ' €' : '')), url:'' }); });
