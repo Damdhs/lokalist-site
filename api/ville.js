@@ -868,7 +868,6 @@ ${eventsLd}
   ${secSorties}
   ${secVoisines}
 
-  ${secUrgences}
   ${secFaq}
   ${secPartage}
   <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
@@ -893,6 +892,7 @@ ${eventsLd}
     </div>
   </section>
 
+  ${secUrgences}
   <div class="cta-block cta-pros">
     <h3>Vous êtes un professionnel à ${escapeHtml(ville)} ?</h3>
     <p>Commerçant, artisan, agence immobilière ou courtier : référencez votre activité sur Lokalist et gagnez en visibilité auprès des habitants de ${escapeHtml(ville)}.</p>
