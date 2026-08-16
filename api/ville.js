@@ -107,14 +107,14 @@ async function resolveCommune(wantedSlug) {
 
 const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
 
-function card(href, img, emoji, nom, ville, note, nbAvis, tag) {
+function card(href, img, emoji, nom, ville, note, nbAvis, tag, cat, catlabel, catemoji) {
   const noteHtml = (note > 0)
     ? `<div class="card-note"><span class="stars">${etoiles(note)}</span> <span class="nt">${Number(note).toFixed(1)}${nbAvis ? ` · ${nbAvis} avis` : ''}</span></div>`
     : '';
   const media = img
     ? `<img class="card-img" src="${escapeHtml(img)}" alt="${escapeHtml(nom)}" loading="lazy"/>`
     : `<div class="card-img card-img-fb">${emoji}</div>`;
-  return `<a class="card" href="${href}">
+  return `<a class="card" href="${href}" data-cat="${cat||''}" data-catlabel="${escapeHtml(catlabel||'')}" data-catemoji="${catemoji||''}" data-name="${escapeHtml(String(nom||'').toLowerCase())}">
     <div class="card-media">${media}${tag ? `<span class="card-tag">${tag}</span>` : ''}</div>
     <div class="card-body">
       <div class="card-name">${escapeHtml(nom)}</div>
@@ -122,6 +122,33 @@ function card(href, img, emoji, nom, ville, note, nbAvis, tag) {
       ${noteHtml}
     </div>
   </a>`;
+}
+
+function slugCat(s) {
+  var t = String(s || '').toLowerCase();
+  var out = '';
+  for (var i = 0; i < t.length; i++) {
+    var ch = t[i];
+    if (ch >= 'a' && ch <= 'z') { out += ch; continue; }
+    if (ch >= '0' && ch <= '9') { out += ch; continue; }
+    if ('àâä'.indexOf(ch) !== -1) { out += 'a'; continue; }
+    if ('éèêë'.indexOf(ch) !== -1) { out += 'e'; continue; }
+    if ('îï'.indexOf(ch) !== -1) { out += 'i'; continue; }
+    if ('ôö'.indexOf(ch) !== -1) { out += 'o'; continue; }
+    if ('ûüù'.indexOf(ch) !== -1) { out += 'u'; continue; }
+    if (ch === 'ç') { out += 'c'; continue; }
+    out += '-';
+  }
+  while (out.indexOf('--') !== -1) out = out.replace('--', '-');
+  if (out.charAt(0) === '-') out = out.slice(1);
+  if (out.charAt(out.length - 1) === '-') out = out.slice(0, -1);
+  return out;
+}
+var _EMOJI_COMMERCE = { coiffeur:'✂️', coiffure:'✂️', barbier:'✂️', institut:'💅', beaute:'💅', esthetique:'💅', ongle:'💅', restaurant:'🍽️', pizzeria:'🍕', boulangerie:'🥖', patisserie:'🧁', boucherie:'🥩', primeur:'🥬', fleuriste:'💐', opticien:'👓', pharmacie:'💊', fromagerie:'🧀', caviste:'🍷', bijouterie:'💍', chaussure:'👟', vetement:'👗', mode:'👗', tabac:'🚬', presse:'📰', garage:'🔧', auto:'🚗', immobilier:'🏠', banque:'🏦', assurance:'🛡️', tatouage:'🖋️', bar:'🍸', cafe:'☕' };
+function emojiCommerce(cat) {
+  var s = slugCat(cat);
+  for (var k in _EMOJI_COMMERCE) { if (s.indexOf(k) !== -1) return _EMOJI_COMMERCE[k]; }
+  return '🏪';
 }
 
 function section(titre, emoji, cardsHtml, count) {
@@ -276,14 +303,17 @@ export default async function handler(req) {
     const vEnc  = encodeURIComponent(ville);
 
     const [commercants, artisans, courtiers, agences, mairies] = await Promise.all([
-      sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis&statut=eq.actif&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
-      sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
+      sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis,categorie&statut=eq.actif&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
+      sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie,categorie_id&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`courtiers_immo?select=id,nom,ville,logo_url,note_moyenne,nb_avis&actif=eq.true&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`agences_immo?select=id,nom,communes,logo_url,note_moyenne,nb_avis&actif=eq.true&communes=cs.${encodeURIComponent('{"' + ville + '"}')}&order=note_moyenne.desc.nullslast`),
       sb(`mairies_partenaires?select=*&statut=eq.actif&ville=ilike.${vEnc}&limit=1`),
     ]);
 
     const mairie = mairies && mairies[0] ? mairies[0] : null;
+const metiersRef = await sb('categories_artisans?select=id,nom,emoji');
+const metierMap = {};
+(metiersRef || []).forEach(function(m){ metierMap[m.id] = m; });
     /* LOKALIST_VILLE_ALERTES_V1:FETCH:START */
     const alertes = (mairie && mairie.id)
       ? await sb(`alertes_mairie?mairie_id=eq.${mairie.id}&statut=eq.active&select=id,titre,message,type,created_at&order=created_at.desc&limit=5`)
@@ -326,13 +356,14 @@ export default async function handler(req) {
     if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
 
     const secCommercants = section('Commerçants', '🏪',
-      commercants.map((c) => card(`/pro/${c.id}`, c.photo_url || c.logo_url, '🏪', c.nom, c.ville, +c.note_moyenne, c.nb_avis)).join(''),
+      commercants.map((c) => card(`/pro/${c.id}`, c.photo_url || c.logo_url, '🏪', c.nom, c.ville, +c.note_moyenne, c.nb_avis, '', slugCat(c.categorie), c.categorie || '', emojiCommerce(c.categorie))).join(''),
       commercants.length);
 
     const secArtisans = section('Artisans', '🔧',
-      artisans.map((a) => card(`/artisan/${a.id}`, a.photo_url, '🔧',
+      artisans.map((a) => { var _m = metierMap[a.categorie_id]; return card(`/artisan/${a.id}`, a.photo_url, '🔧',
         a.nom_entreprise || a.nom, a.ville, +a.note_moyenne, a.nb_avis,
-        a.certifie_rge ? 'RGE' : (a.badge_verifie ? '✓ Vérifié' : ''))).join(''),
+        a.certifie_rge ? 'RGE' : (a.badge_verifie ? '✓ Vérifié' : ''),
+        slugCat(_m && _m.nom), (_m && _m.nom) || '', (_m && _m.emoji) || '🔧'); }).join(''),
       artisans.length);
 
     const secAgences = section('Agences immobilières', '🏠',
