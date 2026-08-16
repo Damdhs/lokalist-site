@@ -535,7 +535,7 @@ const metierMap = {};
     <section class='section'>
       <h2><span class='s-emoji'>🗺️</span> Le réseau Lokalist</h2>
       <div class='ville-map' id='ville-map' data-clat='${commune.lat}' data-clng='${commune.lng}'></div>
-      <div class='map-toggles'><button type='button' class='map-toggle' data-layer='pro'>🟢 Commerces</button><button type='button' class='map-toggle' data-layer='mairie'>🔵 Mairies</button><button type='button' class='map-toggle off' data-layer='defib'>🔴 Défibrillateurs</button><button type='button' class='map-toggle off' data-layer='station'>⛽ Stations</button></div>
+      <p class='map-hint'>Sur la carte, 🟢 commerçants &amp; artisans et 🔵 mairies partenaires apparaissent partout. Cliquez sur 🔴 défibrillateurs ou ⛽ stations-service pour les afficher autour de ${escapeHtml(ville)} — recliquez pour masquer et aérer la carte.</p><div class='map-toggles'><button type='button' class='map-toggle' data-layer='pro'>🟢 Commerces &amp; artisans</button><button type='button' class='map-toggle' data-layer='mairie'>🔵 Mairies</button><button type='button' class='map-toggle off' data-layer='defib'>🔴 Défibrillateurs</button><button type='button' class='map-toggle off' data-layer='station'>⛽ Stations</button></div>
       <div id='map-pts' hidden>${_markers.map(function(m){ return `<span class='map-pt' data-lat='${m.lat}' data-lng='${m.lng}' data-type='${m.type}' data-name='${escapeHtml(String(m.name||''))}' data-url='${m.url}'></span>`; }).join('')}</div>
     </section>` : '';
     const secMairieCta = mairie ? '' : `
@@ -700,6 +700,7 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .map-hint { font-size:12.5px;color:var(--muted);line-height:1.55;margin:2px 0 10px; }
   .partage { display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:34px; }
   .partage-lbl { font-size:13px;font-weight:700;color:var(--muted);margin-right:4px; }
   .partage-btn { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:9px 16px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none; }
