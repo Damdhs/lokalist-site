@@ -73,7 +73,7 @@ export default async function handler(req) {
       return pageNotFound('Identifiant invalide');
     }
 
-    const apiUrl = `${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,note_moyenne,nb_avis,rayon_intervention,actif,categories_artisans(nom,emoji)`;
+    const apiUrl = `${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,note_moyenne,nb_avis,rayon_intervention,actif,demo,suspendu_plainte,categories_artisans(nom,emoji)`;
     const r = await fetch(apiUrl, {
       headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` },
     });
@@ -82,6 +82,8 @@ export default async function handler(req) {
     const list = await r.json();
     if (!list?.length) return pageNotFound();
     const a = list[0];
+    if (a.demo === true) return pageNotFound();
+    if (a.suspendu_plainte === true) return pageNotFound("Cet artisan n'est plus disponible");
 
     // LKL_AVIS_BLOC — Avis verifies (nouveau systeme)
     let avisMoyenne = 0, avisNb = 0, avisListe = [];
