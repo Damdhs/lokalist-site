@@ -521,6 +521,14 @@ ${eventsLd}
   .section h2 .s-emoji { font-size:.9em; }
   .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:800;padding:2px 11px;border-radius:22px; }
   .grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px; }
+  .filtres { margin:20px 0 6px;display:flex;flex-direction:column;gap:10px; }
+  .filtre-search { width:100%;max-width:420px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;font-size:14px;outline:none;background:var(--surface); }
+  .filtre-search:focus { border-color:var(--primary); }
+  .filtre-pills { display:flex;flex-wrap:wrap;gap:8px; }
+  .filtre-pill { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700;transition:all .12s; }
+  .filtre-pill:hover { border-color:var(--primary); }
+  .filtre-pill.on { background:var(--primary);color:#fff;border-color:var(--primary); }
+  .filtre-count { font-size:12.5px;color:var(--muted);font-weight:600; }
   .card { background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 2px 10px rgba(16,40,32,.05);transition:transform .18s ease,box-shadow .18s ease;display:flex;flex-direction:column; }
   .card:hover { transform:translateY(-5px);box-shadow:0 16px 34px rgba(16,40,32,.13); }
   .card-media { position:relative; }
@@ -581,6 +589,11 @@ ${eventsLd}
   ${secAlertes}
   ${secEvenements}
   ${secActus}
+  <div class='filtres' id='filtres' hidden>
+    <input class='filtre-search' id='filtre-search' type='search' placeholder='Rechercher un commerçant, un artisan...' aria-label='Rechercher un professionnel'/>
+    <div class='filtre-pills' id='filtre-pills'></div>
+    <div class='filtre-count' id='filtre-count'></div>
+  </div>
   ${secCommercants}
   ${secBoutiques}
   ${secArtisans}
@@ -640,6 +653,73 @@ ${eventsLd}
   <p>© Lokalist · La fidélité locale réinventée</p>
   <p style="margin-top:6px;"><a href="${SITE_URL}">Accueil</a> · <a href="${SITE_URL}/villes">Toutes les villes</a> · <a href="${SITE_URL}/contact">Contact</a> · <a href="${SITE_URL}/mentions-legales">Mentions légales</a></p>
 </footer>
+
+<script>
+(function(){
+  var box = document.getElementById('filtres');
+  if (!box) return;
+  var cards = [].slice.call(document.querySelectorAll('.card[data-cat]'));
+  if (!cards.length) return;
+  var cats = {};
+  cards.forEach(function(c){
+    var k = c.getAttribute('data-cat');
+    if (!k) return;
+    if (!cats[k]) cats[k] = { label: c.getAttribute('data-catlabel') || k, emoji: c.getAttribute('data-catemoji') || '', n: 0 };
+    cats[k].n++;
+  });
+  var keys = Object.keys(cats);
+  if (keys.length < 2) return;
+  box.hidden = false;
+  keys.sort(function(a,b){ return cats[b].n - cats[a].n; });
+  var pillsWrap = document.getElementById('filtre-pills');
+  var searchInp = document.getElementById('filtre-search');
+  var countEl = document.getElementById('filtre-count');
+  var current = 'all';
+  function mkPill(slug, label){
+    var b = document.createElement('button');
+    b.className = 'filtre-pill';
+    b.setAttribute('data-f', slug);
+    b.textContent = label;
+    b.addEventListener('click', function(){ current = slug; setActive(); apply(); });
+    return b;
+  }
+  pillsWrap.appendChild(mkPill('all', 'Tout'));
+  keys.forEach(function(k){ pillsWrap.appendChild(mkPill(k, (cats[k].emoji ? cats[k].emoji + ' ' : '') + cats[k].label)); });
+  function setActive(){
+    var all = pillsWrap.querySelectorAll('.filtre-pill');
+    for (var i=0;i<all.length;i++){
+      if (all[i].getAttribute('data-f') === current) all[i].classList.add('on');
+      else all[i].classList.remove('on');
+    }
+  }
+  function apply(){
+    var q = (searchInp && searchInp.value ? searchInp.value : '').toLowerCase().trim();
+    var visible = 0;
+    cards.forEach(function(c){
+      var okCat = (current === 'all') || (c.getAttribute('data-cat') === current);
+      var name = c.getAttribute('data-name') || '';
+      var okName = !q || name.indexOf(q) !== -1;
+      var show = okCat && okName;
+      c.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    var sections = document.querySelectorAll('main .section');
+    for (var s=0;s<sections.length;s++){
+      var dcards = sections[s].querySelectorAll('.card[data-cat]');
+      if (!dcards.length) continue;
+      var vis = 0;
+      for (var j=0;j<dcards.length;j++){ if (dcards[j].style.display !== 'none') vis++; }
+      sections[s].style.display = vis ? '' : 'none';
+      var cnt = sections[s].querySelector('.count');
+      if (cnt) cnt.textContent = vis;
+    }
+    if (countEl) countEl.textContent = visible + ' résultat' + (visible > 1 ? 's' : '');
+  }
+  if (searchInp) searchInp.addEventListener('input', apply);
+  setActive();
+  apply();
+})();
+</script>
 
 <script>
   (function(){
