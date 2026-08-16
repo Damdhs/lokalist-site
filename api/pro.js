@@ -114,7 +114,7 @@ export default async function handler(req) {
       return pageNotFound("Identifiant invalide");
     }
 
-    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=id,nom,ville,description,photo_url,note_moyenne,nb_avis,type_pro,adresse,points_par_scan,actif,site_web,instagram,facebook,tiktok,lien_reservation,telephone`;
+    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=id,nom,ville,description,photo_url,note_moyenne,nb_avis,type_pro,adresse,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone`;
     const r = await fetch(apiUrl, {
       headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` },
     });
@@ -150,6 +150,7 @@ export default async function handler(req) {
       </div>`).join('');
 
 
+    if (c.demo === true) return pageNotFound("Fiche non disponible");
     if (c.actif === false) return pageNotFound("Ce professionnel n'est plus actif");
 
     const typeInfo    = TYPE_LABELS[c.type_pro] || { label: 'Commerce', emoji: '🏪' };

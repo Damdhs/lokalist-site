@@ -20,7 +20,7 @@ async function sb(q) {
 
 async function listSlugs() {
   const [c, a, co, ag, m] = await Promise.all([
-    sb('commercants?select=ville&statut=eq.actif'),
+    sb('commercants?select=ville&statut=eq.actif&demo=is.false'),
     sb('artisans?select=ville&statut=eq.actif&suspendu_plainte=eq.false'),
     sb('courtiers_immo?select=ville&actif=eq.true'),
     sb('agences_immo?select=communes&actif=eq.true'),
