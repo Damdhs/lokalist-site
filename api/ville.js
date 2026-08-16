@@ -946,6 +946,7 @@ ${eventsLd}
   var _mkGrp = (typeof L.markerClusterGroup === 'function') ? function(){ return L.markerClusterGroup({ chunkedLoading: true, maxClusterRadius: 55 }); } : function(){ return L.layerGroup(); };
   var groups = { pro: _mkGrp(), mairie: _mkGrp(), defib: _mkGrp(), station: _mkGrp() };
   var colors = { pro: '#1D9E75', mairie: '#2563EB', defib: '#E24B4A', station: '#EF9F27' };
+  var tbounds = { pro: [], mairie: [], defib: [], station: [] };
   pts.forEach(function(p){
     var lat = parseFloat(p.getAttribute('data-lat'));
     var lng = parseFloat(p.getAttribute('data-lng'));
@@ -959,6 +960,7 @@ ${eventsLd}
     if (url) mk.bindPopup('<a href="' + url + '" style="font-weight:700;color:#1D9E75">' + name + '</a>');
     else mk.bindPopup('<strong>' + name + '</strong>');
     (groups[type] || groups.pro).addLayer(mk);
+    if (tbounds[type]) tbounds[type].push([lat, lng]);
     if (type === 'pro' || type === 'mairie') bounds.push([lat, lng]);
   });
   groups.pro.addTo(map); groups.mairie.addTo(map);
@@ -969,7 +971,7 @@ ${eventsLd}
       var ly = this.getAttribute('data-layer');
       if (!groups[ly]) return;
       if (map.hasLayer(groups[ly])) { map.removeLayer(groups[ly]); this.classList.add('off'); }
-      else { map.addLayer(groups[ly]); this.classList.remove('off'); }
+      else { map.addLayer(groups[ly]); this.classList.remove('off'); if (tbounds[ly] && tbounds[ly].length) { try { map.fitBounds(tbounds[ly], { padding: [30,30] }); } catch(e){} } }
     });
   }
 })();
