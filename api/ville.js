@@ -700,6 +700,13 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .evenement-cta { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg,#E8F8F2,#D1F2E4);border:1px solid #A8E5CD;border-radius:16px;padding:18px 20px;margin-top:12px; }
+  .evenement-cta-txt { display:flex;flex-direction:column;gap:2px; }
+  .evenement-cta-txt strong { font-size:16px;color:#0F6E56; }
+  .evenement-cta-txt span { font-size:13px;color:#178a67; }
+  .evenement-cta-btn { background:var(--primary,#1D9E75);color:#fff;font-weight:800;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;white-space:nowrap; }
+  .evenement-cta-btn:hover { filter:brightness(1.05); }
+  @media (max-width:600px){ .evenement-cta-btn{width:100%;text-align:center;} }
   .hero-cta-3 { display:inline-flex;flex-direction:column;align-items:flex-start;margin-top:26px;margin-left:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:700;font-size:14px;padding:8px 22px;border-radius:14px;text-decoration:none;line-height:1.2;transition:all .15s; }
   .hero-cta-3:hover { background:rgba(255,255,255,.24); }
   .hero-cta-3 small { font-size:11px;font-weight:600;opacity:.85; }
@@ -865,6 +872,10 @@ ${eventsLd}
   <div class='projet-cta'>
     <div class='projet-cta-txt'><strong>🛠️ Un besoin à ${escapeHtml(ville)} ? Travaux, traiteur, service…</strong><span>Décrivez votre projet, recevez des devis de professionnels locaux — gratuit.</span></div>
     <a class='projet-cta-btn' href='${SITE_URL}/deposer-projet'>Déposer un projet</a>
+  </div>
+  <div class='evenement-cta'>
+    <div class='evenement-cta-txt'><strong>🎉 Un événement à ${escapeHtml(ville)} ? Concert, brocante, marché…</strong><span>Organisateur, association, commerçant : publiez votre animation locale gratuitement.</span></div>
+    <a class='evenement-cta-btn' href='${SITE_URL}/proposer-un-evenement'>Proposer un événement</a>
   </div>
   ${secArtisans}
   ${secBonsPlans}
