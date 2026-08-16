@@ -715,7 +715,7 @@ ${eventsLd}
   .section h2 .s-emoji { font-size:.9em; }
   .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:800;padding:2px 11px;border-radius:22px; }
   .grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px; }
-  .filtres { margin:20px 0 6px;display:flex;flex-direction:column;gap:10px; }
+  .filtres:not([hidden]) { margin:20px 0 6px;display:flex;flex-direction:column;gap:10px; }
   .filtre-search { width:100%;max-width:420px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;font-size:14px;outline:none;background:var(--surface); }
   .filtre-search:focus { border-color:var(--primary); }
   .filtre-pills { display:flex;flex-wrap:wrap;gap:8px; }
