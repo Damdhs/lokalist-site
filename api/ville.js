@@ -700,6 +700,10 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .hero-cta-3 { display:inline-flex;flex-direction:column;align-items:flex-start;margin-top:26px;margin-left:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:700;font-size:14px;padding:8px 22px;border-radius:14px;text-decoration:none;line-height:1.2;transition:all .15s; }
+  .hero-cta-3:hover { background:rgba(255,255,255,.24); }
+  .hero-cta-3 small { font-size:11px;font-weight:600;opacity:.85; }
+  @media (max-width:600px){ .hero-cta-3{margin-left:0;} }
   .map-hint { font-size:12.5px;color:var(--muted);line-height:1.55;margin:2px 0 10px; }
   .partage { display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:34px; }
   .partage-lbl { font-size:13px;font-weight:700;color:var(--muted);margin-right:4px; }
@@ -839,6 +843,7 @@ ${eventsLd}
     ${pillsHtml ? `<div class="pills">${pillsHtml}</div>` : ''}
     <a class="hero-cta" href="${PLAY_STORE_URL}" id="btn-download-hero">📱 Télécharger Lokalist</a>
     <a class="hero-cta-2" href="${SITE_URL}/deposer-projet">🛠️ Déposer un projet</a>
+    <a class="hero-cta-3" href="${SITE_URL}/contact"><span>🚀 Rejoindre Lokalist</span><small>je suis un pro</small></a>
   </div>
 </section>
 
