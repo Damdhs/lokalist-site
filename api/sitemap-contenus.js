@@ -30,7 +30,7 @@ export default async function handler() {
       sb('offres?select=id,date_debut,expire_at&statut=eq.active'),
       sb('packs_loisir?select=id&actif=eq.true'),
       sb('commercants?select=id&statut=eq.actif&demo=is.false'),
-      sb('artisans?select=id&statut=eq.actif&suspendu_plainte=eq.false'),
+      sb('artisans?select=id&statut=eq.actif&suspendu_plainte=eq.false&demo=is.false'),
       sb('agences_immo?select=id&actif=eq.true'),
       sb('courtiers_immo?select=id&actif=eq.true'),
     ]);

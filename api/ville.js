@@ -340,7 +340,7 @@ export default async function handler(req) {
 
     const [commercants, artisans, courtiers, agences, mairies] = await Promise.all([
       sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis,categorie,latitude,longitude&statut=eq.actif&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
-      sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie,categorie_id,latitude,longitude&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
+      sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie,categorie_id,latitude,longitude&statut=eq.actif&suspendu_plainte=eq.false&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`courtiers_immo?select=id,nom,ville,logo_url,note_moyenne,nb_avis&actif=eq.true&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`agences_immo?select=id,nom,communes,logo_url,note_moyenne,nb_avis&actif=eq.true&communes=cs.${encodeURIComponent('{"' + ville + '"}')}&order=note_moyenne.desc.nullslast`),
       sb(`mairies_partenaires?select=*&statut=eq.actif&ville=ilike.${vEnc}&limit=1`),
@@ -513,7 +513,7 @@ const metierMap = {};
     try {
       const [_allC, _allA, _allM] = await Promise.all([
         sb(`commercants?select=id,nom,latitude,longitude&statut=eq.actif&demo=is.false&limit=3000`),
-        sb(`artisans?select=id,nom,nom_entreprise,latitude,longitude&statut=eq.actif&suspendu_plainte=eq.false&limit=3000`),
+        sb(`artisans?select=id,nom,nom_entreprise,latitude,longitude&statut=eq.actif&suspendu_plainte=eq.false&demo=is.false&limit=3000`),
         sb(`mairies_partenaires?select=id,nom,ville,latitude,longitude&statut=eq.actif&demo=is.false&limit=3000`),
       ]);
       (_allC || []).forEach(function(c){ if (c.latitude && c.longitude) _markers.push({ lat:c.latitude, lng:c.longitude, type:'pro', name:c.nom, url:'/pro/'+c.id }); });
