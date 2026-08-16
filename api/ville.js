@@ -1024,7 +1024,7 @@ ${eventsLd}
     cats[k].n++;
   });
   var keys = Object.keys(cats);
-  if (keys.length < 2) return;
+  if (cards.length < 2) return;
   box.hidden = false;
   keys.sort(function(a,b){ return cats[b].n - cats[a].n; });
   var pillsWrap = document.getElementById('filtre-pills');
@@ -1039,8 +1039,10 @@ ${eventsLd}
     b.addEventListener('click', function(){ current = slug; setActive(); apply(); });
     return b;
   }
-  pillsWrap.appendChild(mkPill('all', 'Tout'));
-  keys.forEach(function(k){ pillsWrap.appendChild(mkPill(k, (cats[k].emoji ? cats[k].emoji + ' ' : '') + cats[k].label)); });
+  if (keys.length >= 2) {
+    pillsWrap.appendChild(mkPill('all', 'Tout'));
+    keys.forEach(function(k){ pillsWrap.appendChild(mkPill(k, (cats[k].emoji ? cats[k].emoji + ' ' : '') + cats[k].label)); });
+  } else { pillsWrap.style.display = 'none'; }
   function setActive(){
     var all = pillsWrap.querySelectorAll('.filtre-pill');
     for (var i=0;i<all.length;i++){
