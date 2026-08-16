@@ -602,6 +602,15 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .hero-cta-2 { display:inline-flex;align-items:center;gap:8px;margin-top:26px;margin-left:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:14px;text-decoration:none;transition:all .15s; }
+  .hero-cta-2:hover { background:rgba(255,255,255,.24); }
+  .projet-cta { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg,#FEF3E2,#FDE8CC);border:1px solid #F5D9A8;border-radius:16px;padding:18px 20px;margin-top:34px; }
+  .projet-cta-txt { display:flex;flex-direction:column;gap:2px; }
+  .projet-cta-txt strong { font-size:16px;color:#8a5a12; }
+  .projet-cta-txt span { font-size:13px;color:#9a6a22; }
+  .projet-cta-btn { background:var(--accent,#EF9F27);color:#fff;font-weight:800;font-size:14px;padding:12px 22px;border-radius:12px;text-decoration:none;white-space:nowrap; }
+  .projet-cta-btn:hover { filter:brightness(1.05); }
+  @media (max-width:600px){ .hero-cta-2{margin-left:0;} .projet-cta-btn{width:100%;text-align:center;} }
   .carb-head { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px; }
   .carb-sort { display:flex;gap:6px; }
   .carb-sortbtn { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:7px 12px;border-radius:20px;font-size:12.5px;font-weight:700; }
@@ -686,6 +695,7 @@ ${eventsLd}
     <p class="lead">Tous les commerçants, artisans et services de proximité de ${escapeHtml(ville)} réunis au même endroit. Soutenez l'économie locale et profitez des bons plans près de chez vous.</p>
     ${pillsHtml ? `<div class="pills">${pillsHtml}</div>` : ''}
     <a class="hero-cta" href="${PLAY_STORE_URL}" id="btn-download-hero">📱 Télécharger Lokalist</a>
+    <a class="hero-cta-2" href="${SITE_URL}/deposer-projet">🛠️ Déposer un projet</a>
   </div>
 </section>
 
@@ -701,6 +711,10 @@ ${eventsLd}
   </div>
   ${secCommercants}
   ${secBoutiques}
+  <div class='projet-cta'>
+    <div class='projet-cta-txt'><strong>🛠️ Un projet de travaux à ${escapeHtml(ville)} ?</strong><span>Décrivez votre besoin, recevez des devis d'artisans locaux — gratuit.</span></div>
+    <a class='projet-cta-btn' href='${SITE_URL}/deposer-projet'>Déposer un projet</a>
+  </div>
   ${secArtisans}
   ${secBonsPlans}
   ${secAgences}
