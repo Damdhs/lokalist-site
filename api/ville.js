@@ -72,6 +72,17 @@ const html404 = (msg) => `<!doctype html>
   .shop-btn { display:inline-block;margin-top:10px;background:var(--primary);color:#fff;font-size:13px;font-weight:800;padding:9px 16px;border-radius:11px;transition:background .15s; }
   .card:hover .shop-btn { background:var(--primary-d); }
   /* LOKALIST_VILLE_ACTUS_V1:CSS:END */
+  /* LOKALIST_VILLE_ALERTES_V1:CSS:START */
+  .alertes { margin-top:26px; }
+  .alertes-head { display:flex;align-items:center;gap:9px;margin-bottom:12px; }
+  .alertes-head h2 { font-family:var(--disp);font-size:clamp(18px,2.2vw,22px);font-weight:800;letter-spacing:-.5px; }
+  .badge-live { background:#C0392B;color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px; }
+  .alerte-card { display:flex;gap:13px;align-items:flex-start;background:#FDECEC;border:1px solid #F5C6C0;border-left:4px solid #C0392B;border-radius:14px;padding:14px 16px;margin-bottom:10px; }
+  .alerte-emoji { font-size:22px;line-height:1.2;flex-shrink:0; }
+  .alerte-t { font-weight:800;font-size:15px;color:#8f2c20; }
+  .alerte-d { font-size:13.5px;color:#7a3a33;margin-top:3px;line-height:1.5;white-space:pre-line; }
+  .alerte-date { font-size:12px;color:#a56258;margin-top:5px;font-weight:600; }
+  /* LOKALIST_VILLE_ALERTES_V1:CSS:END */
 </style>
 </head><body>
 <div style="font-size:56px">📍</div>
@@ -222,6 +233,34 @@ function boutiqueCard(c) {
   </a>`;
 }
 /* LOKALIST_VILLE_ACTUS_V1:HELPERS:END */
+/* LOKALIST_VILLE_ALERTES_V1:HELPERS:START */
+const ALERTE_MOIS = ['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.'];
+function alerteDateShort(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return '';
+  return d.getDate() + ' ' + ALERTE_MOIS[d.getMonth()] + ' ' + d.getFullYear();
+}
+const ALERTE_EMOJI = { travaux:'🚧', eau:'💧', meteo:'🌊', inondation:'🌊', secheresse:'🌵', circulation:'🚗', securite:'⚠️', sante:'🏥', info:'📢' };
+function alerteEmoji(t) { return ALERTE_EMOJI[String(t || '').toLowerCase()] || '⚠️'; }
+function alerteCard(a) {
+  return `<div class="alerte-card">
+    <div class="alerte-emoji">${alerteEmoji(a.type)}</div>
+    <div>
+      <div class="alerte-t">${escapeHtml(a.titre || 'Alerte')}</div>
+      ${a.message ? `<div class="alerte-d">${escapeHtml(a.message)}</div>` : ''}
+      ${a.created_at ? `<div class="alerte-date">🗓️ ${escapeHtml(alerteDateShort(a.created_at))}</div>` : ''}
+    </div>
+  </div>`;
+}
+function sectionAlertes(list) {
+  if (!list || !list.length) return '';
+  return `<section class="alertes">
+    <div class="alertes-head"><span class="badge-live">● En cours</span><h2>Alertes &amp; infos</h2></div>
+    ${list.map((a) => alerteCard(a)).join('')}
+  </section>`;
+}
+/* LOKALIST_VILLE_ALERTES_V1:HELPERS:END */
 export default async function handler(req) {
   try {
     const url  = new URL(req.url);
@@ -237,7 +276,7 @@ export default async function handler(req) {
     const vEnc  = encodeURIComponent(ville);
 
     const [commercants, artisans, courtiers, agences, mairies] = await Promise.all([
-      sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis&statut=eq.actif&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
+      sb(`commercants?select=id,nom,ville,logo_url,photo_url,note_moyenne,nb_avis&statut=eq.actif&demo=is.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`artisans?select=id,nom,nom_entreprise,ville,photo_url,note_moyenne,nb_avis,certifie_rge,badge_verifie&statut=eq.actif&suspendu_plainte=eq.false&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`courtiers_immo?select=id,nom,ville,logo_url,note_moyenne,nb_avis&actif=eq.true&ville=ilike.${vEnc}&order=note_moyenne.desc.nullslast`),
       sb(`agences_immo?select=id,nom,communes,logo_url,note_moyenne,nb_avis&actif=eq.true&communes=cs.${encodeURIComponent('{"' + ville + '"}')}&order=note_moyenne.desc.nullslast`),
@@ -245,12 +284,18 @@ export default async function handler(req) {
     ]);
 
     const mairie = mairies && mairies[0] ? mairies[0] : null;
+    /* LOKALIST_VILLE_ALERTES_V1:FETCH:START */
+    const alertes = (mairie && mairie.id)
+      ? await sb(`alertes_mairie?mairie_id=eq.${mairie.id}&statut=eq.active&select=id,titre,message,type,created_at&order=created_at.desc&limit=5`)
+      : [];
+    const secAlertes = sectionAlertes(alertes || []);
+    /* LOKALIST_VILLE_ALERTES_V1:FETCH:END */
     /* LOKALIST_VILLE_ACTUS_V1:FETCH:START */
     const [actus, boutiques] = await Promise.all([
       (mairie && mairie.id)
         ? sb(`actus_mairie?mairie_id=eq.${mairie.id}&statut=eq.publie&select=id,titre,texte,photo_url,created_at&order=created_at.desc&limit=6`)
         : Promise.resolve([]),
-      sb(`commercants?select=id,nom,ville,logo_url,photo_url&statut=eq.actif&ville=ilike.${vEnc}&cc_pack_actif=eq.true&order=note_moyenne.desc.nullslast&limit=8`),
+      sb(`commercants?select=id,nom,ville,logo_url,photo_url&statut=eq.actif&ville=ilike.${vEnc}&cc_pack_actif=eq.true&demo=is.false&order=note_moyenne.desc.nullslast&limit=8`),
     ]);
     const secActus = section('Actualités de la commune', '📰',
       (actus || []).map((a) => actuCard(a)).join(''), (actus || []).length);
@@ -502,6 +547,7 @@ ${eventsLd}
 
 <main class="wrap">
   ${mairieHtml}
+  ${secAlertes}
   ${secEvenements}
   ${secActus}
   ${secCommercants}
