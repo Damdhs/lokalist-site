@@ -523,13 +523,13 @@ const metierMap = {};
     try {
       const _mLat = 0.07, _mLng = 0.11;
       const _dbbox = `lat=gte.${commune.lat - _mLat}&lat=lte.${commune.lat + _mLat}&lon=gte.${commune.lng - _mLng}&lon=lte.${commune.lng + _mLng}`;
-      const _rLa = 0.25, _rLn = 0.36;
+      const _RADKM = 15, _rLa = 0.16, _rLn = 0.24; var _dkm = function(la, lo){ var R = 6371, p = Math.PI / 180; var dLa = (la - (+commune.lat)) * p, dLo = (lo - (+commune.lng)) * p; var a = Math.sin(dLa/2)*Math.sin(dLa/2) + Math.cos((+commune.lat)*p)*Math.cos(la*p)*Math.sin(dLo/2)*Math.sin(dLo/2); return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); };
       const [_defs, _stns] = await Promise.all([
         sb(`defibrillateurs?select=nom,lat,lon&lat=gte.${commune.lat-_rLa}&lat=lte.${commune.lat+_rLa}&lon=gte.${commune.lng-_rLn}&lon=lte.${commune.lng+_rLn}&limit=3000`),
         sb(`stations_carburant?select=ville,adresse,latitude,longitude,prix_gazole&latitude=gte.${commune.lat-_rLa}&latitude=lte.${commune.lat+_rLa}&longitude=gte.${commune.lng-_rLn}&longitude=lte.${commune.lng+_rLn}&limit=3000`),
       ]);
-      (_defs || []).forEach(function(d){ if (d.lat && d.lon) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:('❤️ ' + (d.nom || 'Défibrillateur')), url:'' }); });
-      (_stns || []).forEach(function(s){ if (s.latitude && s.longitude) _markers.push({ lat:s.latitude, lng:s.longitude, type:'station', name:('⛽ ' + (s.ville||'') + (s.prix_gazole ? ' · Gazole ' + String(s.prix_gazole).replace('.', ',') + ' €' : '')), url:'' }); });
+      (_defs || []).forEach(function(d){ if (d.lat && d.lon && _dkm(+d.lat, +d.lon) <= _RADKM) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:('❤️ ' + (d.nom || 'Défibrillateur')), url:'' }); });
+      (_stns || []).forEach(function(s){ if (s.latitude && s.longitude && _dkm(+s.latitude, +s.longitude) <= _RADKM) _markers.push({ lat:s.latitude, lng:s.longitude, type:'station', name:('⛽ ' + (s.ville||'') + (s.prix_gazole ? ' · Gazole ' + String(s.prix_gazole).replace('.', ',') + ' €' : '')), url:'' }); });
     } catch (e) { console.error('[ville carte]', e); }
     const secCarte = _markers.length ? `
     <section class='section'>
