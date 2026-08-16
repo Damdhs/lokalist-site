@@ -474,6 +474,25 @@ const metierMap = {};
       <div class='carb-grid' id='carb-grid'>${stations.map(function(s){ return carbCard(s); }).join('')}</div>
       <div class='carb-note'>Prix indicatifs (open data). Le tri « moins cher » se base sur le gazole.</div>
     </section>` : '';
+    const secUrgences = `
+    <section class='section'>
+      <h2><span class='s-emoji'>🚨</span> Numéros d'urgence</h2>
+      <a class='urg-112' href='tel:112'><span class='urg-112-n'>112</span><span class='urg-112-s'>Toutes urgences</span></a>
+      <div class='urg-grid'>
+        <a class='urg-num' href='tel:15'><span class='urg-n'>15</span><span class='urg-s'>SAMU</span></a>
+        <a class='urg-num' href='tel:18'><span class='urg-n'>18</span><span class='urg-s'>Pompiers</span></a>
+        <a class='urg-num' href='tel:17'><span class='urg-n'>17</span><span class='urg-s'>Police</span></a>
+        <a class='urg-num' href='sms:114'><span class='urg-n'>114</span><span class='urg-s'>SMS / sourds</span></a>
+      </div>
+      <div class='urg-ecoute'>
+        <div class='urg-ecoute-h'>Écoute et signalement — lignes nationales gratuites, 24h/24</div>
+        <a class='urg-erow' href='tel:3114'><span class='urg-enum'>3114</span><span class='urg-etxt'><strong>Prévention du suicide</strong><em>Professionnels de santé</em></span></a>
+        <a class='urg-erow' href='tel:119'><span class='urg-enum'>119</span><span class='urg-etxt'><strong>Enfance en danger</strong><em>Signalement</em></span></a>
+        <a class='urg-erow' href='tel:3919'><span class='urg-enum'>3919</span><span class='urg-etxt'><strong>Violences femmes info</strong><em>Écoute et orientation</em></span></a>
+        <a class='urg-erow' href='tel:115'><span class='urg-enum'>115</span><span class='urg-etxt'><strong>Hébergement d'urgence</strong><em>SAMU social</em></span></a>
+      </div>
+      <p class='urg-note'>En cas d'urgence vitale, appelez le 112. Lokalist ne remplace pas les services de secours.</p>
+    </section>`;
     const canonical = `${SITE_URL}/villes/${want}`;
     const nbLabel = [];
     if (commercants.length) nbLabel.push(`${commercants.length} commerçant${commercants.length > 1 ? 's' : ''}`);
@@ -602,6 +621,21 @@ ${eventsLd}
   .mairie-links a:hover { background:#d5f0e6; }
 
   .section { margin-top:34px; }
+  .urg-112 { display:flex;align-items:center;gap:14px;background:#E24B4A;color:#fff;border-radius:16px;padding:16px 18px;text-decoration:none;margin-bottom:10px; }
+  .urg-112-n { font-size:24px;font-weight:800; }
+  .urg-112-s { font-size:13px;opacity:.92; }
+  .urg-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px; }
+  .urg-num { display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;text-decoration:none;color:var(--text); }
+  .urg-n { font-size:17px;font-weight:800;color:#E24B4A;min-width:38px; }
+  .urg-s { font-size:12px;color:var(--muted);font-weight:600; }
+  .urg-ecoute { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-top:12px; }
+  .urg-ecoute-h { font-size:12.5px;font-weight:700;color:var(--muted);margin-bottom:10px; }
+  .urg-erow { display:flex;align-items:center;gap:14px;background:var(--primary-l);border-radius:10px;padding:10px 14px;margin-bottom:8px;text-decoration:none; }
+  .urg-enum { font-size:16px;font-weight:800;color:var(--text);min-width:52px; }
+  .urg-etxt { display:flex;flex-direction:column; }
+  .urg-etxt strong { font-size:13px;color:var(--text);font-weight:700; }
+  .urg-etxt em { font-size:11px;color:var(--muted);font-style:normal; }
+  .urg-note { font-size:11px;color:var(--muted);margin-top:10px;font-style:italic;text-align:center; }
   .hero-cta-2 { display:inline-flex;align-items:center;gap:8px;margin-top:26px;margin-left:10px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border-radius:14px;text-decoration:none;transition:all .15s; }
   .hero-cta-2:hover { background:rgba(255,255,255,.24); }
   .projet-cta { display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;background:linear-gradient(135deg,#FEF3E2,#FDE8CC);border:1px solid #F5D9A8;border-radius:16px;padding:18px 20px;margin-top:34px; }
@@ -719,6 +753,7 @@ ${eventsLd}
   ${secBonsPlans}
   ${secAgences}
   ${secCourtiers}
+  ${secUrgences}
   ${secCarburants}
   ${secSorties}
   ${secVoisines}
