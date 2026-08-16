@@ -500,7 +500,7 @@ const metierMap = {};
     try {
       const _mLat = 0.07, _mLng = 0.11;
       const _dbbox = `lat=gte.${commune.lat - _mLat}&lat=lte.${commune.lat + _mLat}&lon=gte.${commune.lng - _mLng}&lon=lte.${commune.lng + _mLng}`;
-      const _defs = await sb(`defibrillateurs?select=nom,adresse,commune,lat,lon&${_dbbox}&limit=300`);
+      const _defs = await sb(`defibrillateurs?select=nom,adresse,commune,lat,lon&commune=ilike.*${encodeURIComponent(ville)}*&limit=300`);
       (_defs || []).forEach(function(d){ if (d.lat && d.lon) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:(d.nom || 'Défibrillateur'), url:'' }); });
     } catch (e) { console.error('[ville carte]', e); }
     const secCarte = _markers.length ? `
@@ -775,11 +775,11 @@ ${eventsLd}
   ${secBonsPlans}
   ${secAgences}
   ${secCourtiers}
-  ${secUrgences}
   ${secCarburants}
   ${secSorties}
   ${secVoisines}
 
+  ${secUrgences}
   <!-- LOKALIST_VILLE_SERVICES_V1:HTML:START -->
   <section class="section">
     <h2><span class="s-emoji">🎉</span> Sortir &amp; bouger à ${escapeHtml(ville)}</h2>
