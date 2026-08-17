@@ -863,6 +863,13 @@ ${eventsLd}
   .section h2 .s-emoji { font-size:.9em; }
   .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:800;padding:2px 11px;border-radius:22px; }
   .grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:18px; }
+  /* LOKALIST_VILLE_SERVCSS_V1 */
+  .serv-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px; }
+  .serv-card { background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:18px 18px 16px;box-shadow:0 2px 10px rgba(16,40,32,.05);transition:transform .18s ease,box-shadow .18s ease;display:flex;flex-direction:column;cursor:pointer;text-decoration:none;color:var(--text); }
+  .serv-card:hover { transform:translateY(-4px);box-shadow:0 14px 30px rgba(16,40,32,.12);border-color:var(--primary); }
+  .serv-emoji { font-size:30px;line-height:1;margin-bottom:10px; }
+  .serv-t { font-weight:800;font-size:16px;letter-spacing:-.3px;color:var(--primary-d); }
+  .serv-d { color:var(--muted);font-size:13px;margin-top:5px;line-height:1.5; }
   .filtres:not([hidden]) { margin:20px 0 6px;display:flex;flex-direction:column;gap:10px; }
   .filtre-search { width:100%;max-width:420px;padding:11px 14px;border:1px solid var(--border);border-radius:12px;font-size:14px;outline:none;background:var(--surface); }
   .filtre-search:focus { border-color:var(--primary); }
