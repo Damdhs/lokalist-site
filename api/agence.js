@@ -63,6 +63,7 @@ export default async function handler(req) {
     const list = await r.json();
     if (!list?.length) return pageNotFound();
     const a = list[0];
+    if (a.demo) return pageNotFound();
 
     const nom         = a.nom || 'Agence immobilière';
     const ville       = a.ville || '';
