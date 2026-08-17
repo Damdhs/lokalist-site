@@ -324,6 +324,36 @@ function sectionAlertes(list) {
   </section>`;
 }
 /* LOKALIST_VILLE_ALERTES_V1:HELPERS:END */
+/* LOKALIST_VILLE_ANNONCES_V1:HELPERS:START */
+function fmtPrixImmo(prix, tt) {
+  var n = Number(prix);
+  if (!isFinite(n) || n <= 0) return '';
+  var s = Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return s + ' \u20ac' + (tt === 'location' ? '/mois' : '');
+}
+function annonceCard(a) {
+  var ag = a.agences_immo || {};
+  var photo = (Array.isArray(a.photos) && a.photos.length) ? a.photos[0] : '';
+  var media = photo
+    ? `<img class="card-img" src="${escapeHtml(photo)}" alt="${escapeHtml(a.titre||'Annonce')}" loading="lazy"/>`
+    : `<div class="card-img card-img-fb">\uD83C\uDFD8\uFE0F</div>`;
+  var vente = (a.type_transaction === 'vente');
+  var tag = vente ? '\uD83C\uDFF7\uFE0F Vente' : '\uD83D\uDD11 Location';
+  var prix = fmtPrixImmo(a.prix, a.type_transaction);
+  var meta = [];
+  if (a.type_bien) meta.push(escapeHtml(a.type_bien));
+  if (a.surface) meta.push(escapeHtml(String(a.surface)) + ' m\u00b2');
+  return `<a class="card" href="/annonce/${a.id}">
+    <div class="card-media">${media}<span class="card-tag${vente ? '' : ' pink'}">${tag}</span>${a.booste ? `<span class="deal-tag">\u2B50 Boost\u00e9</span>` : ''}</div>
+    <div class="card-body">
+      <div class="card-name">${escapeHtml(a.titre||'Annonce immobili\u00e8re')}</div>
+      ${meta.length ? `<div class="card-city">${meta.join(' \u00b7 ')}</div>` : ''}
+      ${prix ? `<div class="loisir-price"><span class="now">${prix}</span></div>` : ''}
+      ${ag.nom ? `<div class="card-city">\uD83C\uDFE0 ${escapeHtml(ag.nom)}</div>` : ''}
+    </div>
+  </a>`;
+}
+/* LOKALIST_VILLE_ANNONCES_V1:HELPERS:END */
 export default async function handler(req) {
   try {
     const url  = new URL(req.url);
@@ -388,6 +418,11 @@ const metierMap = {};
     const secSorties = sectionLoisirs('Idées de sorties', '🎉',
       (packsV || []).map((p) => packCard(p)).join(''), (packsV || []).length);
     /* LOKALIST_VILLE_COMMERCE_V1:FETCH:END */
+    /* LOKALIST_VILLE_ANNONCES_V1:FETCH:START */
+    const annoncesImmo = await sb(`annonces_immo?select=id,titre,type_bien,type_transaction,ville,prix,surface,photos,booste,created_at,agences_immo!inner(nom)&statut=eq.active&ville=ilike.${vEnc}&order=booste.desc.nullslast&order=created_at.desc&limit=8`);
+    const secAnnonces = section('Annonces immobili\u00e8res', '\uD83C\uDFD8\uFE0F',
+      (annoncesImmo || []).map((a) => annonceCard(a)).join(''), (annoncesImmo || []).length);
+    /* LOKALIST_VILLE_ANNONCES_V1:FETCH:END */
 
     if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
 
@@ -881,6 +916,7 @@ ${eventsLd}
   ${secBonsPlans}
   ${secAgences}
   ${secCourtiers}
+  ${secAnnonces}
   ${secCarburants}
   ${secSorties}
   ${secVoisines}
