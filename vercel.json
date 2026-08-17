@@ -57,6 +57,10 @@
       "destination": "/loisirs.html"
     },
     {
+      "source": "/decouvrir-sorties",
+      "destination": "/idees-sorties.html"
+    },
+    {
       "source": "/idees-sorties",
       "destination": "/idees-sorties.html"
     },
