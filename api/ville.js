@@ -438,9 +438,30 @@ const metierMap = {};
       packsProches.map((p) => packCard(p)).join(''), packsProches.length);
     /* LOKALIST_VILLE_COMMERCE_V1:FETCH:END */
     /* LOKALIST_VILLE_ANNONCES_V1:FETCH:START */
-    const annoncesImmo = await sb(`annonces_immo?select=id,titre,type_bien,type_transaction,ville,prix,surface,photos,booste,created_at,agences_immo!inner(nom)&statut=eq.active&ville=ilike.${vEnc}&order=booste.desc.nullslast&order=created_at.desc&limit=8`);
+    /* LOKALIST_VILLE_ANNONCES_RAYON_V1 */
+    let annoncesImmo = [];
+    try {
+      const _aLat = 0.27, _aLng = 0.40; // ~30 km
+      const _abbox = `latitude=gte.${commune.lat - _aLat}&latitude=lte.${commune.lat + _aLat}&longitude=gte.${commune.lng - _aLng}&longitude=lte.${commune.lng + _aLng}`;
+      const _an = await sb(`annonces_immo?select=id,titre,type_bien,type_transaction,ville,prix,surface,photos,booste,created_at,latitude,longitude,agences_immo!inner(nom)&statut=eq.active&${_abbox}&limit=200`);
+      const _Ra = 6371, _rada = function(d){ return d * Math.PI / 180; };
+      annoncesImmo = (_an || [])
+        .filter(function(x){ return x && x.latitude != null && x.longitude != null; })
+        .map(function(x){
+          const _dla = _rada(x.latitude - commune.lat), _dln = _rada(x.longitude - commune.lng);
+          const _a = Math.sin(_dla/2)*Math.sin(_dla/2) + Math.cos(_rada(commune.lat))*Math.cos(_rada(x.latitude))*Math.sin(_dln/2)*Math.sin(_dln/2);
+          x._dist = _Ra * 2 * Math.atan2(Math.sqrt(_a), Math.sqrt(1 - _a));
+          return x;
+        })
+        .filter(function(x){ return x._dist <= 30; })
+        .sort(function(a, b){
+          if (!!b.booste !== !!a.booste) return (b.booste ? 1 : 0) - (a.booste ? 1 : 0);
+          return a._dist - b._dist;
+        })
+        .slice(0, 8);
+    } catch (e) { console.error('[ville annonces rayon]', e); }
     const secAnnonces = section('Annonces immobili\u00e8res', '\uD83C\uDFD8\uFE0F',
-      (annoncesImmo || []).map((a) => annonceCard(a)).join(''), (annoncesImmo || []).length);
+      annoncesImmo.map((a) => annonceCard(a)).join(''), annoncesImmo.length);
     /* LOKALIST_VILLE_ANNONCES_V1:FETCH:END */
 
     if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
