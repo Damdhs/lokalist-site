@@ -407,16 +407,35 @@ const metierMap = {};
     /* LOKALIST_VILLE_EVENTS_V1:FETCH:END */
     const total  = commercants.length + artisans.length + courtiers.length + agences.length;
     /* LOKALIST_VILLE_COMMERCE_V1:FETCH:START */
-    const [offresV, packsV] = await Promise.all([
+    const [offresV] = await Promise.all([
       sb(`offres?select=id,titre,reduction,photo_url,type_offre,date_debut,expire_at,commercants!inner(nom,ville)&statut=eq.active&commercants.ville=ilike.${vEnc}&order=date_debut.desc&limit=8`),
-      sb(`packs_loisir?select=id,nom,ville,photo_url,prix_pack,prix_normal,reduction_pct,actif&actif=eq.true&ville=ilike.${vEnc}&order=reduction_pct.desc.nullslast&limit=8`),
     ]);
     const nowMs = Date.now();
     const offres = (offresV || []).filter((o) => !o.expire_at || new Date(o.expire_at).getTime() >= nowMs);
     const secBonsPlans = section('Bons plans du moment', '🏷️',
       offres.map((o) => offreCard(o)).join(''), offres.length);
+    /* LOKALIST_VILLE_SORTIES_RAYON_V1:START */
+    let packsProches = [];
+    try {
+      const _pLat = 0.27, _pLng = 0.40; // ~30 km
+      const _pbbox = `latitude=gte.${commune.lat - _pLat}&latitude=lte.${commune.lat + _pLat}&longitude=gte.${commune.lng - _pLng}&longitude=lte.${commune.lng + _pLng}`;
+      const _pk = await sb(`packs_loisir?select=id,nom,ville,photo_url,prix_pack,prix_normal,reduction_pct,actif,latitude,longitude&actif=eq.true&demo=is.false&${_pbbox}&limit=200`);
+      const _Rp = 6371, _radp = function(d){ return d * Math.PI / 180; };
+      packsProches = (_pk || [])
+        .filter(function(p){ return p && p.latitude != null && p.longitude != null; })
+        .map(function(p){
+          const _dla = _radp(p.latitude - commune.lat), _dln = _radp(p.longitude - commune.lng);
+          const _a = Math.sin(_dla/2)*Math.sin(_dla/2) + Math.cos(_radp(commune.lat))*Math.cos(_radp(p.latitude))*Math.sin(_dln/2)*Math.sin(_dln/2);
+          p._dist = _Rp * 2 * Math.atan2(Math.sqrt(_a), Math.sqrt(1 - _a));
+          return p;
+        })
+        .filter(function(p){ return p._dist <= 30; })
+        .sort(function(a, b){ return a._dist - b._dist; })
+        .slice(0, 8);
+    } catch (e) { console.error('[ville sorties rayon]', e); }
+    /* LOKALIST_VILLE_SORTIES_RAYON_V1:END */
     const secSorties = sectionLoisirs('Idées de sorties', '🎉',
-      (packsV || []).map((p) => packCard(p)).join(''), (packsV || []).length);
+      packsProches.map((p) => packCard(p)).join(''), packsProches.length);
     /* LOKALIST_VILLE_COMMERCE_V1:FETCH:END */
     /* LOKALIST_VILLE_ANNONCES_V1:FETCH:START */
     const annoncesImmo = await sb(`annonces_immo?select=id,titre,type_bien,type_transaction,ville,prix,surface,photos,booste,created_at,agences_immo!inner(nom)&statut=eq.active&ville=ilike.${vEnc}&order=booste.desc.nullslast&order=created_at.desc&limit=8`);
