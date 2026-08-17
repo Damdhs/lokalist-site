@@ -94,6 +94,13 @@
     .fid-txt h4{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
     .fid-txt p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5;margin:0}
     .fid-visual{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:28px}
+    .fid-modes-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:4px 10px;margin-bottom:18px}
+    .fid-modes{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .fid-mode{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:16px;padding:18px;text-align:center}
+    .fid-mode-ico{font-size:34px;line-height:1;margin-bottom:10px}
+    .fid-mode-t{font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:#fff;margin-bottom:6px}
+    .fid-mode-d{font-size:12.5px;color:rgba(255,255,255,.7);line-height:1.5}
+    .fid-modes-note{font-size:12px;color:rgba(255,255,255,.6);line-height:1.5;margin-top:16px;text-align:center}
     .fid-pts{font-family:'Bricolage Grotesque',sans-serif;font-size:52px;font-weight:800;color:#fff;line-height:1;margin-bottom:6px}
     .fid-pts-lbl{font-size:13px;color:rgba(255,255,255,.65);margin-bottom:20px}
     .fid-bar-wrap{background:rgba(255,255,255,.15);border-radius:100px;height:10px;margin-bottom:8px;overflow:hidden}
@@ -312,23 +319,28 @@ fbq('track','PageView');
   <div class="fid-in">
     <div class="reveal">
       <h2>Vos clients fidèles<br/>encore plus fidèles</h2>
-      <p>Chaque visite rapporte des points. Chaque point rapproche d'un bon de réduction. Lokalist crée un cercle vertueux qui fait revenir vos clients.</p>
+      <p>Chaque passage rapporte une récompense, selon le système que vous choisissez — points ou tampons. Lokalist crée un cercle vertueux qui fait revenir vos clients.</p>
       <div class="fid-steps">
         <div class="fid-step"><div class="fid-n">1</div><div class="fid-txt"><h4>Le client visite votre établissement</h4><p>Il scanne votre QR code avec l'app Lokalist. Les points s'ajoutent instantanément.</p></div></div>
-        <div class="fid-step"><div class="fid-n">2</div><div class="fid-txt"><h4>Il cumule des points fidélité</h4><p>Chaque visite lui rapporte des points. Plus il revient, plus il progresse dans les paliers.</p></div></div>
-        <div class="fid-step"><div class="fid-n">3</div><div class="fid-txt"><h4>Il revient dépenser ses récompenses</h4><p>Ses points se transforment en bons de réduction utilisables chez vous et chez tous les partenaires.</p></div></div>
+        <div class="fid-step"><div class="fid-n">2</div><div class="fid-txt"><h4>Il progresse dans votre fidélité</h4><p>Points ou tampons, selon votre choix. Plus il revient, plus il se rapproche de sa récompense.</p></div></div>
+        <div class="fid-step"><div class="fid-n">3</div><div class="fid-txt"><h4>Il revient chercher sa récompense</h4><p>La récompense que vous avez définie, utilisable chez vous.</p></div></div>
       </div>
     </div>
     <div class="fid-visual reveal">
-      <div class="fid-pts">480</div>
-      <div class="fid-pts-lbl">Points fidélité · Sophie M.</div>
-      <div class="fid-bar-wrap"><div class="fid-bar"></div></div>
-      <div class="fid-bar-lbl">72% vers le palier 500 pts — Bon 5€</div>
-      <div class="fid-paliers">
-        <div class="fid-palier"><span class="fid-palier-name">🥉 250 pts</span><span class="fid-palier-val">Bon 5€</span></div>
-        <div class="fid-palier" style="background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25)"><span class="fid-palier-name">🥈 500 pts · Prochain</span><span class="fid-palier-val">Bon 15€</span></div>
-        <div class="fid-palier"><span class="fid-palier-name">🥇 1000 pts</span><span class="fid-palier-val">Bon 35€</span></div>
+      <div class="fid-modes-tag">Fidélité 100% au choix</div>
+      <div class="fid-modes">
+        <div class="fid-mode">
+          <div class="fid-mode-ico">⭐</div>
+          <div class="fid-mode-t">Points</div>
+          <div class="fid-mode-d">Le client cumule des points à chaque passage. Vous fixez vos paliers et la récompense.</div>
+        </div>
+        <div class="fid-mode">
+          <div class="fid-mode-ico">🎟️</div>
+          <div class="fid-mode-t">Tampons</div>
+          <div class="fid-mode-d">Une carte à tampons simple. Vous fixez le nombre de passages et la récompense offerte.</div>
+        </div>
       </div>
+      <div class="fid-modes-note">Points ou tampons — vous choisissez le système qui vous convient, la récompense est valable chez vous.</div>
     </div>
   </div>
 </section>
