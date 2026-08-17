@@ -1,0 +1,162 @@
+<#
+==============================================================================
+  boost-lokalist-seo-v2.ps1   (version chirurgicale)
+  N'ajoute QUE ce qui manque a index.html. Ne touche pas aux balises existantes.
+
+    + JSON-LD (Organization / WebSite / MobileApplication)  <- vrai gain
+    + og:site_name, og:locale
+    + twitter:title, twitter:description (copies depuis tes og: existants)
+    + robots.txt
+    + sitemap.xml (pages reelles du site)
+
+  A LANCER seulement APRES avoir restaure ton index.html d'origine
+  (git restore index.html  OU  .\boost-lokalist-seo.ps1 -Undo).
+
+  Conventions : .bak, idempotent (marqueurs SEO+), ASCII, CRLF-aware, -Undo.
+
+  USAGE :
+    powershell -ExecutionPolicy Bypass -File .\boost-lokalist-seo-v2.ps1
+    powershell -ExecutionPolicy Bypass -File .\boost-lokalist-seo-v2.ps1 -Undo
+==============================================================================
+#>
+
+param(
+    [string]$Root = ".",
+    [switch]$Undo
+)
+
+$ErrorActionPreference = "Stop"
+$utf8 = New-Object System.Text.UTF8Encoding($false)
+function Read-File($p)     { return [System.IO.File]::ReadAllText($p, $utf8) }
+function Write-File($p,$c) { [System.IO.File]::WriteAllText($p, $c, $utf8) }
+
+$GEN_ROBOTS  = "# generated-by: lokalist-seo-script"
+$GEN_SITEMAP = "<!-- generated-by: lokalist-seo-script -->"
+$START = "<!-- == LOKALIST SEO+ (ajouts geres par script - ne pas editer) == -->"
+$END   = "<!-- == /LOKALIST SEO+ == -->"
+
+# --- Detection dossier assets -------------------------------------------------
+$assetDir = $Root
+foreach ($d in @("public","static")) {
+    $c = Join-Path $Root $d
+    if (Test-Path $c -PathType Container) { $assetDir = $c; break }
+}
+$robotsPath  = Join-Path $assetDir "robots.txt"
+$sitemapPath = Join-Path $assetDir "sitemap.xml"
+$indexPath = $null
+foreach ($p in @((Join-Path $Root "index.html"), (Join-Path $assetDir "index.html"))) {
+    if (Test-Path $p -PathType Leaf) { $indexPath = (Resolve-Path $p).Path; break }
+}
+
+# ============================ UNDO ============================================
+if ($Undo) {
+    foreach ($f in @($robotsPath,$sitemapPath,$indexPath)) {
+        if (-not $f) { continue }
+        $bak = "$f.bak"
+        if (Test-Path $bak) { Copy-Item $bak $f -Force; Remove-Item $bak -Force; Write-Host "Restaure : $f" -ForegroundColor Green }
+        elseif (Test-Path $f) {
+            $c = Read-File $f
+            if ($c -match [regex]::Escape($GEN_ROBOTS) -or $c -match [regex]::Escape($GEN_SITEMAP)) {
+                Remove-Item $f -Force; Write-Host "Supprime (genere) : $f" -ForegroundColor Green
+            } elseif ($f -eq $indexPath) {
+                $pat = [regex]::Escape($START) + "[\s\S]*?" + [regex]::Escape($END)
+                Write-File $f ([regex]::Replace($c,$pat,"")); Write-Host "Bloc SEO+ retire : $f" -ForegroundColor Green
+            }
+        }
+    }
+    Write-Host "Undo termine." -ForegroundColor Cyan
+    exit 0
+}
+
+# ============================ robots.txt ======================================
+$robots = "$GEN_ROBOTS`n# robots.txt - lokalist.fr`n`nUser-agent: *`nAllow: /`n`nSitemap: https://lokalist.fr/sitemap.xml`n"
+if ((Test-Path $robotsPath) -and -not (Test-Path "$robotsPath.bak")) { Copy-Item $robotsPath "$robotsPath.bak" -Force }
+Write-File $robotsPath $robots
+Write-Host "OK robots.txt" -ForegroundColor Green
+
+# ============================ sitemap.xml (pages reelles) =====================
+$today = Get-Date -Format "yyyy-MM-dd"
+$sitemap = @"
+<?xml version="1.0" encoding="UTF-8"?>
+$GEN_SITEMAP
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://lokalist.fr/</loc><lastmod>$today</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://lokalist.fr/commercants.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/artisans.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/mairies.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/agences.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/courtiers.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://lokalist.fr/contact.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://lokalist.fr/mentions-legales.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/confidentialite.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/cgu.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+  <url><loc>https://lokalist.fr/cgv.html</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+</urlset>
+"@
+if ((Test-Path $sitemapPath) -and -not (Test-Path "$sitemapPath.bak")) { Copy-Item $sitemapPath "$sitemapPath.bak" -Force }
+Write-File $sitemapPath $sitemap
+Write-Host "OK sitemap.xml (11 pages reelles)" -ForegroundColor Green
+
+# ============================ index.html (ajouts seulement) ===================
+if (-not $indexPath) { Write-Host "index.html introuvable - rien injecte." -ForegroundColor Yellow; exit 0 }
+
+$content = Read-File $indexPath
+$nl = if ($content -match "`r`n") { "`r`n" } else { "`n" }
+
+# Securite : si l'ancien mauvais bloc est encore present, on s'arrete
+if ($content -match 'LOKALIST SEO \(gere par script') {
+    Write-Host "ATTENTION : l'ancien bloc (mauvais) est encore present." -ForegroundColor Red
+    Write-Host "Restaure d'abord : git restore index.html (ou ancien script -Undo)." -ForegroundColor Red
+    exit 1
+}
+
+# Recupere tes valeurs og: existantes (accents preserves) pour les balises twitter
+$ogTitle = if ($content -match 'property="og:title"\s+content="([^"]*)"') { $matches[1] } else { "Lokalist" }
+$ogDesc  = if ($content -match 'property="og:description"\s+content="([^"]*)"') { $matches[1] } else { "Lokalist" }
+
+if (-not (Test-Path "$indexPath.bak")) { Copy-Item $indexPath "$indexPath.bak" -Force }
+
+# Idempotence : retire un eventuel bloc SEO+ precedent
+$content = [regex]::Replace($content, [regex]::Escape($START)+"[\s\S]*?"+[regex]::Escape($END), "")
+
+# Bloc d'ajouts (here-string expansible pour injecter $ogTitle/$ogDesc ; le JSON-LD ne contient pas de $)
+$block = @"
+$START
+<meta property="og:site_name" content="Lokalist">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:title" content="$ogTitle">
+<meta name="twitter:description" content="$ogDesc">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lokalist.fr/#org",
+      "name": "Lokalist",
+      "url": "https://lokalist.fr/",
+      "logo": "https://lokalist.fr/og-lokalist.png",
+      "email": "contact@lokalist.fr",
+      "description": "Plateforme hyperlocale qui connecte habitants, commercants, artisans, mairies, agences immobilieres et courtiers d'un meme territoire."
+    },
+    { "@type": "WebSite", "@id": "https://lokalist.fr/#website", "url": "https://lokalist.fr/", "name": "Lokalist", "publisher": { "@id": "https://lokalist.fr/#org" }, "inLanguage": "fr-FR" },
+    { "@type": "MobileApplication", "name": "Lokalist", "operatingSystem": "ANDROID, IOS", "applicationCategory": "LifestyleApplication", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }, "url": "https://play.google.com/store/apps/details?id=lokalist.mobile.app" }
+  ]
+}
+</script>
+$END
+"@
+
+if ($content -match '<head\b[^>]*>') {
+    $h = $matches[0]
+    $content = $content.Replace($h, $h + $nl + ($block -replace "`n",$nl))
+    Write-File $indexPath $content
+    Write-Host "OK index.html -> JSON-LD + og/twitter manquants ajoutes (sans doublon)" -ForegroundColor Green
+} else {
+    Write-Host "<head> introuvable, rien injecte." -ForegroundColor Yellow
+}
+
+Write-Host ""
+Write-Host "Astuce : ajoute tes reseaux sociaux dans le JSON-LD (champ sameAs) plus tard." -ForegroundColor DarkGray
+Write-Host "Verifie : git diff, puis https://search.google.com/test/rich-results" -ForegroundColor Cyan
+Write-Host "Annuler : .\boost-lokalist-seo-v2.ps1 -Undo" -ForegroundColor DarkGray

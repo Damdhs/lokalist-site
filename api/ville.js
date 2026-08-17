@@ -891,7 +891,7 @@ ${eventsLd}
   <section class="section">
     <h2><span class="s-emoji">🎉</span> Sortir &amp; bouger à ${escapeHtml(ville)}</h2>
     <div class="serv-grid">
-      <a class="serv-card" href="${SITE_URL}/decouvrir-sorties">
+      <a class="serv-card" href="${SITE_URL}/idees-sorties">
         <div class="serv-emoji">🎪</div>
         <div class="serv-t">Idées de sorties</div>
         <div class="serv-d">Activités, loisirs et bons plans près de ${escapeHtml(ville)}</div>
