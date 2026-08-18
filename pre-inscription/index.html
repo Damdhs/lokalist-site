@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#1D9E75" />
-<title>Pré-inscription pro — Lokalist</title>
+<title>Inscription pro — Lokalist</title>
 <meta name="description" content="Soyez parmi les premiers commerces, artisans et services de votre ville sur Lokalist. Réservez votre place avant l'ouverture." />
 
 <!-- Open Graph / partage reseaux sociaux -->
@@ -12,14 +12,14 @@
 <meta property="og:site_name" content="Lokalist" />
 <meta property="og:locale" content="fr_FR" />
 <meta property="og:url" content="https://lokalist.fr/pre-inscription" />
-<meta property="og:title" content="Votre ville passe à Lokalist — Pré-inscription pros" />
+<meta property="og:title" content="Votre ville passe à Lokalist — Inscription pros" />
 <meta property="og:description" content="Commerçants, artisans, mairies, agences : rejoignez les premiers et profitez d'un accès prioritaire au lancement." />
 <meta property="og:image" content="https://lokalist.fr/pre-inscription/og-lokalist.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:alt" content="Lokalist — votre ville passe au local" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Votre ville passe à Lokalist — Pré-inscription pros" />
+<meta name="twitter:title" content="Votre ville passe à Lokalist — Inscription pros" />
 <meta name="twitter:description" content="Commerçants, artisans, mairies, agences : rejoignez les premiers et profitez d'un accès prioritaire au lancement." />
 <meta name="twitter:image" content="https://lokalist.fr/pre-inscription/og-lokalist.png" />
 
@@ -244,6 +244,10 @@ fbq('track','PageView');
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h18v12H3z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></svg>
         Courtier
       </button>
+      <button type="button" class="profile" data-profile="hebergeur"> <!-- HEBERGEUR_V1 -->
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 21h18"/><path d="M7 10V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/><path d="M12 5v5"/></svg>
+        Hébergeur
+      </button>
     </div>
   </section>
 
@@ -367,7 +371,7 @@ fbq('track','PageView');
 
           <label class="check" for="consentement">
             <input type="checkbox" id="consentement" name="consentement" required />
-            <span>J'accepte d'être contacté(e) par Lokalist au sujet de ma pré-inscription. Mes données ne servent qu'à cela et ne sont jamais revendues.</span>
+            <span>J'accepte d'être contacté(e) par Lokalist au sujet de mon inscription. Mes données ne servent qu'à cela et ne sont jamais revendues.</span>
           </label>
 
           <div class="formerr" id="formErr"></div>
@@ -417,14 +421,15 @@ fbq('track','PageView');
   let selectedProfile = "";
   const PROFILE_LABELS = {
     commercant: "Commerçant", artisan: "Artisan", mairie: "Mairie",
-    agence: "Agence immobilière", courtier: "Courtier"
+    agence: "Agence immobilière", courtier: "Courtier", hebergeur: "Hébergeur" /* HEBERGEUR_V1 */
   };
   const ETAB_LABELS = {
     commercant: "Nom de votre commerce",
     artisan: "Nom de votre entreprise",
     mairie: "Nom de la commune",
     agence: "Nom de l'agence",
-    courtier: "Cabinet / enseigne"
+    courtier: "Cabinet / enseigne",
+    hebergeur: "Nom de votre établissement" /* HEBERGEUR_V1 */
   };
 
   /* ---- Contenu par profil (benefices + lien site) ---- */
@@ -490,6 +495,18 @@ fbq('track','PageView');
         "Loki, votre assistant IA qui vous fait gagner un temps précieux."
       ],
       link: "https://lokalist.fr/agences.html"
+    },
+    hebergeur: { /* HEBERGEUR_V1 */
+      title: "Vous êtes hébergeur",
+      intro: "Faites le plein de voyageurs et de visiteurs près de chez vous.",
+      points: [
+        "Votre établissement visible par les visiteurs et habitants qui cherchent où dormir dans le coin.",
+        "Réservation directe : les voyageurs réservent via votre lien (Booking, Airbnb, site perso).",
+        "Vos photos, avis et équipements en vitrine pour donner envie et rassurer.",
+        "Mis en avant sur la carte locale, au milieu des commerces et sorties du territoire.",
+        "Loki, votre assistant IA qui oriente les visiteurs vers votre hébergement."
+      ],
+      link: "https://lokalist.fr"
     }
   };
 
@@ -568,7 +585,7 @@ fbq('track','PageView');
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { return showError("Vérifiez votre adresse email."); }
     if (!ville) { return showError("Indiquez votre ville."); }
     if (rappel.checked && !tel) { return showError("Pour être rappelé(e), ajoutez un numéro de téléphone."); }
-    if (!consent) { return showError("Cochez la case d'autorisation pour finaliser votre pré-inscription."); }
+    if (!consent) { return showError("Cochez la case d'autorisation pour finaliser votre inscription."); }
 
     const payload = {
       profil_type: selectedProfile,
