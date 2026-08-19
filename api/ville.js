@@ -601,10 +601,10 @@ const metierMap = {};
       const _RADKM = 15, _rLa = 0.16, _rLn = 0.24; var _dkm = function(la, lo){ var R = 6371, p = Math.PI / 180; var dLa = (la - (+commune.lat)) * p, dLo = (lo - (+commune.lng)) * p; var a = Math.sin(dLa/2)*Math.sin(dLa/2) + Math.cos((+commune.lat)*p)*Math.cos(la*p)*Math.sin(dLo/2)*Math.sin(dLo/2); return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); };
       const [_defs, _stns] = await Promise.all([
         sb(`defibrillateurs?select=nom,lat,lon&lat=gte.${commune.lat-_rLa}&lat=lte.${commune.lat+_rLa}&lon=gte.${commune.lng-_rLn}&lon=lte.${commune.lng+_rLn}&limit=3000`),
-        sb(`stations_carburant?select=ville,adresse,latitude,longitude,prix_gazole&latitude=gte.${commune.lat-_rLa}&latitude=lte.${commune.lat+_rLa}&longitude=gte.${commune.lng-_rLn}&longitude=lte.${commune.lng+_rLn}&limit=3000`),
+        sb(`stations_carburant?select=ville,adresse,latitude,longitude,prix_gazole,prix_sp95,prix_sp98,prix_e10,prix_e85,prix_gpl&latitude=gte.${commune.lat-_rLa}&latitude=lte.${commune.lat+_rLa}&longitude=gte.${commune.lng-_rLn}&longitude=lte.${commune.lng+_rLn}&limit=3000`),
       ]);
       (_defs || []).forEach(function(d){ if (d.lat && d.lon && _dkm(+d.lat, +d.lon) <= _RADKM) _markers.push({ lat:d.lat, lng:d.lon, type:'defib', name:('❤️ ' + (d.nom || 'Défibrillateur')), url:'' }); });
-      (_stns || []).forEach(function(s){ if (s.latitude && s.longitude && _dkm(+s.latitude, +s.longitude) <= _RADKM) _markers.push({ lat:s.latitude, lng:s.longitude, type:'station', name:('⛽ ' + (s.ville||'') + (s.prix_gazole ? ' · Gazole ' + String(s.prix_gazole).replace('.', ',') + ' €' : '')), url:'' }); });
+      (_stns || []).forEach(function(s){ if (s.latitude && s.longitude && _dkm(+s.latitude, +s.longitude) <= _RADKM) _markers.push({ lat:s.latitude, lng:s.longitude, type:'station', name:('⛽ ' + (s.ville||'') + (function(){ /* LOKALIST_POPUP_FUELS_V1 */ var _f=[['Gazole',s.prix_gazole],['SP95',s.prix_sp95],['SP98',s.prix_sp98],['E10',s.prix_e10],['E85',s.prix_e85],['GPL',s.prix_gpl]]; var _p=_f.filter(function(x){return fmtPrix(x[1]);}).map(function(x){return x[0]+' '+fmtPrix(x[1]);}).join(' · '); return _p ? ' · ' + _p : ''; })()), url:'' }); });
     } catch (e) { console.error('[ville carte]', e); }
     const secCarte = _markers.length ? `
     <section class='section'>
