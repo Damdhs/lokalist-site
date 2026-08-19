@@ -786,7 +786,7 @@ ${eventsLd}
   .hero-cta-3:hover { background:rgba(255,255,255,.24); }
   .hero-cta-3 small { font-size:11px;font-weight:600;opacity:.85; }
   @media (max-width:600px){ .hero-cta-3{margin-left:0;} }
-  .map-hint { font-size:12.5px;color:var(--muted);line-height:1.55;margin:2px 0 10px; }
+  .map-hint { font-size:12.5px;color:var(--muted);line-height:1.6;margin:6px 0 14px;background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--primary);border-radius:12px;padding:12px 14px; } /* LOKALIST_MAPHINT_CARD_V1 */
   .partage { display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:34px; }
   .partage-lbl { font-size:13px;font-weight:700;color:var(--muted);margin-right:4px; }
   .partage-btn { cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:9px 16px;border-radius:20px;font-size:13px;font-weight:700;text-decoration:none; }
