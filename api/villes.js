@@ -109,7 +109,7 @@ export default async function handler() {
   .btn-app { background:var(--primary);padding:9px 17px;border-radius:22px;font-size:13.5px;font-weight:700;color:#fff;box-shadow:0 4px 14px rgba(29,158,117,.28); }
   .hero { position:relative;overflow:hidden;background:linear-gradient(135deg,#0F6E56 0%,#1D9E75 62%,#25b184 100%);color:#fff; }
   .hero::before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 30% 0%,#000 30%,transparent 75%); }
-  .hero-inner { position:relative;padding:34px 0 40px; }
+  .hero-inner { position:relative;padding-top:34px;padding-bottom:40px; } /* LOKALIST_HERO_GUTTER_V1 */
   .crumb { font-size:13px;color:rgba(255,255,255,.75);margin-bottom:18px; }
   .crumb a { color:rgba(255,255,255,.75); }
   .hero h1 { font-family:var(--disp);font-weight:800;font-size:clamp(30px,5vw,52px);line-height:1.04;letter-spacing:-1.3px; }
@@ -130,7 +130,7 @@ export default async function handler() {
   .socials svg { width:19px;height:19px; }
   footer { text-align:center;padding:26px 20px 48px;color:var(--muted);font-size:12.5px; }
   footer a { color:var(--primary);font-weight:600; }
-  @media (max-width:640px){ .vgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;} .hero-inner{padding:24px 0 32px;} }
+  @media (max-width:640px){ .vgrid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:11px;} .hero-inner{padding-top:24px;padding-bottom:32px;} }
 </style>
 </head>
 <body>

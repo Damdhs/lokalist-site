@@ -747,7 +747,7 @@ ${eventsLd}
   .hero { position:relative;overflow:hidden;background:linear-gradient(135deg,#0F6E56 0%,#1D9E75 62%,#25b184 100%);color:#fff; }
   .hero::before { content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 30% 0%,#000 30%,transparent 75%); }
   .hero::after { content:'';position:absolute;top:-120px;right:-80px;width:360px;height:360px;background:radial-gradient(circle,rgba(239,159,39,.35),transparent 65%);pointer-events:none; }
-  .hero-inner { position:relative;padding:26px 0 40px; }
+  .hero-inner { position:relative;padding-top:26px;padding-bottom:40px; } /* LOKALIST_HERO_GUTTER_V1 */
   .crumb { font-size:13px;color:rgba(255,255,255,.75);margin-bottom:22px; }
   .crumb a { color:rgba(255,255,255,.75); } .crumb a:hover { color:#fff; }
   .hero h1 { font-family:var(--disp);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.02;letter-spacing:-1.5px; }
@@ -907,7 +907,7 @@ ${eventsLd}
   footer a { color:var(--primary);font-weight:600; }
 
   @media (max-width:640px){
-    .hero-inner{padding:20px 0 34px;} .crumb{margin-bottom:16px;}
+    .hero-inner{padding-top:20px;padding-bottom:34px;} .crumb{margin-bottom:16px;}
     .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;}
     .card-body{padding:11px 12px 13px;} .card-name{font-size:14.5px;}
     .mairie{margin-top:-18px;padding:16px 16px;}
