@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><!-- LOGO_BICOLOR_V2 --><!-- AIDE_HEBERGEUR_V1 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lokalist — Guide hébergeur</title>
+<style>
+  :root{
+    --vert:#1D9E75; --vertfonce:#0F6E56; --orange:#EF9F27;
+    --texte:#1f2937; --gris:#6b7280; --bgcard:#ffffff; --bg:#f5f7f6; --bord:#e5eae8;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--texte);
+    font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; line-height:1.55; }
+  .page{ max-width:800px; margin:0 auto; padding:24px 16px 56px; }
+
+  header{ background:var(--vertfonce); color:#fff; border-radius:16px; padding:28px 30px; }
+  header .logo{ font-size:24px; font-weight:800; letter-spacing:.5px; }
+  header h1{ font-size:22px; margin:12px 0 6px; line-height:1.3; }
+  header p{ margin:0; color:#bfe6d6; font-size:14.5px; }
+
+  .somm{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:18px 22px; margin-top:18px; }
+  .somm h2{ font-size:14px; text-transform:uppercase; letter-spacing:.5px; color:var(--gris); margin:0 0 12px; }
+  .somm ol{ margin:0; padding-left:20px; columns:2; column-gap:24px; font-size:14px; }
+  .somm li{ margin-bottom:6px; }
+  .somm a{ color:var(--vertfonce); text-decoration:none; }
+  @media(max-width:560px){ .somm ol{ columns:1; } }
+
+  .bloc{ background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .bloc h2{ font-size:18px; color:var(--vertfonce); margin:0 0 6px; display:flex; align-items:center; gap:9px; }
+  .bloc .role{ font-size:14.5px; color:var(--texte); margin:0 0 14px; }
+
+  .pourquoi{ background:#eef6f2; border-left:3px solid var(--vert); border-radius:0 8px 8px 0; padding:10px 14px; margin:14px 0 0; font-size:13.5px; color:#22503f; }
+  .pourquoi b{ color:var(--vertfonce); }
+
+  ol.steps{ margin:14px 0 0; padding-left:0; counter-reset:etape; list-style:none; }
+  ol.steps li{ counter-increment:etape; position:relative; padding:9px 0 9px 44px; font-size:14.5px; }
+  ol.steps li::before{ content:counter(etape); position:absolute; left:0; top:7px;
+    width:28px; height:28px; border-radius:50%; background:var(--vert); color:#fff;
+    font-weight:800; font-size:14px; display:flex; align-items:center; justify-content:center; }
+  ol.steps li .sous{ color:var(--gris); font-size:13px; margin:2px 0 0; }
+
+  .puce{ list-style:none; margin:14px 0 0; padding:0; }
+  .puce li{ position:relative; padding:9px 0 9px 26px; font-size:14.5px; border-bottom:1px solid #f0f3f2; }
+  .puce li:last-child{ border-bottom:none; }
+  .puce li::before{ content:""; position:absolute; left:4px; top:16px; width:8px; height:8px; border-radius:50%; background:var(--vert); }
+  .puce li b{ color:var(--texte); }
+  .puce li .sous{ color:var(--gris); font-size:13px; display:block; margin-top:2px; }
+
+  .astuce{ background:#fdf3e3; border:1.5px solid var(--orange); border-radius:12px; padding:14px 18px; margin-top:16px; font-size:14px; color:#5b4a2f; }
+  .astuce b{ color:#b5740f; }
+
+  .contact{ text-align:center; background:var(--bgcard); border:1px solid var(--bord); border-radius:14px; padding:24px; margin-top:18px; }
+  .contact a{ color:var(--vertfonce); font-weight:700; text-decoration:none; }
+
+  footer{ text-align:center; color:var(--gris); font-size:12px; margin-top:24px; }
+  @media print{ body{ background:#fff; } .bloc,header{ break-inside:avoid; } }
+</style>
+<!-- META PIXEL LOKALIST:START -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1203376311821134');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1203376311821134&ev=PageView&noscript=1"/></noscript>
+<!-- META PIXEL LOKALIST:END -->
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <div class="logo">Lokal<span style="color:#EF9F27">ist</span></div>
+    <h1>Bienvenue 👋 Voici comment tout fonctionne pour votre hébergement</h1>
+    <p>Guide hébergeur — chaque rubrique de votre espace, à quoi elle sert et pourquoi.</p>
+  </header>
+
+  <!-- SOMMAIRE -->
+  <div class="somm">
+    <h2>Dans ce guide</h2>
+    <ol>
+      <li><a href="#fiche">Ma fiche</a></li>
+      <li><a href="#resa">Réservations (séjours)</a></li>
+      <li><a href="#qrcode">Mon QR code</a></li>
+      <li><a href="#offres">Mes offres</a></li>
+      <li><a href="#agenda">Mon agenda</a></li>
+      <li><a href="#avis">Mes avis</a></li>
+      <li><a href="#stats">Mes stats</a></li>
+      <li><a href="#ia">L'assistant IA</a></li>
+      <li><a href="#abo">Mon abonnement</a></li>
+    </ol>
+  </div>
+
+  <!-- FICHE -->
+  <div class="bloc" id="fiche">
+    <h2>🏠 Ma fiche</h2>
+    <p class="role">Votre vitrine sur Lokalist, vue par les voyageurs : photo, description, adresse, coordonnées.</p>
+    <ul class="puce">
+      <li><b>Votre photo</b> — touchez l'icône appareil photo pour la changer. Une belle photo de l'hébergement donne envie de réserver.</li>
+      <li><b>Votre description</b> — présentez le logement, l'ambiance, les équipements ; ou laissez l'assistant IA vous proposer un texte, puis enregistrez.</li>
+      <li><b>Voir ma fiche publique</b> — visualisez ce que voient les voyageurs.</li>
+    </ul>
+    <div class="pourquoi">👉 Une fiche complète, avec de belles photos et des infos à jour, inspire confiance et donne envie de réserver un séjour.</div>
+  </div>
+
+  <!-- RESERVATIONS -->
+  <div class="bloc" id="resa">
+    <h2>🛏️ Réservations (séjours)</h2>
+    <p class="role">Recevez et gérez les demandes de séjour de vos voyageurs, directement depuis votre espace.</p>
+    <ol class="steps">
+      <li>Activez l'interrupteur <b>« Prise de séjour »</b> pour ouvrir les demandes.
+        <div class="sous">Coupé, le bouton de demande est masqué côté application : vous ne recevez rien.</div>
+      </li>
+      <li>À chaque demande, vous voyez les dates d'arrivée et de départ, le nombre de nuits, de personnes et de logements, et les coordonnées du voyageur.</li>
+      <li><b>Acceptez</b> ou <b>refusez</b> la demande : le voyageur est notifié automatiquement (notification + email).
+        <div class="sous">En cas de refus, vous pouvez indiquer un motif (visible par le voyageur).</div>
+      </li>
+    </ol>
+    <ul class="puce">
+      <li><b>Filtres</b> — En attente · Acceptées · Refusées · Toutes, pour tout retrouver d'un coup d'œil.</li>
+    </ul>
+    <div class="pourquoi">👉 Répondez vite aux demandes en attente : un voyageur qui reçoit une réponse rapide réserve plus volontiers.</div>
+  </div>
+
+  <!-- QR CODE -->
+  <div class="bloc" id="qrcode">
+    <h2>📱 Mon QR code</h2>
+    <p class="role">Votre QR code permet à vos voyageurs de laisser un avis sur leur séjour. Après leur passage, ils le scannent et notent votre hébergement.</p>
+    <ul class="puce">
+      <li>Affichez-le dans le logement (livret d'accueil, entrée, sur le frigo).</li>
+      <li>Téléchargez l'affiche A4 prête à imprimer.</li>
+    </ul>
+    <div class="pourquoi">👉 Plus il est visible, plus vous récoltez d'avis — et de bons avis attirent de nouveaux voyageurs.</div>
+  </div>
+
+  <!-- OFFRES -->
+  <div class="bloc" id="offres">
+    <h2>🏷️ Mes offres</h2>
+    <p class="role">Mettez en avant des offres pour remplir vos nuitées : réduction sur un séjour, nuit offerte, petit-déjeuner inclus…</p>
+    <ul class="puce">
+      <li><b>Créer une offre</b> — un titre clair (ex : « -20% sur un séjour de 2 nuits »), une période, et c'est publié sur votre fiche.</li>
+      <li><b>Idées pour mon hébergement</b> — l'assistant IA vous propose des idées d'offres selon la saison (basse saison, dernière minute, longs week-ends…).</li>
+    </ul>
+    <div class="pourquoi">👉 Une offre bien pensée en période creuse aide à remplir les nuitées en semaine ou hors saison.</div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="bloc" id="agenda">
+    <h2>📅 Mon agenda</h2>
+    <p class="role">Publiez des événements ou des informations spéciales (fermeture, période d'ouverture, temps fort local…) qui <b>s'affichent sur votre fiche</b> avec un badge « à venir ». De quoi tenir vos voyageurs informés.</p>
+    <ol class="steps">
+      <li>Touchez « + Nouvel événement », choisissez le type (fermeture, événement, promo).</li>
+      <li>Ajoutez un titre, une description, les dates de début et de fin.</li>
+    </ol>
+    <div class="pourquoi">👉 Annoncez à l'avance vos périodes d'ouverture ou vos temps forts : c'est une raison de plus de réserver chez vous.</div>
+  </div>
+
+  <!-- AVIS -->
+  <div class="bloc" id="avis">
+    <h2>⭐ Mes avis</h2>
+    <p class="role">Retrouvez tous les avis laissés par vos voyageurs et votre note moyenne. Filtrez par étoiles ou n'affichez que les avis sans réponse.</p>
+    <ul class="puce">
+      <li><b>Répondre</b> — vous pouvez répondre une fois à chaque avis. Votre réponse s'affiche publiquement sous l'avis, signée du nom de votre hébergement.</li>
+      <li><b>Signaler</b> — un avis injurieux ou diffamatoire ? Signalez-le, notre équipe le traite.</li>
+    </ul>
+    <div class="pourquoi">👉 Répondez avec soin, même aux avis négatifs : une réponse posée inspire confiance aux futurs voyageurs.</div>
+  </div>
+
+  <!-- STATS -->
+  <div class="bloc" id="stats">
+    <h2>📊 Mes stats</h2>
+    <p class="role">Suivez votre activité Lokalist : fréquentation de votre fiche, avis reçus et note moyenne. Le sélecteur en haut permet de choisir la période (7 j, 30 j, 90 j, 1 an).</p>
+    <div class="pourquoi">👉 Un coup d'œil régulier vous montre ce qui attire les voyageurs et quand agir (offre, mise à jour de la fiche).</div>
+  </div>
+
+  <!-- IA -->
+  <div class="bloc" id="ia">
+    <h2>✨ L'assistant IA</h2>
+    <p class="role">Il vous fait gagner du temps pour communiquer. Deux usages :</p>
+    <ul class="puce">
+      <li><b>Rédaction d'offres et de description</b> — choisissez le sujet et le ton ; l'assistant propose plusieurs textes prêts à publier.</li>
+      <li><b>Idées pour votre hébergement</b> — des suggestions selon la période (vacances, longs week-ends, basse saison…), pour anticiper les temps forts.</li>
+    </ul>
+  </div>
+
+  <!-- ABONNEMENT -->
+  <div class="bloc" id="abo">
+    <h2>💳 Mon abonnement</h2>
+    <p class="role">Tout ce qui concerne votre formule et vos paiements, au même endroit.</p>
+    <ul class="puce">
+      <li><b>Mon abonnement actuel</b> — votre formule en cours.</li>
+      <li><b>Mon code parrainage</b> — partagez-le : parrainer d'autres pros vous fait gagner des avantages.</li>
+      <li><b>Mes parrainés</b> — la liste de ceux que vous avez parrainés.</li>
+      <li><b>Mes factures &amp; virement</b> — vos factures et les infos de paiement.</li>
+    </ul>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact">
+    <p style="margin:0 0 6px;font-weight:700">Une question ?</p>
+    <p style="margin:0;font-size:14px;color:var(--gris)">Écrivez-nous à <a href="mailto:contact@lokalist.fr">contact@lokalist.fr</a> — réponse sous 24h.</p>
+  </div>
+
+  <footer>Lokalist · Guide hébergeur · lokalist.fr</footer>
+
+</div>
+</body>
+</html>
