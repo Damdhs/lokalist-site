@@ -10,6 +10,7 @@
 //  SENT: [LKL_HEB_LOT6] Calendrier de disponibilites (lecture, lit /reservations/occupees)
 //  SENT: [LKL_HEB_LOT7] Formulaire de reservation web (calendrier selectionnable -> POST /reservations/invite, honeypot)
 //  SENT: [LKL_HEB_LOT8] Bouton reserver dans l'app (deep link avec dates pre-selectionnees)
+//  SENT: [LKL_HEB_LOT9] Agenda de l'hebergeur sur le mini-site (agenda_commercants, note_privee jamais exposee)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -220,6 +221,22 @@ export default async function handler(req) {
           .slice(0, 6);
       }
     } catch (e) { console.error('[heb environs]', e); }
+
+    // ─── Agenda de l'hebergeur (agenda_commercants, evenements publics a venir ; note_privee JAMAIS lue) ───
+    let agendaEvents = [];
+    try {
+      const _lb = new Date(Date.now() - 7 * 86400000).toISOString();
+      const _agUrl = `${SUPABASE_URL}/rest/v1/agenda_commercants?commercant_id=eq.${id}&select=titre,description,type,date_debut,date_fin,statut&order=date_debut.asc&date_debut=gte.${_lb}&limit=20`;
+      const _agR = await fetch(_agUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      if (_agR.ok) {
+        const _evs = await _agR.json();
+        const _now = Date.now();
+        agendaEvents = (_evs || [])
+          .filter(function (e) { const st = String(e.statut || '').toLowerCase(); return st !== 'annule' && st !== 'refuse' && st !== 'brouillon'; })
+          .filter(function (e) { const fin = e.date_fin ? Date.parse(e.date_fin) : Date.parse(e.date_debut); return isNaN(fin) || fin >= _now; })
+          .slice(0, 6);
+      }
+    } catch (e) { console.error('[heb agenda]', e); }
 
     // ─── Donnees d'affichage ───
     const nom         = c.nom || 'Hébergement local';
@@ -465,6 +482,34 @@ export default async function handler(req) {
         </script>
       </section>` : '';
 
+    function _evtMeta(t) {
+      const s = String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      if (s.indexOf('ferm') > -1) return { e: '🚫', l: 'Fermeture', c: '#B23A2E', bg: '#FBEAE7' };
+      if (s.indexOf('promo') > -1) return { e: '🏷️', l: 'Promotion', c: '#0F6E56', bg: '#E7F6F0' };
+      if (s.indexOf('horaire') > -1) return { e: '⏰', l: 'Horaire spécial', c: '#B26A00', bg: '#FDF3E2' };
+      if (s.indexOf('even') > -1 || s.indexOf('event') > -1) return { e: '🎉', l: 'Événement', c: '#0F6E56', bg: '#E7F6F0' };
+      return { e: '📅', l: (t ? String(t) : 'À la une'), c: '#374039', bg: '#F1F2F4' };
+    }
+    const _fmtEvt = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }); } catch (e) { return ''; } };
+    const agendaHtml = agendaEvents.length ? `
+      <section class="section">
+        <h2>À l'agenda</h2>
+        <div class="agenda-list">
+          ${agendaEvents.map(function (e) {
+            const m = _evtMeta(e.type); const d1 = _fmtEvt(e.date_debut); const d2 = e.date_fin ? _fmtEvt(e.date_fin) : '';
+            const per = (d2 && d2 !== d1) ? (d1 + ' → ' + d2) : d1;
+            return `<div class="agenda-item">
+              <span class="agenda-badge" style="background:${m.bg};color:${m.c}">${m.e} ${escapeHtml(m.l)}</span>
+              <div class="agenda-body">
+                <div class="agenda-titre">${escapeHtml(e.titre || '')}</div>
+                <div class="agenda-date">${escapeHtml(per)}</div>
+                ${e.description ? `<div class="agenda-desc">${escapeHtml(e.description)}</div>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </section>` : '';
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -596,6 +641,13 @@ export default async function handler(req) {
   .rw-or::before,.rw-or::after{ content:"";flex:1;height:1px;background:var(--border); }
   .rw-or span{ padding:0 12px; }
   .rw-app{ display:block;width:100%;max-width:460px;background:var(--primary-l);color:var(--primary-d);border:none;font-weight:600;font-size:14px;padding:12px;border-radius:12px;cursor:pointer; }
+  .agenda-list{ display:flex;flex-direction:column;gap:12px; }
+  .agenda-item{ display:flex;gap:12px;align-items:flex-start; }
+  .agenda-badge{ flex:none;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap; }
+  .agenda-titre{ font-size:15px;font-weight:600;color:var(--text); }
+  .agenda-date{ font-size:13px;color:var(--muted);margin-top:1px; }
+  .agenda-desc{ font-size:14px;color:#374039;margin-top:4px;line-height:1.5; }
+  @media (max-width:600px){ .agenda-item{ flex-direction:column;gap:6px; } }
 
   .env-sub{ font-size:13px;color:var(--muted);margin-bottom:12px; }
   .env-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
@@ -721,6 +773,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
         ${c.num_enregistrement ? `<div class="enr">N° d'enregistrement : ${escapeHtml(c.num_enregistrement)}</div>` : ''}
       </section>
       ${equipementsHtml}
+      ${agendaHtml}
       ${environsHtml}
       ${tarifsHtml}
       ${dispoHtml}
