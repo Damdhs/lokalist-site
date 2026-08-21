@@ -1,13 +1,12 @@
 // ════════════════════════════════════════════════════════════════
 //  api/hebergement.js — Vercel Edge Function
 //  SENT: [LKL_HEB_LOT1] Page HTML SSR premium pour /hebergement/:slug
+//  SENT: [LKL_HEB_LOT2] Galerie photos + multi-tarifs + logo Lokalist
+//        (remplace le renard) + bloc "Comment reserver" + note prix.
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
-//  - URL SEO: /hebergement/<nom-slug>-<uuid>  (uuid = 36 car., extrait n'importe ou)
-//  - Meta OpenGraph dynamiques + JSON-LD LodgingBusiness
+//  - URL SEO: /hebergement/<nom-slug>-<uuid>  (uuid = 36 car.)
 //  - Contact COMPLET: telephone / email / site / adresse (+ reseaux)
-//  - CTA "Demander un sejour" (deep link app), badge points masque
-//  Lot 1 : colonnes existantes uniquement (photo unique, prix indicatif).
-//          Galerie (photos) et multi-tarifs (tarifs) = Lot 2.
+//  - Galerie via colonne photos (jsonb), tarifs via colonne tarifs (jsonb)
 // ════════════════════════════════════════════════════════════════
 
 export const config = { runtime: 'edge' };
@@ -18,8 +17,8 @@ const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFz
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
 const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist';
 const SITE_URL       = 'https://lokalist.fr';
+const LOGO_URL       = `${SITE_URL}/logo.png`;
 
-// hebergement_type (CHECK) -> libelle lisible
 const HEB_LABELS = {
   hotel:         'Hotel',
   gite:          'Gite',
@@ -66,7 +65,6 @@ function socialUrl(kind, v) {
   return normUrl(raw);
 }
 
-// slug decoratif a partir du nom (SEO)
 function slugify(s) {
   var out = String(s || '')
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -74,7 +72,6 @@ function slugify(s) {
   return (out || 'hebergement').slice(0, 60).replace(/-+$/g, '');
 }
 
-// extrait l'UUID (36 car.) ou qu'il soit dans le slug (bare uuid OK aussi)
 var UUID_RE = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
 function extractId(raw) {
   if (!raw) return '';
@@ -112,7 +109,7 @@ export default async function handler(req) {
 
     const cols = [
       'id','nom','ville','adresse','latitude','longitude','description',
-      'photo_url','logo_url','note_moyenne','nb_avis','type_pro','actif','demo',
+      'photo_url','logo_url','photos','tarifs','note_moyenne','nb_avis','type_pro','actif','demo',
       'telephone','email','site_web','instagram','facebook','tiktok','lien_reservation',
       'resa_type','resa_visible','hebergement_type','prix_indicatif_nuit',
       'capacite','nb_chambres','classement_etoiles','num_enregistrement'
@@ -131,7 +128,7 @@ export default async function handler(req) {
     if (c.actif === false) return pageNotFound("Cet hebergement n'est plus actif");
     if (c.type_pro !== 'hebergeur') return pageNotFound("Cette page est reservee aux hebergements");
 
-    // ─── Avis verifies (meme systeme que pro.js) ───
+    // ─── Avis verifies ───
     let avisMoyenne = 0, avisNb = 0, avisListe = [];
     try {
       const avUrl = `${SUPABASE_URL}/rest/v1/avis_public?cible_type=eq.commercant&cible_id=eq.${id}&order=date_publication.desc&limit=20`;
@@ -160,18 +157,28 @@ export default async function handler(req) {
         ${a.reponse ? `<div class="avis-rep"><div class="avis-rep-lab">Reponse de l'hote</div>${escapeHtml(a.reponse)}</div>` : ''}
       </div>`).join('');
 
-    // ─── Donnees hebergement ───
+    // ─── Photos (galerie) ───
+    const photos = Array.isArray(c.photos) ? c.photos.filter((p) => typeof p === 'string' && p.trim()) : [];
+    const mainPhoto = photos[0] || c.photo_url || null;
+    const photoOg   = mainPhoto || `${SITE_URL}/images/og-default.jpg`;
+
+    // ─── Tarifs (multi) ───
+    const tarifs = Array.isArray(c.tarifs)
+      ? c.tarifs.filter((t) => t && t.prix !== undefined && t.prix !== null && !isNaN(Number(t.prix)))
+      : [];
+    const prixIndic = (c.prix_indicatif_nuit !== null && c.prix_indicatif_nuit !== undefined && c.prix_indicatif_nuit !== '')
+      ? Math.round(Number(c.prix_indicatif_nuit))
+      : (tarifs.length ? Math.min.apply(null, tarifs.map((t) => Number(t.prix))) : null);
+
+    // ─── Donnees ───
     const nom         = c.nom || 'Hebergement local';
     const ville       = c.ville || '';
     const typeLabel   = HEB_LABELS[c.hebergement_type] || 'Hebergement';
     const etos        = Number(c.classement_etoiles) || 0;
-    const prixNuit    = (c.prix_indicatif_nuit !== null && c.prix_indicatif_nuit !== undefined && c.prix_indicatif_nuit !== '')
-                          ? Math.round(Number(c.prix_indicatif_nuit)) : null;
     const capacite    = Number(c.capacite) || 0;
     const chambres    = Number(c.nb_chambres) || 0;
     const description = c.description || `${typeLabel}${ville ? ' a ' + ville : ''} — sur Lokalist, l'app de la vie locale`;
     const descShort   = (description.length > 160 ? description.slice(0, 157) + '...' : description);
-    const photoMain   = c.photo_url || `${SITE_URL}/images/og-default.jpg`;
     const noteAff     = (avisNb > 0) ? avisMoyenne : (Number(c.note_moyenne) || 0);
     const nbAvisAff   = (avisNb > 0) ? avisNb : (Number(c.nb_avis) || 0);
     const peutResa    = (c.resa_visible === true) && (c.resa_type === 'sejour');
@@ -180,13 +187,12 @@ export default async function handler(req) {
     const canonical = `${SITE_URL}/hebergement/${slugCanon}`;
     const deepLink  = `lokalist://commercant/${id}`;
 
-    // ─── JSON-LD (LodgingBusiness) ───
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "LodgingBusiness",
       "name": nom,
       "description": description,
-      "image": photoMain,
+      "image": photoOg,
       "url": canonical,
       ...(etos > 0 && { "starRating": { "@type": "Rating", "ratingValue": etos } }),
       ...(c.adresse && {
@@ -195,7 +201,7 @@ export default async function handler(req) {
       ...((c.latitude && c.longitude) && {
         "geo": { "@type": "GeoCoordinates", "latitude": Number(c.latitude), "longitude": Number(c.longitude) }
       }),
-      ...(prixNuit !== null && { "priceRange": `${prixNuit} EUR / nuit` }),
+      ...(prixIndic !== null && { "priceRange": `${prixIndic} EUR / nuit` }),
       ...(noteAff > 0 && {
         "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(noteAff).toFixed(1), "reviewCount": nbAvisAff || 0 }
       }),
@@ -209,14 +215,32 @@ export default async function handler(req) {
       ] }),
     };
 
-    // ─── Bloc "faits" (voyageurs / chambres / prix) ───
+    // ─── Galerie HTML ───
+    const galleryHtml = photos.length
+      ? `<div class="main"><img src="${escapeHtml(mainPhoto)}" alt="${escapeHtml(nom)}" loading="eager"/></div>
+         ${photos.length > 1 ? `<div class="thumbs">${photos.slice(1, 8).map((p) => `<img src="${escapeHtml(p)}" alt="${escapeHtml(nom)}" loading="lazy"/>`).join('')}</div>` : ''}`
+      : (c.photo_url
+          ? `<div class="main"><img src="${escapeHtml(c.photo_url)}" alt="${escapeHtml(nom)}" loading="eager"/></div>`
+          : `<div class="fallback">🏡</div>`);
+
+    // ─── Faits ───
     const facts = [];
     if (capacite > 0) facts.push(`<div class="fact"><div class="fact-ic">👥</div><div class="fact-v">${capacite} voyageur${capacite>1?'s':''}</div></div>`);
     if (chambres > 0) facts.push(`<div class="fact"><div class="fact-ic">🛏️</div><div class="fact-v">${chambres} chambre${chambres>1?'s':''}</div></div>`);
-    if (prixNuit !== null) facts.push(`<div class="fact"><div class="fact-ic">🏷️</div><div class="fact-v">des ${prixNuit} €<span class="fact-u">/nuit</span></div></div>`);
+    if (prixIndic !== null) facts.push(`<div class="fact"><div class="fact-ic">🏷️</div><div class="fact-v">des ${prixIndic} €<span class="fact-u">/nuit</span></div></div>`);
     const factsHtml = facts.length ? `<div class="facts">${facts.join('')}</div>` : '';
 
-    // ─── Bloc contact COMPLET ───
+    // ─── Tarifs HTML ───
+    const tarifsHtml = tarifs.length ? `
+      <section class="section">
+        <h2>Tarifs</h2>
+        <div class="tarifs">
+          ${tarifs.map((t) => `<div class="tarif-row"><span class="tarif-lab">${escapeHtml(t.label || '')}${t.unite ? ` <span class="tarif-u">· ${escapeHtml(t.unite)}</span>` : ''}</span><span class="tarif-prix">${Math.round(Number(t.prix))} €</span></div>`).join('')}
+        </div>
+        <div class="tarif-note">Total calcule selon vos dates, affiche avant paiement (taxe de sejour eventuelle incluse).</div>
+      </section>` : '';
+
+    // ─── Contact complet ───
     const contactRows = [];
     if (c.telephone) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(c.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Telephone</span><span class="ct-val">${escapeHtml(c.telephone)}</span></span></a>`);
     if (c.email)     contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(c.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(c.email)}</span></span></a>`);
@@ -233,6 +257,22 @@ export default async function handler(req) {
         ${socialChips.length ? `<div class="soc-row">${socialChips.join('')}</div>` : ''}
       </section>` : '';
 
+    // ─── Bloc explicatif "Comment reserver" + notes ───
+    const explainHtml = `
+      <section class="section">
+        <h2>Comment reserver votre sejour</h2>
+        <div class="steps">
+          <div class="step"><div class="step-n">1</div><div><div class="step-t">Choisissez vos dates</div><div class="step-d">Consultez les disponibilites et selectionnez votre periode.</div></div></div>
+          <div class="step"><div class="step-n">2</div><div><div class="step-t">Envoyez votre demande</div><div class="step-d">L'hote recoit votre demande et vous repond rapidement. Sans engagement.</div></div></div>
+          <div class="step"><div class="step-n">3</div><div><div class="step-t">Sejour confirme</div><div class="step-d">Reglez en ligne en toute securite (acompte ou total). C'est reserve.</div></div></div>
+        </div>
+        <div class="notes">
+          <div class="note-i"><span class="ni-ic">✅</span><div><b>Verifie Lokalist</b> — hebergeur authentifie sur la plateforme.</div></div>
+          <div class="note-i"><span class="ni-ic">⭐</span><div><b>Avis verifies</b> — laisses apres un sejour, via un scan QR sur place.</div></div>
+          <div class="note-i"><span class="ni-ic">ℹ️</span><div><b>Prix</b> — total calcule selon vos dates, affiche avant paiement.</div></div>
+        </div>
+      </section>`;
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -246,7 +286,7 @@ export default async function handler(req) {
 <meta property="og:site_name" content="Lokalist"/>
 <meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
-<meta property="og:image" content="${escapeHtml(photoMain)}"/>
+<meta property="og:image" content="${escapeHtml(photoOg)}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:url" content="${canonical}"/>
@@ -254,7 +294,7 @@ export default async function handler(req) {
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
-<meta name="twitter:image" content="${escapeHtml(photoMain)}"/>
+<meta name="twitter:image" content="${escapeHtml(photoOg)}"/>
 
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
@@ -270,20 +310,26 @@ export default async function handler(req) {
   h1,h2,h3{ font-family:'Syne','DM Sans',sans-serif;letter-spacing:-0.3px; }
   a{ color:inherit; }
   .top-bar{ background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10; }
-  .top-bar .brand{ font-family:'Syne';font-weight:700;font-size:18px;color:var(--primary-d);text-decoration:none; }
-  .top-bar .verif{ font-size:13px;color:var(--primary-d);font-weight:600; }
+  .top-bar .brand{ display:flex;align-items:center;gap:7px;font-family:'Syne';font-weight:700;font-size:18px;color:var(--primary-d);text-decoration:none; }
+  .top-bar .brand img{ height:22px;width:auto;display:block; }
+  .top-bar .verif{ display:flex;align-items:center;gap:6px;font-size:13px;color:var(--primary-d);font-weight:600; }
+  .top-bar .verif img{ height:16px;width:auto;display:block; }
   .container{ max-width:720px;margin:0 auto;padding:0 16px; }
   .ref-banner{ background:var(--accent);color:#3A2600;text-align:center;padding:10px 16px;font-size:13px;font-weight:600; }
 
-  .gallery{ margin-top:16px;border-radius:16px;overflow:hidden; }
-  .gallery img{ width:100%;height:320px;object-fit:cover;display:block;background:var(--primary-l); }
-  .gallery .fallback{ width:100%;height:260px;background:var(--primary-l);display:flex;align-items:center;justify-content:center;font-size:80px; }
+  .gallery{ margin-top:16px; }
+  .gallery .main{ border-radius:16px;overflow:hidden; }
+  .gallery .main img{ width:100%;height:320px;object-fit:cover;display:block;background:var(--primary-l); }
+  .gallery .fallback{ width:100%;height:260px;border-radius:16px;background:var(--primary-l);display:flex;align-items:center;justify-content:center;font-size:80px; }
+  .gallery .thumbs{ display:flex;gap:8px;margin-top:8px;overflow-x:auto;padding-bottom:2px; }
+  .gallery .thumbs img{ width:104px;height:74px;object-fit:cover;border-radius:10px;flex:none;background:var(--primary-l); }
 
   .head{ margin-top:20px; }
   .badges{ display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px; }
   .badge{ background:var(--primary-l);color:var(--primary-d);font-size:12px;font-weight:600;padding:4px 11px;border-radius:20px; }
   .badge-stars{ color:var(--accent);font-size:13px;letter-spacing:1px; }
-  .badge-verif{ background:#FAEEDA;color:#854F0B;font-size:12px;font-weight:600;padding:4px 11px;border-radius:20px; }
+  .badge-verif{ display:inline-flex;align-items:center;gap:5px;background:#FAEEDA;color:#854F0B;font-size:12px;font-weight:600;padding:4px 11px;border-radius:20px; }
+  .badge-verif img{ height:14px;width:auto;display:block; }
   .h-row{ display:flex;align-items:flex-start;justify-content:space-between;gap:14px; }
   .titre{ font-size:26px;font-weight:600;line-height:1.2;margin-bottom:6px; }
   .ville{ color:var(--muted);font-size:14px; }
@@ -303,6 +349,24 @@ export default async function handler(req) {
   .section h2{ font-size:18px;font-weight:600;margin-bottom:10px; }
   .section p{ font-size:15px;line-height:1.75;color:#374039;white-space:pre-line; }
   .enr{ margin-top:10px;font-size:12px;color:var(--muted); }
+
+  .tarifs{ display:flex;flex-direction:column; }
+  .tarif-row{ display:flex;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border); }
+  .tarif-row:last-child{ border-bottom:none; }
+  .tarif-lab{ font-size:14px;color:#374039; }
+  .tarif-u{ font-size:12px;color:var(--muted); }
+  .tarif-prix{ font-size:15px;font-weight:600; }
+  .tarif-note{ margin-top:10px;font-size:12px;color:var(--muted); }
+
+  .steps{ display:flex;flex-direction:column;gap:14px; }
+  .step{ display:flex;gap:12px; }
+  .step-n{ flex:none;width:30px;height:30px;border-radius:50%;background:var(--primary);color:#04342C;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;font-family:'Syne'; }
+  .step-t{ font-size:15px;font-weight:600; }
+  .step-d{ font-size:13px;color:var(--muted);line-height:1.55; }
+  .notes{ display:flex;flex-direction:column;gap:8px;margin-top:16px; }
+  .note-i{ display:flex;gap:10px;align-items:flex-start;background:var(--primary-l);border-radius:12px;padding:11px 13px;font-size:13px;color:#22332B; }
+  .note-i .ni-ic{ flex:none; }
+  .note-i b{ font-weight:600; }
 
   .ct-list{ display:flex;flex-direction:column; }
   .ct-row{ display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);text-decoration:none; }
@@ -345,7 +409,7 @@ export default async function handler(req) {
 
   footer{ text-align:center;padding:26px 20px 40px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
-  @media (max-width:600px){ .gallery img{height:230px;} .titre{font-size:22px;} }
+  @media (max-width:600px){ .gallery .main img{height:230px;} .titre{font-size:22px;} }
 </style>
 </head>
 <body>
@@ -353,23 +417,21 @@ export default async function handler(req) {
 ${ref ? `<div class="ref-banner">🎁 Invite par un ami — bienvenue sur Lokalist !</div>` : ''}
 
 <header class="top-bar">
-  <a href="${SITE_URL}" class="brand">🏡 Lokalist</a>
-  <span class="verif">🦊 Verifie Lokalist</span>
+  <a href="${SITE_URL}" class="brand"><img src="${LOGO_URL}" alt="Lokalist"/> Lokalist</a>
+  <span class="verif"><img src="${LOGO_URL}" alt=""/> Verifie Lokalist</span>
 </header>
 
 <main class="container">
 
   <div class="gallery">
-    ${c.photo_url
-      ? `<img src="${escapeHtml(photoMain)}" alt="${escapeHtml(nom)}" loading="eager"/>`
-      : `<div class="fallback">🏡</div>`}
+    ${galleryHtml}
   </div>
 
   <div class="head">
     <div class="badges">
       <span class="badge">${escapeHtml(typeLabel)}</span>
       ${etos > 0 ? `<span class="badge-stars">${'★'.repeat(etos)}</span>` : ''}
-      <span class="badge-verif">🦊 Verifie Lokalist</span>
+      <span class="badge-verif"><img src="${LOGO_URL}" alt=""/> Verifie Lokalist</span>
     </div>
     <div class="h-row">
       <div>
@@ -388,11 +450,15 @@ ${ref ? `<div class="ref-banner">🎁 Invite par un ami — bienvenue sur Lokali
     ${c.num_enregistrement ? `<div class="enr">N° d'enregistrement : ${escapeHtml(c.num_enregistrement)}</div>` : ''}
   </section>
 
+  ${tarifsHtml}
+
+  ${explainHtml}
+
   ${contactHtml}
 
   <div class="book">
     <div class="book-top">
-      <div class="book-price">${prixNuit !== null ? `${prixNuit} €` : 'Sur demande'} <span>${prixNuit !== null ? '/ nuit indicatif' : ''}</span></div>
+      <div class="book-price">${prixIndic !== null ? `des ${prixIndic} €` : 'Sur demande'} <span>${prixIndic !== null ? '/ nuit' : ''}</span></div>
       <span class="book-tag">🛡️ Sejour sur demande</span>
     </div>
     ${peutResa
@@ -421,11 +487,6 @@ ${ref ? `<div class="ref-banner">🎁 Invite par un ami — bienvenue sur Lokali
 </footer>
 
 <script>
-  (function(){
-    var ua = navigator.userAgent || '';
-    var dl = document.querySelector('.cta-btn');
-    // rien de special: le deep link ouvre l'app si installee
-  })();
   (function(){
     try {
       var p = new URLSearchParams(window.location.search);
