@@ -7,6 +7,7 @@
 //        couverture) + voile d'ambiance saisonnier auto, layout 2 colonnes
 //        + carte resa sticky, accents FR, fix filtre packs (pas de colonne demo)
 //  SENT: [LKL_HEB_LOT5] Section "Ce que propose le logement" (equipements)
+//  SENT: [LKL_HEB_LOT6] Calendrier de disponibilites (lecture, lit /reservations/occupees)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -342,6 +343,43 @@ export default async function handler(req) {
         </div>
       </section>` : '';
 
+    const dispoHtml = peutResa ? `
+      <section class="section">
+        <h2>Disponibilités</h2>
+        <div id="dispo-cal" class="dispo-cal">Chargement…</div>
+        <p class="dispo-note">Les nuits grisées sont déjà réservées. Réservez votre séjour dans l'app Lokalist.</p>
+        <script>
+        (function(){
+          var API='https://lokalist-api-production.up.railway.app';
+          var ID=${JSON.stringify(id)};
+          var occ=new Set();
+          var view=new Date(); view.setDate(1);
+          function pad(n){ return (n<10?'0':'')+n; }
+          function iso(y,m,d){ return y+'-'+pad(m+1)+'-'+pad(d); }
+          function render(){
+            var box=document.getElementById('dispo-cal'); if(!box) return;
+            var y=view.getFullYear(), m=view.getMonth();
+            var first=new Date(y,m,1); var start=(first.getDay()+6)%7;
+            var days=new Date(y,m+1,0).getDate();
+            var today=new Date().toISOString().slice(0,10);
+            var mois=first.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+            var cells='';
+            for(var i=0;i<start;i++){ cells+='<div></div>'; }
+            for(var d=1;d<=days;d++){
+              var sdate=iso(y,m,d); var past=sdate<today, taken=occ.has(sdate);
+              cells+='<div class="dc '+(past?'dc-past':(taken?'dc-taken':'dc-free'))+'">'+d+'</div>';
+            }
+            box.innerHTML='<div class="dc-head"><button class="dc-nav" data-n="-1">\u2039</button><span class="dc-mois">'+mois+'</span><button class="dc-nav" data-n="1">\u203A</button></div>'
+              +'<div class="dc-grid dc-dows"><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div></div>'
+              +'<div class="dc-grid">'+cells+'</div>';
+            var navs=box.querySelectorAll('.dc-nav');
+            for(var k=0;k<navs.length;k++){ navs[k].addEventListener('click',function(){ view.setMonth(view.getMonth()+parseInt(this.getAttribute('data-n'),10)); render(); }); }
+          }
+          fetch(API+'/reservations/occupees/'+ID).then(function(r){ return r.json(); }).then(function(j){ if(j&&j.occupees){ occ=new Set(j.occupees); } render(); }).catch(function(){ render(); });
+        })();
+        </script>
+      </section>` : '';
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -434,6 +472,16 @@ export default async function handler(req) {
   .equip-item{ display:flex;align-items:center;gap:10px;font-size:15px;color:#374039; }
   .equip-ic{ width:22px;text-align:center;flex:none; }
   @media (max-width:600px){ .equip-grid{ grid-template-columns:1fr; } }
+  .dispo-note{ font-size:12px;color:var(--muted);margin-top:10px; }
+  .dc-head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:10px; }
+  .dc-mois{ font-weight:600;text-transform:capitalize; }
+  .dc-nav{ border:1px solid var(--border);background:#fff;border-radius:8px;padding:3px 11px;cursor:pointer;font-size:16px;color:var(--text); }
+  .dc-grid{ display:grid;grid-template-columns:repeat(7,1fr);gap:5px; }
+  .dc-dows{ font-size:11px;color:var(--muted);text-align:center;margin-bottom:5px; }
+  .dc{ aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;font-weight:600;border:1px solid var(--border); }
+  .dc-free{ background:#fff;color:#374039; }
+  .dc-taken{ background:#F1F2F4;color:#B6BBB4;text-decoration:line-through; }
+  .dc-past{ background:#F7F6F3;color:#CBD0CA; }
 
   .env-sub{ font-size:13px;color:var(--muted);margin-bottom:12px; }
   .env-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
@@ -561,6 +609,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
       ${equipementsHtml}
       ${environsHtml}
       ${tarifsHtml}
+      ${dispoHtml}
       ${explainHtml}
       ${contactHtml}
       <section class="section">
