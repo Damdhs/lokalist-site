@@ -12,6 +12,7 @@
 //  SENT: [LKL_HEB_LOT8] Bouton reserver dans l'app (deep link avec dates pre-selectionnees)
 //  SENT: [LKL_HEB_LOT9] Agenda de l'hebergeur sur le mini-site (agenda_commercants, note_privee jamais exposee)
 //  SENT: [LKL_HEB_LOT10] Mapping des nouveaux types agenda (animation, portes ouvertes, offre speciale)
+//  SENT: [LKL_HEB_LOT11] Lightbox : galerie cliquable -> plein ecran (fleches, Echap)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -285,7 +286,7 @@ export default async function handler(req) {
     // ─── Miniatures (sous le hero) ───
     const thumbs = photos.slice(1, 9);
     const thumbsHtml = thumbs.length
-      ? `<div class="thumbs">${thumbs.map((p) => `<img src="${escapeHtml(p)}" alt="${escapeHtml(nom)}" loading="lazy"/>`).join('')}</div>`
+      ? `<div class="thumbs">${thumbs.map((p, i) => `<img src="${escapeHtml(p)}" alt="${escapeHtml(nom)}" loading="lazy" data-lb="${i + 1}" style="cursor:zoom-in"/>`).join('')}</div>`
       : '';
 
     // ─── Tarifs ───
@@ -514,6 +515,34 @@ export default async function handler(req) {
         </div>
       </section>` : '';
 
+    const lightboxHtml = photos.length ? `
+      <div id="lb" class="lb" aria-hidden="true">
+        <button class="lb-btn lb-x" data-lb-act="close" aria-label="Fermer">×</button>
+        <button class="lb-btn lb-prev" data-lb-act="prev" aria-label="Precedent">\u2039</button>
+        <img class="lb-img" alt=""/>
+        <button class="lb-btn lb-next" data-lb-act="next" aria-label="Suivant">\u203A</button>
+        <div class="lb-count"></div>
+      </div>
+      <script>
+      (function(){
+        var PH = ${JSON.stringify(photos)};
+        if(!PH.length) return;
+        var lb=document.getElementById('lb'); if(!lb) return;
+        var img=lb.querySelector('.lb-img'), cnt=lb.querySelector('.lb-count');
+        var i=0, open=false;
+        function show(){ img.src=PH[i]; cnt.textContent=(i+1)+' / '+PH.length; }
+        function openAt(n){ i=((n%PH.length)+PH.length)%PH.length; open=true; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); show(); document.body.style.overflow='hidden'; }
+        function close(){ open=false; lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+        function go(d){ i=((i+d)%PH.length+PH.length)%PH.length; show(); }
+        document.addEventListener('click', function(e){
+          var t=e.target.closest('[data-lb]'); if(t){ e.preventDefault(); openAt(parseInt(t.getAttribute('data-lb'),10)||0); return; }
+          var a=e.target.closest('[data-lb-act]'); if(a){ e.stopPropagation(); var act=a.getAttribute('data-lb-act'); if(act==='close')close(); else if(act==='prev')go(-1); else go(1); return; }
+          if(open && e.target===lb) close();
+        });
+        document.addEventListener('keydown', function(e){ if(!open)return; if(e.key==='Escape')close(); else if(e.key==='ArrowLeft')go(-1); else if(e.key==='ArrowRight')go(1); });
+      })();
+      </script>` : '';
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -575,6 +604,16 @@ export default async function handler(req) {
   .hero-note .n b{ color:#FAC775; }
   .hero-note .s{ font-size:12px;opacity:.9; }
   .hero-count{ position:absolute;right:20px;bottom:16px;z-index:3;background:rgba(255,255,255,.92);color:var(--text);font-size:12px;font-weight:500;padding:4px 10px;border-radius:20px; }
+  .lb{ position:fixed;inset:0;z-index:999;display:none;align-items:center;justify-content:center;background:rgba(15,20,17,.92);padding:20px; }
+  .lb.on{ display:flex; }
+  .lb-img{ max-width:94vw;max-height:88vh;border-radius:10px;box-shadow:0 12px 60px rgba(0,0,0,.5);object-fit:contain; }
+  .lb-btn{ position:absolute;background:rgba(255,255,255,.14);color:#fff;border:none;cursor:pointer; }
+  .lb-x{ top:16px;right:18px;width:42px;height:42px;border-radius:50%;font-size:26px;line-height:1; }
+  .lb-prev,.lb-next{ top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;font-size:30px;line-height:1; }
+  .lb-prev{ left:16px; } .lb-next{ right:16px; }
+  .lb-btn:hover{ background:rgba(255,255,255,.28); }
+  .lb-count{ position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px;background:rgba(0,0,0,.4);padding:5px 12px;border-radius:20px; }
+  @media (max-width:600px){ .lb-prev,.lb-next{ width:40px;height:40px;font-size:24px; } }
 
   .thumbs{ display:flex;gap:8px;margin-top:14px;overflow-x:auto;padding-bottom:2px; }
   .thumbs img{ width:120px;height:80px;object-fit:cover;border-radius:12px;flex:none;background:var(--primary-l); }
@@ -763,7 +802,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
       ${noteAff > 0 ? `<div class="hero-note"><div class="n"><b>★</b> ${Number(noteAff).toFixed(1)}</div><div class="s">${nbAvisAff} avis</div></div>` : ''}
     </div>
   </div>
-  ${photos.length > 1 ? `<span class="hero-count">📷 ${photos.length} photos</span>` : ''}
+  ${photos.length > 1 ? `<span class="hero-count" data-lb="0" style="cursor:zoom-in">📷 ${photos.length} photos</span>` : ''}
 </section>
 
 <main class="wrap">
@@ -834,6 +873,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
   })();
 </script>
 
+${lightboxHtml}
 </body>
 </html>`;
 
