@@ -8,6 +8,7 @@
 //        + carte resa sticky, accents FR, fix filtre packs (pas de colonne demo)
 //  SENT: [LKL_HEB_LOT5] Section "Ce que propose le logement" (equipements)
 //  SENT: [LKL_HEB_LOT6] Calendrier de disponibilites (lecture, lit /reservations/occupees)
+//  SENT: [LKL_HEB_LOT7] Formulaire de reservation web (calendrier selectionnable -> POST /reservations/invite, honeypot)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -344,20 +345,50 @@ export default async function handler(req) {
       </section>` : '';
 
     const dispoHtml = peutResa ? `
-      <section class="section">
-        <h2>Disponibilités</h2>
-        <div id="dispo-cal" class="dispo-cal">Chargement…</div>
-        <p class="dispo-note">Les nuits grisées sont déjà réservées. Réservez votre séjour dans l'app Lokalist.</p>
+      <section class="section" id="resa-web">
+        <h2>Réserver votre séjour</h2>
+        <div id="rw-cal" class="rw-cal">Chargement…</div>
+        <div id="rw-sel" class="rw-sel">Choisissez vos dates dans le calendrier.</div>
+        <div id="rw-form" class="rw-form">
+          <div class="rw-row2">
+            <label class="rw-lab">Personnes<input type="number" id="rw-pers" min="1" max="30" value="2"/></label>
+            <label class="rw-lab">Logements<input type="number" id="rw-logs" min="1" max="20" value="1"/></label>
+          </div>
+          <div class="rw-row2">
+            <input id="rw-prenom" placeholder="Prénom *"/>
+            <input id="rw-nom" placeholder="Nom *"/>
+          </div>
+          <input id="rw-tel" placeholder="Téléphone *"/>
+          <input id="rw-email" type="email" placeholder="Email *"/>
+          <textarea id="rw-note" rows="2" placeholder="Note : arrivée tardive, animal… (optionnel)"></textarea>
+          <input id="rw-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0"/>
+          <button type="button" id="rw-send" class="rw-btn">Envoyer ma demande</button>
+          <div id="rw-msg"></div>
+        </div>
+        <p class="rw-legal">Sans engagement — l'hôte confirme ou refuse, vous recevrez un email. Le paiement est géré directement par l'hôte.</p>
         <script>
         (function(){
           var API='https://lokalist-api-production.up.railway.app';
           var ID=${JSON.stringify(id)};
           var occ=new Set();
           var view=new Date(); view.setDate(1);
+          var arr=null, dep=null, sending=false, done=false;
           function pad(n){ return (n<10?'0':'')+n; }
           function iso(y,m,d){ return y+'-'+pad(m+1)+'-'+pad(d); }
-          function render(){
-            var box=document.getElementById('dispo-cal'); if(!box) return;
+          function el(x){ return document.getElementById(x); }
+          function nights(){ if(!arr||!dep) return 0; return Math.round((Date.parse(dep+'T00:00:00Z')-Date.parse(arr+'T00:00:00Z'))/86400000); }
+          function rangeHasOcc(a,b){ var c=Date.parse(a+'T00:00:00Z'), e=Date.parse(b+'T00:00:00Z'); for(;c<e;c+=86400000){ if(occ.has(new Date(c).toISOString().slice(0,10))) return true; } return false; }
+          function pick(s){
+            if(!arr || (arr&&dep)){ arr=s; dep=null; }
+            else if(arr && !dep){
+              if(s<=arr){ arr=s; }
+              else if(rangeHasOcc(arr,s)){ arr=s; dep=null; }
+              else { dep=s; }
+            }
+            renderCal(); renderSel();
+          }
+          function renderCal(){
+            var box=el('rw-cal'); if(!box) return;
             var y=view.getFullYear(), m=view.getMonth();
             var first=new Date(y,m,1); var start=(first.getDay()+6)%7;
             var days=new Date(y,m+1,0).getDate();
@@ -366,16 +397,60 @@ export default async function handler(req) {
             var cells='';
             for(var i=0;i<start;i++){ cells+='<div></div>'; }
             for(var d=1;d<=days;d++){
-              var sdate=iso(y,m,d); var past=sdate<today, taken=occ.has(sdate);
-              cells+='<div class="dc '+(past?'dc-past':(taken?'dc-taken':'dc-free'))+'">'+d+'</div>';
+              var s=iso(y,m,d);
+              var past=s<today, taken=occ.has(s);
+              var inRange = arr && dep && s>=arr && s<dep;
+              var cls='rwc';
+              if(past){ cls+=' rwc-past'; } else if(taken){ cls+=' rwc-taken'; } else { cls+=' rwc-free'; }
+              if(s===arr) cls+=' rwc-arr'; else if(s===dep) cls+=' rwc-dep'; else if(inRange) cls+=' rwc-range';
+              var clickable=!past && !taken;
+              cells+='<div class="'+cls+'"'+(clickable?' data-d="'+s+'"':'')+'>'+d+'</div>';
             }
-            box.innerHTML='<div class="dc-head"><button class="dc-nav" data-n="-1">\u2039</button><span class="dc-mois">'+mois+'</span><button class="dc-nav" data-n="1">\u203A</button></div>'
-              +'<div class="dc-grid dc-dows"><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div></div>'
-              +'<div class="dc-grid">'+cells+'</div>';
-            var navs=box.querySelectorAll('.dc-nav');
-            for(var k=0;k<navs.length;k++){ navs[k].addEventListener('click',function(){ view.setMonth(view.getMonth()+parseInt(this.getAttribute('data-n'),10)); render(); }); }
+            box.innerHTML='<div class="rwc-head"><button type="button" class="rwc-nav" data-n="-1">\u2039</button><span class="rwc-mois">'+mois+'</span><button type="button" class="rwc-nav" data-n="1">\u203A</button></div>'
+              +'<div class="rwc-grid rwc-dows"><div>L</div><div>M</div><div>M</div><div>J</div><div>V</div><div>S</div><div>D</div></div>'
+              +'<div class="rwc-grid">'+cells+'</div>';
           }
-          fetch(API+'/reservations/occupees/'+ID).then(function(r){ return r.json(); }).then(function(j){ if(j&&j.occupees){ occ=new Set(j.occupees); } render(); }).catch(function(){ render(); });
+          function fmt(s){ if(!s) return '-'; var p=s.split('-'); return p[2]+'/'+p[1]; }
+          function renderSel(){
+            var sel=el('rw-sel'); if(!sel) return;
+            if(arr&&dep){ var n=nights(); sel.innerHTML='<strong>'+fmt(arr)+'</strong> \u2192 <strong>'+fmt(dep)+'</strong> \u00b7 '+n+' nuit'+(n>1?'s':''); }
+            else if(arr){ sel.textContent='Arrivée le '+fmt(arr)+' — choisissez la date de départ.'; }
+            else { sel.textContent='Choisissez vos dates dans le calendrier.'; }
+          }
+          function onClick(e){
+            var t=e.target;
+            if(t.classList.contains('rwc-nav')){ view.setMonth(view.getMonth()+parseInt(t.getAttribute('data-n'),10)); renderCal(); return; }
+            var d=t.getAttribute('data-d'); if(d){ pick(d); }
+          }
+          function emailOk(v){ var a=v.indexOf('@'); return a>0 && v.indexOf('.',a)>a+1 && v.length>5; }
+          function send(){
+            if(sending||done) return;
+            var msg=el('rw-msg'); msg.textContent=''; msg.className='';
+            if(!arr||!dep){ msg.className='rw-err'; msg.textContent='Choisissez vos dates.'; return; }
+            var prenom=el('rw-prenom').value.trim(), nom=el('rw-nom').value.trim(), tel=el('rw-tel').value.trim(), email=el('rw-email').value.trim();
+            if(!prenom||!nom||!tel||!email){ msg.className='rw-err'; msg.textContent='Prénom, nom, téléphone et email sont obligatoires.'; return; }
+            if(!emailOk(email)){ msg.className='rw-err'; msg.textContent='Email invalide.'; return; }
+            sending=true; var btn=el('rw-send'); btn.disabled=true; btn.textContent='Envoi…';
+            var payload={ commercant_id:ID, date_resa:arr, date_depart:dep,
+              nb_personnes:parseInt(el('rw-pers').value,10)||1, nb_logements:parseInt(el('rw-logs').value,10)||1,
+              contact_prenom:prenom, contact_nom:nom, contact_tel:tel, contact_email:email,
+              note:el('rw-note').value.trim()||null, website:el('rw-hp').value };
+            fetch(API+'/reservations/invite',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+              .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); })
+              .then(function(x){
+                sending=false;
+                if(x.ok && x.j && x.j.ok){ done=true; el('rw-form').innerHTML='<div class="rw-done">\u2705 Demande envoyée ! L\u2019hôte va confirmer ou refuser \u2014 vous recevrez un email.</div>'; }
+                else { btn.disabled=false; btn.textContent='Envoyer ma demande'; msg.className='rw-err'; msg.textContent=(x.j&&x.j.error)||'Envoi impossible. Réessayez.'; }
+              })
+              .catch(function(){ sending=false; btn.disabled=false; btn.textContent='Envoyer ma demande'; msg.className='rw-err'; msg.textContent='Erreur réseau. Réessayez.'; });
+          }
+          function init(){
+            var box=el('rw-cal'); if(!box) return;
+            box.addEventListener('click', onClick);
+            var btn=el('rw-send'); if(btn) btn.addEventListener('click', send);
+            renderCal(); renderSel();
+          }
+          fetch(API+'/reservations/occupees/'+ID).then(function(r){ return r.json(); }).then(function(j){ if(j&&j.occupees){ occ=new Set(j.occupees); } init(); }).catch(function(){ init(); });
         })();
         </script>
       </section>` : '';
@@ -482,6 +557,31 @@ export default async function handler(req) {
   .dc-free{ background:#fff;color:#374039; }
   .dc-taken{ background:#F1F2F4;color:#B6BBB4;text-decoration:line-through; }
   .dc-past{ background:#F7F6F3;color:#CBD0CA; }
+  .rw-cal{ max-width:380px; }
+  .rwc-head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:10px; }
+  .rwc-mois{ font-weight:600;text-transform:capitalize; }
+  .rwc-nav{ border:1px solid var(--border);background:#fff;border-radius:8px;padding:3px 11px;cursor:pointer;font-size:16px;color:var(--text); }
+  .rwc-grid{ display:grid;grid-template-columns:repeat(7,1fr);gap:5px; }
+  .rwc-dows{ font-size:11px;color:var(--muted);text-align:center;margin-bottom:5px; }
+  .rwc{ aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:8px;font-size:13px;font-weight:600;border:1px solid var(--border);background:#fff;color:#374039; }
+  .rwc-free{ cursor:pointer; }
+  .rwc-free:hover{ border-color:var(--primary); }
+  .rwc-taken{ background:#F1F2F4;color:#B6BBB4;text-decoration:line-through; }
+  .rwc-past{ background:#F7F6F3;color:#CBD0CA; }
+  .rwc-range{ background:var(--primary-l);color:var(--primary-d);border-color:var(--primary-l); }
+  .rwc-arr,.rwc-dep{ background:var(--primary);color:#04342C;border-color:var(--primary); }
+  .rw-sel{ margin-top:12px;font-size:14px;color:#374039; }
+  .rw-form{ margin-top:14px;display:flex;flex-direction:column;gap:10px;position:relative;max-width:460px; }
+  .rw-row2{ display:flex;gap:10px; }
+  .rw-row2>*{ flex:1; }
+  .rw-lab{ display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:500; }
+  .rw-form input,.rw-form textarea{ width:100%;border:1px solid var(--border);border-radius:10px;padding:11px 12px;font-size:14px;font-family:inherit;color:var(--text);background:#fff; }
+  .rw-form input[type=number]{ font-weight:600; }
+  .rw-btn{ background:var(--primary);color:#04342C;border:none;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;padding:13px;border-radius:12px;cursor:pointer; }
+  .rw-btn:disabled{ opacity:.6;cursor:default; }
+  .rw-err{ color:#C0392B;font-size:13px;font-weight:600; }
+  .rw-done{ background:var(--primary-l);color:var(--primary-d);border-radius:12px;padding:16px;font-size:15px;font-weight:600;text-align:center; }
+  .rw-legal{ font-size:12px;color:var(--muted);margin-top:12px; }
 
   .env-sub{ font-size:13px;color:var(--muted);margin-bottom:12px; }
   .env-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
