@@ -121,6 +121,10 @@
       "destination": "/api/annonce?id=:id"
     },
     {
+      "source": "/hebergement/:slug",
+      "destination": "/api/hebergement?slug=:slug"
+    },
+    {
       "source": "/pro/:id",
       "destination": "/api/pro?id=:id"
     },
