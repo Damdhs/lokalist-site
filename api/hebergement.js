@@ -9,6 +9,7 @@
 //  SENT: [LKL_HEB_LOT5] Section "Ce que propose le logement" (equipements)
 //  SENT: [LKL_HEB_LOT6] Calendrier de disponibilites (lecture, lit /reservations/occupees)
 //  SENT: [LKL_HEB_LOT7] Formulaire de reservation web (calendrier selectionnable -> POST /reservations/invite, honeypot)
+//  SENT: [LKL_HEB_LOT8] Bouton reserver dans l'app (deep link avec dates pre-selectionnees)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -365,6 +366,8 @@ export default async function handler(req) {
           <button type="button" id="rw-send" class="rw-btn">Envoyer ma demande</button>
           <div id="rw-msg"></div>
         </div>
+        <div class="rw-or"><span>ou</span></div>
+        <button type="button" id="rw-app" class="rw-app">📱 Réserver dans l'app Lokalist</button>
         <p class="rw-legal">Sans engagement — l'hôte confirme ou refuse, vous recevrez un email. Le paiement est géré directement par l'hôte.</p>
         <script>
         (function(){
@@ -444,10 +447,17 @@ export default async function handler(req) {
               })
               .catch(function(){ sending=false; btn.disabled=false; btn.textContent='Envoyer ma demande'; msg.className='rw-err'; msg.textContent='Erreur réseau. Réessayez.'; });
           }
+          function openApp(){
+            var u="lokalist://commercant/"+ID; var q=[];
+            if(arr) q.push("arrivee="+arr); if(dep) q.push("depart="+dep);
+            q.push("personnes="+(el("rw-pers").value||"2")); q.push("logements="+(el("rw-logs").value||"1"));
+            window.location.href=u+"?"+q.join("&");
+          }
           function init(){
             var box=el('rw-cal'); if(!box) return;
             box.addEventListener('click', onClick);
             var btn=el('rw-send'); if(btn) btn.addEventListener('click', send);
+            var appb=el('rw-app'); if(appb) appb.addEventListener('click', openApp);
             renderCal(); renderSel();
           }
           fetch(API+'/reservations/occupees/'+ID).then(function(r){ return r.json(); }).then(function(j){ if(j&&j.occupees){ occ=new Set(j.occupees); } init(); }).catch(function(){ init(); });
@@ -582,6 +592,10 @@ export default async function handler(req) {
   .rw-err{ color:#C0392B;font-size:13px;font-weight:600; }
   .rw-done{ background:var(--primary-l);color:var(--primary-d);border-radius:12px;padding:16px;font-size:15px;font-weight:600;text-align:center; }
   .rw-legal{ font-size:12px;color:var(--muted);margin-top:12px; }
+  .rw-or{ display:flex;align-items:center;text-align:center;color:var(--muted);font-size:12px;margin:16px 0 10px;max-width:460px; }
+  .rw-or::before,.rw-or::after{ content:"";flex:1;height:1px;background:var(--border); }
+  .rw-or span{ padding:0 12px; }
+  .rw-app{ display:block;width:100%;max-width:460px;background:var(--primary-l);color:var(--primary-d);border:none;font-weight:600;font-size:14px;padding:12px;border-radius:12px;cursor:pointer; }
 
   .env-sub{ font-size:13px;color:var(--muted);margin-bottom:12px; }
   .env-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
