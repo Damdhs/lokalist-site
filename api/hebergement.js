@@ -13,6 +13,7 @@
 //  SENT: [LKL_HEB_LOT9] Agenda de l'hebergeur sur le mini-site (agenda_commercants, note_privee jamais exposee)
 //  SENT: [LKL_HEB_LOT10] Mapping des nouveaux types agenda (animation, portes ouvertes, offre speciale)
 //  SENT: [LKL_HEB_LOT11] Lightbox : galerie cliquable -> plein ecran (fleches, Echap)
+//  SENT: [LKL_HEB_LOT12] Affichage voyageur : total / acompte / solde selon le mode
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -137,7 +138,8 @@ export default async function handler(req) {
       'photo_url','logo_url','photos','tarifs','note_moyenne','nb_avis','type_pro','actif','demo',
       'telephone','email','site_web','instagram','facebook','tiktok','lien_reservation',
       'resa_type','resa_visible','hebergement_type','prix_indicatif_nuit',
-      'capacite','nb_chambres','classement_etoiles','num_enregistrement'
+      'capacite','nb_chambres','classement_etoiles','num_enregistrement',
+      'resa_mode','lien_paiement','acompte_montant'
     ].join(',');
 
     const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=${cols}`;
@@ -369,6 +371,7 @@ export default async function handler(req) {
         <h2>Réserver votre séjour</h2>
         <div id="rw-cal" class="rw-cal">Chargement…</div>
         <div id="rw-sel" class="rw-sel">Choisissez vos dates dans le calendrier.</div>
+        <div id="rw-paie" class="rw-paie"></div>
         <div id="rw-form" class="rw-form">
           <div class="rw-row2">
             <label class="rw-lab">Personnes<input type="number" id="rw-pers" min="1" max="30" value="2"/></label>
@@ -392,6 +395,10 @@ export default async function handler(req) {
         (function(){
           var API='https://lokalist-api-production.up.railway.app';
           var ID=${JSON.stringify(id)};
+          var PRIX=${prixIndic || 0};
+          var MODE=${JSON.stringify(c.resa_mode || 'demande')};
+          var LIEN=${JSON.stringify(c.lien_paiement || '')};
+          var ACOMPTE=${Number(c.acompte_montant) || 0};
           var occ=new Set();
           var view=new Date(); view.setDate(1);
           var arr=null, dep=null, sending=false, done=false;
@@ -438,6 +445,31 @@ export default async function handler(req) {
             if(arr&&dep){ var n=nights(); sel.innerHTML='<strong>'+fmt(arr)+'</strong> \u2192 <strong>'+fmt(dep)+'</strong> \u00b7 '+n+' nuit'+(n>1?'s':''); }
             else if(arr){ sel.textContent='Arrivée le '+fmt(arr)+' — choisissez la date de départ.'; }
             else { sel.textContent='Choisissez vos dates dans le calendrier.'; }
+            renderPaie();
+          }
+          function renderPaie(){
+            var box=el('rw-paie'); if(!box) return;
+            if(!(arr&&dep)){ box.innerHTML=''; return; }
+            var n=nights();
+            var total = (PRIX>0) ? n*PRIX : 0;
+            var hasLien = LIEN && LIEN.length>0;
+            var ac = (ACOMPTE>0 && hasLien) ? ACOMPTE : 0;
+            var solde = total - ac; if(solde<0) solde=0;
+            var h='';
+            if(total>0){
+              h+='<div class="rw-paie-total">Total : <b>'+total+' \u20AC</b></div>';
+              h+='<div class="rw-paie-note">calcul\u00E9 sur le tarif nuit ('+n+' \u00D7 '+PRIX+' \u20AC) \u2014 l\u2019h\u00F4te confirme le montant exact</div>';
+            }
+            if(ac>0){
+              h+='<div class="rw-paie-line"><span>Acompte pour r\u00E9server</span><b>'+ac+' \u20AC</b></div>';
+              if(total>0){ h+='<div class="rw-paie-line"><span>Solde sur place</span><b>'+solde+' \u20AC</b></div>'; }
+              h+='<div class="rw-paie-msg">'+(MODE==='instantane'
+                ? 'R\u00E9servation confirm\u00E9e imm\u00E9diatement : versez l\u2019acompte via le lien de l\u2019h\u00F4te pour bloquer vos dates.'
+                : 'Apr\u00E8s validation de l\u2019h\u00F4te, versez l\u2019acompte via son lien. Le solde se r\u00E8gle sur place.')+'</div>';
+            } else {
+              h+='<div class="rw-paie-msg">\uD83D\uDCB6 Paiement sur place, directement avec l\u2019h\u00E9bergeur.</div>';
+            }
+            box.innerHTML=h;
           }
           function onClick(e){
             var t=e.target;
@@ -680,6 +712,11 @@ export default async function handler(req) {
   .rw-err{ color:#C0392B;font-size:13px;font-weight:600; }
   .rw-done{ background:var(--primary-l);color:var(--primary-d);border-radius:12px;padding:16px;font-size:15px;font-weight:600;text-align:center; }
   .rw-legal{ font-size:12px;color:var(--muted);margin-top:12px; }
+  .rw-paie{ margin-top:12px;max-width:360px; }
+  .rw-paie-total{ font-size:16px;color:var(--text); }
+  .rw-paie-note{ font-size:11px;color:var(--muted);margin-top:2px;line-height:1.4; }
+  .rw-paie-line{ display:flex;justify-content:space-between;gap:16px;font-size:14px;color:#374039;margin-top:6px; }
+  .rw-paie-msg{ font-size:12.5px;margin-top:10px;background:var(--primary-l);color:var(--primary-d);padding:9px 11px;border-radius:8px;line-height:1.45; }
   .rw-or{ display:flex;align-items:center;text-align:center;color:var(--muted);font-size:12px;margin:16px 0 10px;max-width:460px; }
   .rw-or::before,.rw-or::after{ content:"";flex:1;height:1px;background:var(--border); }
   .rw-or span{ padding:0 12px; }
