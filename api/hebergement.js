@@ -6,6 +6,7 @@
 //  SENT: [LKL_HEB_LOT4] Refonte desktop : hero pleine largeur (photo de
 //        couverture) + voile d'ambiance saisonnier auto, layout 2 colonnes
 //        + carte resa sticky, accents FR, fix filtre packs (pas de colonne demo)
+//  SENT: [LKL_HEB_LOT5] Section "Ce que propose le logement" (equipements)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -24,6 +25,26 @@ const HEB_LABELS = {
   gite:          'Gîte',
   meuble:        'Meublé de tourisme',
   chambre_hotes: "Chambre d'hôtes",
+};
+
+// Catalogue equipements (cle -> emoji + libelle) — LOT5
+const EQUIP_CATALOG = {
+  wifi:           { e: '📶', l: 'Wifi' },
+  parking:        { e: '🅿️', l: 'Parking' },
+  cuisine:        { e: '🍳', l: 'Cuisine équipée' },
+  lave_linge:     { e: '🧺', l: 'Lave-linge' },
+  lave_vaisselle: { e: '🍽️', l: 'Lave-vaisselle' },
+  tv:             { e: '📺', l: 'Télévision' },
+  clim:           { e: '❄️', l: 'Climatisation' },
+  chauffage:      { e: '🔥', l: 'Chauffage' },
+  cheminee:       { e: '🪵', l: 'Cheminée' },
+  terrasse:       { e: '🌿', l: 'Terrasse / jardin' },
+  piscine:        { e: '🏊', l: 'Piscine' },
+  barbecue:       { e: '🍖', l: 'Barbecue' },
+  animaux:        { e: '🐾', l: 'Animaux acceptés' },
+  pmr:            { e: '♿', l: 'Accès PMR' },
+  vue_mer:        { e: '🌊', l: 'Vue mer' },
+  petit_dej:      { e: '🥐', l: 'Petit-déjeuner' },
 };
 
 // ─── Ambiance saisonniere (calculee cote serveur) ───
@@ -136,6 +157,13 @@ export default async function handler(req) {
       const agg = agR.ok ? (await agR.json()) : [];
       if (agg && agg[0]) { avisMoyenne = Number(agg[0].note_moyenne) || 0; avisNb = agg[0].nb_avis || 0; }
     } catch (e) { console.error('[heb avis]', e); }
+
+    // ─── Equipements (colonne equipements jsonb) — requete gardee ───
+    let equipements = [];
+    try {
+      const _eqR = await fetch(`${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=equipements`, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      if (_eqR.ok) { const _eq = await _eqR.json(); if (_eq && _eq[0] && Array.isArray(_eq[0].equipements)) equipements = _eq[0].equipements; }
+    } catch (e) { console.error('[heb equipements]', e); }
 
     const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
     const fmtDate = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }); } catch { return ''; } };
@@ -305,6 +333,15 @@ export default async function handler(req) {
       : `background:${S.tint};`;
     const heroFb = mainPhoto ? '' : `<div class="hero-fb">🏡</div>`;
 
+    const equipList = (equipements || []).filter((k) => EQUIP_CATALOG[k]);
+    const equipementsHtml = equipList.length ? `
+      <section class="section">
+        <h2>Ce que propose le logement</h2>
+        <div class="equip-grid">
+          ${equipList.map((k) => `<div class="equip-item"><span class="equip-ic">${EQUIP_CATALOG[k].e}</span> ${escapeHtml(EQUIP_CATALOG[k].l)}</div>`).join('')}
+        </div>
+      </section>` : '';
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -393,6 +430,10 @@ export default async function handler(req) {
   .tarif-u{ font-size:12px;color:var(--muted); }
   .tarif-prix{ font-size:15px;font-weight:600; }
   .tarif-note{ margin-top:10px;font-size:12px;color:var(--muted); }
+  .equip-grid{ display:grid;grid-template-columns:1fr 1fr;gap:12px 20px; }
+  .equip-item{ display:flex;align-items:center;gap:10px;font-size:15px;color:#374039; }
+  .equip-ic{ width:22px;text-align:center;flex:none; }
+  @media (max-width:600px){ .equip-grid{ grid-template-columns:1fr; } }
 
   .env-sub{ font-size:13px;color:var(--muted);margin-bottom:12px; }
   .env-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
@@ -517,6 +558,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
         <p>${escapeHtml(description)}</p>
         ${c.num_enregistrement ? `<div class="enr">N° d'enregistrement : ${escapeHtml(c.num_enregistrement)}</div>` : ''}
       </section>
+      ${equipementsHtml}
       ${environsHtml}
       ${tarifsHtml}
       ${explainHtml}
