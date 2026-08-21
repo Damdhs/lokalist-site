@@ -11,6 +11,7 @@
 //  SENT: [LKL_HEB_LOT7] Formulaire de reservation web (calendrier selectionnable -> POST /reservations/invite, honeypot)
 //  SENT: [LKL_HEB_LOT8] Bouton reserver dans l'app (deep link avec dates pre-selectionnees)
 //  SENT: [LKL_HEB_LOT9] Agenda de l'hebergeur sur le mini-site (agenda_commercants, note_privee jamais exposee)
+//  SENT: [LKL_HEB_LOT10] Mapping des nouveaux types agenda (animation, portes ouvertes, offre speciale)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -488,6 +489,9 @@ export default async function handler(req) {
       if (s.indexOf('promo') > -1) return { e: '🏷️', l: 'Promotion', c: '#0F6E56', bg: '#E7F6F0' };
       if (s.indexOf('horaire') > -1) return { e: '⏰', l: 'Horaire spécial', c: '#B26A00', bg: '#FDF3E2' };
       if (s.indexOf('even') > -1 || s.indexOf('event') > -1) return { e: '🎉', l: 'Événement', c: '#0F6E56', bg: '#E7F6F0' };
+      if (s.indexOf('animation') > -1) return { e: '🎪', l: 'Animation', c: '#B83280', bg: '#FCE7F3' };
+      if (s.indexOf('porte') > -1) return { e: '🚪', l: 'Portes ouvertes', c: '#0F6E56', bg: '#E7F6F0' };
+      if (s.indexOf('offre') > -1) return { e: '💶', l: 'Offre spéciale', c: '#B26A00', bg: '#FDF3E2' };
       return { e: '📅', l: (t ? String(t) : 'À la une'), c: '#374039', bg: '#F1F2F4' };
     }
     const _fmtEvt = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long' }); } catch (e) { return ''; } };
