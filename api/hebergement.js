@@ -2,6 +2,7 @@
 //  api/hebergement.js — Vercel Edge Function
 //  SENT: [LKL_HEB_LOT1] Page HTML SSR premium pour /hebergement/:slug
 //  SENT: [LKL_HEB_LOT2] Galerie photos + multi-tarifs + logo Lokalist
+//  SENT: [LKL_HEB_LOT3] Section "A faire dans les environs" auto-geo (packs_loisir)
 //        (remplace le renard) + bloc "Comment reserver" + note prix.
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 //  - URL SEO: /hebergement/<nom-slug>-<uuid>  (uuid = 36 car.)
@@ -142,6 +143,31 @@ export default async function handler(req) {
       if (agg && agg[0]) { avisMoyenne = Number(agg[0].note_moyenne) || 0; avisNb = agg[0].nb_avis || 0; }
     } catch (e) { console.error('[heb avis]', e); }
 
+    // ─── A faire dans les environs (idees sorties geolocalisees) ───
+    let environs = [];
+    try {
+      const _hlat = Number(c.latitude), _hlng = Number(c.longitude);
+      if (!isNaN(_hlat) && !isNaN(_hlng)) {
+        const _eLat = 0.27, _eLng = 0.40; // ~30 km
+        const _ebbox = `latitude=gte.${_hlat - _eLat}&latitude=lte.${_hlat + _eLat}&longitude=gte.${_hlng - _eLng}&longitude=lte.${_hlng + _eLng}`;
+        const _eUrl = `${SUPABASE_URL}/rest/v1/packs_loisir?select=id,nom,ville,photo_url,prix_pack,prix_normal,reduction_pct,actif,latitude,longitude&actif=eq.true&demo=is.false&${_ebbox}&limit=200`;
+        const _eR = await fetch(_eUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+        const _packs = _eR.ok ? (await _eR.json()) : [];
+        const _R = 6371, _rad = function(d){ return d * Math.PI / 180; };
+        environs = (_packs || [])
+          .filter(function(p){ return p && p.latitude != null && p.longitude != null; })
+          .map(function(p){
+            const _dla = _rad(p.latitude - _hlat), _dln = _rad(p.longitude - _hlng);
+            const _a = Math.sin(_dla/2)*Math.sin(_dla/2) + Math.cos(_rad(_hlat))*Math.cos(_rad(p.latitude))*Math.sin(_dln/2)*Math.sin(_dln/2);
+            p._dist = _R * 2 * Math.atan2(Math.sqrt(_a), Math.sqrt(1 - _a));
+            return p;
+          })
+          .filter(function(p){ return p._dist <= 30; })
+          .sort(function(a, b){ return a._dist - b._dist; })
+          .slice(0, 6);
+      }
+    } catch (e) { console.error('[heb environs]', e); }
+
     const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
     const fmtDate = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }); } catch { return ''; } };
     const avisHtml = (avisListe || []).map((a) => `
@@ -273,6 +299,22 @@ export default async function handler(req) {
         </div>
       </section>`;
 
+    const _distTxt = (d) => (d < 1 ? Math.round(d*1000) + ' m' : (d < 10 ? d.toFixed(1) : String(Math.round(d))) + ' km');
+    const environsHtml = environs.length ? `
+      <section class="section">
+        <h2>A faire dans les environs</h2>
+        <p class="env-sub">Idees de sorties pres de l'hebergement, selectionnees par Lokalist.</p>
+        <div class="env-grid">
+          ${environs.map((p) => `<a class="env-card" href="/sortie/${p.id}">
+            <div class="env-media">${p.photo_url ? `<img src="${escapeHtml(p.photo_url)}" alt="${escapeHtml(p.nom||'Sortie')}" loading="lazy"/>` : `<div class="env-fb">🎉</div>`}</div>
+            <div class="env-body">
+              <div class="env-name">${escapeHtml(p.nom || 'Sortie')}</div>
+              <div class="env-meta">📍 ${p.ville ? escapeHtml(p.ville) + ' · ' : ''}${_distTxt(p._dist)}</div>
+            </div>
+          </a>`).join('')}
+        </div>
+      </section>` : '';
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -357,6 +399,16 @@ export default async function handler(req) {
   .tarif-u{ font-size:12px;color:var(--muted); }
   .tarif-prix{ font-size:15px;font-weight:600; }
   .tarif-note{ margin-top:10px;font-size:12px;color:var(--muted); }
+  .env-sub{ font-size:13px;color:var(--muted);margin-bottom:12px; }
+  .env-grid{ display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
+  .env-card{ border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;display:block;background:var(--surface); }
+  .env-media{ height:82px;background:var(--primary-l); }
+  .env-media img{ width:100%;height:100%;object-fit:cover;display:block; }
+  .env-fb{ width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:30px; }
+  .env-body{ padding:9px 11px; }
+  .env-name{ font-size:13px;font-weight:600;color:var(--text);line-height:1.3; }
+  .env-meta{ font-size:12px;color:var(--muted);margin-top:2px; }
+  @media (max-width:600px){ .env-grid{ grid-template-columns:repeat(2,1fr); } }
 
   .steps{ display:flex;flex-direction:column;gap:14px; }
   .step{ display:flex;gap:12px; }
@@ -449,6 +501,8 @@ ${ref ? `<div class="ref-banner">🎁 Invite par un ami — bienvenue sur Lokali
     <p>${escapeHtml(description)}</p>
     ${c.num_enregistrement ? `<div class="enr">N° d'enregistrement : ${escapeHtml(c.num_enregistrement)}</div>` : ''}
   </section>
+
+  ${environsHtml}
 
   ${tarifsHtml}
 
