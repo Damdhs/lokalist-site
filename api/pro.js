@@ -239,6 +239,39 @@ export default async function handler(req) {
         ${c.adresse ? `<div class="map-adr">📍 ${escapeHtml(c.adresse)}${ville ? ', ' + escapeHtml(ville) : ''}</div>` : ''}
         ${mapsLink ? `<a class="map-btn" href="${mapsLink}" target="_blank" rel="noopener">🧭 Itinéraire</a>` : ''}
       </section>` : '';
+    // LKL_PRO_MENU_V1 : carte de menu (restaurant)
+    let menuItems = [];
+    if (c.type_pro === 'restaurant') {
+      try {
+        const _mu = `${SUPABASE_URL}/rest/v1/restaurant_menu?commercant_id=eq.${id}&actif=eq.true&order=section.asc,ordre.asc&select=nom,description,prix,section,photo_url,signature`;
+        const _mr = await fetch(_mu, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+        if (_mr.ok) menuItems = await _mr.json();
+      } catch (e) { console.error('[pro menu]', e); }
+    }
+    const _fmtPrix = (p) => { const n = Number(p); if (isNaN(n)) return ''; return (Number.isInteger(n) ? String(n) : n.toFixed(2).replace('.', ',')) + ' €'; };
+    const _menuSecs = [];
+    (menuItems || []).forEach((it) => {
+      const sec = ((it.section || 'Menu').trim()) || 'Menu';
+      let grp = _menuSecs.find((g) => g.sec === sec);
+      if (!grp) { grp = { sec, items: [] }; _menuSecs.push(grp); }
+      grp.items.push(it);
+    });
+    const menuHtml = _menuSecs.length ? `
+      <section class="section">
+        <h2>La carte</h2>
+        ${_menuSecs.map((g) => `
+          <div class="menu-sec">
+            <div class="menu-sec-t">${escapeHtml(g.sec)}</div>
+            ${g.items.map((it) => `
+              <div class="menu-item">
+                ${it.photo_url ? `<img class="menu-img" src="${escapeHtml(it.photo_url)}" alt="${escapeHtml(it.nom || '')}" loading="lazy"/>` : ''}
+                <div class="menu-body">
+                  <div class="menu-line"><span class="menu-nom">${escapeHtml(it.nom || '')}${it.signature ? ` <span class="menu-sig">⭐ Signature</span>` : ''}</span>${it.prix != null ? `<span class="menu-prix">${_fmtPrix(it.prix)}</span>` : ''}</div>
+                  ${it.description ? `<div class="menu-desc">${escapeHtml(it.description)}</div>` : ''}
+                </div>
+              </div>`).join('')}
+          </div>`).join('')}
+      </section>` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -354,6 +387,19 @@ export default async function handler(req) {
   .map-frame{ width:100%;height:260px;border:0;display:block; }
   .map-adr{ font-size:14px;color:#2A332E;margin-bottom:12px; }
   .map-btn{ display:inline-flex;align-items:center;gap:8px;background:var(--primary-l);color:var(--primary-d);padding:11px 18px;border-radius:12px;font-weight:600;text-decoration:none;font-size:14px; }
+  /* LKL_PRO_MENU_V1 : carte de menu resto */
+  .menu-sec{ margin-top:16px; }
+  .menu-sec:first-child{ margin-top:2px; }
+  .menu-sec-t{ font-family:'Syne';font-weight:700;font-size:13px;color:var(--primary-d);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px; }
+  .menu-item{ display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border); }
+  .menu-item:last-child{ border-bottom:0; }
+  .menu-img{ width:64px;height:64px;object-fit:cover;border-radius:10px;flex:0 0 auto; }
+  .menu-body{ flex:1;min-width:0; }
+  .menu-line{ display:flex;align-items:baseline;justify-content:space-between;gap:10px; }
+  .menu-nom{ font-weight:600;font-size:15px; }
+  .menu-sig{ font-size:11px;font-weight:600;color:var(--accent);white-space:nowrap; }
+  .menu-prix{ font-family:'Syne';font-weight:700;color:var(--primary-d);white-space:nowrap; }
+  .menu-desc{ font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5; }
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
 
@@ -401,6 +447,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
     ${c.points_par_scan > 0 ? `<div class="points-badge">📱 <span>Scanne en boutique et gagne <strong>${c.points_par_scan} pts</strong></span></div>` : ''}
   </section>
 
+  ${menuHtml}
   ${horairesHtml}
   ${contactHtml}
   ${carteHtml}
