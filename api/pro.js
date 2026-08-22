@@ -90,7 +90,7 @@ export default async function handler(req) {
 
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,horaires,mode_points,points_par_euro,type_recompense,recompense_euros_seuil,recompense_euros_montant,recompense_tampons_seuil,recompense_tampons_libelle';
+    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,afficher_email,afficher_telephone,horaires,mode_points,points_par_euro,type_recompense,recompense_euros_seuil,recompense_euros_montant,recompense_tampons_seuil,recompense_tampons_libelle';
     const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=${cols}`;
     const r = await fetch(apiUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound("Erreur lors du chargement");
@@ -153,8 +153,8 @@ export default async function handler(req) {
       ...(c.adresse && { "address": { "@type": "PostalAddress", "streetAddress": c.adresse, "addressLocality": ville, "addressCountry": "FR" } }),
       ...((c.latitude && c.longitude) && { "geo": { "@type": "GeoCoordinates", "latitude": Number(c.latitude), "longitude": Number(c.longitude) } }),
       ...(noteAff > 0 && { "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(noteAff).toFixed(1), "reviewCount": nbAvisAff || 0 } }),
-      ...(c.telephone && { telephone: c.telephone }),
-      ...(c.email && { email: c.email }),
+      ...(c.telephone && c.afficher_telephone !== false && { telephone: c.telephone }),
+      ...(c.email && c.afficher_email !== false && { email: c.email }),
       ...((c.site_web || c.instagram || c.facebook || c.tiktok) && { sameAs: [
         ...(c.site_web ? [normUrl(c.site_web)] : []),
         ...(c.instagram ? [socialUrl('instagram', c.instagram)] : []),
@@ -175,8 +175,8 @@ export default async function handler(req) {
 
     // ─── Contact ───
     const contactRows = [];
-    if (c.telephone) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(c.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(c.telephone)}</span></span></a>`);
-    if (c.email)     contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(c.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(c.email)}</span></span></a>`);
+    if (c.telephone && c.afficher_telephone !== false) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(c.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(c.telephone)}</span></span></a>`);
+    if (c.email && c.afficher_email !== false) contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(c.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(c.email)}</span></span></a>`);
     if (c.adresse)   contactRows.push(`<div class="ct-row"><span class="ct-ic">📍</span><span class="ct-body"><span class="ct-lab">Adresse</span><span class="ct-val">${escapeHtml(c.adresse)}${ville ? ', ' + escapeHtml(ville) : ''}</span></span></div>`);
     const socialChips = [];
     if (c.site_web)  socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(c.site_web))}" target="_blank" rel="noopener nofollow">🌐 Site web</a>`);
@@ -533,3 +533,5 @@ ${lightboxHtml}
     return pageNotFound('Erreur serveur');
   }
 }
+
+// LKL_PRO_CONTACTPRIV_V1

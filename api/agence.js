@@ -103,8 +103,8 @@ export default async function handler(req) {
       ...((adresse || villeLieu) && { "address": { "@type": "PostalAddress", "streetAddress": adresse || undefined, "addressLocality": villeLieu || undefined, "addressCountry": "FR" } }),
       ...((a.latitude && a.longitude) && { "geo": { "@type": "GeoCoordinates", "latitude": Number(a.latitude), "longitude": Number(a.longitude) } }),
       ...(avisMoyenne > 0 && { "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(avisMoyenne).toFixed(1), "reviewCount": avisNb } }),
-      ...(a.telephone && { telephone: a.telephone }),
-      ...(a.email && { email: a.email }),
+      ...(a.telephone && a.afficher_telephone !== false && { telephone: a.telephone }),
+      ...(a.email && a.afficher_email !== false && { email: a.email }),
       ...((a.site_web || a.facebook_url || a.instagram_url || a.linkedin_url) && { sameAs: [
         ...(a.site_web ? [normUrl(a.site_web)] : []),
         ...(a.facebook_url ? [normUrl(a.facebook_url)] : []),
@@ -138,8 +138,8 @@ export default async function handler(req) {
 
     // ─── Contact ───
     const contactRows = [];
-    if (a.telephone) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(a.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(a.telephone)}</span></span></a>`);
-    if (a.email)     contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(a.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(a.email)}</span></span></a>`);
+    if (a.telephone && a.afficher_telephone !== false) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(a.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(a.telephone)}</span></span></a>`);
+    if (a.email && a.afficher_email !== false) contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(a.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(a.email)}</span></span></a>`);
     if (adresse)     contactRows.push(`<div class="ct-row"><span class="ct-ic">📍</span><span class="ct-body"><span class="ct-lab">Adresse</span><span class="ct-val">${escapeHtml(adresse)}</span></span></div>`);
     const socialChips = [];
     if (a.site_web)      socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(a.site_web))}" target="_blank" rel="noopener nofollow">🌐 Site web</a>`);
@@ -347,3 +347,5 @@ export default async function handler(req) {
     return pageNotFound('Erreur serveur');
   }
 }
+
+// LKL_AGENCE_CONTACTPRIV_V1

@@ -67,7 +67,7 @@ export default async function handler(req) {
     const ref = sanitizeRef(url.searchParams.get('ref'));
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,note_moyenne,nb_avis,rayon_intervention,actif,demo,suspendu_plainte,telephone,email,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
+    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,note_moyenne,nb_avis,rayon_intervention,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
     const r = await fetch(`${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=${cols}`, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound('Erreur lors du chargement');
     const list = await r.json();
@@ -127,8 +127,8 @@ export default async function handler(req) {
       ...((!masque && a.adresse) && { "address": { "@type": "PostalAddress", "streetAddress": a.adresse, "addressLocality": ville, "postalCode": a.code_postal || undefined, "addressCountry": "FR" } }),
       ...((!masque && a.latitude && a.longitude) && { "geo": { "@type": "GeoCoordinates", "latitude": Number(a.latitude), "longitude": Number(a.longitude) } }),
       ...(a.note_moyenne > 0 && { "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(a.note_moyenne).toFixed(1), "reviewCount": a.nb_avis || 0 } }),
-      ...(a.telephone && { telephone: a.telephone }),
-      ...(a.email && { email: a.email }),
+      ...(a.telephone && a.afficher_telephone !== false && { telephone: a.telephone }),
+      ...(a.email && a.afficher_email !== false && { email: a.email }),
       ...((a.site_web || a.instagram || a.facebook || a.tiktok) && { sameAs: [
         ...(a.site_web ? [normUrl(a.site_web)] : []),
         ...(a.instagram ? [socialUrl('instagram', a.instagram)] : []),
@@ -160,8 +160,8 @@ export default async function handler(req) {
 
     // ─── Contact ───
     const contactRows = [];
-    if (a.telephone) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(a.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(a.telephone)}</span></span></a>`);
-    if (a.email)     contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(a.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(a.email)}</span></span></a>`);
+    if (a.telephone && a.afficher_telephone !== false) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(a.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(a.telephone)}</span></span></a>`);
+    if (a.email && a.afficher_email !== false) contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(a.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(a.email)}</span></span></a>`);
     if (!masque && a.adresse) contactRows.push(`<div class="ct-row"><span class="ct-ic">📍</span><span class="ct-body"><span class="ct-lab">Adresse</span><span class="ct-val">${escapeHtml(a.adresse)}${ville ? ', ' + escapeHtml(ville) : ''}</span></span></div>`);
     const socialChips = [];
     if (a.site_web)  socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(a.site_web))}" target="_blank" rel="noopener nofollow">🌐 Site web</a>`);
@@ -380,3 +380,5 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
     return pageNotFound('Erreur serveur');
   }
 }
+
+// LKL_ART_CONTACTPRIV_V1
