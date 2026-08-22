@@ -67,7 +67,7 @@ export default async function handler(req) {
     const ref = sanitizeRef(url.searchParams.get('ref'));
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,note_moyenne,nb_avis,rayon_intervention,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
+    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,photo_couverture,note_moyenne,nb_avis,rayon_intervention,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
     const r = await fetch(`${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=${cols}`, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound('Erreur lors du chargement');
     const list = await r.json();
@@ -189,6 +189,8 @@ export default async function handler(req) {
         ${mapsLink ? `<a class="map-btn" href="${mapsLink}" target="_blank" rel="noopener">🧭 Itinéraire</a>` : ''}
       </section>`;
 
+    const couv = a.photo_couverture || null;
+    const heroCouvStyle = couv ? ` style="background-image:linear-gradient(180deg,rgba(4,20,17,0.30),rgba(4,20,17,0.62)),url('${escapeHtml(couv)}');background-size:cover;background-position:center;"` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -313,7 +315,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
   </div>
 </header>
 
-<section class="hero">
+<section class="hero"${heroCouvStyle}>
   <div class="hero-ov"></div>
   <div class="hero-in">
     <div class="hero-top">${heroBadges.join('')}</div>
@@ -382,3 +384,5 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 }
 
 // LKL_ART_CONTACTPRIV_V1
+
+// LKL_ART_COUV_V1

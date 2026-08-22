@@ -166,6 +166,8 @@ export default async function handler(req) {
         ${mapsLink ? `<a class="map-btn" href="${mapsLink}" target="_blank" rel="noopener">🧭 Itinéraire</a>` : ''}
       </section>` : '';
 
+    const couv = a.photo_couverture || null;
+    const heroCouvStyle = couv ? ` style="background-image:linear-gradient(180deg,rgba(4,20,17,0.30),rgba(4,20,17,0.62)),url('${escapeHtml(couv)}');background-size:cover;background-position:center;"` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -282,7 +284,7 @@ export default async function handler(req) {
   </div>
 </header>
 
-<section class="hero">
+<section class="hero"${heroCouvStyle}>
   <div class="hero-ov"></div>
   <div class="hero-in">
     <div class="hero-top">${heroBadges.join('')}</div>
@@ -349,3 +351,5 @@ export default async function handler(req) {
 }
 
 // LKL_AGENCE_CONTACTPRIV_V1
+
+// LKL_AGENCE_COUV_V1

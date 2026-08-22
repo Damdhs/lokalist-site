@@ -90,7 +90,7 @@ export default async function handler(req) {
 
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,afficher_email,afficher_telephone,horaires,mode_points,points_par_euro,type_recompense,recompense_euros_seuil,recompense_euros_montant,recompense_tampons_seuil,recompense_tampons_libelle';
+    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,photo_couverture,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,afficher_email,afficher_telephone,horaires,mode_points,points_par_euro,type_recompense,recompense_euros_seuil,recompense_euros_montant,recompense_tampons_seuil,recompense_tampons_libelle';
     const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=${cols}`;
     const r = await fetch(apiUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound("Erreur lors du chargement");
@@ -137,7 +137,7 @@ export default async function handler(req) {
     const description = c.description || `${typeInfo.label}${ville ? ' à ' + ville : ''} — sur Lokalist, l'app de la vie locale`;
     const descShort   = (description.length > 160 ? description.slice(0, 157) + '...' : description);
     const photos      = Array.isArray(c.photos) ? c.photos.filter((p) => typeof p === 'string' && p.trim()) : [];
-    const mainPhoto   = photos[0] || c.photo_url || null;
+    const mainPhoto   = c.photo_couverture || photos[0] || c.photo_url || null;
     const photoOg     = mainPhoto || `${SITE_URL}/images/og-default.jpg`;
     const ogImage = `${SITE_URL}/api/og-pro?id=${id}`; // LKL_PRO_OG_V1
     const noteAff     = (avisNb > 0) ? avisMoyenne : (Number(c.note_moyenne) || 0);
@@ -530,3 +530,5 @@ ${lightboxHtml}
 }
 
 // LKL_PRO_CONTACTPRIV_V1
+
+// LKL_PRO_COUV_V1
