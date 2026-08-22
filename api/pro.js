@@ -225,6 +225,20 @@ export default async function handler(req) {
         document.addEventListener('keydown', function(e){ if(!open)return; if(e.key==='Escape')close(); else if(e.key==='ArrowLeft')go(-1); else if(e.key==='ArrowRight')go(1); });
       })();
       </script>` : '';
+    // LKL_PRO_CARTE_V1 : localisation (carte OSM + itineraire)
+    const _lat = Number(c.latitude), _lng = Number(c.longitude);
+    const hasGeo = !isNaN(_lat) && !isNaN(_lng) && (_lat !== 0 || _lng !== 0);
+    const _mq = encodeURIComponent(`${c.adresse || ''} ${ville}`.trim());
+    const mapsLink = hasGeo
+      ? `https://www.google.com/maps/dir/?api=1&destination=${_lat},${_lng}`
+      : ((c.adresse || ville) ? `https://www.google.com/maps/search/?api=1&query=${_mq}` : '');
+    const carteHtml = (hasGeo || c.adresse) ? `
+      <section class="section">
+        <h2>Où nous trouver</h2>
+        ${hasGeo ? `<div class="map-wrap"><iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.openstreetmap.org/export/embed.html?bbox=${_lng-0.004}%2C${_lat-0.003}%2C${_lng+0.004}%2C${_lat+0.003}&layer=mapnik&marker=${_lat}%2C${_lng}" title="Carte de ${escapeHtml(nom)}"></iframe></div>` : ''}
+        ${c.adresse ? `<div class="map-adr">📍 ${escapeHtml(c.adresse)}${ville ? ', ' + escapeHtml(ville) : ''}</div>` : ''}
+        ${mapsLink ? `<a class="map-btn" href="${mapsLink}" target="_blank" rel="noopener">🧭 Itinéraire</a>` : ''}
+      </section>` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -335,6 +349,11 @@ export default async function handler(req) {
   .lb-prev{ left:16px;top:50%;transform:translateY(-50%); }
   .lb-next{ right:16px;top:50%;transform:translateY(-50%); }
   .lb-count{ position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px; }
+  /* LKL_PRO_CARTE_V1 : localisation */
+  .map-wrap{ border-radius:14px;overflow:hidden;border:1px solid var(--border);margin-bottom:12px; }
+  .map-frame{ width:100%;height:260px;border:0;display:block; }
+  .map-adr{ font-size:14px;color:#2A332E;margin-bottom:12px; }
+  .map-btn{ display:inline-flex;align-items:center;gap:8px;background:var(--primary-l);color:var(--primary-d);padding:11px 18px;border-radius:12px;font-weight:600;text-decoration:none;font-size:14px; }
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
 
@@ -384,6 +403,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 
   ${horairesHtml}
   ${contactHtml}
+  ${carteHtml}
 
   <section class="section">
     <h2>Avis${nbAvisAff > 0 ? ` (${nbAvisAff})` : ''}</h2>
