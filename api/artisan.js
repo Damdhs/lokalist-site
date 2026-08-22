@@ -338,7 +338,6 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
     <p>${escapeHtml(description)}</p>
     <div class="apropos-meta">
       ${a.rayon_intervention ? `<div>📍 Intervient dans un rayon de ${a.rayon_intervention} km</div>` : ''}
-      ${a.type_clientele ? `<div>👥 ${escapeHtml(a.type_clientele)}</div>` : ''}
       ${gerant ? `<div>👤 Gérant : ${escapeHtml(gerant)}</div>` : ''}
       ${a.urgence === true ? `<div>⚡ Interventions d'urgence possibles</div>` : ''}
     </div>
@@ -386,3 +385,5 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 // LKL_ART_CONTACTPRIV_V1
 
 // LKL_ART_COUV_V1
+
+// LKL_ART_NOCLIENTELE_V1
