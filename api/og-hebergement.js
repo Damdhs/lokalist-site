@@ -80,15 +80,21 @@ const IC_PIN   = svg(26, 26, 24, p_('M12 2C7.6 2 4 5.6 4 10c0 5.4 8 12 8 12s8-6.
 const IC_STAR  = svg(28, 28, 24, p_('M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z', { fill: '#FAC775' }));
 
 function brandPill(logo) {
-  const inner = (logo && logo.dataUrl && logo.w > 0)
-    ? [ h('img', { src: logo.dataUrl, style: { height: '40px', width: Math.round(40 * logo.w / logo.h) + 'px', objectFit: 'contain' } }) ]
-    : [
-        h('div', { style: { display: 'flex', width: '38px', height: '38px', borderRadius: '10px', background: PD, alignItems: 'center', justifyContent: 'center', fontFamily: 'Syne', fontWeight: 800, fontSize: '23px', color: '#fff' } }, 'L'),
-        h('div', { style: { display: 'flex', fontFamily: 'Syne', fontWeight: 800, fontSize: '28px' } },
-          h('span', { style: { display: 'flex', color: PD } }, 'Lokal'),
-          h('span', { style: { display: 'flex', color: ACC } }, 'ist')),
-      ];
-  return h('div', { style: { display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(255,255,255,0.96)', borderRadius: '999px', padding: '11px 24px 11px 16px' } }, ...inner);
+  const hasLogo = logo && logo.dataUrl && logo.w > 0 && logo.h > 0;
+  const wide = hasLogo && (logo.w / logo.h) > 1.9; // logo large = contient deja le wordmark
+
+  const mark = hasLogo
+    ? h('img', { src: logo.dataUrl, style: { height: '42px', width: Math.round(42 * logo.w / logo.h) + 'px', objectFit: 'contain' } })
+    : h('div', { style: { display: 'flex', width: '38px', height: '38px', borderRadius: '10px', background: PD, alignItems: 'center', justifyContent: 'center', fontFamily: 'Syne', fontWeight: 800, fontSize: '23px', color: '#fff' } }, 'L');
+
+  const wordmark = h('div', { style: { display: 'flex', fontFamily: 'Syne', fontWeight: 800, fontSize: '28px' } },
+    h('span', { style: { display: 'flex', color: PD } }, 'Lokal'),
+    h('span', { style: { display: 'flex', color: ACC } }, 'ist'));
+
+  // logo large (deja le mot) -> image seule ; sinon icone/repli + wordmark
+  const children = wide ? [mark] : [mark, wordmark];
+  const padRight = wide ? '20px' : '24px';
+  return h('div', { style: { display: 'flex', alignItems: 'center', gap: '11px', background: 'rgba(255,255,255,0.96)', borderRadius: '999px', padding: '10px ' + padRight + ' 10px 13px' } }, ...children);
 }
 
 function buildCard({ nom, ville, typeLabel, prix, note, photoDataUrl, logo, tint }) {
