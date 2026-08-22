@@ -16,6 +16,7 @@
 //  SENT: [LKL_HEB_LOT12] Affichage voyageur : total / acompte / solde selon le mode
 //  SENT: [LKL_HEB_LOT13] Partage (Web Share API) + QR code telechargeable (fiche publique)
 //  SENT: [LKL_HEB_LOT14] og:image + twitter:image -> carte OG brandee (api/og-hebergement)
+//  SENT: [LKL_HEB_LOT15] Bloc Infos pratiques (check-in/out, caution, reglement, rappel animaux/wifi)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -141,7 +142,7 @@ export default async function handler(req) {
       'telephone','email','site_web','instagram','facebook','tiktok','lien_reservation',
       'resa_type','resa_visible','hebergement_type','prix_indicatif_nuit',
       'capacite','nb_chambres','classement_etoiles','num_enregistrement',
-      'resa_mode','lien_paiement','acompte_montant'
+      'resa_mode','lien_paiement','acompte_montant','checkin_heure','checkout_heure','caution_montant','reglement'
     ].join(',');
 
     const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=${cols}`;
@@ -578,6 +579,26 @@ export default async function handler(req) {
       })();
       </script>` : '';
 
+    // --- Infos pratiques (LOT15) ---
+    const _checkin   = (c.checkin_heure  || '').trim();
+    const _checkout  = (c.checkout_heure || '').trim();
+    const _caution   = Number(c.caution_montant) || 0;
+    const _reglement = (c.reglement || '').trim();
+    const _pAnimaux  = (equipements || []).indexOf('animaux') > -1;
+    const _pWifi     = (equipements || []).indexOf('wifi') > -1;
+    const _hasPratik = !!(_checkin || _checkout || _caution > 0 || _reglement);
+    const _pRows = [];
+    if (_checkin)   _pRows.push(`<div class="pratik-row"><span class="pratik-ic">🕓</span><div><div class="pratik-lab">Arrivée</div><div class="pratik-val">${escapeHtml(_checkin)}</div></div></div>`);
+    if (_checkout)  _pRows.push(`<div class="pratik-row"><span class="pratik-ic">🕚</span><div><div class="pratik-lab">Départ</div><div class="pratik-val">${escapeHtml(_checkout)}</div></div></div>`);
+    if (_hasPratik) _pRows.push(`<div class="pratik-row"><span class="pratik-ic">💶</span><div><div class="pratik-lab">Caution</div><div class="pratik-val">${_caution > 0 ? _caution + ' €' : 'Aucune caution'}</div></div></div>`);
+    if (_pAnimaux)  _pRows.push(`<div class="pratik-row"><span class="pratik-ic">🐾</span><div><div class="pratik-lab">Animaux</div><div class="pratik-val">Acceptés</div></div></div>`);
+    if (_pWifi)     _pRows.push(`<div class="pratik-row"><span class="pratik-ic">📶</span><div><div class="pratik-lab">Wifi</div><div class="pratik-val">Oui</div></div></div>`);
+    const infosHtml = _hasPratik ? `
+      <section class="section">
+        <h2>Infos pratiques</h2>
+        <div class="pratik-grid">${_pRows.join('')}</div>
+        ${_reglement ? `<div class="pratik-note"><div class="pratik-lab">Bon à savoir</div><p>${escapeHtml(_reglement)}</p></div>` : ''}
+      </section>` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -815,6 +836,16 @@ export default async function handler(req) {
   .qrm-url{ font-size:12px;color:var(--muted);margin-top:12px;word-break:break-all; }
   .lkl-toast{ position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;font-size:14px;font-weight:500;padding:12px 20px;border-radius:12px;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:70; }
   .lkl-toast.on{ opacity:1;transform:translateX(-50%) translateY(0); }
+  /* LKL_HEB_LOT15 : infos pratiques */
+  .pratik-grid{ display:grid;grid-template-columns:repeat(2,1fr);gap:14px 20px;margin-top:6px; }
+  .pratik-row{ display:flex;align-items:flex-start;gap:11px; }
+  .pratik-ic{ font-size:22px;line-height:1.2;flex:0 0 auto; }
+  .pratik-lab{ font-size:12px;color:var(--muted);font-weight:500; }
+  .pratik-val{ font-size:15px;color:var(--text);font-weight:600; }
+  .pratik-note{ margin-top:16px;padding:14px 16px;background:var(--primary-l);border-radius:12px; }
+  .pratik-note .pratik-lab{ margin-bottom:4px; }
+  .pratik-note p{ font-size:14px;color:#374039;line-height:1.6; }
+  @media (max-width:600px){ .pratik-grid{ grid-template-columns:1fr; } }
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
 
@@ -880,6 +911,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
         ${c.num_enregistrement ? `<div class="enr">N° d'enregistrement : ${escapeHtml(c.num_enregistrement)}</div>` : ''}
       </section>
       ${equipementsHtml}
+      ${infosHtml}
       ${agendaHtml}
       ${environsHtml}
       ${tarifsHtml}
