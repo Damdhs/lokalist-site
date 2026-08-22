@@ -956,7 +956,7 @@ ${eventsLd}
     <a class='projet-cta-btn' href='${SITE_URL}/deposer-projet'>Déposer un projet</a>
   </div>
   <div class='evenement-cta'>
-    <div class='evenement-cta-txt'><strong>🎉 Un événement à ${escapeHtml(ville)} ? Concert, brocante, marché…</strong><span>Organisateur, association, commerçant : publiez votre animation locale gratuitement.</span></div>
+    <div class='evenement-cta-txt'><strong>🎉 Un événement à ${escapeHtml(ville)} ? Concert, brocante, marché…</strong><span>Organisateur, association, commerçant : publiez votre animation locale.</span></div>
     <a class='evenement-cta-btn' href='${SITE_URL}/proposer-un-evenement'>Proposer un événement</a>
   </div>
   ${secArtisans}
@@ -982,7 +982,7 @@ ${eventsLd}
       <a class="serv-card" href="${SITE_URL}/proposer-un-evenement">
         <div class="serv-emoji">📣</div>
         <div class="serv-t">Proposer un événement</div>
-        <div class="serv-d">Organisateur ? Publiez votre animation locale gratuitement</div>
+        <div class="serv-d">Organisateur ? Publiez votre animation locale</div>
       </a>
       <a class="serv-card" href="${SITE_URL}/deposer-projet">
         <div class="serv-emoji">🛠️</div>

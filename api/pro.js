@@ -139,6 +139,7 @@ export default async function handler(req) {
     const photos      = Array.isArray(c.photos) ? c.photos.filter((p) => typeof p === 'string' && p.trim()) : [];
     const mainPhoto   = photos[0] || c.photo_url || null;
     const photoOg     = mainPhoto || `${SITE_URL}/images/og-default.jpg`;
+    const ogImage = `${SITE_URL}/api/og-pro?id=${id}`; // LKL_PRO_OG_V1
     const noteAff     = (avisNb > 0) ? avisMoyenne : (Number(c.note_moyenne) || 0);
     const nbAvisAff   = (avisNb > 0) ? avisNb : (Number(c.nb_avis) || 0);
     const horaires    = (c.horaires || '').trim();
@@ -284,7 +285,7 @@ export default async function handler(req) {
 <meta property="og:site_name" content="Lokalist"/>
 <meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
-<meta property="og:image" content="${escapeHtml(photoOg)}"/>
+<meta property="og:image" content="${escapeHtml(ogImage)}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:url" content="${canonical}"/>
@@ -292,7 +293,7 @@ export default async function handler(req) {
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
-<meta name="twitter:image" content="${escapeHtml(photoOg)}"/>
+<meta name="twitter:image" content="${escapeHtml(ogImage)}"/>
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 <link rel="icon" href="/favicon.ico"/>
