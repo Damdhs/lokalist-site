@@ -90,7 +90,7 @@ export default async function handler(req) {
 
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,horaires';
+    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,horaires,mode_points,points_par_euro,type_recompense,recompense_euros_seuil,recompense_euros_montant,recompense_tampons_seuil,recompense_tampons_libelle';
     const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=${cols}`;
     const r = await fetch(apiUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound("Erreur lors du chargement");
@@ -283,6 +283,18 @@ export default async function handler(req) {
       metaDesc = `${_vt}. ${descShort}`;
       if (metaDesc.length > 160) metaDesc = metaDesc.slice(0, 159).replace(/\s+\S*$/, '') + '…';
     }
+    // LKL_PRO_FIDELITE_V1 : programme de fidelite (si recompense configuree)
+    const _rEuros = c.type_recompense === 'euros' && c.recompense_euros_seuil && c.recompense_euros_montant;
+    const _rTampons = c.type_recompense === 'tampons' && c.recompense_tampons_seuil && c.recompense_tampons_libelle;
+    const _recompense = _rEuros
+      ? `${c.recompense_euros_montant} € offerts tous les ${c.recompense_euros_seuil} points`
+      : (_rTampons ? `${escapeHtml(c.recompense_tampons_libelle)} tous les ${c.recompense_tampons_seuil} tampons` : '');
+    const fideliteHtml = _recompense ? `
+      <section class="section">
+        <h2>Programme de fidélité</h2>
+        <div class="fid-reward">🎁 ${_recompense}</div>
+        ${c.points_par_euro ? `<div class="fid-sub">Cumulez ${c.points_par_euro} point${Number(c.points_par_euro) > 1 ? 's' : ''} par euro dépensé, directement dans l'app.</div>` : `<div class="fid-sub">Cumulez des points à chaque passage, directement dans l'app.</div>`}
+      </section>` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -411,6 +423,9 @@ export default async function handler(req) {
   .menu-sig{ font-size:11px;font-weight:600;color:var(--accent);white-space:nowrap; }
   .menu-prix{ font-family:'Syne';font-weight:700;color:var(--primary-d);white-space:nowrap; }
   .menu-desc{ font-size:13px;color:var(--muted);margin-top:2px;line-height:1.5; }
+  /* LKL_PRO_FIDELITE_V1 : programme de fidelite */
+  .fid-reward{ display:flex;align-items:center;gap:10px;background:var(--primary-l);border-radius:12px;padding:16px;font-size:16px;font-weight:600;color:var(--primary-d); }
+  .fid-sub{ font-size:14px;color:var(--muted);margin-top:10px; }
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
 
@@ -459,6 +474,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
   </section>
 
   ${menuHtml}
+  ${fideliteHtml}
   ${horairesHtml}
   ${contactHtml}
   ${carteHtml}
