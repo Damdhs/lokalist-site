@@ -15,6 +15,7 @@
 //  SENT: [LKL_HEB_LOT11] Lightbox : galerie cliquable -> plein ecran (fleches, Echap)
 //  SENT: [LKL_HEB_LOT12] Affichage voyageur : total / acompte / solde selon le mode
 //  SENT: [LKL_HEB_LOT13] Partage (Web Share API) + QR code telechargeable (fiche publique)
+//  SENT: [LKL_HEB_LOT14] og:image + twitter:image -> carte OG brandee (api/og-hebergement)
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -260,6 +261,7 @@ export default async function handler(req) {
     const slugCanon = `${slugify(nom)}-${id}`;
     const canonical = `${SITE_URL}/hebergement/${slugCanon}`;
     const deepLink  = `lokalist://commercant/${id}`;
+    const ogImage = `${SITE_URL}/api/og-hebergement?id=${id}`;
 
     const jsonLd = {
       "@context": "https://schema.org", "@type": "LodgingBusiness",
@@ -588,7 +590,7 @@ export default async function handler(req) {
 <meta property="og:site_name" content="Lokalist"/>
 <meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
-<meta property="og:image" content="${escapeHtml(photoOg)}"/>
+<meta property="og:image" content="${escapeHtml(ogImage)}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:url" content="${canonical}"/>
@@ -596,7 +598,7 @@ export default async function handler(req) {
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
-<meta name="twitter:image" content="${escapeHtml(photoOg)}"/>
+<meta name="twitter:image" content="${escapeHtml(ogImage)}"/>
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
 <link rel="icon" href="/favicon.ico"/>
