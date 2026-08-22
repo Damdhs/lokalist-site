@@ -1,9 +1,8 @@
 // ════════════════════════════════════════════════════════════════
 //  api/pro.js — Vercel Edge Function
-//  Page HTML SSR pour /pro/:id (fiche commerçant / resto / service / loisir)
-//  - Méta Open Graph dynamiques (preview WhatsApp/FB/Twitter)
-//  - Capture du code parrain ?ref= -> localStorage (modèle i.html)
-//  - Deep link lokalist://commercant/:id
+//  SENT: [LKL_PRO_PREMIUM_V1] Fiche pro premium (socle : hero + logo + horaires + contact + avis)
+//  Page HTML SSR pour /pro/:id (commerçant / resto / service / loisir)
+//  - Méta Open Graph dynamiques  - capture parrain ?ref=  - deep link app
 // ════════════════════════════════════════════════════════════════
 
 export const config = { runtime: 'edge' };
@@ -12,35 +11,29 @@ const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
-const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist'; // À mettre à jour quand iOS publié
+const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist';
 const SITE_URL       = 'https://lokalist.fr';
+const LOGO_URL       = `${SITE_URL}/logo.png`;
 
 const TYPE_LABELS = {
-  commercant: { label: 'Commerce',   emoji: '🏪' },
-  restaurant: { label: 'Restaurant', emoji: '🍽️' },
-  service:    { label: 'Service',    emoji: '⚙️' },
-  loisir:     { label: 'Loisir',     emoji: '🎭' },
+  commercant: { label: 'Commerce',   emoji: '🏪', tint: '#1D9E75' },
+  restaurant: { label: 'Restaurant', emoji: '🍽️', tint: '#F97316' },
+  service:    { label: 'Service',    emoji: '⚙️', tint: '#6366F1' },
+  loisir:     { label: 'Loisir',     emoji: '🎭', tint: '#14B8A6' },
 };
 
 // ─── Helpers ────────────────────────────────────────────────────
 const escapeHtml = (str) => {
-  if (!str) return '';
+  if (str === null || str === undefined) return '';
   return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 };
-
-// Valide un code parrain LOK-XXXXXX (sinon ignore)
 const sanitizeRef = (ref) => {
   if (!ref) return '';
   const up = String(ref).toUpperCase().trim();
   return /^LOK-[A-Z0-9]{6}$/.test(up) ? up : '';
 };
-
-// LKL_RESA — reservation (Planity/Doctolib...) + reseaux
 function normUrl(v) {
   if (!v) return '';
   var u = String(v).trim();
@@ -76,31 +69,16 @@ const html404 = (msg) => `<!doctype html>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Page introuvable — Lokalist</title>
-<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F9F8F6;color:#1A1A2E;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}  .avis-resume { display:flex;align-items:center;gap:10px;margin-bottom:14px; }
-  .avis-resume-note { font-size:34px;font-weight:800;color:var(--text);line-height:1; }
-  .avis-resume-stars { color:var(--accent);font-size:20px;letter-spacing:2px; }
-  .avis-auteur { font-weight:700;font-size:14px;color:var(--text);margin-bottom:2px; }
-  .avis-card { padding:14px 0;border-top:1px solid var(--border); }
-  .avis-head { display:flex;align-items:center;justify-content:space-between;margin-bottom:4px; }
-  .avis-stars { color:var(--accent);font-size:15px;letter-spacing:2px; }
-  .avis-verif { background:var(--primary-l);color:var(--primary-d);font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px; }
-  .avis-titre { font-weight:700;font-size:14px;margin-bottom:2px; }
-  .avis-txt { font-size:14px;color:var(--text);line-height:1.55; }
-  .avis-date { font-size:12px;color:var(--muted);margin-top:6px; }
-  .avis-rep { margin-top:10px;margin-left:10px;padding-left:10px;border-left:2px solid var(--border);font-size:13px;color:var(--text); }
-  .avis-rep-lab { font-size:12px;font-weight:700;color:var(--primary);margin-bottom:2px; }
-  .avis-cta { display:inline-block;margin-top:16px;background:var(--primary);color:#fff;padding:12px 22px;border-radius:12px;font-weight:700;text-decoration:none;font-size:14px; }
-</style>
+<style>body{font-family:system-ui,-apple-system,sans-serif;background:#F7F6F3;color:#17231F;padding:40px 20px;text-align:center;line-height:1.6}h1{color:#1D9E75;font-size:28px;margin:24px 0 8px}a{color:#1D9E75;font-weight:600;text-decoration:none}</style>
 </head><body>
 <div style="font-size:64px">🏪</div>
 <h1>${escapeHtml(msg)}</h1>
-<p style="color:#8A8FA8">Ce professionnel n'existe plus ou a été retiré.</p>
+<p style="color:#8A8F8B">Ce professionnel n'existe plus ou a été retiré.</p>
 <p><a href="${SITE_URL}">← Retour à Lokalist</a></p>
 </body></html>`;
 
 const pageNotFound = (msg = "Professionnel introuvable") => new Response(html404(msg), {
-  status: 404,
-  headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' },
 });
 
 // ─── Handler principal ──────────────────────────────────────────
@@ -110,21 +88,19 @@ export default async function handler(req) {
     const id  = url.searchParams.get('id');
     const ref = sanitizeRef(url.searchParams.get('ref'));
 
-    if (!id || !/^[0-9a-f-]{36}$/i.test(id)) {
-      return pageNotFound("Identifiant invalide");
-    }
+    if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=id,nom,ville,description,photo_url,note_moyenne,nb_avis,type_pro,adresse,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone`;
-    const r = await fetch(apiUrl, {
-      headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` },
-    });
-
+    const cols = 'id,nom,ville,description,photo_url,logo_url,photos,note_moyenne,nb_avis,type_pro,categorie,adresse,latitude,longitude,points_par_scan,actif,demo,site_web,instagram,facebook,tiktok,lien_reservation,telephone,email,horaires';
+    const apiUrl = `${SUPABASE_URL}/rest/v1/commercants?id=eq.${id}&select=${cols}`;
+    const r = await fetch(apiUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound("Erreur lors du chargement");
     const list = await r.json();
-    if (!list?.length) return pageNotFound();
+    if (!list || !list.length) return pageNotFound();
     const c = list[0];
+    if (c.demo === true) return pageNotFound("Fiche non disponible");
+    if (c.actif === false) return pageNotFound("Ce professionnel n'est plus actif");
 
-    // LKL_AVIS_BLOC — Avis verifies (nouveau systeme)
+    // ─── Avis ───
     let avisMoyenne = 0, avisNb = 0, avisListe = [];
     try {
       const avUrl = `${SUPABASE_URL}/rest/v1/avis_public?cible_type=eq.commercant&cible_id=eq.${id}&order=date_publication.desc&limit=20`;
@@ -140,181 +116,247 @@ export default async function handler(req) {
 
     const etoiles = (n) => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
     const fmtDate = (iso) => { try { return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' }); } catch { return ''; } };
-    const avisHtml = avisListe.map((a) => `
+    const avisHtml = (avisListe || []).map((a) => `
       <div class="avis-card">
-        <div class="avis-auteur">${escapeHtml(a.auteur_nom || 'Client')}</div><div class="avis-head"><span class="avis-stars">${etoiles(a.note)}</span>${a.verified ? '<span class="avis-verif">✓ Vérifié</span>' : ''}</div>
+        <div class="avis-head">
+          <div class="avis-auteur">${escapeHtml(a.auteur_nom || 'Client')}</div>
+          ${a.verified ? '<span class="avis-verif">✓ Vérifié</span>' : ''}
+        </div>
+        <div class="avis-stars">${etoiles(a.note)}</div>
         ${a.titre ? `<div class="avis-titre">${escapeHtml(a.titre)}</div>` : ''}
         ${a.commentaire ? `<div class="avis-txt">${escapeHtml(a.commentaire)}</div>` : ''}
         <div class="avis-date">${fmtDate(a.date_publication)}</div>
         ${a.reponse ? `<div class="avis-rep"><div class="avis-rep-lab">Réponse du professionnel</div>${escapeHtml(a.reponse)}</div>` : ''}
       </div>`).join('');
 
-
-    if (c.demo === true) return pageNotFound("Fiche non disponible");
-    if (c.actif === false) return pageNotFound("Ce professionnel n'est plus actif");
-
-    const typeInfo    = TYPE_LABELS[c.type_pro] || { label: 'Commerce', emoji: '🏪' };
+    // ─── Données d'affichage ───
+    const typeInfo    = TYPE_LABELS[c.type_pro] || { label: 'Commerce', emoji: '🏪', tint: '#1D9E75' };
     const nom         = c.nom || 'Professionnel local';
     const ville       = c.ville || '';
-    const description = c.description || `${typeInfo.label} à ${ville} — sur Lokalist, l'app de la vie locale`;
+    const categorie   = c.categorie || '';
+    const description = c.description || `${typeInfo.label}${ville ? ' à ' + ville : ''} — sur Lokalist, l'app de la vie locale`;
     const descShort   = (description.length > 160 ? description.slice(0, 157) + '...' : description);
-    const photoMain   = c.photo_url || `${SITE_URL}/images/og-default.jpg`;
+    const photos      = Array.isArray(c.photos) ? c.photos.filter((p) => typeof p === 'string' && p.trim()) : [];
+    const mainPhoto   = photos[0] || c.photo_url || null;
+    const photoOg     = mainPhoto || `${SITE_URL}/images/og-default.jpg`;
+    const noteAff     = (avisNb > 0) ? avisMoyenne : (Number(c.note_moyenne) || 0);
+    const nbAvisAff   = (avisNb > 0) ? avisNb : (Number(c.nb_avis) || 0);
+    const horaires    = (c.horaires || '').trim();
 
     const canonical = `${SITE_URL}/pro/${id}`;
     const deepLink  = `lokalist://commercant/${id}`;
 
     const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": nom,
-      "description": description,
-      "image": photoMain,
-      "url": canonical,
-      ...(c.adresse && {
-        "address": { "@type": "PostalAddress", "streetAddress": c.adresse, "addressLocality": ville, "addressCountry": "FR" }
-      }),
-      ...(c.note_moyenne > 0 && {
-        "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(c.note_moyenne).toFixed(1), "reviewCount": c.nb_avis || 0 }
-      }),
+      "@context": "https://schema.org", "@type": "LocalBusiness",
+      "name": nom, "description": description, "image": photoOg, "url": canonical,
+      ...(c.adresse && { "address": { "@type": "PostalAddress", "streetAddress": c.adresse, "addressLocality": ville, "addressCountry": "FR" } }),
+      ...((c.latitude && c.longitude) && { "geo": { "@type": "GeoCoordinates", "latitude": Number(c.latitude), "longitude": Number(c.longitude) } }),
+      ...(noteAff > 0 && { "aggregateRating": { "@type": "AggregateRating", "ratingValue": Number(noteAff).toFixed(1), "reviewCount": nbAvisAff || 0 } }),
       ...(c.telephone && { telephone: c.telephone }),
+      ...(c.email && { email: c.email }),
       ...((c.site_web || c.instagram || c.facebook || c.tiktok) && { sameAs: [
         ...(c.site_web ? [normUrl(c.site_web)] : []),
         ...(c.instagram ? [socialUrl('instagram', c.instagram)] : []),
         ...(c.facebook ? [socialUrl('facebook', c.facebook)] : []),
         ...(c.tiktok ? [socialUrl('tiktok', c.tiktok)] : []),
       ] }),
-      ...(c.lien_reservation && { potentialAction: {
-        '@type': 'ReserveAction',
-        target: normUrl(c.lien_reservation),
-        name: resaLabel(c.lien_reservation),
-      } }),
+      ...(c.lien_reservation && { potentialAction: { '@type': 'ReserveAction', target: normUrl(c.lien_reservation), name: resaLabel(c.lien_reservation) } }),
     };
+
+    // ─── Hero ───
+    const heroStyle = mainPhoto
+      ? `background-image:url('${escapeHtml(mainPhoto)}');background-size:cover;background-position:center;`
+      : `background:${typeInfo.tint};`;
+    const heroFb = mainPhoto ? '' : `<div class="hero-fb">${typeInfo.emoji}</div>`;
+    const logoMedaillon = c.logo_url
+      ? `<img class="hero-logo" src="${escapeHtml(c.logo_url)}" alt="${escapeHtml(nom)}"/>`
+      : `<div class="hero-logo hero-logo-fb">${typeInfo.emoji}</div>`;
+
+    // ─── Contact ───
+    const contactRows = [];
+    if (c.telephone) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(c.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(c.telephone)}</span></span></a>`);
+    if (c.email)     contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(c.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(c.email)}</span></span></a>`);
+    if (c.adresse)   contactRows.push(`<div class="ct-row"><span class="ct-ic">📍</span><span class="ct-body"><span class="ct-lab">Adresse</span><span class="ct-val">${escapeHtml(c.adresse)}${ville ? ', ' + escapeHtml(ville) : ''}</span></span></div>`);
+    const socialChips = [];
+    if (c.site_web)  socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(c.site_web))}" target="_blank" rel="noopener nofollow">🌐 Site web</a>`);
+    if (c.instagram) socialChips.push(`<a class="soc" href="${escapeHtml(socialUrl('instagram', c.instagram))}" target="_blank" rel="noopener nofollow">📷 Instagram</a>`);
+    if (c.facebook)  socialChips.push(`<a class="soc" href="${escapeHtml(socialUrl('facebook', c.facebook))}" target="_blank" rel="noopener nofollow">👍 Facebook</a>`);
+    if (c.tiktok)    socialChips.push(`<a class="soc" href="${escapeHtml(socialUrl('tiktok', c.tiktok))}" target="_blank" rel="noopener nofollow">🎵 TikTok</a>`);
+    const contactHtml = (c.lien_reservation || contactRows.length || socialChips.length) ? `
+      <section class="section">
+        <h2>Contact &amp; liens</h2>
+        ${c.lien_reservation ? `<a class="resa-btn" href="${escapeHtml(normUrl(c.lien_reservation))}" target="_blank" rel="noopener nofollow">📅 ${escapeHtml(resaLabel(c.lien_reservation))}</a>` : ''}
+        ${contactRows.length ? `<div class="ct-list">${contactRows.join('')}</div>` : ''}
+        ${socialChips.length ? `<div class="soc-row">${socialChips.join('')}</div>` : ''}
+      </section>` : '';
+
+    const horairesHtml = horaires ? `
+      <section class="section">
+        <h2>Horaires</h2>
+        <p class="horaires">${escapeHtml(horaires)}</p>
+      </section>` : '';
 
     const body = `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-<title>${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''} — Lokalist</title>
+<title>${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''} — ${escapeHtml(typeInfo.label)} — Lokalist</title>
 <meta name="description" content="${escapeHtml(descShort)}"/>
 <link rel="canonical" href="${canonical}"/>
-
-<!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Lokalist"/>
 <meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
-<meta property="og:image" content="${escapeHtml(photoMain)}"/>
+<meta property="og:image" content="${escapeHtml(photoOg)}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:locale" content="fr_FR"/>
-
-<!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
-<meta name="twitter:image" content="${escapeHtml(photoMain)}"/>
-
+<meta name="twitter:image" content="${escapeHtml(photoOg)}"/>
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-
+<link rel="icon" href="/favicon.ico"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
-  :root { --primary:#1D9E75;--primary-d:#0F6E56;--primary-l:#E8F8F2;--accent:#EF9F27;--bg:#F9F8F6;--surface:#FFF;--border:#EDEDED;--text:#1A1A2E;--muted:#8A8FA8; }
-  * { box-sizing:border-box;margin:0;padding:0; }
-  html,body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55; }
-  .top-bar { background:var(--primary);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between; }
-  .top-bar a { color:#fff;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-0.3px; }
-  .top-bar .btn-app { background:rgba(0,0,0,0.18);padding:7px 13px;border-radius:18px;font-size:13px;font-weight:600; }
-  .container { max-width:960px;margin:0 auto;padding:0 16px; }
-  .hero { background:var(--surface);margin-top:12px;border-radius:16px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .hero-img { width:100%;height:300px;object-fit:cover;background:var(--primary-l);display:block; }
-  .hero-img-fallback { width:100%;height:240px;background:var(--primary-l);display:flex;align-items:center;justify-content:center;font-size:80px; }
-  .badges { padding:16px 20px 0;display:flex;gap:8px;flex-wrap:wrap; }
-  .badge { padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:var(--primary-l);color:var(--primary-d); }
-  .head { padding:14px 20px 20px; }
-  .titre { font-size:24px;font-weight:800;letter-spacing:-0.5px;line-height:1.25;margin-bottom:8px; }
-  .ville { display:flex;align-items:center;gap:6px;color:var(--muted);font-size:14px;margin-bottom:10px; }
-  .note { font-size:14px;color:var(--accent);font-weight:600; }
-  .section { background:var(--surface);margin-top:12px;border-radius:16px;padding:18px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-  .section h2 { font-size:14px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px; }
-  .section p { color:var(--text);font-size:14px;line-height:1.65;white-space:pre-line; }
-  .info-row { display:flex;align-items:center;gap:8px;font-size:14px;color:var(--text);margin-top:8px; }
-  .points-badge { display:flex;align-items:center;gap:10px;background:var(--primary-l);border-radius:12px;padding:14px;margin-top:14px; }
-  .points-badge strong { color:var(--primary); }
-  .resa-btn { display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#fff;padding:15px;border-radius:14px;font-weight:800;text-decoration:none;font-size:15px;margin-bottom:12px;box-shadow:0 4px 12px rgba(29,158,117,0.25); }
-  .liens-grid { display:flex;flex-wrap:wrap;gap:8px; }
-  .lien-chip { display:inline-flex;align-items:center;gap:6px;background:var(--primary-l);color:var(--primary-d);padding:10px 14px;border-radius:12px;font-weight:700;text-decoration:none;font-size:13px;border:1px solid #D4EDE3; }
-  .cta-block { background:var(--primary);color:#fff;margin-top:20px;margin-bottom:28px;border-radius:18px;padding:24px 20px;text-align:center;box-shadow:0 6px 18px rgba(29,158,117,0.25); }
-  .cta-block h3 { font-size:18px;font-weight:800;margin-bottom:6px;letter-spacing:-0.3px; }
-  .cta-block p { font-size:13px;opacity:0.9;margin-bottom:16px; }
-  .cta-btn { display:inline-block;background:#fff;color:var(--primary);padding:14px 28px;border-radius:12px;font-weight:800;text-decoration:none;font-size:15px;box-shadow:0 4px 12px rgba(0,0,0,0.1); }
-  .cta-btn-secondary { display:inline-block;background:rgba(0,0,0,0.15);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:13px;margin-left:8px; }
-  .ref-banner { background:var(--accent);color:#fff;text-align:center;padding:10px 16px;font-size:13px;font-weight:600; }
-  footer { text-align:center;padding:30px 20px 40px;color:var(--muted);font-size:12px; }
-  footer a { color:var(--primary);text-decoration:none;font-weight:600; }
-  @media (max-width:600px){ .hero-img{height:220px;} .titre{font-size:20px;} .cta-btn-secondary{display:block;margin:12px 0 0;} }
+  :root{ --primary:#1D9E75;--primary-d:#0F6E56;--primary-l:#E1F5EE;--accent:#EF9F27;--bg:#F7F6F3;--surface:#FFF;--border:#ECE9E4;--text:#17231F;--muted:#8A8F8B;--radius:14px; }
+  *{ box-sizing:border-box;margin:0;padding:0; }
+  html,body{ font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased; }
+  h1,h2,h3{ font-family:'Syne','DM Sans',sans-serif;letter-spacing:-0.3px; }
+  a{ color:inherit; }
+  img{ max-width:100%; }
+  .wrap{ max-width:1120px;margin:0 auto;padding:0 20px; }
+
+  .top-bar{ background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20; }
+  .top-bar .in{ max-width:1120px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between; }
+  .brand{ display:flex;align-items:center;gap:7px;font-family:'Syne';font-weight:700;font-size:18px;color:var(--primary-d);text-decoration:none; }
+  .brand img{ height:22px;width:auto;display:block; }
+  .verif{ display:flex;align-items:center;gap:6px;font-size:13px;color:var(--primary-d);font-weight:600; }
+  .verif img{ height:16px;width:auto;display:block; }
+  .ref-banner{ background:var(--accent);color:#3A2600;text-align:center;padding:10px 16px;font-size:13px;font-weight:600; }
+
+  .hero{ position:relative;min-height:360px;display:flex;align-items:stretch; }
+  .hero-fb{ position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:96px;opacity:.55; }
+  .hero-ov{ position:absolute;inset:0; }
+  .hero-in{ position:relative;z-index:2;max-width:1120px;margin:0 auto;width:100%;padding:20px;display:flex;flex-direction:column;justify-content:space-between; }
+  .hero-top{ display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap; }
+  .hb{ display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.92);color:var(--text);font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px; }
+  .hero-foot{ display:flex;align-items:flex-end;justify-content:space-between;gap:14px;color:#fff; }
+  .hero-idn{ display:flex;align-items:flex-end;gap:14px; }
+  .hero-logo{ width:64px;height:64px;border-radius:16px;border:2px solid #fff;object-fit:cover;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);flex:0 0 auto; }
+  .hero-logo-fb{ display:flex;align-items:center;justify-content:center;font-size:30px;background:var(--primary-l); }
+  .hero-title{ font-family:'Syne';font-weight:700;font-size:32px;line-height:1.1;text-shadow:0 2px 12px rgba(0,0,0,.35); }
+  .hero-loc{ font-size:14px;opacity:.95;margin-top:6px;text-shadow:0 1px 8px rgba(0,0,0,.35); }
+  .hero-note{ text-align:right;white-space:nowrap;text-shadow:0 1px 8px rgba(0,0,0,.35); }
+  .hero-note .n{ font-size:17px;font-weight:600; }
+  .hero-note .n b{ color:#FAC775; }
+  .hero-note .s{ font-size:12px;opacity:.9; }
+
+  .section{ background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px 22px;margin-top:16px; }
+  .section:first-of-type{ margin-top:20px; }
+  .section h2{ font-size:18px;font-weight:700;margin-bottom:12px; }
+  .section p{ font-size:15px;color:#2A332E;line-height:1.7;white-space:pre-line; }
+  .horaires{ white-space:pre-line; }
+  .points-badge{ display:flex;align-items:center;gap:10px;background:var(--primary-l);border-radius:12px;padding:14px 16px;margin-top:14px;font-size:14px; }
+  .points-badge strong{ color:var(--primary-d); }
+
+  .resa-btn{ display:flex;align-items:center;justify-content:center;gap:8px;background:var(--primary);color:#04342C;padding:15px;border-radius:12px;font-family:'Syne';font-weight:700;text-decoration:none;font-size:15px;margin-bottom:14px; }
+  .ct-list{ display:flex;flex-direction:column;gap:8px; }
+  .ct-row{ display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text); }
+  .ct-ic{ font-size:18px; }
+  .ct-body{ display:flex;flex-direction:column; }
+  .ct-lab{ font-size:12px;color:var(--muted); }
+  .ct-val{ font-size:14px;font-weight:600; }
+  .soc-row{ display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
+  .soc{ display:inline-flex;align-items:center;gap:6px;background:var(--primary-l);color:var(--primary-d);padding:9px 14px;border-radius:20px;font-weight:600;text-decoration:none;font-size:13px; }
+
+  .avis-resume{ display:flex;align-items:center;gap:10px;margin-bottom:8px; }
+  .avis-resume-note{ font-size:30px;font-weight:700;font-family:'Syne';line-height:1; }
+  .avis-resume-stars{ color:var(--accent);font-size:18px;letter-spacing:2px; }
+  .avis-card{ padding:14px 0;border-top:1px solid var(--border); }
+  .avis-head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:2px; }
+  .avis-auteur{ font-weight:600;font-size:14px; }
+  .avis-verif{ background:var(--primary-l);color:var(--primary-d);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px; }
+  .avis-stars{ color:var(--accent);font-size:14px;letter-spacing:2px; }
+  .avis-titre{ font-weight:600;font-size:14px;margin-top:4px; }
+  .avis-txt{ font-size:14px;color:#374039;line-height:1.6;margin-top:2px; }
+  .avis-date{ font-size:12px;color:var(--muted);margin-top:6px; }
+  .avis-rep{ margin-top:10px;margin-left:10px;padding-left:12px;border-left:2px solid var(--border);font-size:13px;color:#374039; }
+  .avis-rep-lab{ font-size:12px;font-weight:600;color:var(--primary-d);margin-bottom:2px; }
+  .avis-cta{ display:inline-block;margin-top:16px;background:var(--primary-l);color:var(--primary-d);padding:11px 18px;border-radius:12px;font-weight:600;text-decoration:none;font-size:14px; }
+
+  .cta-block{ background:var(--primary-d);color:#fff;margin:20px 0 10px;border-radius:18px;padding:26px 20px;text-align:center; }
+  .cta-block h3{ font-size:19px;font-weight:700;margin-bottom:6px; }
+  .cta-block p{ font-size:14px;opacity:.9;margin-bottom:16px; }
+  .cta-btn{ display:inline-block;background:#fff;color:var(--primary-d);padding:13px 26px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px; }
+  .cta-btn-2{ display:inline-block;background:rgba(255,255,255,.16);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:14px;margin-left:8px; }
+
+  footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
+  footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
+
+  @media (max-width:900px){ .hero{ min-height:300px; } .hero-title{ font-size:26px; } }
+  @media (max-width:600px){ .hero{ min-height:260px; } .hero-title{ font-size:22px; } .hero-logo{ width:52px;height:52px; } .cta-btn-2{ display:block;margin:12px 0 0; } }
 </style>
 </head>
 <body>
 
-${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokalist, l'app de la vie locale !</div>` : ''}
+${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokalist !</div>` : ''}
 
 <header class="top-bar">
-  <a href="${SITE_URL}">🏡 Lokalist</a>
-  <a href="${deepLink}" class="btn-app">Voir dans l'app →</a>
+  <div class="in">
+    <a href="${SITE_URL}" class="brand"><img src="${LOGO_URL}" alt="Lokalist"/> Lokalist</a>
+    <span class="verif"><img src="${LOGO_URL}" alt=""/> Vérifié Lokalist</span>
+  </div>
 </header>
 
-<main class="container">
-  <article class="hero">
-    ${c.photo_url
-      ? `<img class="hero-img" src="${escapeHtml(photoMain)}" alt="${escapeHtml(nom)}" loading="eager"/>`
-      : `<div class="hero-img-fallback">${typeInfo.emoji}</div>`
-    }
-    <div class="badges">
-      <span class="badge">${typeInfo.emoji} ${typeInfo.label}</span>
+<section class="hero" style="${heroStyle}">
+  ${heroFb}
+  <div class="hero-ov" style="background:linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 34%, rgba(0,0,0,0.22) 58%, rgba(0,0,0,0.68) 100%);"></div>
+  <div class="hero-in">
+    <div class="hero-top">
+      <span class="hb">${typeInfo.emoji} ${escapeHtml(typeInfo.label)}</span>
+      ${categorie ? `<span class="hb">${escapeHtml(categorie)}</span>` : ''}
     </div>
-    <div class="head">
-      <h1 class="titre">${escapeHtml(nom)}</h1>
-      ${ville ? `<div class="ville">📍 ${escapeHtml(ville)}</div>` : ''}
-      ${avisNb > 0 ? `<div class="note">⭐ ${avisMoyenne.toFixed(1)} (${avisNb} avis)</div>` : ''}
+    <div class="hero-foot">
+      <div class="hero-idn">
+        ${logoMedaillon}
+        <div>
+          <div class="hero-title">${escapeHtml(nom)}</div>
+          ${ville ? `<div class="hero-loc">📍 ${escapeHtml(ville)}</div>` : ''}
+        </div>
+      </div>
+      ${noteAff > 0 ? `<div class="hero-note"><div class="n"><b>★</b> ${Number(noteAff).toFixed(1)}</div><div class="s">${nbAvisAff} avis</div></div>` : ''}
     </div>
-  </article>
+  </div>
+</section>
 
-  ${description ? `
+<main class="wrap">
   <section class="section">
-    <h2>📄 À propos</h2>
+    <h2>À propos</h2>
     <p>${escapeHtml(description)}</p>
-    ${c.adresse ? `<div class="info-row">📍 ${escapeHtml(c.adresse)}</div>` : ''}
     ${c.points_par_scan > 0 ? `<div class="points-badge">📱 <span>Scanne en boutique et gagne <strong>${c.points_par_scan} pts</strong></span></div>` : ''}
-  </section>` : ''}
+  </section>
 
-  ${(c.lien_reservation || c.site_web || c.instagram || c.facebook || c.tiktok || c.telephone) ? `
-  <section class='section'>
-    <h2>🔗 Contact &amp; liens</h2>
-    ${c.lien_reservation ? `<a class='resa-btn' href='${escapeHtml(normUrl(c.lien_reservation))}' target='_blank' rel='noopener nofollow'>📅 ${escapeHtml(resaLabel(c.lien_reservation))}</a>` : ''}
-    <div class='liens-grid'>
-      ${c.site_web ? `<a class='lien-chip' href='${escapeHtml(normUrl(c.site_web))}' target='_blank' rel='noopener nofollow'>🌐 Site web</a>` : ''}
-      ${c.instagram ? `<a class='lien-chip' href='${escapeHtml(socialUrl('instagram', c.instagram))}' target='_blank' rel='noopener nofollow'>📷 Instagram</a>` : ''}
-      ${c.facebook ? `<a class='lien-chip' href='${escapeHtml(socialUrl('facebook', c.facebook))}' target='_blank' rel='noopener nofollow'>👍 Facebook</a>` : ''}
-      ${c.tiktok ? `<a class='lien-chip' href='${escapeHtml(socialUrl('tiktok', c.tiktok))}' target='_blank' rel='noopener nofollow'>🎵 TikTok</a>` : ''}
-      ${c.telephone ? `<a class='lien-chip' href='tel:${escapeHtml(c.telephone)}'>📞 ${escapeHtml(c.telephone)}</a>` : ''}
-    </div>
-  </section>` : ''}
+  ${horairesHtml}
+  ${contactHtml}
 
   <section class="section">
-    <h2>⭐ Avis${avisNb > 0 ? ` (${avisNb})` : ''}</h2>
-    ${avisNb > 0 ? `<div class="avis-resume"><span class="avis-resume-note">${avisMoyenne.toFixed(1)}</span><span class="avis-resume-stars">${etoiles(avisMoyenne)}</span></div>` : ''}
+    <h2>Avis${nbAvisAff > 0 ? ` (${nbAvisAff})` : ''}</h2>
+    ${noteAff > 0 ? `<div class="avis-resume"><span class="avis-resume-note">${Number(noteAff).toFixed(1)}</span><span class="avis-resume-stars">${etoiles(noteAff)}</span></div>` : ''}
     ${avisHtml || '<p style="color:var(--muted);font-size:14px;">Aucun avis pour le moment. Soyez le premier à partager votre expérience depuis l\'app.</p>'}
-    <a href="lokalist://avis?type=commercant&id=${id}" class="avis-cta">✍️ Laisser un avis dans l\'app</a>
+    <a href="lokalist://avis?type=commercant&id=${id}" class="avis-cta">✍️ Laisser un avis dans l'app</a>
   </section>
 
   <div class="cta-block">
     <h3>📱 Découvre ${escapeHtml(nom)} dans l'app</h3>
     <p>Cumule des points, profite des bons plans locaux et soutiens les commerces de ta ville.</p>
     <a href="${deepLink}" class="cta-btn">Ouvrir dans l'app</a>
-    <a href="${PLAY_STORE_URL}" id="btn-download" class="cta-btn-secondary">Télécharger</a>
+    <a href="${PLAY_STORE_URL}" id="btn-download" class="cta-btn-2">Télécharger</a>
   </div>
 </main>
 
@@ -324,15 +366,10 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 </footer>
 
 <script>
-  // Route le bouton "Telecharger" vers le bon store selon l'OS
   (function(){
     var ua = navigator.userAgent || '';
-    if (/iPhone|iPad|iPod/i.test(ua)) {
-      var btn = document.getElementById('btn-download');
-      if (btn) btn.href = '${APP_STORE_URL}';
-    }
+    if (/iPhone|iPad|iPod/i.test(ua)) { var btn = document.getElementById('btn-download'); if (btn) btn.href = '${APP_STORE_URL}'; }
   })();
-  // Capture du code parrain (?ref=LOK-XXXXXX) — même stockage que i.html
   (function(){
     try {
       var p = new URLSearchParams(window.location.search);
