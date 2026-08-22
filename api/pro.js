@@ -196,38 +196,6 @@ export default async function handler(req) {
         <p class="horaires">${escapeHtml(horaires)}</p>
       </section>` : '';
 
-    // LKL_PRO_GALERIE_V1 : galerie + lightbox
-    const thumbs = photos.slice(1, 9);
-    const thumbsHtml = thumbs.length
-      ? `<div class="thumbs">${thumbs.map((p, i) => `<img src="${escapeHtml(p)}" alt="${escapeHtml(nom)}" loading="lazy" data-lb="${i + 1}"/>`).join('')}</div>`
-      : '';
-    const lightboxHtml = photos.length ? `
-      <div id="lb" class="lb" aria-hidden="true">
-        <button class="lb-btn lb-x" data-lb-act="close" aria-label="Fermer">×</button>
-        <button class="lb-btn lb-prev" data-lb-act="prev" aria-label="Precedent">‹</button>
-        <img class="lb-img" alt=""/>
-        <button class="lb-btn lb-next" data-lb-act="next" aria-label="Suivant">›</button>
-        <div class="lb-count"></div>
-      </div>
-      <script>
-      (function(){
-        var PH = ${JSON.stringify(photos)};
-        if(!PH.length) return;
-        var lb=document.getElementById('lb'); if(!lb) return;
-        var img=lb.querySelector('.lb-img'), cnt=lb.querySelector('.lb-count');
-        var i=0, open=false;
-        function show(){ img.src=PH[i]; cnt.textContent=(i+1)+' / '+PH.length; }
-        function openAt(n){ i=((n%PH.length)+PH.length)%PH.length; open=true; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); show(); document.body.style.overflow='hidden'; }
-        function close(){ open=false; lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
-        function go(d){ i=((i+d)%PH.length+PH.length)%PH.length; show(); }
-        document.addEventListener('click', function(e){
-          var t=e.target.closest('[data-lb]'); if(t){ e.preventDefault(); openAt(parseInt(t.getAttribute('data-lb'),10)||0); return; }
-          var a=e.target.closest('[data-lb-act]'); if(a){ e.stopPropagation(); var act=a.getAttribute('data-lb-act'); if(act==='close')close(); else if(act==='prev')go(-1); else go(1); return; }
-          if(open && e.target===lb) close();
-        });
-        document.addEventListener('keydown', function(e){ if(!open)return; if(e.key==='Escape')close(); else if(e.key==='ArrowLeft')go(-1); else if(e.key==='ArrowRight')go(1); });
-      })();
-      </script>` : '';
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -328,18 +296,6 @@ export default async function handler(req) {
   .cta-btn{ display:inline-block;background:#fff;color:var(--primary-d);padding:13px 26px;border-radius:12px;font-weight:700;text-decoration:none;font-size:15px; }
   .cta-btn-2{ display:inline-block;background:rgba(255,255,255,.16);color:#fff;padding:12px 22px;border-radius:12px;font-weight:600;text-decoration:none;font-size:14px;margin-left:8px; }
 
-  /* LKL_PRO_GALERIE_V1 : galerie + lightbox */
-  .thumbs{ display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:8px;margin-top:16px; }
-  .thumbs img{ width:100%;height:82px;object-fit:cover;border-radius:10px;cursor:zoom-in; }
-  .hero-count{ position:absolute;right:16px;bottom:16px;z-index:3;background:rgba(0,0,0,.55);color:#fff;font-size:12px;font-weight:600;padding:6px 12px;border-radius:20px;cursor:zoom-in; }
-  .lb{ position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:100;display:none;align-items:center;justify-content:center; }
-  .lb.on{ display:flex; }
-  .lb-img{ max-width:92vw;max-height:86vh;object-fit:contain;border-radius:8px; }
-  .lb-btn{ position:absolute;background:rgba(255,255,255,.15);color:#fff;border:none;width:46px;height:46px;border-radius:50%;font-size:24px;line-height:1;cursor:pointer; }
-  .lb-x{ top:20px;right:20px; }
-  .lb-prev{ left:16px;top:50%;transform:translateY(-50%); }
-  .lb-next{ right:16px;top:50%;transform:translateY(-50%); }
-  .lb-count{ position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:#fff;font-size:13px; }
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
 
@@ -377,11 +333,9 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
       ${noteAff > 0 ? `<div class="hero-note"><div class="n"><b>★</b> ${Number(noteAff).toFixed(1)}</div><div class="s">${nbAvisAff} avis</div></div>` : ''}
     </div>
   </div>
-  ${photos.length > 1 ? `<span class="hero-count" data-lb="0">📷 ${photos.length} photos</span>` : ''}
 </section>
 
 <main class="wrap">
-  ${thumbsHtml}
   <section class="section">
     <h2>À propos</h2>
     <p>${escapeHtml(description)}</p>
@@ -428,7 +382,6 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
   })();
 </script>
 
-${lightboxHtml}
 </body>
 </html>`;
 
