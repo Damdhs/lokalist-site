@@ -50,6 +50,24 @@ async function getLogo() {
   return _logo;
 }
 function pngSize(buf) { try { if (buf.length < 24 || buf[0] !== 0x89 || buf[1] !== 0x50) return null; return { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) }; } catch { return null; } }
+function jpegSize(buf) {
+  try {
+    if (buf.length < 4 || buf[0] !== 0xFF || buf[1] !== 0xD8) return null;
+    let o = 2;
+    while (o + 9 < buf.length) {
+      if (buf[o] !== 0xFF) { o++; continue; }
+      const m = buf[o + 1];
+      if (m >= 0xC0 && m <= 0xCF && m !== 0xC4 && m !== 0xC8 && m !== 0xCC) { return { h: buf.readUInt16BE(o + 5), w: buf.readUInt16BE(o + 7) }; }
+      if (m === 0xD8 || m === 0xD9 || (m >= 0xD0 && m <= 0xD7)) { o += 2; continue; }
+      const len = buf.readUInt16BE(o + 2);
+      if (len < 2) break;
+      o += 2 + len;
+    }
+  } catch (e) {}
+  return null;
+}
+function imgSize(buf) { return pngSize(buf) || jpegSize(buf); }
+// LKL_OGPRO_QUALITY_V1
 
 const h = (t, p, ...c) => ({ type: t, props: { ...p, children: c.length === 0 ? undefined : (c.length === 1 ? c[0] : c) } });
 const svg = (w, hh, v, ...pa) => h('svg', { width: w, height: hh, viewBox: '0 0 ' + v + ' ' + v, fill: 'none' }, ...pa);
@@ -78,7 +96,7 @@ function buildCard({ nom, ville, typeLabel, categorie, note, photoDataUrl, logo,
     : h('div', { style: { position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', display: 'flex', background: tint } });
   return h('div', { style: { width: '1200px', height: '630px', display: 'flex', position: 'relative', fontFamily: 'DM Sans' } },
     bg,
-    h('div', { style: { position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', display: 'flex', background: 'linear-gradient(180deg, rgba(4,20,17,0.10) 0%, rgba(4,20,17,0.0) 30%, rgba(4,20,17,0.48) 60%, rgba(4,20,17,0.88) 100%)' } }),
+    h('div', { style: { position: 'absolute', top: 0, left: 0, width: '1200px', height: '630px', display: 'flex', background: 'linear-gradient(180deg, rgba(4,20,17,0.22) 0%, rgba(4,20,17,0.05) 24%, rgba(4,20,17,0.60) 60%, rgba(4,20,17,0.95) 100%)' } }),
     h('div', { style: { position: 'absolute', top: '40px', left: '48px', right: '48px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' } },
       brandPill(logo),
       h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(29,158,117,0.94)', color: '#fff', borderRadius: '999px', padding: '10px 20px', fontFamily: 'Syne', fontWeight: 800, fontSize: '20px' } }, IC_CHECK, 'Vérifié')),
@@ -117,7 +135,7 @@ export default async function handler(req, res) {
     const mainPhoto = photos[0] || c.photo_url || null;
 
     const [logo, photoObj] = await Promise.all([ getLogo(), mainPhoto ? fetchBytes(mainPhoto, 8_000_000) : Promise.resolve(null) ]);
-    const photoDataUrl = toDataUrl(photoObj, 'image/jpeg');
+    let photoDataUrl = null; if (photoObj) { const _sz = imgSize(photoObj.buf); if (!_sz || _sz.w >= 700) photoDataUrl = toDataUrl(photoObj, 'image/jpeg'); } // LKL_OGPRO_QUALITY_V1
 
     const card = buildCard({ nom, ville, typeLabel: ti.label, categorie, note, photoDataUrl, logo, tint: ti.tint });
     const img = new ImageResponse(card, { width: 1200, height: 630, fonts: getFonts() });
