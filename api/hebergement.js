@@ -17,6 +17,7 @@
 //  SENT: [LKL_HEB_LOT13] Partage (Web Share API) + QR code telechargeable (fiche publique)
 //  SENT: [LKL_HEB_LOT14] og:image + twitter:image -> carte OG brandee (api/og-hebergement)
 //  SENT: [LKL_HEB_LOT15] Bloc Infos pratiques (check-in/out, caution, reglement, rappel animaux/wifi)
+//  SENT: [LKL_HEB_LOT16] SEO : titre + meta description (type a ville) + og/twitter alignes
 //  Hebergeur = commercant (type_pro='hebergeur', resa_type='sejour')
 // ════════════════════════════════════════════════════════════════
 
@@ -599,26 +600,35 @@ export default async function handler(req) {
         <div class="pratik-grid">${_pRows.join('')}</div>
         ${_reglement ? `<div class="pratik-note"><div class="pratik-lab">Bon à savoir</div><p>${escapeHtml(_reglement)}</p></div>` : ''}
       </section>` : '';
+    // --- SEO finition (LOT16) : titre + description type/ville ---
+    const _vt = ville ? `${typeLabel} à ${ville}` : typeLabel;
+    const titreSocial = `${nom} — ${_vt}`;
+    const titreSeo = `${titreSocial} — Lokalist`;
+    let metaDesc = descShort;
+    if (ville && descShort.toLowerCase().indexOf(ville.toLowerCase()) === -1) {
+      metaDesc = `${_vt}. ${descShort}`;
+      if (metaDesc.length > 160) metaDesc = metaDesc.slice(0, 159).replace(/\s+\S*$/, '') + '…';
+    }
     const body = `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-<title>${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''} — ${escapeHtml(typeLabel)} — Lokalist</title>
-<meta name="description" content="${escapeHtml(descShort)}"/>
+<title>${escapeHtml(titreSeo)}</title>
+<meta name="description" content="${escapeHtml(metaDesc)}"/>
 <link rel="canonical" href="${canonical}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Lokalist"/>
-<meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
-<meta property="og:description" content="${escapeHtml(descShort)}"/>
+<meta property="og:title" content="${escapeHtml(titreSocial)}"/>
+<meta property="og:description" content="${escapeHtml(metaDesc)}"/>
 <meta property="og:image" content="${escapeHtml(ogImage)}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
-<meta name="twitter:description" content="${escapeHtml(descShort)}"/>
+<meta name="twitter:title" content="${escapeHtml(titreSocial)}"/>
+<meta name="twitter:description" content="${escapeHtml(metaDesc)}"/>
 <meta name="twitter:image" content="${escapeHtml(ogImage)}"/>
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
