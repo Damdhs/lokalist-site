@@ -283,17 +283,12 @@ export default async function handler(req) {
       metaDesc = `${_vt}. ${descShort}`;
       if (metaDesc.length > 160) metaDesc = metaDesc.slice(0, 159).replace(/\s+\S*$/, '') + '…';
     }
-    // LKL_PRO_FIDELITE_V1 : programme de fidelite (si recompense configuree)
-    const _rEuros = c.type_recompense === 'euros' && c.recompense_euros_seuil && c.recompense_euros_montant;
-    const _rTampons = c.type_recompense === 'tampons' && c.recompense_tampons_seuil && c.recompense_tampons_libelle;
-    const _recompense = _rEuros
-      ? `${c.recompense_euros_montant} € offerts tous les ${c.recompense_euros_seuil} points`
-      : (_rTampons ? `${escapeHtml(c.recompense_tampons_libelle)} tous les ${c.recompense_tampons_seuil} tampons` : '');
-    const fideliteHtml = _recompense ? `
+    // LKL_PRO_FIDELITE_V2 : encart generique programme de fidelite Lokalist
+    const fideliteHtml = (Number(c.points_par_scan) > 0) ? `
       <section class="section">
         <h2>Programme de fidélité</h2>
-        <div class="fid-reward">🎁 ${_recompense}</div>
-        ${c.points_par_euro ? `<div class="fid-sub">Cumulez ${c.points_par_euro} point${Number(c.points_par_euro) > 1 ? 's' : ''} par euro dépensé, directement dans l'app.</div>` : `<div class="fid-sub">Cumulez des points à chaque passage, directement dans l'app.</div>`}
+        <div class="fid-reward">🎁 Profitez des points et remises fidélité Lokalist chez vos commerçants partenaires.</div>
+        <div class="fid-sub">Cumulez vos points directement dans l'app.</div>
       </section>` : '';
     const body = `<!doctype html>
 <html lang="fr">
