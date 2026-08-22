@@ -273,26 +273,36 @@ export default async function handler(req) {
               </div>`).join('')}
           </div>`).join('')}
       </section>` : '';
+    // LKL_PRO_SEO_V1 : titre + meta description categorie/type + ville
+    const _seoType = categorie || typeInfo.label;
+    const _vt = ville ? `${_seoType} à ${ville}` : _seoType;
+    const titreSocial = `${nom} — ${_vt}`;
+    const titreSeo = `${titreSocial} — Lokalist`;
+    let metaDesc = descShort;
+    if (ville && descShort.toLowerCase().indexOf(ville.toLowerCase()) === -1) {
+      metaDesc = `${_vt}. ${descShort}`;
+      if (metaDesc.length > 160) metaDesc = metaDesc.slice(0, 159).replace(/\s+\S*$/, '') + '…';
+    }
     const body = `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-<title>${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''} — ${escapeHtml(typeInfo.label)} — Lokalist</title>
-<meta name="description" content="${escapeHtml(descShort)}"/>
+<title>${escapeHtml(titreSeo)}</title>
+<meta name="description" content="${escapeHtml(metaDesc)}"/>
 <link rel="canonical" href="${canonical}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Lokalist"/>
-<meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
-<meta property="og:description" content="${escapeHtml(descShort)}"/>
+<meta property="og:title" content="${escapeHtml(titreSocial)}"/>
+<meta property="og:description" content="${escapeHtml(metaDesc)}"/>
 <meta property="og:image" content="${escapeHtml(ogImage)}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
-<meta name="twitter:description" content="${escapeHtml(descShort)}"/>
+<meta name="twitter:title" content="${escapeHtml(titreSocial)}"/>
+<meta name="twitter:description" content="${escapeHtml(metaDesc)}"/>
 <meta name="twitter:image" content="${escapeHtml(ogImage)}"/>
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>
 <script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
