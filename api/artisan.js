@@ -228,6 +228,38 @@ export default async function handler(req) {
       }
     } catch (e) { console.error('[artisan certifs]', e); }
 
+    // ─── Agenda public (promos / evenements) ───
+    let agendaHtml = '';
+    try {
+      const _agNow = new Date().toISOString();
+      const _agUrl = `${SUPABASE_URL}/rest/v1/agenda_artisans?artisan_id=eq.${id}&statut=eq.publie&date_fin=gte.${_agNow}&order=date_debut.asc&select=type,titre,description,date_debut,date_fin`;
+      const _agR = await fetch(_agUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const _agList = _agR.ok ? (await _agR.json()) : [];
+      if (_agList && _agList.length) {
+        const _agT = { fermeture:{i:'🚫',l:'Fermeture'}, evenement:{i:'🎉',l:'Événement'}, promo:{i:'🏷️',l:'Promotion'}, horaire_special:{i:'⏰',l:'Horaire spécial'}, animation:{i:'🎪',l:'Animation'}, porte_ouverte:{i:'🚪',l:'Portes ouvertes'}, offre_speciale:{i:'💶',l:'Offre spéciale'} };
+        const _agFmt = (d) => { try { return new Date(d).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long' }); } catch (e) { return ''; } };
+        const _agHeure = (d) => { try { const dt = new Date(d); return (dt.getHours() || dt.getMinutes()) ? dt.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }) : ''; } catch (e) { return ''; } };
+        const _agWhen = (e) => { const d1 = _agFmt(e.date_debut), d2 = e.date_fin ? _agFmt(e.date_fin) : ''; const h1 = _agHeure(e.date_debut); if (d2 && d2 !== d1) return `du ${d1} au ${d2}`; return h1 ? `${d1} à ${h1}` : d1; };
+        agendaHtml = `
+      <section class="section">
+        <h2>📅 Agenda</h2>
+        <div class="agenda-list">
+          ${_agList.slice(0, 8).map((e) => {
+            const t = _agT[e.type] || { i:'📌', l:'' };
+            return `<div class="agenda-item">
+              <div class="agenda-ic">${t.i}</div>
+              <div class="agenda-body">
+                <div class="agenda-titre">${escapeHtml(e.titre || '')}</div>
+                <div class="agenda-when">${_agWhen(e)}</div>
+                ${e.description ? `<div class="agenda-desc">${escapeHtml(e.description)}</div>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </section>`;
+      }
+    } catch (e) { console.error('[agenda]', e); }
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -339,6 +371,13 @@ export default async function handler(req) {
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
   @media (max-width:600px){ .hero{ min-height:250px; } .hero-title{ font-size:23px; } .hero-logo{ width:60px;height:60px; } .cta-btn-2{ display:block;margin:12px 0 0; } }
+  .agenda-list{ display:flex;flex-direction:column;gap:12px;margin-top:8px; }
+  .agenda-item{ display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #E5E7EB;border-radius:14px;background:#fff; }
+  .agenda-ic{ font-size:26px;line-height:1;flex-shrink:0; }
+  .agenda-body{ flex:1;min-width:0; }
+  .agenda-titre{ font-weight:700;font-size:15px;color:#0F172A; }
+  .agenda-when{ font-size:12.5px;color:#1D9E75;font-weight:600;margin-top:2px;text-transform:capitalize; }
+  .agenda-desc{ font-size:13px;color:#4B5563;margin-top:4px; }
   .certifs-grid{ display:flex;flex-wrap:wrap;gap:14px;margin-top:8px; }
   .certif-card{ display:flex;flex-direction:column;align-items:center;text-align:center;width:120px;padding:12px 10px;border:1px solid #E5E7EB;border-radius:14px;background:#fff; }
   .certif-logo{ width:64px;height:64px;object-fit:contain;margin-bottom:8px; }
@@ -388,6 +427,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 
   ${garantiesHtml}
   ${certifsHtml}
+  ${agendaHtml}
   ${contactHtml}
   ${localHtml}
 
@@ -433,3 +473,5 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 // LKL_ART_NOCLIENTELE_V1
 
 // LKL_ART_CERTIFS_V1
+
+// LKL_ART_AGENDA_V1

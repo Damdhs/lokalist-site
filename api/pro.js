@@ -290,6 +290,38 @@ export default async function handler(req) {
         <div class="fid-reward">🎁 Profitez des points et remises fidélité Lokalist chez vos commerçants partenaires.</div>
         <div class="fid-sub">Cumulez vos points directement dans l'app.</div>
       </section>` : '';
+    // ─── Agenda public (promos / evenements) ───
+    let agendaHtml = '';
+    try {
+      const _agNow = new Date().toISOString();
+      const _agUrl = `${SUPABASE_URL}/rest/v1/agenda_commercants?commercant_id=eq.${id}&statut=eq.publie&date_fin=gte.${_agNow}&order=date_debut.asc&select=type,titre,description,date_debut,date_fin`;
+      const _agR = await fetch(_agUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const _agList = _agR.ok ? (await _agR.json()) : [];
+      if (_agList && _agList.length) {
+        const _agT = { fermeture:{i:'🚫',l:'Fermeture'}, evenement:{i:'🎉',l:'Événement'}, promo:{i:'🏷️',l:'Promotion'}, horaire_special:{i:'⏰',l:'Horaire spécial'}, animation:{i:'🎪',l:'Animation'}, porte_ouverte:{i:'🚪',l:'Portes ouvertes'}, offre_speciale:{i:'💶',l:'Offre spéciale'} };
+        const _agFmt = (d) => { try { return new Date(d).toLocaleDateString('fr-FR', { weekday:'long', day:'numeric', month:'long' }); } catch (e) { return ''; } };
+        const _agHeure = (d) => { try { const dt = new Date(d); return (dt.getHours() || dt.getMinutes()) ? dt.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' }) : ''; } catch (e) { return ''; } };
+        const _agWhen = (e) => { const d1 = _agFmt(e.date_debut), d2 = e.date_fin ? _agFmt(e.date_fin) : ''; const h1 = _agHeure(e.date_debut); if (d2 && d2 !== d1) return `du ${d1} au ${d2}`; return h1 ? `${d1} à ${h1}` : d1; };
+        agendaHtml = `
+      <section class="section">
+        <h2>📅 Agenda</h2>
+        <div class="agenda-list">
+          ${_agList.slice(0, 8).map((e) => {
+            const t = _agT[e.type] || { i:'📌', l:'' };
+            return `<div class="agenda-item">
+              <div class="agenda-ic">${t.i}</div>
+              <div class="agenda-body">
+                <div class="agenda-titre">${escapeHtml(e.titre || '')}</div>
+                <div class="agenda-when">${_agWhen(e)}</div>
+                ${e.description ? `<div class="agenda-desc">${escapeHtml(e.description)}</div>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+      </section>`;
+      }
+    } catch (e) { console.error('[agenda]', e); }
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -426,6 +458,13 @@ export default async function handler(req) {
 
   @media (max-width:900px){ .hero{ min-height:300px; } .hero-title{ font-size:26px; } }
   @media (max-width:600px){ .hero{ min-height:260px; } .hero-title{ font-size:22px; } .hero-logo{ width:52px;height:52px; } .cta-btn-2{ display:block;margin:12px 0 0; } }
+  .agenda-list{ display:flex;flex-direction:column;gap:12px;margin-top:8px; }
+  .agenda-item{ display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #E5E7EB;border-radius:14px;background:#fff; }
+  .agenda-ic{ font-size:26px;line-height:1;flex-shrink:0; }
+  .agenda-body{ flex:1;min-width:0; }
+  .agenda-titre{ font-weight:700;font-size:15px;color:#0F172A; }
+  .agenda-when{ font-size:12.5px;color:#1D9E75;font-weight:600;margin-top:2px;text-transform:capitalize; }
+  .agenda-desc{ font-size:13px;color:#4B5563;margin-top:4px; }
 </style>
 </head>
 <body>
@@ -469,6 +508,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
   </section>
 
   ${menuHtml}
+  ${agendaHtml}
   ${fideliteHtml}
   ${horairesHtml}
   ${contactHtml}
@@ -532,3 +572,5 @@ ${lightboxHtml}
 // LKL_PRO_CONTACTPRIV_V1
 
 // LKL_PRO_COUV_V1
+
+// LKL_PRO_AGENDA_V1
