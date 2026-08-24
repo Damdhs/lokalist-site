@@ -35,3 +35,5 @@ patch-hero-video-3d-v1.cjs
 patch-tarifs-*.cjs
 *.bak
 *.bak2
+
+node_modules/
