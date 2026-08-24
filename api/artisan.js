@@ -203,13 +203,14 @@ export default async function handler(req) {
       const _caList = _caR.ok ? (await _caR.json()) : [];
       const _ccList = _ccR.ok ? (await _ccR.json()) : [];
       const _cat = {};
-      (_ccList || []).forEach((c) => { if (c && c.code) _cat[c.code] = c; });
+      (_ccList || []).forEach((c) => { if (c && c.code) _cat[String(c.code).toLowerCase()] = c; });
+      const _lk = (t) => _cat[String(t || '').toLowerCase()];
       const _now = Date.now();
       const _valides = (_caList || []).filter((c) => {
         const st = (c.statut || '').toString().toLowerCase();
         const okStatut = st.indexOf('valid') !== -1 || st === 'actif' || st === 'ok' || (!c.statut && c.valide_at);
         const notExpired = !c.date_expiration || (new Date(c.date_expiration).getTime() >= _now);
-        return okStatut && notExpired && _cat[c.type];
+        return okStatut && notExpired && _lk(c.type);
       });
       if (_valides.length) {
         certifsHtml = `
@@ -217,7 +218,7 @@ export default async function handler(req) {
         <h2>Certifications</h2>
         <div class="certifs-grid">
           ${_valides.map((c) => {
-            const cc = _cat[c.type] || {};
+            const cc = _lk(c.type) || {};
             const img = cc.logo_url ? `<img src="${escapeHtml(cc.logo_url)}" alt="${escapeHtml(cc.libelle || c.type)}" class="certif-logo"/>` : `<div class="certif-ic">${cc.icon || '📜'}</div>`;
             const sub = c.numero ? `n° ${escapeHtml(c.numero)}` : (c.date_expiration ? `valable jusqu'au ${new Date(c.date_expiration).toLocaleDateString('fr-FR')}` : '');
             return `<div class="certif-card">${img}<div class="certif-lab">${escapeHtml(cc.libelle || c.type)}</div>${sub ? `<div class="certif-sub">${sub}</div>` : ''}</div>`;
