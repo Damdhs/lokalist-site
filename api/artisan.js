@@ -191,6 +191,42 @@ export default async function handler(req) {
 
     const couv = a.photo_couverture || null;
     const heroCouvStyle = couv ? ` style="background-image:linear-gradient(180deg,rgba(4,20,17,0.30),rgba(4,20,17,0.62)),url('${escapeHtml(couv)}');background-size:cover;background-position:center;"` : '';
+    // ─── Certifications (logos) ───
+    let certifsHtml = '';
+    try {
+      const _caUrl = `${SUPABASE_URL}/rest/v1/certifications_artisans?artisan_id=eq.${id}&select=type,numero,statut,date_expiration,valide_at`;
+      const _ccUrl = `${SUPABASE_URL}/rest/v1/certifications_catalogue?actif=eq.true&select=code,libelle,logo_url,icon,couleur`;
+      const [_caR, _ccR] = await Promise.all([
+        fetch(_caUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } }),
+        fetch(_ccUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } })
+      ]);
+      const _caList = _caR.ok ? (await _caR.json()) : [];
+      const _ccList = _ccR.ok ? (await _ccR.json()) : [];
+      const _cat = {};
+      (_ccList || []).forEach((c) => { if (c && c.code) _cat[c.code] = c; });
+      const _now = Date.now();
+      const _valides = (_caList || []).filter((c) => {
+        const st = (c.statut || '').toString().toLowerCase();
+        const okStatut = st.indexOf('valid') !== -1 || st === 'actif' || st === 'ok' || (!c.statut && c.valide_at);
+        const notExpired = !c.date_expiration || (new Date(c.date_expiration).getTime() >= _now);
+        return okStatut && notExpired && _cat[c.type];
+      });
+      if (_valides.length) {
+        certifsHtml = `
+      <section class="section">
+        <h2>Certifications</h2>
+        <div class="certifs-grid">
+          ${_valides.map((c) => {
+            const cc = _cat[c.type] || {};
+            const img = cc.logo_url ? `<img src="${escapeHtml(cc.logo_url)}" alt="${escapeHtml(cc.libelle || c.type)}" class="certif-logo"/>` : `<div class="certif-ic">${cc.icon || '📜'}</div>`;
+            const sub = c.numero ? `n° ${escapeHtml(c.numero)}` : (c.date_expiration ? `valable jusqu'au ${new Date(c.date_expiration).toLocaleDateString('fr-FR')}` : '');
+            return `<div class="certif-card">${img}<div class="certif-lab">${escapeHtml(cc.libelle || c.type)}</div>${sub ? `<div class="certif-sub">${sub}</div>` : ''}</div>`;
+          }).join('')}
+        </div>
+      </section>`;
+      }
+    } catch (e) { console.error('[artisan certifs]', e); }
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -302,6 +338,12 @@ export default async function handler(req) {
   footer{ text-align:center;padding:30px 20px 44px;color:var(--muted);font-size:12px; }
   footer a{ color:var(--primary-d);text-decoration:none;font-weight:600; }
   @media (max-width:600px){ .hero{ min-height:250px; } .hero-title{ font-size:23px; } .hero-logo{ width:60px;height:60px; } .cta-btn-2{ display:block;margin:12px 0 0; } }
+  .certifs-grid{ display:flex;flex-wrap:wrap;gap:14px;margin-top:8px; }
+  .certif-card{ display:flex;flex-direction:column;align-items:center;text-align:center;width:120px;padding:12px 10px;border:1px solid #E5E7EB;border-radius:14px;background:#fff; }
+  .certif-logo{ width:64px;height:64px;object-fit:contain;margin-bottom:8px; }
+  .certif-ic{ font-size:40px;line-height:1;margin-bottom:8px; }
+  .certif-lab{ font-weight:700;font-size:13px;color:#0F172A; }
+  .certif-sub{ font-size:11px;color:#6B7280;margin-top:2px; }
 </style>
 </head>
 <body>
@@ -344,6 +386,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
   </section>
 
   ${garantiesHtml}
+  ${certifsHtml}
   ${contactHtml}
   ${localHtml}
 
@@ -387,3 +430,5 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 // LKL_ART_COUV_V1
 
 // LKL_ART_NOCLIENTELE_V1
+
+// LKL_ART_CERTIFS_V1
