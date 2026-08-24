@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lokalist pour les Hébergeurs — Réservations en direct, zéro commission</title>
+  <meta name="description" content="Hôtel, gîte, chambre d'hôtes, camping : Lokalist vous donne un mini-site puissant avec réservation en ligne, sans aucune commission. Vous gérez votre business, on vous fournit l'outil."/>
+  <meta name="keywords" content="fidélité locale, commerçant application, bons mairie, QR code fidélité, programme fidélité commerce, visibilité locale, avis clients commerce, encaisser bons mairie, programme fidélité QR code, visibilité commerçant local, avis clients vérifiés, dashboard commerçant, commerce de proximité numérique"/>
+  <link rel="canonical" href="https://lokalist.fr/hebergement"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.08);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+    .nav-links{display:flex;align-items:center;gap:26px;list-style:none}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--g)}
+    .nav-cta{background:var(--g)!important;color:#fff!important;padding:9px 20px;border-radius:100px;font-weight:700!important;transition:all .2s!important}
+    .nav-cta:hover{background:var(--gd)!important;transform:translateY(-1px)}
+    .nav-dash{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important}
+    .nav-dash:hover{background:var(--gl)!important}
+    .foot-legal{display:flex;gap:16px;flex-wrap:wrap}
+    .foot-legal a{font-size:12px;color:rgba(255,255,255,.28);text-decoration:none;transition:color .2s}
+    .foot-legal a:hover{color:var(--g)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+    .mob,.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
+    .mob.open,.mobile-menu.open{display:flex}
+    .mob a,.mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
+    .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
+    .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
+    .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+    .sec-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:500px}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+    .reveal{opacity:1;transform:translateY(0)}.reveal.visible{opacity:1;transform:translateY(0)}
+    .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);color:var(--gd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--g)}
+    .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:480px}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .hero-trust{display:flex;gap:24px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-weight:500}
+    .trust-item::before{content:'✓';color:var(--g);font-weight:800}
+    .dash-preview{background:var(--dark);border-radius:20px;padding:24px;box-shadow:0 48px 96px rgba(0,0,0,.28),0 0 0 1px rgba(29,158,117,.15)}
+    .dash-topbar{display:flex;align-items:center;gap:6px;margin-bottom:16px}
+    .dash-dot{width:9px;height:9px;border-radius:50%}
+    .dash-lbl{font-size:11px;color:rgba(255,255,255,.3);margin-left:8px;font-family:monospace}
+    .dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+    .dash-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px}
+    .dash-stat-v{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
+    .dash-stat-v.g{color:var(--g)}
+    .dash-stat-v.a{color:var(--a)}
+    .dash-stat-l{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
+    .dash-qr{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:14px}
+    .dash-qr-ico{font-size:36px}
+    .dash-qr-txt{font-size:12px;color:rgba(255,255,255,.6)}
+    .dash-qr-txt strong{color:#fff;display:block;margin-bottom:3px;font-size:13px}
+    .dash-avis{background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.25);border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+    .dash-avis-txt{font-size:11.5px;color:rgba(255,255,255,.65)}
+    .dash-avis-txt strong{color:#fff;display:block;margin-bottom:2px}
+    .avantages{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .av-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .av-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
+    .av-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+    .av-card:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(29,158,117,.09);border-color:var(--gm)}
+    .av-card:hover::before{transform:scaleX(1)}
+    .av-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
+    .av-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .av-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
+    /* === Strategie fidelite (2 modes) === */
+    .strat{padding:90px 5%;background:var(--bg)}
+    .strat-in{max-width:1180px;margin:0 auto}
+    .strat-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px}
+    .strat-card{position:relative;background:var(--surf);border:1px solid var(--bdr);border-radius:22px;padding:32px;overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+    .strat-card:hover{transform:translateY(-4px);box-shadow:0 22px 56px rgba(29,158,117,.1)}
+    .strat-card.is-a{border-top:4px solid var(--g)}
+    .strat-card.is-b{border-top:4px solid var(--a)}
+    .strat-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:6px 12px;border-radius:100px;margin-bottom:16px}
+    .strat-card.is-a .strat-tag{background:var(--gl);color:var(--gd)}
+    .strat-card.is-b .strat-tag{background:var(--al);color:#B26A00}
+    .strat-card h3{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:var(--dark);margin-bottom:10px;line-height:1.2}
+    .strat-card .strat-lead{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
+    .strat-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+    .strat-list li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--dark);line-height:1.55}
+    .strat-list li::before{content:'';flex-shrink:0;width:7px;height:7px;border-radius:50%;margin-top:7px}
+    .strat-card.is-a .strat-list li::before{background:var(--g)}
+    .strat-card.is-b .strat-list li::before{background:var(--a)}
+    .strat-sub{margin-top:16px;padding:14px 16px;background:rgba(239,159,39,.07);border:1px dashed rgba(239,159,39,.4);border-radius:14px}
+    .strat-sub strong{font-family:'Syne',sans-serif;font-size:13px;color:var(--dark);display:block;margin-bottom:8px}
+    .strat-sub-row{display:flex;flex-direction:column;gap:8px}
+    .strat-sub-row div{font-size:12.5px;color:var(--muted);line-height:1.5}
+    .strat-sub-row em{font-style:normal;font-weight:700;color:#B26A00}
+    .strat-note{margin-top:32px;display:flex;flex-direction:column;gap:12px}
+    .strat-note-item{display:flex;gap:12px;align-items:flex-start;background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:16px 18px}
+    .strat-note-item .ico{flex-shrink:0;font-size:20px;line-height:1}
+    .strat-note-item p{font-size:13.5px;color:var(--muted);line-height:1.6;margin:0}
+    .strat-note-item p strong{color:var(--dark);font-weight:700}
+    .strat-cta{margin-top:32px;text-align:center;background:linear-gradient(135deg,var(--gl),#fff);border:1px solid var(--gm);border-radius:18px;padding:28px}
+    .strat-cta h4{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--dark);margin-bottom:6px}
+    .strat-cta p{font-size:14px;color:var(--muted);margin-bottom:18px}
+    .strat-cta a{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;transition:background .2s}
+    .strat-cta a:hover{background:var(--gd)}
+    .bons{background:linear-gradient(135deg,var(--g),var(--gd));padding:80px 5%}
+    .bons-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .bons h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+    .bons p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:28px}
+    .bons-steps{display:flex;flex-direction:column;gap:16px}
+    .bons-step{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px}
+    .bons-step-n{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--g);font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .bons-step-txt h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+    .bons-step-txt p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5}
+    .bon-exemple{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:28px;text-align:center}
+    .bon-code{font-family:monospace;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px}
+    .bon-valeur{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#fff;line-height:1}
+    .bon-label{font-size:13px;color:rgba(255,255,255,.7);margin-top:6px}
+    .bon-expiry{font-size:11px;color:rgba(255,255,255,.45);margin-top:8px}
+    .bon-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border-radius:100px;padding:5px 12px;font-size:11px;color:#fff;font-weight:600;margin-top:12px}
+    .steps-section{padding:90px 5%;background:linear-gradient(135deg,var(--gd) 0%,var(--g) 100%);position:relative;overflow:hidden}
+    .steps-section .step-n{color:rgba(255,255,255,.32)}
+    .steps-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 70% 40%,rgba(29,158,117,.1) 0%,transparent 55%)}
+    .steps-in{max-width:1280px;margin:0 auto;position:relative}
+    .steps-section .sec-tag{color:var(--gm)}
+    .steps-section .sec-h{color:#fff}
+    .steps-section .sec-p{color:rgba(255,255,255,.45)}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
+    .step{padding:26px 22px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;transition:all .3s}
+    .step:hover{background:rgba(29,158,117,.09);border-color:rgba(29,158,117,.3);transform:translateY(-4px)}
+    .step-n{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:rgba(29,158,117,.2);line-height:1;margin-bottom:12px}
+    .step-i{font-size:26px;margin-bottom:10px}
+    .step h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+    .step p{font-size:12.5px;color:rgba(255,255,255,.45);line-height:1.6}
+    .tarif-section{padding:90px 5%;max-width:1280px;margin:0 auto}
+    .tarif-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    .tarif-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:40px;position:relative}
+    .tarif-top{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
+    .tarif-main{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--dark);margin-bottom:6px}
+    .tarif-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+    .tarif-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
+    .tarif-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px}
+    .tarif-feats li::before{content:'✓';color:var(--g);font-weight:800}
+    .cta{background:linear-gradient(135deg,var(--dark),#1A3028);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
+    .cta::before{content:'🏪';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
+    .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2 span{color:var(--a)}
+    .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
+    .btn-w{background:#fff;color:var(--g);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
+    .cta-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
+    footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
+    .foot-in{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+    .foot-links{display:flex;gap:22px}
+    .foot-links a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+    .foot-links a:hover{color:var(--g)}
+    .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
+    @media(max-width:1100px){
+      .nav-links{display:none}.hamburger{display:flex}
+      .hero,.bons-in,.tarif-grid{grid-template-columns:1fr}
+      .hero{gap:40px;padding:110px 5% 60px}
+      .av-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:640px){.steps{grid-template-columns:1fr}}
+  
+    /* ═══ MOBILE RENFORCÉ 480px ═══ */
+    @media(max-width:480px){
+      body{overflow-x:hidden}
+      nav{padding:12px 4%}
+      .hero,.bons-in,.tarif-grid,.strat-grid,.tarif-in,.fid-in,.boost-in,.avis-grid{grid-template-columns:1fr!important;gap:24px!important}
+      .hero{padding:88px 4% 44px!important}
+      .hero h1{font-size:clamp(24px,8.5vw,34px)!important;letter-spacing:-.8px}
+      .hero-sub{font-size:14px}
+      .hero-btns{flex-direction:column;align-items:stretch}
+      .hero-btns a,.hero-btns .btn{text-align:center;justify-content:center;width:100%}
+      .hero-trust{gap:12px;flex-wrap:wrap;margin-top:24px}
+      .hero > div:last-child{flex-direction:column!important;align-items:center!important}
+.hero > div:last-child > div:first-child{width:150px!important;height:300px!important;transform:none!important}
+      .sec-h{font-size:clamp(20px,7vw,28px)!important}
+      .sec-p{font-size:14px!important;margin-bottom:24px}
+      .av-grid,.avantages-grid,.args-grid,.conv-in{grid-template-columns:1fr!important}
+      .steps{grid-template-columns:1fr!important}
+      .dash-stats,.kpis,.dash-kpis,.strat-kpi-row{grid-template-columns:1fr 1fr!important}
+      .tarif-cards.cols2,.tarif-cards.cols3{grid-template-columns:1fr!important}
+      .cats-grid{grid-template-columns:repeat(2,1fr)!important}
+      .profil-grid{grid-template-columns:repeat(2,1fr)!important}
+      .btn{padding:11px 16px;font-size:13px}
+      .cta h2{font-size:clamp(22px,8vw,34px)!important}
+      .stores{flex-direction:column;align-items:center;gap:10px}
+      .foot-links{flex-wrap:wrap;gap:10px;justify-content:center}
+      .foot-legal{justify-content:center;flex-wrap:wrap;gap:10px}
+      .foot-in{flex-wrap:wrap}
+      .form-row{grid-template-columns:1fr!important}
+      .ci-in{grid-template-columns:1fr!important}
+      .tarif-card{padding:28px 16px}
+      .conviction{padding:44px 4%}
+    }
+    /* === DROPDOWN ESPACES PROS === */
+.nav-espaces{position:relative}
+.nav-espaces-btn{background:rgba(29,158,117,.1)!important;color:var(--g)!important;padding:7px 14px;border-radius:100px;font-weight:600!important;font-size:12.5px!important;display:inline-flex;align-items:center;gap:4px;cursor:pointer;border:1px solid rgba(29,158,117,.25);transition:all .2s}
+.nav-espaces-btn:hover{background:var(--gl)!important}
+.nav-espaces-btn .chev{font-size:10px;transition:transform .2s}
+.nav-espaces.open .nav-espaces-btn .chev{transform:rotate(180deg)}
+.nav-espaces-drop{position:absolute;top:calc(100% + 8px);right:0;background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:6px;min-width:220px;box-shadow:0 12px 40px rgba(0,0,0,.08);opacity:0;visibility:hidden;transform:translateY(-4px);transition:all .2s;z-index:201}
+.nav-espaces.open .nav-espaces-drop{opacity:1;visibility:visible;transform:translateY(0)}
+.nav-espaces-drop a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:500;color:var(--text)!important;text-decoration:none;transition:background .15s}
+.nav-espaces-drop a:hover{background:var(--gl);color:var(--g)!important}
+.nav-espaces-drop a .ico{font-size:18px}
+/* === FIN DROPDOWN === */
+</style>
+  <!-- Favicon Lokalist -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
+  <link rel="icon" href="/favicon.ico" sizes="any"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+  <meta name="theme-color" content="#1D9E75"/>
+  <link rel="stylesheet" href="loki-section.css">
+<style id="patch-commercants-css-v1">
+@media(max-width:600px){.steps-pack{grid-template-columns:1fr !important}}
+</style><!-- /patch-commercants-css-v1 -->
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+    <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
+      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
+    </div>
+    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/mairies">Mairies</a></li>
+    <li><a href="/commercants">Commerçants</a></li>
+    <li><a href="/artisans">Artisans</a></li>
+    <li><a href="/appels-offres">Appels d'offres</a></li>
+    <li><a href="/loisirs">Loisirs</a></li>
+    <li><a href="/idees-sorties">Idées Sorties</a></li>
+    <li><a href="/agences">Agences</a></li>
+    <li><a href="/hebergement">Hébergement</a></li>
+    <li><a href="/courtiers">Courtiers</a></li>
+    <li><a href="/tarifs">Tarifs</a></li>
+    <li class="nav-espaces" id="navEspaces">
+      <button class="nav-espaces-btn" onclick="toggleEspaces(event)">🚪 Espaces Pros <span class="chev">▾</span></button>
+      <div class="nav-espaces-drop">
+        <a href="https://dashboard.lokalist.fr" target="_blank"><span class="ico">🏛️</span> Dashboard</a>
+        <a href="https://agence.lokalist.fr" target="_blank"><span class="ico">🏠</span> Espace Agence</a>
+      </div>
+    </li>
+    <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="/mairies">🏛️ Mairies</a>
+  <a href="/commercants">🏪 Commerçants</a>
+  <a href="/artisans">🔧 Artisans</a>
+  <a href="/appels-offres">📣 Appels d'offres</a>
+  <a href="/loisirs">🎳 Loisirs</a>
+  <a href="/idees-sorties">🎉 Idées Sorties</a>
+  <a href="/agences">🏠 Agences</a>
+  <a href="/hebergement">🛏️ Hébergement</a>
+  <a href="/courtiers">💶 Courtiers</a>
+  <a href="/tarifs">💶 Tarifs</a>
+  <a href="/contact" style="color:var(--g);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
+  <div style="height:1px;background:var(--bdr);margin:8px 0"></div>
+  <a href="https://dashboard.lokalist.fr" target="_blank">🏛️ Dashboard</a>
+  <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
+</div>
+<section style="background:var(--bg);overflow:hidden">
+  <div class="hero">
+    <div style="animation:fadeUp .6s ease both">
+      <div class="hero-badge">🛏️ Pour les hébergeurs locaux</div>
+      <h1>Vos réservations en direct,<br/><em>zéro commission</em></h1>
+      <p class="hero-sub">Hôtel, gîte, chambre d'hôtes, camping… Lokalist vous donne un mini-site puissant avec réservation en ligne — et vous ne payez aucune commission sur vos nuitées. Vous gérez votre business, on vous fournit l'outil, propre et prêt à l'emploi.</p>
+      <div class="hero-btns">
+        <a href="/contact?type=hebergeur" class="btn btn-g">🛏️ Devenir hébergeur partenaire</a>
+        <a href="#avantages" class="btn btn-o">Découvrir les avantages →</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">0% de commission</div>
+        <div class="trust-item">Réservation en ligne</div>
+        <div class="trust-item">Mini-site inclus</div>
+        <div class="trust-item">Mise en ligne en 48h</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;justify-content:center;animation:fadeUp .7s .1s ease both">
+      <div style="flex-shrink:0;width:185px;height:370px;border-radius:32px;border:7px solid #1A2E26;background:#fff;position:relative;overflow:hidden;box-shadow:0 60px 120px rgba(0,0,0,.28),0 0 0 1px rgba(29,158,117,.2);transform:perspective(900px) rotateY(-8deg) rotateX(2deg);transition:transform .4s">
+        <div style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:48px;height:16px;background:#1A2E26;border-radius:0 0 10px 10px;z-index:5"></div>
+        <img src="/images/screen-hebergement.jpg" alt="Fiche hébergeur Lokalist" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
+        <div style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:130px;height:44px;background:rgba(29,158,117,.22);filter:blur(16px);border-radius:50%"></div>
+      </div>
+      <!-- Dashboard hébergeur -->
+      <div style="flex:1;min-width:0;background:#fff;border-radius:18px;padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.16),0 0 0 1px var(--bdr)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:8px;min-width:0"><div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gd));flex-shrink:0"></div><div style="min-width:0"><div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Gîte du Port</div><div style="font-size:9px;color:var(--muted)">📍 Fécamp · Hébergeur</div></div></div>
+          <div style="display:flex;gap:3px;flex-shrink:0"><span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--bg);color:var(--muted)">7j</span><span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--g);color:#fff;font-weight:700">30j</span><span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--bg);color:var(--muted)">1an</span></div>
+        </div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px">📊 Mon activité</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px">
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Réservations</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--g)">12</div></div>
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Taux d'occupation</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--g)">78%</div></div>
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Nuitées</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--a)">34</div></div>
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Note moyenne</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--a)">4.9★</div></div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:10px;margin-bottom:10px">
+          <div style="font-size:9px;font-weight:700;color:var(--text);margin-bottom:7px">📅 Prochaines arrivées</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--muted);margin-bottom:6px"><span style="color:var(--text);font-weight:700">M. Durand · 2 pers.</span><span>14 → 17 juin</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:9px;color:var(--muted)"><span style="color:var(--text);font-weight:700">Fam. Leroy · 4 pers.</span><span>21 → 28 juin</span></div>
+        </div>
+        <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.28);border-radius:10px;padding:9px 11px;display:flex;justify-content:space-between;align-items:center"><div style="font-size:10px;font-weight:700;color:var(--gd)">🚫 0% de commission</div><div style="font-size:9px;color:var(--muted)">100% de la nuit pour vous</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="avantages" id="avantages">
+  <p class="sec-tag reveal">Pourquoi Lokalist</p>
+  <h2 class="sec-h reveal">Tout ce dont votre hébergement<br/>a besoin pour se remplir</h2>
+  <p class="sec-p reveal">Un mini-site puissant avec réservation en ligne, sans commission. Vous gardez la main sur votre business — on vous fournit l'outil, propre et prêt à l'emploi.</p>
+  <div class="av-grid">
+    <div class="av-card reveal"><div class="av-ico">📅</div><h3>Réservation en ligne</h3><p>Vos clients réservent leurs dates directement depuis votre mini-site et l'app. Calendrier synchronisé, disponibilités toujours à jour.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🚫</div><h3>Zéro commission</h3><p>Aucune commission sur vos nuitées. Un abonnement fixe, et 100% du prix de la nuit reste pour vous.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🌐</div><h3>Mini-site puissant</h3><p>Votre page publique lokalist.fr/hebergement/vous : photos, tarifs, équipements, avis et réservation en ligne. Référencée sur Google.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🛏️</div><h3>Multi-tarifs & séjours</h3><p>Basse/haute saison, week-end, semaine : vos tarifs, vos règles. Anti-surréservation intégré.</p></div>
+    <div class="av-card reveal"><div class="av-ico">⭐</div><h3>Avis vérifiés</h3><p>Des avis authentiques de vrais voyageurs, modérés avant publication. Répondez à chacun.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🧭</div><h3>Activités à proximité</h3><p>Votre page met en avant commerces, restos et sorties autour de vous. Un vrai plus pour vos voyageurs.</p></div>
+    <div class="av-card reveal"><div class="av-ico">📸</div><h3>Vitrine complète</h3><p>Galerie photos, description, équipements, localisation — tout pour donner envie de réserver.</p></div>
+    <div class="av-card reveal"><div class="av-ico">📊</div><h3>Dashboard & calendrier</h3><p>Réservations, taux d'occupation, revenus, calendrier — tout piloté depuis votre espace pro.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🤝</div><h3>On vous fournit tout</h3><p>Mise en ligne clé en main en 48h, sans compétence technique. Vous gérez, on s'occupe de l'outil.</p></div>
+  </div>
+</section>
+<section style="padding:90px 5%;background:var(--surf)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+    <div class="reveal">
+      <p class="sec-tag">Votre mini-site avec réservation</p>
+      <h2 class="sec-h">Un mini-site puissant,<br/>qui prend vos réservations</h2>
+      <p class="sec-p">Bien plus qu'une fiche : une vraie page publique à votre nom, avec réservation en ligne directe et sans commission. Vous gérez votre calendrier et vos tarifs, on vous fournit tout, propre et prêt à l'emploi.</p>
+      <ul style="list-style:none;display:grid;gap:12px;padding:0;margin:0">
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Réservation en ligne directe, 0% de commission</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Adresse à partager : lokalist.fr/hebergement/votre-hebergement</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Photos, tarifs, équipements et avis sur une page référencée Google</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Calendrier et disponibilités toujours à jour, anti-surréservation</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Les activités et commerces autour de vous mis en avant</span></li>
+      </ul>
+    </div>
+    <div class="reveal" style="min-width:0">
+      <div style="background:#fff;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.14),0 0 0 1px var(--bdr);overflow:hidden;max-width:440px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--bg);border-bottom:1px solid var(--bdr)"><span style="width:8px;height:8px;border-radius:50%;background:#EF4444"></span><span style="width:8px;height:8px;border-radius:50%;background:#F59E0B"></span><span style="width:8px;height:8px;border-radius:50%;background:#22C55E"></span><div style="flex:1;background:#fff;border:1px solid var(--bdr);border-radius:100px;padding:4px 12px;font-size:10px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">🔒 lokalist.fr/hebergement/gite-du-port</div></div>
+        <div>
+          <div style="background:linear-gradient(135deg,var(--gd),var(--g));height:66px;position:relative"><span style="position:absolute;top:8px;right:8px;background:#fff;color:var(--gd);font-size:8px;font-weight:800;border-radius:100px;padding:3px 8px">🚫 0% commission</span></div>
+          <div style="padding:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--text)">Gîte du Port</div><div style="font-size:10px;color:var(--a);font-weight:800">4.9★</div></div>
+            <div style="font-size:9px;color:var(--muted);margin-top:2px">📍 Fécamp · 4 pers. · 🛏️ 2 chambres · 📶 Wifi</div>
+            <div style="display:flex;gap:5px;margin-top:9px">
+              <div style="flex:1;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:6px 8px;text-align:center"><div style="font-size:7px;color:var(--muted)">Arrivée</div><div style="font-size:10px;font-weight:700;color:var(--text)">14 juin</div></div>
+              <div style="flex:1;background:var(--bg);border:1px solid var(--bdr);border-radius:8px;padding:6px 8px;text-align:center"><div style="font-size:7px;color:var(--muted)">Départ</div><div style="font-size:10px;font-weight:700;color:var(--text)">17 juin</div></div>
+              <div style="background:var(--gl);border:1px solid var(--gm);border-radius:8px;padding:6px 8px;text-align:center"><div style="font-size:7px;color:var(--gd)">Total</div><div style="font-size:10px;font-weight:800;color:var(--gd)">255€</div></div>
+            </div>
+            <div style="margin-top:10px;background:var(--g);color:#fff;text-align:center;border-radius:8px;padding:9px;font-size:11px;font-weight:700">📅 Réserver ces dates</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="loki reveal-in" id="loki">
+  <div class="loki__wrap">
+    <div class="loki__head">
+      <div class="loki__badge" data-reveal><span class="dot"></span> LOKI · votre assistant IA Lokalist</div>
+      <h2 class="loki__title" data-reveal><span class="fox">LOKI 🦊</span> remplit votre <span class="hl">hébergement</span>, jour et nuit</h2>
+      <p class="loki__lead" data-reveal>Grâce à Loki, votre hébergement est en ligne — et vous continuez à gérer votre business. Il guide les voyageurs jusqu'à vous, rédige vos annonces, répond aux questions et met en avant votre région. Vous validez, Loki s'occupe du reste.</p>
+    </div>
+    <div class="loki__grid">
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🧭</div>
+        <h3>Il amène les voyageurs à vous</h3>
+        <p>Quand un habitant ou un visiteur cherche « où dormir » près d'ici, LOKI met votre hébergement en avant. Une vitrine qui travaille pour vous, 24h/24.</p>
+      </article>
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">✍️</div>
+        <h3>Il rédige vos annonces</h3>
+        <p>Décrivez votre logement en une phrase : LOKI écrit une description qui donne envie, claire et bien présentée. Vous validez, c'est en ligne.</p>
+      </article>
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">💬</div>
+        <h3>Il répond aux voyageurs</h3>
+        <p>Questions sur les équipements, l'accès, les horaires : LOKI prépare des réponses prêtes à envoyer. Vous gagnez du temps, le voyageur est rassuré.</p>
+      </article>
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🗺️</div>
+        <h3>Il met en avant votre région</h3>
+        <p>LOKI suggère aux voyageurs les commerces, restos et sorties autour de vous. Un vrai plus qui valorise votre hébergement.</p>
+      </article>
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">⭐</div>
+        <h3>Il soigne vos avis</h3>
+        <p>Il repère les nouveaux avis et vous aide à répondre. Une e-réputation entretenue sans effort.</p>
+      </article>
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">📈</div>
+        <h3>Il vous montre ce qui marche</h3>
+        <p>Taux d'occupation, périodes fortes, revenus : LOKI vous montre l'essentiel, en clair, pour ajuster vos tarifs.</p>
+      </article>
+    </div>
+    <div class="loki__proof">
+      <span class="loki__proof-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Plus de réservations en direct</span>
+      <span class="loki__proof-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Zéro commission</span>
+      <span class="loki__proof-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Moins de temps de gestion</span>
+    </div>
+    <div class="loki__cta">
+      <p class="loki__cta-line">Vous gérez votre business. LOKI s'occupe du digital.</p>
+      <a class="loki__btn" href="contact.html?type=profil">Rejoindre Lokalist <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+<section style="padding:90px 5%;background:var(--bg)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+    <div class="reveal">
+      <p class="sec-tag">Tarification</p>
+      <h2 class="sec-h">Un tarif simple,<br/>et zéro commission</h2>
+      <p class="sec-p">Vous ne payez jamais de commission sur vos réservations. Un abonnement mensuel fixe, résiliable, et 100% du prix de la nuit reste pour vous.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;justify-content:space-between;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px"><span style="font-weight:700;color:var(--text);font-size:13.5px">🚫 Commission sur réservations</span><span style="font-family:'Syne',sans-serif;font-weight:800;color:var(--g)">0€</span></div>
+        <div style="display:flex;justify-content:space-between;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px"><span style="font-weight:700;color:var(--text);font-size:13.5px">🎁 1 boost 12h / mois</span><span style="font-family:'Syne',sans-serif;font-weight:800;color:var(--g)">Inclus</span></div>
+        <div style="display:flex;justify-content:space-between;background:var(--surf);border:1px solid var(--bdr);border-radius:12px;padding:12px 16px"><span style="font-weight:700;color:var(--text);font-size:13.5px">🤝 Code parrainage</span><span style="font-family:'Syne',sans-serif;font-weight:800;color:var(--g)">1 mois offert/an</span></div>
+      </div>
+    </div>
+    <div class="reveal" style="background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:32px;box-shadow:0 30px 70px rgba(0,0,0,.08);max-width:440px;margin:0 auto;width:100%">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px">🛏️ Hébergeur Lokalist</div>
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px">Mensuel · 3 mois offerts (lancement)</div>
+      <div style="font-family:'Syne',sans-serif;font-size:44px;font-weight:800;color:var(--text);line-height:1">24<span style="font-size:18px;color:var(--muted);font-weight:400">,90€/mois</span></div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.6;margin:10px 0 6px">soit <strong style="color:var(--g)">224,10€/an</strong> en paiement unique la 1ʳᵉ année (3 mois offerts), puis <strong style="color:var(--dark)">298,80€/an</strong>. <strong style="color:var(--dark)">0% de commission</strong> sur vos réservations.</div>
+      <ul style="list-style:none;padding:0;margin:14px 0 18px">
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Mini-site public avec réservation en ligne</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ 0% de commission sur vos réservations</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Calendrier & multi-tarifs (saisons, week-end, semaine)</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Anti-surréservation intégré</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Avis voyageurs vérifiés & modérés</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ 1 boost 12h gratuit/mois inclus</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Activités & commerces à proximité mis en avant</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Dashboard pro (dashboard.lokalist.fr)</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Mise en ligne clé en main en 48h</li>
+        <li style="padding:7px 0;border-bottom:1px solid var(--bdr);font-size:13.5px;color:var(--text)">✓ Support dédié Lokalist</li>
+      </ul>
+      <a href="/contact?type=hebergeur" class="btn btn-g" style="width:100%;justify-content:center;margin-bottom:10px">🎁 Commencer — 3 mois offerts</a>
+      <div style="display:flex;gap:8px;margin-top:8px"><div style="flex:1;text-align:center;background:#F0FDF9;border:1px solid #A7F3D0;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#1D9E75">24,90€</div><div style="font-size:11px;color:#5C7268;margin-top:2px">/mois</div></div><div style="flex:1;text-align:center;background:#FFF7ED;border:1px solid #FCD34D;border-radius:10px;padding:10px 8px"><div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#EF9F27">224,10€</div><div style="font-size:11px;color:#5C7268;margin-top:2px">/an · 1ʳᵉ année</div></div></div>
+    </div>
+  </div>
+</section>
+<section class="cta">
+  <div class="cta-in">
+    <h2>Prêt à remplir<br/><span>votre hébergement ?</span></h2>
+    <p>Rejoignez les hébergeurs partenaires : mini-site, réservation en ligne, zéro commission. Mise en ligne en 48h.</p>
+    <a href="/contact?type=hebergeur" class="btn-w">🛏️ Devenir hébergeur partenaire</a>
+    <p class="cta-note">Mise en ligne en 48h · contact@lokalist.fr</p>
+  </div>
+</section>
+<footer>
+  <div class="foot-in">
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain"/></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
+    <div class="foot-links"><a href="/proposer-un-evenement">Proposer un événement</a>
+      <a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/loisirs">Loisirs</a><a href="/agences">Immo & Courtiers</a><a href="/hebergement">Hébergement</a><a href="/tarifs">Tarifs</a><a href="/contact?type=commercant">Contact</a>
+    </div>
+    <div class="foot-legal">
+      <a href="/mentions-legales">Mentions légales</a><a href="/cgv">CGV</a>
+        <a href="/cgu">CGU</a><a href="/confidentialite">Confidentialité</a><a href="/cookies">Cookies</a>
+    </div>
+    <div class="foot-copy">© 2026 Lokalist</div>
+  </div>
+</footer>
+<script>
+   // Dropdown Espaces Pros
+function toggleEspaces(e){
+  e.stopPropagation();
+  document.getElementById('navEspaces').classList.toggle('open');
+}
+document.addEventListener('click',(e)=>{
+  if(!e.target.closest('#navEspaces')){
+    const el=document.getElementById('navEspaces');
+    if(el)el.classList.remove('open');
+  }
+});
+  window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',window.scrollY>20))
+  const obs=new IntersectionObserver((e)=>{e.forEach((el,i)=>{if(el.isIntersecting){setTimeout(()=>el.target.classList.add('visible'),i*60);obs.unobserve(el.target)}})},{threshold:0.01,rootMargin:'0px 0px -10px 0px'})
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el))
+  setTimeout(()=>{document.querySelectorAll('.reveal:not(.visible)').forEach(el=>el.classList.add('visible'))},800)
+  function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open')}
+  document.addEventListener('click',e=>{if(!e.target.closest('nav')&&!e.target.closest('#mobileMenu'))document.getElementById('mobileMenu').classList.remove('open')})
+</script>
+
+  <script src="loki.js" defer></script>
+</body>
+</html>
+
+
