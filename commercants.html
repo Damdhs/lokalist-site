@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><!-- BRICOLAGE_SWAP_V1 -->
+<head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fidélité & visibilité pour commerçants locaux | Lokalist</title>
+  <title>Lokalist pour les Commerçants — Fidélisez vos clients locaux</title>
   <meta name="description" content="Lokalist référence votre commerce, gère votre programme de fidélité, encaisse les bons mairie et vous apporte de la visibilité locale. Dashboard analytics, QR code, avis vérifiés."/>
   <meta name="keywords" content="fidélité locale, commerçant application, bons mairie, QR code fidélité, programme fidélité commerce, visibilité locale, avis clients commerce, encaisser bons mairie, programme fidélité QR code, visibilité commerçant local, avis clients vérifiés, dashboard commerçant, commerce de proximité numérique"/>
   <link rel="canonical" href="https://lokalist.fr/commercants"/>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#D8E8E2}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -30,19 +30,19 @@
     .mob,.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:rgba(247,248,244,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);padding:20px 5%;flex-direction:column;gap:16px;z-index:190}
     .mob.open,.mobile-menu.open{display:flex}
     .mob a,.mobile-menu a{font-size:15px;font-weight:500;color:var(--text);text-decoration:none;padding:8px 0;border-bottom:1px solid var(--bdr)}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;cursor:pointer;border:none}
     .btn-g{background:var(--g);color:#fff;box-shadow:0 8px 24px rgba(29,158,117,.28)}
     .btn-g:hover{background:var(--gd);transform:translateY(-2px)}
     .btn-o{background:transparent;color:var(--text);border:1.5px solid var(--bdr)}
     .btn-o:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
     .sec-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;margin-bottom:10px}
-    .sec-h{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
+    .sec-h{font-family:'Syne',sans-serif;font-size:clamp(28px,3.8vw,46px);font-weight:800;color:var(--dark);line-height:1.1;letter-spacing:-1px;margin-bottom:14px}
     .sec-p{font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:48px;max-width:500px}
     @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
     .reveal{opacity:1;transform:translateY(0)}.reveal.visible{opacity:1;transform:translateY(0)}
     .hero{padding:130px 5% 80px;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);color:var(--gd);font-size:11.5px;font-weight:700;padding:6px 16px;border-radius:100px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.6px}
-    .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(36px,4.2vw,58px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--dark);margin-bottom:20px}
     .hero h1 em{font-style:normal;color:var(--g)}
     .hero-sub{font-size:16.5px;color:var(--muted);line-height:1.75;font-weight:300;margin-bottom:32px;max-width:480px}
     .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
@@ -55,7 +55,7 @@
     .dash-lbl{font-size:11px;color:rgba(255,255,255,.3);margin-left:8px;font-family:monospace}
     .dash-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
     .dash-stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px}
-    .dash-stat-v{font-family:'Bricolage Grotesque',sans-serif;font-size:22px;font-weight:800;color:#fff}
+    .dash-stat-v{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff}
     .dash-stat-v.g{color:var(--g)}
     .dash-stat-v.a{color:var(--a)}
     .dash-stat-l{font-size:10px;color:rgba(255,255,255,.35);margin-top:3px}
@@ -73,7 +73,7 @@
     .av-card:hover{transform:translateY(-4px);box-shadow:0 20px 52px rgba(29,158,117,.09);border-color:var(--gm)}
     .av-card:hover::before{transform:scaleX(1)}
     .av-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-    .av-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .av-card h3{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:var(--dark);margin-bottom:8px}
     .av-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
     /* === Strategie fidelite (2 modes) === */
     .strat{padding:90px 5%;background:var(--bg)}
@@ -86,7 +86,7 @@
     .strat-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;padding:6px 12px;border-radius:100px;margin-bottom:16px}
     .strat-card.is-a .strat-tag{background:var(--gl);color:var(--gd)}
     .strat-card.is-b .strat-tag{background:var(--al);color:#B26A00}
-    .strat-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:21px;font-weight:800;color:var(--dark);margin-bottom:10px;line-height:1.2}
+    .strat-card h3{font-family:'Syne',sans-serif;font-size:21px;font-weight:800;color:var(--dark);margin-bottom:10px;line-height:1.2}
     .strat-card .strat-lead{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:18px}
     .strat-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
     .strat-list li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:var(--dark);line-height:1.55}
@@ -94,7 +94,7 @@
     .strat-card.is-a .strat-list li::before{background:var(--g)}
     .strat-card.is-b .strat-list li::before{background:var(--a)}
     .strat-sub{margin-top:16px;padding:14px 16px;background:rgba(239,159,39,.07);border:1px dashed rgba(239,159,39,.4);border-radius:14px}
-    .strat-sub strong{font-family:'Bricolage Grotesque',sans-serif;font-size:13px;color:var(--dark);display:block;margin-bottom:8px}
+    .strat-sub strong{font-family:'Syne',sans-serif;font-size:13px;color:var(--dark);display:block;margin-bottom:8px}
     .strat-sub-row{display:flex;flex-direction:column;gap:8px}
     .strat-sub-row div{font-size:12.5px;color:var(--muted);line-height:1.5}
     .strat-sub-row em{font-style:normal;font-weight:700;color:#B26A00}
@@ -104,26 +104,27 @@
     .strat-note-item p{font-size:13.5px;color:var(--muted);line-height:1.6;margin:0}
     .strat-note-item p strong{color:var(--dark);font-weight:700}
     .strat-cta{margin-top:32px;text-align:center;background:linear-gradient(135deg,var(--gl),#fff);border:1px solid var(--gm);border-radius:18px;padding:28px}
-    .strat-cta h4{font-family:'Bricolage Grotesque',sans-serif;font-size:19px;font-weight:800;color:var(--dark);margin-bottom:6px}
+    .strat-cta h4{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--dark);margin-bottom:6px}
     .strat-cta p{font-size:14px;color:var(--muted);margin-bottom:18px}
     .strat-cta a{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;font-weight:700;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;transition:background .2s}
     .strat-cta a:hover{background:var(--gd)}
     .bons{background:linear-gradient(135deg,var(--g),var(--gd));padding:80px 5%}
     .bons-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
-    .bons h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
+    .bons h2{font-family:'Syne',sans-serif;font-size:clamp(28px,3.5vw,44px);font-weight:800;color:#fff;line-height:1.1;letter-spacing:-1px;margin-bottom:16px}
     .bons p{font-size:15px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:28px}
     .bons-steps{display:flex;flex-direction:column;gap:16px}
     .bons-step{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:14px;padding:16px 18px}
-    .bons-step-n{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--g);font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .bons-step-txt h4{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
+    .bons-step-n{width:32px;height:32px;border-radius:50%;background:#fff;color:var(--g);font-family:'Syne',sans-serif;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .bons-step-txt h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
     .bons-step-txt p{font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.5}
     .bon-exemple{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:28px;text-align:center}
     .bon-code{font-family:monospace;font-size:13px;color:rgba(255,255,255,.6);margin-bottom:12px}
-    .bon-valeur{font-family:'Bricolage Grotesque',sans-serif;font-size:48px;font-weight:800;color:#fff;line-height:1}
+    .bon-valeur{font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#fff;line-height:1}
     .bon-label{font-size:13px;color:rgba(255,255,255,.7);margin-top:6px}
     .bon-expiry{font-size:11px;color:rgba(255,255,255,.45);margin-top:8px}
     .bon-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.15);border-radius:100px;padding:5px 12px;font-size:11px;color:#fff;font-weight:600;margin-top:12px}
-    .steps-section{padding:90px 5%;background:var(--dark);position:relative;overflow:hidden}
+    .steps-section{padding:90px 5%;background:linear-gradient(135deg,var(--gd) 0%,var(--g) 100%);position:relative;overflow:hidden}
+    .steps-section .step-n{color:rgba(255,255,255,.32)}
     .steps-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 60% at 70% 40%,rgba(29,158,117,.1) 0%,transparent 55%)}
     .steps-in{max-width:1280px;margin:0 auto;position:relative}
     .steps-section .sec-tag{color:var(--gm)}
@@ -132,15 +133,15 @@
     .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:52px}
     .step{padding:26px 22px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;transition:all .3s}
     .step:hover{background:rgba(29,158,117,.09);border-color:rgba(29,158,117,.3);transform:translateY(-4px)}
-    .step-n{font-family:'Bricolage Grotesque',sans-serif;font-size:40px;font-weight:800;color:rgba(29,158,117,.2);line-height:1;margin-bottom:12px}
+    .step-n{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;color:rgba(29,158,117,.2);line-height:1;margin-bottom:12px}
     .step-i{font-size:26px;margin-bottom:10px}
-    .step h3{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
+    .step h3{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:6px}
     .step p{font-size:12.5px;color:rgba(255,255,255,.45);line-height:1.6}
     .tarif-section{padding:90px 5%;max-width:1280px;margin:0 auto}
     .tarif-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
     .tarif-card{background:var(--surf);border:1px solid var(--bdr);border-radius:24px;padding:40px;position:relative}
     .tarif-top{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--g);color:#fff;font-size:11px;font-weight:700;padding:5px 18px;border-radius:100px;text-transform:uppercase;letter-spacing:.8px;white-space:nowrap}
-    .tarif-main{font-family:'Bricolage Grotesque',sans-serif;font-size:42px;font-weight:800;color:var(--dark);margin-bottom:6px}
+    .tarif-main{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--dark);margin-bottom:6px}
     .tarif-sub{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.6}
     .tarif-feats{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:28px}
     .tarif-feats li{font-size:13.5px;color:var(--text);display:flex;align-items:center;gap:8px}
@@ -148,10 +149,10 @@
     .cta{background:linear-gradient(135deg,var(--dark),#1A3028);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
     .cta::before{content:'🏪';font-size:260px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.03;pointer-events:none}
     .cta-in{position:relative;z-index:1;max-width:600px;margin:0 auto}
-    .cta h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(30px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1px;line-height:1.05;margin-bottom:16px}
     .cta h2 span{color:var(--a)}
     .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300}
-    .btn-w{background:#fff;color:var(--g);padding:15px 34px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
+    .btn-w{background:#fff;color:var(--g);padding:15px 34px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .25s;box-shadow:0 8px 28px rgba(0,0,0,.15)}
     .btn-w:hover{transform:translateY(-2px);box-shadow:0 16px 44px rgba(0,0,0,.22)}
     .cta-note{font-size:12px;color:rgba(255,255,255,.35);margin-top:14px}
     footer{background:var(--dark);border-top:1px solid rgba(255,255,255,.05);padding:36px 5%}
@@ -225,36 +226,14 @@
 <style id="patch-commercants-css-v1">
 @media(max-width:600px){.steps-pack{grid-template-columns:1fr !important}}
 </style><!-- /patch-commercants-css-v1 -->
-
-  <!-- LOKALIST_SEO_PILIER_V1 -->
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="Lokalist"/>
-  <meta property="og:title" content="Fidélité & visibilité pour commerçants locaux | Lokalist"/>
-  <meta property="og:description" content="Lokalist référence votre commerce, gère votre programme de fidélité, encaisse les bons mairie et vous apporte de la visibilité locale. Dashboard analytics, QR code, avis vérifiés."/>
-  <meta property="og:url" content="https://lokalist.fr/commercants"/>
-  <meta property="og:image" content="https://lokalist.fr/images/screen-commercant.jpg"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Fidélité & visibilité pour commerçants locaux | Lokalist"/>
-  <meta name="twitter:description" content="Lokalist référence votre commerce, gère votre programme de fidélité, encaisse les bons mairie et vous apporte de la visibilité locale. Dashboard analytics, QR code, avis vérifiés."/>
-  <meta name="twitter:image" content="https://lokalist.fr/images/screen-commercant.jpg"/>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Lokalist","url":"https://lokalist.fr","logo":"https://lokalist.fr/logo.png"},{"@type":"Service","name":"Lokalist pour les commerçants","serviceType":"Application de fidélité et de visibilité pour commerçants locaux","description":"Lokalist référence votre commerce, gère votre programme de fidélité, encaisse les bons mairie et vous apporte de la visibilité locale. Dashboard analytics, QR code, avis vérifiés.","provider":{"@type":"Organization","name":"Lokalist","url":"https://lokalist.fr"},"areaServed":{"@type":"Country","name":"France"}}]}</script>
-  <!-- /LOKALIST_SEO_PILIER_V1 -->
-<!-- META PIXEL LOKALIST:START -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1203376311821134');
-fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1203376311821134&ev=PageView&noscript=1"/></noscript>
-<!-- META PIXEL LOKALIST:END -->
 </head>
 <body>
 <nav id="nav">
   <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
     <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
-      <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain" decoding="async"/></picture>
+      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
     </div>
-    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
+    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
   </a>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
@@ -297,7 +276,7 @@ fbq('track','PageView');
     <div style="animation:fadeUp .6s ease both">
       <div class="hero-badge">🏪 Pour les commerçants locaux</div>
       <h1>Fidélisez vos clients,<br/><em>boostez votre commerce</em></h1>
-      <p class="hero-sub">Lokalist vous apporte visibilité, fidélité et bons mairie encaissables — en un seul outil simple, sans hardware supplémentaire.</p>
+      <p class="hero-sub">Pas une simple carte de fidélité : une fidélité qui tourne 24h/24 grâce à Lokalist. Visibilité, offres, boutique en ligne, click & collect, livraison — et Loki qui travaille pour vous. La force d'être tous sur la même appli.</p>
       <div class="hero-btns">
         <a href="/contact?type=commercant" class="btn btn-g">🏪 Devenir partenaire Lokalist</a>
         <a href="#avantages" class="btn btn-o">Découvrir les avantages →</a>
@@ -305,7 +284,7 @@ fbq('track','PageView');
       <div class="hero-trust">
         <div class="trust-item">Aucun hardware requis</div>
         <div class="trust-item">QR code fourni</div>
-        <div class="trust-item">Bons mairie encaissables</div>
+        <div class="trust-item">Boutique en ligne & Click and Collect</div>
         <div class="trust-item">Boost 12h disponible</div>
       </div>
     </div>
@@ -316,72 +295,49 @@ fbq('track','PageView');
       <!-- Phone 3D -->
       <div style="flex-shrink:0;width:185px;height:370px;border-radius:32px;border:7px solid #1A2E26;background:#fff;position:relative;overflow:hidden;box-shadow:0 60px 120px rgba(0,0,0,.28),0 0 0 1px rgba(29,158,117,.2);transform:perspective(900px) rotateY(-8deg) rotateX(2deg);transition:transform .4s">
         <div style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:48px;height:16px;background:#1A2E26;border-radius:0 0 10px 10px;z-index:5"></div>
-        <picture><source srcset="/images/screen-commercant.webp" type="image/webp"><img src="/images/screen-commercant.jpg"
+        <img src="/images/screen-commercant.jpg"
           alt="Fiche commerçant Lokalist"
-          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block" decoding="async" fetchpriority="high"/></picture>
+          style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
         <div style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:130px;height:44px;background:rgba(29,158,117,.22);filter:blur(16px);border-radius:50%"></div>
       </div>
 
-      <!-- Dashboard repensé -->
-      <div style="flex:1;background:var(--dark);border-radius:18px;padding:18px;box-shadow:0 40px 80px rgba(0,0,0,.25),0 0 0 1px rgba(29,158,117,.12);min-width:0">
-        
-        <!-- Topbar -->
-        <div style="display:flex;align-items:center;gap:5px;margin-bottom:14px">
-          <div style="width:8px;height:8px;border-radius:50%;background:#EF4444"></div>
-          <div style="width:8px;height:8px;border-radius:50%;background:#F59E0B"></div>
-          <div style="width:8px;height:8px;border-radius:50%;background:#22C55E"></div>
-          <span style="font-size:10px;color:rgba(255,255,255,.28);margin-left:6px;font-family:monospace">Boulangerie Martin</span>
-        </div>
-
-        <!-- Stats grid -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px">
-          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#1D9E75">247</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Scans ce mois</div>
-          </div>
-          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#EF9F27">4.8★</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Note moyenne</div>
-          </div>
-          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#fff">12 340</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Points distribués</div>
-          </div>
-          <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:11px">
-            <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:#1D9E75">8</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.35);margin-top:2px">Bons encaissés</div>
-          </div>
-        </div>
-
-        <!-- Boost 12h — mis en avant -->
-        <div style="background:linear-gradient(135deg,rgba(239,159,39,.18),rgba(239,159,39,.06));border:1px solid rgba(239,159,39,.4);border-radius:9px;padding:10px 12px;margin-bottom:8px">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
-            <div>
-              <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:11px;font-weight:800;color:#EF9F27">⚡ Boost 12h actif</div>
-              <div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:2px">En tête de liste · +340% de visibilité</div>
+      <!-- Dashboard (adapté du vrai espace commerçant) -->
+      <div style="flex:1;min-width:0;background:#fff;border-radius:18px;padding:16px;box-shadow:0 40px 80px rgba(0,0,0,.16),0 0 0 1px var(--bdr)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:8px;min-width:0">
+            <div style="width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--g),var(--gd));flex-shrink:0"></div>
+            <div style="min-width:0">
+              <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:800;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Boulangerie du Port</div>
+              <div style="font-size:9px;color:var(--muted)">📍 Fécamp · Commerçant</div>
             </div>
-            <div style="background:#EF9F27;color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:100px;white-space:nowrap;flex-shrink:0">LIVE</div>
+          </div>
+          <div style="display:flex;gap:3px;flex-shrink:0">
+            <span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--bg);color:var(--muted)">7j</span>
+            <span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--g);color:#fff;font-weight:700">30j</span>
+            <span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--bg);color:var(--muted)">90j</span>
+            <span style="font-size:8px;padding:3px 6px;border-radius:6px;background:var(--bg);color:var(--muted)">1an</span>
           </div>
         </div>
-
-        <!-- QR -->
-        <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:9px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px">
-          <span style="font-size:24px">📲</span>
-          <div>
-            <div style="font-size:11px;font-weight:700;color:#fff">QR Code actif</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.4);margin-top:1px">50 pts / scan · SCAN-MARTIN-001</div>
-          </div>
+        <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--text);margin-bottom:10px">📊 Mes statistiques</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px">
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Scans</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--g)">247</div></div>
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Points distribués</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--g)">12 340</div></div>
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Bons utilisés</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--a)">8</div></div>
+          <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:9px 11px"><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Note moyenne</div><div style="font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--a)">4.8★</div></div>
         </div>
-
-        <!-- Avis -->
-        <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.25);border-radius:9px;padding:10px 12px;display:flex;align-items:center;gap:8px">
-          <span style="font-size:14px">⭐</span>
-          <div>
-            <div style="font-size:10px;font-weight:700;color:#fff">Nouvel avis ✓ Vérifié</div>
-            <div style="font-size:9px;color:rgba(255,255,255,.45);margin-top:1px">"Produits excellents !" — Sophie R.</div>
-          </div>
+        <div style="background:var(--bg);border:1px solid var(--bdr);border-radius:10px;padding:10px;margin-bottom:10px">
+          <div style="font-size:9px;font-weight:700;color:var(--text);margin-bottom:6px">📈 Évolution des scans</div>
+          <svg viewBox="0 0 300 60" style="width:100%;height:44px;display:block" preserveAspectRatio="none">
+            <defs><linearGradient id="chartg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(29,158,117,.28)"/><stop offset="1" stop-color="rgba(29,158,117,0)"/></linearGradient></defs>
+            <path d="M0,52 L130,52 L165,52 L215,16 L245,52 L300,52 L300,60 L0,60 Z" fill="url(#chartg)"/>
+            <polyline points="0,52 130,52 165,52 215,16 245,52 300,52" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+          </svg>
         </div>
-
+        <div style="background:rgba(239,159,39,.08);border:1px solid rgba(239,159,39,.25);border-radius:10px;padding:9px 11px;display:flex;justify-content:space-between;gap:8px">
+          <div><div style="font-size:8px;color:var(--muted)">Taux d'utilisation</div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--a)">100%</div></div>
+          <div><div style="font-size:8px;color:var(--muted)">Montant utilisé</div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--text)">80€</div></div>
+          <div><div style="font-size:8px;color:var(--muted)">Points / scan</div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--g)">50</div></div>
+        </div>
       </div>
     </div>
   </div>
@@ -389,15 +345,17 @@ fbq('track','PageView');
 <section class="avantages" id="avantages">
   <p class="sec-tag reveal">Pourquoi Lokalist</p>
   <h2 class="sec-h reveal">Tout ce dont votre commerce<br/>a besoin pour fidéliser</h2>
-  <p class="sec-p reveal">Un outil pensé pour les commerçants de proximité — simple à utiliser au quotidien, puissant pour votre développement local.</p>
+  <p class="sec-p reveal">Bien plus qu'une carte de fidélité : votre vitrine, vos offres, votre agenda et votre boutique en ligne — au même endroit, sur l'appli que vos habitants utilisent déjà.</p>
   <div class="av-grid">
-    <div class="av-card reveal"><div class="av-ico">📲</div><h3>QR Code de fidélité</h3><p>Votre client scanne votre QR code depuis l'app Lokalist. Les points s'ajoutent instantanément à son compte. Zéro terminal, zéro carte en plastique.</p></div>
-    <div class="av-card reveal"><div class="av-ico">🗺️</div><h3>Visibilité sur la carte</h3><p>Votre fiche apparaît sur la carte interactive Lokalist, visible par tous les habitants de votre commune. Photos, horaires, description — votre vitrine en ligne.</p></div>
-    <div class="av-card reveal"><div class="av-ico">🎟️</div><h3>Bons mairie encaissables</h3><p>Les habitants reçoivent des bons de leur mairie, utilisables uniquement chez les commerçants partenaires Lokalist. Vous les encaissez et êtes remboursé directement.</p></div>
-    <div class="av-card reveal"><div class="av-ico">📊</div><h3>Dashboard analytics</h3><p>Nombre de scans, points distribués, note moyenne, bons encaissés — toutes vos statistiques en temps réel depuis votre espace pro dans l'app.</p></div>
-    <div class="av-card reveal"><div class="av-ico">⭐</div><h3>Avis clients vérifiés</h3><p>Recevez des avis authentiques de vos vrais clients, modérés avant publication. Répondez publiquement à chaque avis pour montrer votre professionnalisme.</p></div>
-    <div class="av-card reveal"><div class="av-ico">📸</div><h3>Fiche vitrine complète</h3><p>Logo, photo du commerce, description, horaires, adresse, réseaux sociaux — tout ce qu'il faut pour convaincre un client de pousser votre porte.</p></div>
-  <div class="av-card reveal"><div class="av-ico">📋</div><h3>Projets particuliers</h3><p>Des habitants organisent un événement près de chez vous (mariage, fête, réception) et cherchent traiteur, fleuriste ou photographe. Recevez leurs demandes et répondez avec un devis.</p></div>
+    <div class="av-card reveal"><div class="av-ico">📲</div><h3>QR Code de fidélité</h3><p>Votre client scanne votre QR depuis l'app. Les points s'ajoutent instantanément. Zéro terminal, zéro carte plastique.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🗺️</div><h3>Visibilité sur la carte</h3><p>Votre fiche apparaît sur la carte Lokalist, vue par tous les habitants de la commune. Votre vitrine, en ligne.</p></div>
+    <div class="av-card reveal"><div class="av-ico">📣</div><h3>Publier vos offres</h3><p>Créez et publiez vos promos et nouveautés en un instant. Elles s'affichent dans l'app et sont poussées aux habitants.</p></div>
+    <div class="av-card reveal"><div class="av-ico">📅</div><h3>Agenda & événements</h3><p>Annoncez vos temps forts — arrivages, dégustations, animations. Vos clients ne ratent plus rien.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🛍️</div><h3>Boutique en ligne</h3><p>Mettez votre boutique sur l'app : click & collect et livraison. Vous vendez même rideau baissé.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🤝</div><h3>Offres communes</h3><p>Montez des offres groupées avec d'autres commerces de la commune. La force du collectif pour attirer plus de monde.</p></div>
+    <div class="av-card reveal"><div class="av-ico">⭐</div><h3>Avis clients vérifiés</h3><p>Des avis authentiques de vos vrais clients, modérés avant publication. Répondez à chacun publiquement.</p></div>
+    <div class="av-card reveal"><div class="av-ico">📊</div><h3>Dashboard analytics</h3><p>Scans, points, note moyenne, bons, revenus — toutes vos stats en temps réel dans votre espace pro.</p></div>
+    <div class="av-card reveal"><div class="av-ico">🏪</div><h3>Fiche vitrine complète</h3><p>Logo, photos, description, horaires, adresse, réseaux — tout pour convaincre un client de pousser votre porte.</p></div>
   </div>
 </section>
 <section class="strat" id="strategie">
@@ -463,27 +421,6 @@ fbq('track','PageView');
   </div>
 </section>
 
-<section class="bons">
-  <div class="bons-in">
-    <div class="reveal">
-      <h2>Encaissez les bons<br/>de votre mairie</h2>
-      <p>Votre mairie distribue des bons aux habitants via Lokalist. Ces bons ne sont valables que chez les commerçants partenaires de la commune (une notification est envoyée aux habitants). Vous les acceptez, vos ventes augmentent, et vous êtes remboursé.</p>
-      <div class="bons-steps">
-        <div class="bons-step"><div class="bons-step-n">1</div><div class="bons-step-txt"><h4>Le client présente son bon</h4><p>Il vous montre son bon depuis l'app Lokalist. Vous scannez ou saisissez le code.</p></div></div>
-        <div class="bons-step"><div class="bons-step-n">2</div><div class="bons-step-txt"><h4>Le bon est validé</h4><p>La valeur est déduite du montant de l'achat. La transaction est enregistrée.</p></div></div>
-        <div class="bons-step"><div class="bons-step-n">3</div><div class="bons-step-txt"><h4>Vous êtes remboursé</h4><p>Lokalist et la mairie vous remboursent le montant des bons encaissés. Suivi en temps réel dans votre dashboard.</p></div></div>
-      </div>
-    </div>
-    <div class="bon-exemple reveal">
-      <div class="bon-code">MAIRIE-FECAMP-2026-00342</div>
-      <div class="bon-valeur">10€</div>
-      <div class="bon-label">Bon Mairie de Fécamp</div>
-      <div class="bon-expiry">Valable jusqu'au 15/07/2026 · 87 jours restants</div>
-      <div class="bon-badge">✓ Valide · Utilisable chez vous</div>
-      <div style="margin-top:20px;font-size:11px;color:rgba(255,255,255,.4);font-style:italic">Exemple de bon — données fictives</div>
-    </div>
-  </div>
-</section>
 <section class="steps-section">
   <div class="steps-in">
     <p class="sec-tag reveal">Démarrage simple</p>
@@ -494,6 +431,40 @@ fbq('track','PageView');
       <div class="step reveal"><div class="step-n">02</div><div class="step-i">🏪</div><h3>Création de votre fiche</h3><p>Logo, photos, horaires, description. Votre fiche est créée et validée par Lokalist.</p></div>
       <div class="step reveal"><div class="step-n">03</div><div class="step-i">📲</div><h3>QR code fourni</h3><p>Vous recevez votre QR code unique à afficher en caisse. Vos clients commencent à scanner.</p></div>
       <div class="step reveal"><div class="step-n">04</div><div class="step-i">📊</div><h3>Pilotez votre activité</h3><p>Accédez à votre dashboard pro dans l'app. Stats, avis, bons — tout en temps réel.</p></div>
+    </div>
+  </div>
+</section>
+<section style="padding:90px 5%;background:var(--surf)">
+  <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center">
+    <div class="reveal">
+      <p class="sec-tag">Votre vitrine en ligne</p>
+      <h2 class="sec-h">Votre commerce a<br/>son mini-site web</h2>
+      <p class="sec-p">Une page publique à votre nom pour être visible en plus — sur Google, sur les réseaux, partout. Aucun site à créer ni à maintenir, c'est inclus.</p>
+      <ul style="list-style:none;display:grid;gap:12px;padding:0;margin:0">
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Photos, horaires, offres et click &amp; collect sur une seule page</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Une adresse à partager : lokalist.fr/commerce/votre-boutique</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Référencé sur Google, trouvable même hors de l'appli</span></li>
+        <li style="display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);line-height:1.5"><span style="color:var(--g);flex:none;margin-top:1px;font-weight:800">✓</span><span>Toujours à jour, synchronisé avec votre espace pro</span></li>
+      </ul>
+    </div>
+    <div class="reveal" style="min-width:0">
+      <div style="background:#fff;border-radius:16px;box-shadow:0 40px 80px rgba(0,0,0,.14),0 0 0 1px var(--bdr);overflow:hidden;max-width:440px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--bg);border-bottom:1px solid var(--bdr)">
+          <span style="width:8px;height:8px;border-radius:50%;background:#EF4444"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:#F59E0B"></span>
+          <span style="width:8px;height:8px;border-radius:50%;background:#22C55E"></span>
+          <div style="flex:1;background:#fff;border:1px solid var(--bdr);border-radius:100px;padding:4px 12px;font-size:10px;color:var(--muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">🔒 lokalist.fr/commerce/votre-boutique</div>
+        </div>
+        <div>
+          <div style="background:linear-gradient(135deg,var(--gd),var(--g));height:60px;position:relative"></div>
+          <div style="padding:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div style="width:34px;height:34px;border-radius:9px;background:#fff;border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:17px;margin-top:-30px;box-shadow:0 6px 14px rgba(0,0,0,.12)">🥐</div><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:800;color:var(--text)">Boulangerie du Port</div></div><div style="font-size:10px;color:var(--a);font-weight:800">4.8★</div></div>
+            <div style="font-size:9px;color:var(--muted);margin-top:4px">📍 Fécamp · Ouvert · 6h30–19h30</div>
+            <div style="margin-top:10px;background:rgba(239,159,39,.1);border:1px solid rgba(239,159,39,.3);border-radius:8px;padding:8px 10px"><div style="font-size:8px;color:var(--a);font-weight:800;text-transform:uppercase">Offre du moment</div><div style="font-size:10px;font-weight:700;color:var(--text);margin-top:1px">-20% sur les viennoiseries après 17h</div></div>
+            <div style="margin-top:10px;background:var(--g);color:#fff;text-align:center;border-radius:8px;padding:9px;font-size:11px;font-weight:700">🛍️ Commander · Click &amp; Collect</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -513,9 +484,9 @@ fbq('track','PageView');
       </h2>
 
       <p class="loki__lead" data-reveal>
-        Le renard malin de Lokalist est aussi un copilote business. Il guide vos clients jusqu'à
-        votre boutique, rédige vos offres, choisit le bon moment pour les diffuser et vous fait
-        gagner du temps sur tout ce qui n'est pas votre métier.
+        Grâce à Loki, votre commerce est en ligne — et vous continuez à le gérer, comme vous voulez.
+        Il guide vos clients jusqu'à vous, rédige et diffuse vos offres au bon moment, met votre
+        boutique en avant et fidélise à votre place. Vous validez, Loki s'occupe du reste.
       </p>
     </div>
 
@@ -599,8 +570,7 @@ fbq('track','PageView');
         <div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">🏪 Standard</div>
         <div style="background:var(--al);border-radius:8px;padding:6px 12px;display:inline-block;align-self:flex-start;font-size:11px;font-weight:700;color:#92400E;margin-bottom:12px">🎁 3 mois offerts en annuel</div>
         <div class="tarif-main">19<span style="font-size:18px;color:var(--muted);font-weight:400">,90€/mois</span></div>
-        <div class="tarif-sub">soit <strong style="color:var(--g)">179,10€/an</strong><sup style="color:var(--muted)">*</sup> en paiement unique (3 mois offerts pour le lancement).</div>
-<div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5"><!--TARIF_LANCEMENT_NOTE-->* Tarif de lancement la 1ère année, puis 238,80€/an. Chaque parrainage = 1 mois déduit du renouvellement (sans plafond, jusqu’à 0€).</div>
+        <div class="tarif-sub">ou <strong style="color:var(--g)">179,10€/an</strong> en paiement unique (3 mois offerts). Mensuel : préavis de 3 mois.</div>
         <ul class="tarif-feats">
           <li>Fiche vitrine sur la carte</li>
           <li>QR code de fidélité</li>
@@ -619,8 +589,7 @@ fbq('track','PageView');
         <div class="tarif-top">⭐ Le plus complet</div>
         <div style="font-size:12px;color:var(--g);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin:8px 0 10px">🚀 Premium</div>
         <div class="tarif-main">24<span style="font-size:18px;color:var(--muted);font-weight:400">,90€/mois</span></div>
-        <div class="tarif-sub">soit <strong style="color:var(--g)">249€/an</strong><sup style="color:var(--muted)">*</sup> en paiement unique — 2 mois offerts pour le lancement (au lieu de 298,80€). <strong style="color:var(--dark)">+5€/mois seulement vs Standard.</strong></div>
-<div style="font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5"><!--TARIF_LANCEMENT_NOTE-->* Tarif de lancement la 1ère année, puis 298,80€/an. Chaque parrainage = 1 mois déduit du renouvellement (sans plafond, jusqu’à 0€).</div>
+        <div class="tarif-sub">ou <strong style="color:var(--g)">249€/an</strong> en paiement unique — 2 mois offerts (au lieu de 298,80€). <strong style="color:var(--dark)">+5€/mois seulement vs Standard.</strong></div>
         <ul class="tarif-feats">
           <li><strong>Tout le Standard inclus</strong></li>
           <li>🛍️ <strong>Click &amp; Collect</strong> — commande &amp; retrait</li>
@@ -660,28 +629,28 @@ fbq('track','PageView');
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">👨‍👩‍👧‍👦</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Familles</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Familles</div>
         <div style="font-size:11px;color:var(--muted)">Resto + parc/musée</div>
       </div>
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;transition:all .25s"
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">💑</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Couples</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Couples</div>
         <div style="font-size:11px;color:var(--muted)">Resto + spa/ciné</div>
       </div>
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;transition:all .25s"
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">🍻</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Amis</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Amis</div>
         <div style="font-size:11px;color:var(--muted)">Bar à tapas + bowling</div>
       </div>
       <div style="background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:18px;text-align:center;transition:all .25s"
            onmouseover="this.style.transform='translateY(-3px)';this.style.borderColor='#EC4899';this.style.boxShadow='0 12px 32px rgba(236,72,153,.12)'"
            onmouseout="this.style.transform='translateY(0)';this.style.borderColor='var(--bdr)';this.style.boxShadow='none'">
         <div style="font-size:32px;margin-bottom:8px">🚶</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Solo</div>
+        <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px">Solo</div>
         <div style="font-size:11px;color:var(--muted)">Café + musée/atelier</div>
       </div>
     </div>
@@ -690,30 +659,30 @@ fbq('track','PageView');
     <div style="max-width:560px;margin:0 auto">
       <div style="background:linear-gradient(135deg,#fff,#FDF2F8);border:2px solid #EC4899;border-radius:24px;padding:30px 34px;text-align:center;box-shadow:0 16px 40px rgba(236,72,153,.14)">
         <div style="font-size:34px;margin-bottom:8px">🎁</div>
-        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:8px">Les Packs Expérience sont inclus dans le Premium</div>
+        <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:8px">Les Packs Expérience sont inclus dans le Premium</div>
         <p style="font-size:13.5px;color:var(--muted);line-height:1.6;margin-bottom:20px">Combinez votre établissement avec un partenaire local, vos clients réservent en ligne et présentent leur code sur place. C'est compris dans votre abonnement Premium, sans commission au pourcentage sur le prix du pack — seul un forfait de mise en relation de 9,90 € s'applique tous les 10 packs encaissés.</p>
-        <a href="#tarifs" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:#EC4899;color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.3)">Voir les formules ↑</a>
+        <a href="#tarifs" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;background:#EC4899;color:#fff;box-shadow:0 8px 24px rgba(236,72,153,.3)">Voir les formules ↑</a>
       </div>
     </div>
 
     <!-- Comment ça marche -->
     <div style="margin-top:64px;text-align:center">
       <p class="sec-tag" style="color:#EC4899">Comment ça marche</p>
-      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:800;color:var(--dark);margin-bottom:32px">Un pack en 3 temps</h3>
+      <h3 style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--dark);margin-bottom:32px">Un pack en 3 temps</h3>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:900px;margin:0 auto" class="steps-pack">
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
-          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">1</div>
-          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">On crée votre pack</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">1</div>
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">On crée votre pack</div>
           <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Visio 30 min : on combine votre restaurant avec un partenaire local cohérent.</div>
         </div>
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
-          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">2</div>
-          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Le client réserve</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">2</div>
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Le client réserve</div>
           <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Il découvre votre pack dans "Idées Sorties", il réserve, reçoit un code unique.</div>
         </div>
         <div style="background:#fff;border:1px solid var(--bdr);border-radius:16px;padding:24px">
-          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">3</div>
-          <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Vous validez en caisse</div>
+          <div style="width:44px;height:44px;border-radius:50%;background:#EC4899;color:#fff;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 14px">3</div>
+          <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:6px">Vous validez en caisse</div>
           <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Le client présente son code, vous le validez en 1 clic. Paiement sur place.</div>
         </div>
       </div>
@@ -732,7 +701,7 @@ fbq('track','PageView');
 </section>
 <footer>
   <div class="foot-in">
-    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain" decoding="async"/></picture></div><span style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokal<span style="color:#EF9F27">ist</span></span></div>
+    <div class="foot-logo" style="display:flex;align-items:center;gap:6px"><div style="width:28px;height:28px;flex-shrink:0"><img src="/logo.png" alt="Lokalist" width="28" height="28" style="display:block;width:28px;height:28px;object-fit:contain"/></div><span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</span></div>
     <div class="foot-links"><a href="/proposer-un-evenement">Proposer un événement</a>
       <a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/loisirs">Loisirs</a><a href="/agences">Immo & Courtiers</a><a href="/tarifs">Tarifs</a><a href="/contact?type=commercant">Contact</a>
     </div>
