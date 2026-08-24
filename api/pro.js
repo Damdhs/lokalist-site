@@ -322,6 +322,35 @@ export default async function handler(req) {
       }
     } catch (e) { console.error('[agenda]', e); }
 
+    // ─── Offres actives ───
+    let offresHtml = '';
+    try {
+      const _ofNow = new Date().toISOString();
+      const _ofUrl = `${SUPABASE_URL}/rest/v1/offres?commercant_id=eq.${id}&statut=eq.active&expire_at=gt.${_ofNow}&order=expire_at.asc&select=titre,description,type_offre,reduction,photo_url,expire_at`;
+      const _ofR = await fetch(_ofUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const _ofList = _ofR.ok ? (await _ofR.json()) : [];
+      if (_ofList && _ofList.length) {
+        const _ofT = { reduction:'🏷️', flash:'⚡', evenement:'🎉', nouveaute:'✨' };
+        const _ofFin = (d) => { try { return "Jusqu'au " + new Date(d).toLocaleDateString('fr-FR', { day:'numeric', month:'long' }); } catch (e) { return ''; } };
+        offresHtml = `
+      <section class="section">
+        <h2>🏷️ Offres du moment</h2>
+        <div class="offres-grid">
+          ${_ofList.slice(0, 8).map((o) => {
+            const ic = _ofT[o.type_offre] || '🏷️';
+            const img = o.photo_url ? `<div class="offre-img" style="background-image:url('${escapeHtml(o.photo_url)}')"></div>` : '';
+            return `<div class="offre-card">${img}<div class="offre-in">
+              <div class="offre-top">${ic} ${o.reduction ? `<span class="offre-badge">${escapeHtml(o.reduction)}</span>` : ''}</div>
+              <div class="offre-titre">${escapeHtml(o.titre || '')}</div>
+              ${o.description ? `<div class="offre-desc">${escapeHtml(o.description)}</div>` : ''}
+              ${o.expire_at ? `<div class="offre-fin">${_ofFin(o.expire_at)}</div>` : ''}
+            </div></div>`;
+          }).join('')}
+        </div>
+      </section>`;
+      }
+    } catch (e) { console.error('[offres]', e); }
+
     const body = `<!doctype html>
 <html lang="fr">
 <head>
@@ -458,6 +487,15 @@ export default async function handler(req) {
 
   @media (max-width:900px){ .hero{ min-height:300px; } .hero-title{ font-size:26px; } }
   @media (max-width:600px){ .hero{ min-height:260px; } .hero-title{ font-size:22px; } .hero-logo{ width:52px;height:52px; } .cta-btn-2{ display:block;margin:12px 0 0; } }
+  .offres-grid{ display:flex;flex-wrap:wrap;gap:14px;margin-top:8px; }
+  .offre-card{ display:flex;flex-direction:column;width:220px;border:1px solid #E5E7EB;border-radius:16px;overflow:hidden;background:#fff; }
+  .offre-img{ height:120px;background-size:cover;background-position:center; }
+  .offre-in{ padding:12px 14px; }
+  .offre-top{ display:flex;align-items:center;gap:8px;font-size:18px; }
+  .offre-badge{ background:#1D9E75;color:#fff;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px; }
+  .offre-titre{ font-weight:700;font-size:15px;color:#0F172A;margin-top:6px; }
+  .offre-desc{ font-size:13px;color:#4B5563;margin-top:4px; }
+  .offre-fin{ font-size:11.5px;color:#EF9F27;font-weight:700;margin-top:8px; }
   .agenda-list{ display:flex;flex-direction:column;gap:12px;margin-top:8px; }
   .agenda-item{ display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1px solid #E5E7EB;border-radius:14px;background:#fff; }
   .agenda-ic{ font-size:26px;line-height:1;flex-shrink:0; }
@@ -507,6 +545,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
     ${c.points_par_scan > 0 ? `<div class="points-badge">📱 <span>Scanne en boutique et gagne <strong>${c.points_par_scan} pts</strong></span></div>` : ''}
   </section>
 
+  ${offresHtml}
   ${menuHtml}
   ${agendaHtml}
   ${fideliteHtml}
@@ -574,3 +613,5 @@ ${lightboxHtml}
 // LKL_PRO_COUV_V1
 
 // LKL_PRO_AGENDA_V1
+
+// LKL_PRO_OFFRES_V1
