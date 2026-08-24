@@ -111,6 +111,21 @@
     d.min = iso; d.value = iso;
   })();
 
+  // Pre-remplissage auto depuis l'URL : /rendez-vous?prenom=..&nom=..&email=..&tel=..&message=..
+  (function(){
+    try{
+      var q = new URLSearchParams(window.location.search);
+      function g(){ for (var i=0;i<arguments.length;i++){ var v=q.get(arguments[i]); if(v) return v; } return ''; }
+      var prenom = g('prenom','firstname','fname');
+      var nomv   = g('nom','name','lastname');
+      var full   = (prenom && nomv && nomv.indexOf(prenom)===-1) ? (prenom+' '+nomv) : (nomv || prenom);
+      if(full)              document.getElementById('nom').value = full;
+      var em = g('email','mail'); if(em)  document.getElementById('email').value = em;
+      var tl = g('tel','telephone','phone'); if(tl) document.getElementById('tel').value = tl;
+      var ms = g('message','msg','sujet');  if(ms)  document.getElementById('message').value = ms;
+    }catch(e){}
+  })();
+
   function showErr(m){ var e=document.getElementById('err'); e.textContent=m; e.className='msg err'; }
 
   document.getElementById('btn').addEventListener('click', async function(){
