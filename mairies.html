@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head><!-- BRICOLAGE_SWAP_V1 -->
+<head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Outil de communication mairie : alertes citoyens, agenda & démarches | Lokalist</title>
-  <meta name="description" content="Lokalist : l'application d'information et d'alerte pour votre commune. Alertes push géolocalisées, agenda, démarches, signalements, sondages, RDV mairie. 0€ à l'activation, France entière."/>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <title>Lokalist pour les Mairies — Dynamisez l'économie locale de votre commune</title>
+  <meta name="description" content="Lokalist connecte vos habitants, soutient vos commerces locaux et donne à vos élus un outil de pilotage concret. 0€ à l'activation, tarif annuel sur devis, bons optionnels. France entière."/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
   <style>
     :root{--g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bg:#F7F8F4;--bdr:#D8E8E2}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -14,7 +14,7 @@
     nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;background:rgba(247,248,244,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(29,158,117,.1);transition:box-shadow .3s}
     nav.scrolled{box-shadow:0 4px 24px rgba(0,0,0,.07)}
     .nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
-    .nav-logo span{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:#1D9E75;letter-spacing:-.5px}
+    .nav-logo span{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#1D9E75;letter-spacing:-.5px}
     .nav-links{display:flex;align-items:center;gap:24px;list-style:none}
     .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
     .nav-links a:hover,.nav-links a.active{color:var(--g)}
@@ -31,18 +31,18 @@
     .reveal.visible{opacity:1;transform:translateY(0)}
     .section-in{max-width:1200px;margin:0 auto}
     .section-tag{font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:2px;display:block;margin-bottom:12px}
-    .section-h{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(26px,3.5vw,46px);font-weight:800;color:var(--dark);letter-spacing:-1.5px;line-height:1.08;margin-bottom:16px}
+    .section-h{font-family:'Syne',sans-serif;font-size:clamp(26px,3.5vw,46px);font-weight:800;color:var(--dark);letter-spacing:-1.5px;line-height:1.08;margin-bottom:16px}
     .section-p{font-size:16px;color:var(--muted);line-height:1.8;font-weight:300;max-width:560px}
-    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:15px 32px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(29,158,117,.3);transition:all .25s;white-space:nowrap}
+    .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:15px 32px;border-radius:100px;font-family:'Syne',sans-serif;font-size:15px;font-weight:800;text-decoration:none;box-shadow:0 8px 28px rgba(29,158,117,.3);transition:all .25s;white-space:nowrap}
     .btn-primary:hover{background:var(--gd);transform:translateY(-2px)}
-    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:14px 28px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s;white-space:nowrap}
+    .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:14px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s;white-space:nowrap}
     .btn-outline:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
     .hero{padding:130px 5% 80px;background:var(--bg)}
     .hero-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:72px;align-items:center}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gm);border-radius:100px;padding:7px 18px;margin-bottom:24px;animation:fadeUp .5s ease both}
     .hero-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--g);animation:pulse 2s infinite}
     .hero-badge span{font-size:11px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:1.2px}
-    .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(34px,4.2vw,60px);font-weight:800;color:var(--dark);line-height:1.03;letter-spacing:-2px;margin-bottom:22px;animation:fadeUp .6s .08s ease both}
+    .hero h1{font-family:'Syne',sans-serif;font-size:clamp(34px,4.2vw,60px);font-weight:800;color:var(--dark);line-height:1.03;letter-spacing:-2px;margin-bottom:22px;animation:fadeUp .6s .08s ease both}
     .hero h1 em{color:var(--g);font-style:normal}
     .hero-sub{font-size:clamp(15px,1.4vw,17px);color:var(--muted);line-height:1.8;font-weight:300;max-width:500px;margin-bottom:36px;animation:fadeUp .6s .16s ease both}
     .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;animation:fadeUp .6s .24s ease both}
@@ -54,7 +54,7 @@
     .prix-highlight::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--g),#22C98A)}
     .prix-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
     .prix-ico{width:48px;height:48px;border-radius:14px;background:var(--gl);border:1px solid var(--gm);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-    .prix-title{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--dark)}
+    .prix-title{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--dark)}
     .prix-sub{font-size:12px;color:var(--muted);margin-top:2px}
     .prix-items{display:flex;flex-direction:column;gap:14px;margin-bottom:24px}
     .prix-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--bg);border-radius:12px;border:1px solid var(--bdr)}
@@ -65,16 +65,16 @@
     .prix-note{text-align:center;font-size:12px;color:var(--muted);line-height:1.6;padding:12px;background:var(--gl);border-radius:10px}
     .conviction{background:var(--g);padding:56px 5%}
     .conv-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
-    .conv-val{font-family:'Bricolage Grotesque',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1}
+    .conv-val{font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:#fff;line-height:1}
     .conv-lbl{font-size:12.5px;color:rgba(255,255,255,.7);margin-top:6px}
-    .pourquoi{padding:90px 5%}
+    .pourquoi{padding:90px 5%;background:var(--surf)}
     .args-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:52px}
     .arg-card{background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:28px;transition:all .3s;position:relative;overflow:hidden}
     .arg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--g);transform:scaleX(0);transform-origin:left;transition:transform .35s}
     .arg-card:hover{transform:translateY(-4px);box-shadow:0 20px 56px rgba(29,158,117,.09);border-color:var(--gm)}
     .arg-card:hover::before{transform:scaleX(1)}
     .arg-ico{width:48px;height:48px;border-radius:13px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px}
-    .arg-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
+    .arg-card h3{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--dark);margin-bottom:8px}
     .arg-card p{font-size:13.5px;color:var(--muted);line-height:1.7}
     .budget-section{background:var(--gl);padding:90px 5%}
     .budget-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
@@ -85,7 +85,7 @@
     .budget-row.lokalist{background:var(--al);border:1.5px solid rgba(239,159,39,.3)}
     .budget-row-ico{font-size:22px;flex-shrink:0}
     .budget-row-main{flex:1}
-    .budget-row-title{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700}
+    .budget-row-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
     .budget-row.mairie .budget-row-title{color:#fff}
     .budget-row.bons .budget-row-title{color:var(--gd)}
     .budget-row.lokalist .budget-row-title{color:#92400E}
@@ -93,7 +93,7 @@
     .budget-row.mairie .budget-row-desc{color:rgba(255,255,255,.55)}
     .budget-row.bons .budget-row-desc{color:var(--muted)}
     .budget-row.lokalist .budget-row-desc{color:#92400E;opacity:.7}
-    .budget-row-amount{font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;flex-shrink:0}
+    .budget-row-amount{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;flex-shrink:0}
     .budget-row.mairie .budget-row-amount{color:#fff}
     .budget-row.bons .budget-row-amount{color:var(--g)}
     .budget-row.lokalist .budget-row-amount{color:var(--a)}
@@ -103,15 +103,15 @@
     .budget-points{display:flex;flex-direction:column;gap:20px;padding-top:8px}
     .bp{display:flex;align-items:flex-start;gap:14px}
     .bp-ico{width:42px;height:42px;border-radius:12px;background:var(--surf);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0}
-    .bp h4{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+    .bp h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
     .bp p{font-size:13px;color:var(--muted);line-height:1.65}
     .steps-section{padding:90px 5%;background:var(--surf)}
     .steps-grid{display:flex;gap:0;margin-top:52px;position:relative}
     .steps-grid::before{content:'';position:absolute;top:27px;left:7%;right:7%;height:1px;background:linear-gradient(90deg,var(--g),rgba(29,158,117,.15));z-index:0}
     .step{flex:1;text-align:center;padding:0 16px;position:relative;z-index:1}
-    .step-num{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 6px var(--gl)}
+    .step-num{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;font-family:'Syne',sans-serif;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 0 0 6px var(--gl)}
     .step-ico{font-size:26px;margin-bottom:10px}
-    .step-title{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:7px}
+    .step-title{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:7px}
     .step-desc{font-size:12.5px;color:var(--muted);line-height:1.65}
     .foncts{padding:90px 5%;background:var(--dark);position:relative;overflow:hidden}
     .foncts::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 70% 40%,rgba(29,158,117,.1) 0%,transparent 55%)}
@@ -119,11 +119,11 @@
     .foncts .section-p{color:rgba(255,255,255,.45)}
     .foncts .section-tag{color:var(--gm)}
     .foncts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
-    .fonct-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:all .3s}
+    .fonct-card{background:var(--bg);border:1px solid var(--bdr);border-radius:18px;padding:24px;transition:all .3s}
     .fonct-card:hover{background:rgba(29,158,117,.08);border-color:rgba(29,158,117,.25);transform:translateY(-3px)}
     .fonct-ico{font-size:30px;margin-bottom:14px;display:block}
-    .fonct-title{font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:7px}
-    .fonct-desc{font-size:13px;color:rgba(255,255,255,.45);line-height:1.7}
+    .fonct-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:7px}
+    .fonct-desc{font-size:13px;color:var(--muted);line-height:1.7}
     .tarif-section{padding:90px 5%;background:var(--bg)}
     .tarif-in{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
     .tarif-card{background:linear-gradient(135deg,var(--gd) 0%,var(--g) 65%,#22C98A 100%);border-radius:28px;padding:40px;position:relative;overflow:hidden}
@@ -132,25 +132,25 @@
     .tarif-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
     .tarif-eyebrow span{font-size:11px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:1.5px}
     .tarif-eyebrow .badge{background:var(--a);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px}
-    .tarif-h{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}
+    .tarif-h{font-family:'Syne',sans-serif;font-size:clamp(20px,2.5vw,28px);font-weight:800;color:#fff;line-height:1.1;margin-bottom:10px}
     .tarif-sub{font-size:14px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:24px}
     .tarif-kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
     .tkpi{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px;text-align:center}
-    .tkpi-v{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1}
+    .tkpi-v{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#fff;line-height:1}
     .tkpi-l{font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;text-transform:uppercase;letter-spacing:.4px}
     .tarif-feats{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
     .tarif-feat{display:flex;align-items:center;gap:9px;font-size:13px;color:rgba(255,255,255,.85)}
     .tarif-feat span:first-child{color:var(--gm);font-weight:800;font-size:12px;flex-shrink:0}
     .tarif-btns{display:flex;gap:10px;flex-wrap:wrap}
-    .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--gd);padding:14px 28px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.15);transition:all .25s}
+    .btn-white{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--gd);padding:14px 28px;border-radius:100px;font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.15);transition:all .25s}
     .btn-white:hover{transform:translateY(-2px)}
-    .btn-white-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;padding:13px 22px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.22);transition:all .25s}
+    .btn-white-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:#fff;padding:13px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.22);transition:all .25s}
     .btn-white-ghost:hover{background:rgba(255,255,255,.2)}
     .tarif-right{display:flex;flex-direction:column;gap:16px}
     .tarif-point{display:flex;align-items:flex-start;gap:14px;padding:20px;background:var(--surf);border:1px solid var(--bdr);border-radius:16px;transition:all .3s}
     .tarif-point:hover{border-color:var(--gm);box-shadow:0 8px 28px rgba(29,158,117,.07)}
     .tarif-point-ico{font-size:24px;flex-shrink:0}
-    .tarif-point h4{font-family:'Bricolage Grotesque',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+    .tarif-point h4{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
     .tarif-point p{font-size:13px;color:var(--muted);line-height:1.6}
     .faq{padding:80px 5%;background:var(--surf)}
     .faq-in{max-width:800px;margin:0 auto}
@@ -166,7 +166,7 @@
     .cta{background:linear-gradient(135deg,var(--dark),#1A3028);padding:90px 5%;text-align:center;position:relative;overflow:hidden}
     .cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(29,158,117,.1) 0%,transparent 60%)}
     .cta-in{max-width:620px;margin:0 auto;position:relative;z-index:1}
-    .cta h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(28px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
+    .cta h2{font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,50px);font-weight:800;color:#fff;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px}
     .cta h2 span{color:var(--a)}
     .cta p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:36px;font-weight:300;line-height:1.75}
     .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
@@ -273,41 +273,14 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
   <meta name="theme-color" content="#1D9E75"/>
   <link rel="stylesheet" href="loki-section.css">
-
-  <!-- LOKALIST_SEO_MAIRIES_V1 -->
-  <link rel="canonical" href="https://lokalist.fr/mairies"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:site_name" content="Lokalist"/>
-  <meta property="og:title" content="Outil de communication mairie : alertes citoyens, agenda & démarches | Lokalist"/>
-  <meta property="og:description" content="Lokalist : l'application d'information et d'alerte pour votre commune. Alertes push géolocalisées, agenda, démarches, signalements, sondages, RDV mairie. 0€ à l'activation, France entière."/>
-  <meta property="og:url" content="https://lokalist.fr/mairies"/>
-  <meta property="og:image" content="https://lokalist.fr/og-lokalist.png"/>
-  <meta name="twitter:card" content="summary_large_image"/>
-  <meta name="twitter:title" content="Outil de communication mairie : alertes citoyens, agenda & démarches | Lokalist"/>
-  <meta name="twitter:description" content="Lokalist : l'application d'information et d'alerte pour votre commune. Alertes push géolocalisées, agenda, démarches, signalements, sondages, RDV mairie. 0€ à l'activation, France entière."/>
-  <meta name="twitter:image" content="https://lokalist.fr/og-lokalist.png"/>
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"Lokalist","url":"https://lokalist.fr","logo":"https://lokalist.fr/logo.png"},{"@type":"Service","name":"Lokalist pour les mairies","serviceType":"Application d'information et d'alerte pour communes","description":"Lokalist : l'application d'information et d'alerte pour votre commune. Alertes push géolocalisées, agenda, démarches, signalements, sondages, RDV mairie. 0€ à l'activation, France entière.","provider":{"@type":"Organization","name":"Lokalist","url":"https://lokalist.fr"},"areaServed":{"@type":"Country","name":"France"},"audience":{"@type":"Audience","audienceType":"Mairies et collectivités"}}]}</script>
-  <!-- /LOKALIST_SEO_MAIRIES_V1 -->
-
-  <!-- LOKALIST_FAQ_MAIRIES_V1 -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Lokalist est-il une alternative à PanneauPocket ?","acceptedAnswer":{"@type":"Answer","text":"Oui, et Lokalist va nettement plus loin. Comme une application d'information municipale, Lokalist envoie vos alertes et actualités en notification push géolocalisée à vos habitants (intempéries, travaux, coupures, événements), gère votre agenda, vos signalements citoyens, vos sondages, vos rendez-vous et vos marchés. Là où une simple appli d'alerte s'arrête à l'information, Lokalist dynamise aussi l'économie locale : vos commerçants et artisans sont référencés dans l'app et sur une page web publique dédiée à votre ville, visible sur Google. Surtout, Lokalist intègre Loki, votre assistant intelligent municipal, qui connaît votre commune (services, horaires, démarches, actualité) et répond aux habitants à votre place 24h/24. Plus vous l'alimentez, plus il connaît votre mairie et plus ses réponses sont précises."}},{"@type":"Question","name":"Est-ce que les bons de commerce sont obligatoires ?","acceptedAnswer":{"@type":"Answer","text":"Non. Les bons de commerce sont un module optionnel que vous activez si et quand vous le souhaitez. L'abonnement annuel couvre toutes les autres fonctionnalités (alertes, agenda, signalements, sondages, marchés, dashboard) sans qu'aucune campagne de bons ne soit requise."}},{"@type":"Question","name":"L'abonnement Lokalist constitue-t-il un marché public ? Faut-il lancer un appel d'offres ?","acceptedAnswer":{"@type":"Answer","text":"L'abonnement Lokalist est un marché de services. Son montant annuel étant largement inférieur au seuil de 60 000€ HT, votre commune bénéficie d'une dispense de publicité et de mise en concurrence. Le maire peut signer directement le contrat, à condition de disposer d'une délégation générale du conseil municipal. En cas de doute, consultez votre secrétaire général ou votre préfecture."}},{"@type":"Question","name":"Faut-il une délibération du conseil municipal pour rejoindre Lokalist ?","acceptedAnswer":{"@type":"Answer","text":"Pour l'abonnement annuel, si le maire dispose d'une délégation générale du conseil municipal (article L.2122-22 du CGCT), aucune délibération spécifique n'est requise. Pour lancer des campagnes de bons (dépense budgétaire), une délibération inscrivant ce crédit au budget est recommandée. Un modèle de délibération est fourni sur demande."}},{"@type":"Question","name":"Les bons distribués aux habitants constituent-ils un marché public ?","acceptedAnswer":{"@type":"Answer","text":"Non. Les bons distribués aux habitants sont une dépense d'intérêt public local (soutien à l'économie du territoire), pas un marché public, car la commune ne reçoit aucune prestation en contrepartie. C'est comparable à une aide directe aux habitants, inscrite au budget en section de fonctionnement."}},{"@type":"Question","name":"Comment Lokalist respecte-t-il le RGPD ?","acceptedAnswer":{"@type":"Answer","text":"Toutes les données sont hébergées sur des serveurs européens. Chaque commune dispose d'un espace isolé des autres : aucune donnée n'est partagée entre collectivités ni revendue à des tiers. Les habitants s'inscrivent sur consentement explicite. Un DPA est fourni à la signature. Vous gardez la propriété totale de vos données et pouvez en demander la suppression à tout moment."}},{"@type":"Question","name":"Comment est calculé le tarif de l'abonnement ?","acceptedAnswer":{"@type":"Answer","text":"Le tarif s'adapte à la taille de votre commune : un village de 300 habitants ne paie pas comme une ville de 10 000. Plutôt qu'un prix sur étagère, nous préférons vous faire découvrir tout ce que Lokalist peut faire pour votre commune (alertes, agenda, démarches, Loki, visibilité de vos commerces). Contactez-nous, on vous montre la puissance de l'outil. Activation à 0€, sans engagement."}},{"@type":"Question","name":"Que se passe-t-il si des habitants ne dépensent pas leurs bons ?","acceptedAnswer":{"@type":"Answer","text":"Les bons non utilisés ne sont jamais facturés. La commission de 15% s'applique uniquement sur les bons effectivement utilisés chez vos commerçants. C'est un modèle à la performance, sans risque financier pour la commune."}},{"@type":"Question","name":"Peut-on résilier l'abonnement ?","acceptedAnswer":{"@type":"Answer","text":"L'abonnement est annuel et n'est pas renouvelé automatiquement : vous décidez à chaque fin d'année si vous continuez. Pas de reconduction tacite. Contactez contact@lokalist.fr pour toute question."}}]}</script>
-  <!-- /LOKALIST_FAQ_MAIRIES_V1 -->
-<!-- META PIXEL LOKALIST:START -->
-<script>
-!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init','1203376311821134');
-fbq('track','PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1203376311821134&ev=PageView&noscript=1"/></noscript>
-<!-- META PIXEL LOKALIST:END -->
 </head>
 <body>
 <nav id="nav">
   <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
     <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
-      <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain" decoding="async"/></picture>
+      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
     </div>
-    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
+    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokalist</span>
   </a>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
@@ -351,11 +324,10 @@ fbq('track','PageView');
     <div>
       <div class="hero-badge">
         <div class="hero-badge-dot"></div>
-        <span>Collectivités · France entière</span>
+        <span>Un concept unique · France entière</span>
       </div>
-      <h1>L'application d'information et d'alerte pour <em>votre commune</em></h1>
-      <p class="hero-tagline" style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--g);margin:0 0 14px">Votre commune mérite un outil à la hauteur de ses ambitions.</p>
-      <p class="hero-sub">Lokalist accompagne toutes les communes — village de 300 habitants ou ville de 10 000 — qui souhaitent communiquer autrement, soutenir leur économie locale et rester proches de leurs habitants. Tarif adapté à votre taille, zéro complexité technique.</p>
+      <h1>Votre commune mérite<br/>un outil <em>à la hauteur</em><br/>de ses ambitions.</h1>
+      <p class="hero-sub">Un concept unique, né d'un besoin immense : réunir la mairie, ses habitants, ses commerçants et ses artisans sur un même outil. Un coût minime pour la commune, un bénéfice collectif pour tout le territoire.</p>
       <div class="hero-ctas">
         <a href="/contact?demo=mairie" class="btn-primary">Demander une démo gratuite →</a>
         <a href="#fonctionnalites" class="btn-outline">Voir les fonctionnalités</a>
@@ -372,14 +344,14 @@ fbq('track','PageView');
    <div class="hero-right mairie-phones">
       <div class="mairie-phone left-phone">
         <div class="mairie-notch"></div>
-        <picture><source srcset="/images/screen-mairie-home.webp" type="image/webp"><img src="/images/screen-mairie-home.jpg"
-          alt="Alertes et agenda commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block" decoding="async" fetchpriority="high"/></picture>
+        <img src="/images/screen-mairie-home.jpg"
+          alt="Alertes et agenda commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
         <div class="mairie-glow"></div>
       </div>
       <div class="mairie-phone center-phone">
         <div class="mairie-notch"></div>
-        <picture><source srcset="/images/screen-commune.webp" type="image/webp"><img src="/images/screen-commune.jpg"
-          alt="Infos pratiques commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block" decoding="async" loading="lazy"/></picture>
+        <img src="/images/screen-commune.jpg"
+          alt="Infos pratiques commune" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block"/>
         <div class="mairie-glow"></div>
       </div>
     </div>
@@ -390,7 +362,7 @@ fbq('track','PageView');
   <div class="conv-in">
     <div class="reveal"><div class="conv-val">0€</div><div class="conv-lbl">À l'activation — aucun risque financier</div></div>
     <div class="reveal"><div class="conv-val">48h</div><div class="conv-lbl">Pour être opérationnel</div></div>
-    <div class="reveal"><div class="conv-val">100%</div><div class="conv-lbl">Des bons dépensés en local</div></div>
+    <div class="reveal"><div class="conv-val">100%</div><div class="conv-lbl">Des retombées qui restent sur le territoire</div></div>
     <div class="reveal"><div class="conv-val">France</div><div class="conv-lbl">Partout, toutes communes</div></div>
   </div>
 </section>
@@ -400,131 +372,29 @@ fbq('track','PageView');
     <div class="reveal">
       <span class="section-tag">Ce que ça change concrètement</span>
       <h2 class="section-h">Des outils qui servent<br/>vraiment les élus.</h2>
-      <p class="section-p">Pas un gadget numérique. Un outil de politique municipale mesurable, simple à utiliser au quotidien.</p>
+      <p class="section-p">Une appli utile au quotidien, de quoi faire revenir vos habitants. Un outil complet, pas un outil partiel — toutes les rubriques comprises dans l'abonnement.</p>
     </div>
-    <div class="args-grid">
-      <div class="arg-card reveal"><div class="arg-ico">📣</div><h3>Alertes instantanées aux habitants</h3><p>Travaux, coupure d'eau, événement annulé — notification push géolocalisée en 30 secondes. Plus rapide et ciblée que n'importe quel affichage public.</p></div>
-      <div class="arg-card reveal"><div class="arg-ico">💰</div><h3>Budget municipal qui reste sur place</h3><p>Si vous le souhaitez, distribuez des bons à vos habitants valables uniquement chez vos commerçants locaux. Chaque euro de votre budget renforce votre économie de territoire.</p></div>
-      <div class="arg-card reveal"><div class="arg-ico">📅</div><h3>Agenda municipal interactif</h3><p>Vos événements publiés dans l'app avec rappel push automatique. Marchés, fêtes de village, conseils municipaux — vos habitants ne ratent plus rien.</p></div>
-      <div class="arg-card reveal"><div class="arg-ico">📍</div><h3>Signalements citoyens géolocalisés</h3><p>Nid de poule, lampadaire en panne, dépôt sauvage — vos habitants signalent avec photo. Vous traitez depuis le dashboard, ils sont notifiés de l'avancement.</p></div>
-      <div class="arg-card reveal"><div class="arg-ico">🗳️</div><h3>Sondages & consultations en ligne</h3><p>Consultez vos administrés sur vos projets municipaux. Résultats en temps réel dans votre tableau de bord. Les habitants gagnent des points en participant.</p></div>
-      <div class="arg-card reveal"><div class="arg-ico">📊</div><h3>Dashboard élu : tout en un endroit</h3><p>Activité de votre commune en temps réel : habitants connectés, bons distribués, marchés, signalements ouverts. Export pour vos conseils municipaux.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="budget-section">
-  <div class="budget-in section-in">
-    <div class="reveal">
-      <span class="section-tag" style="color:var(--gd)">Le modèle économique en clair</span>
-      <h2 class="section-h">Vous choisissez.<br/>Vous contrôlez.</h2>
-      <p class="section-p" style="margin-bottom:32px">Les campagnes de bons sont entièrement à votre initiative. Vous décidez du montant, du moment, des commerçants concernés.</p>
-      <div class="budget-flow">
-        <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Exemple — campagne de Noël à 2 000€</div>
-        <div class="budget-row mairie"><div class="budget-row-ico">🏛️</div><div class="budget-row-main"><div class="budget-row-title">Mairie verse le budget de campagne</div><div class="budget-row-desc">Vous définissez le montant, Lokalist s'occupe de la distribution</div></div><div class="budget-row-amount">2 000€</div></div>
-        <div class="budget-arrow">↓</div>
-        <div class="budget-row bons"><div class="budget-row-ico">🎟️</div><div class="budget-row-main"><div class="budget-row-title">Bons envoyés à vos habitants</div><div class="budget-row-desc">Géolocalisés · valables uniquement chez vos commerçants</div></div><div class="budget-row-amount">1 700€</div></div>
-        <div class="budget-arrow">↓</div>
-        <div class="budget-row lokalist"><div class="budget-row-ico">⚙️</div><div class="budget-row-main"><div class="budget-row-title">Commission Lokalist (gestion plateforme)</div><div class="budget-row-desc">Uniquement sur les bons réellement utilisés</div></div><div class="budget-row-amount">300€</div></div>
-        <div class="budget-footer">✓ <strong>1 700€ dépensés directement chez vos commerçants locaux</strong><br/>Les bons non utilisés ne sont jamais facturés</div>
-        <div class="budget-note">Chiffres indicatifs · Le montant et la fréquence des campagnes sont entièrement à votre discrétion</div>
-      </div>
-    </div>
-    <div class="budget-points reveal">
-      <div class="bp"><div class="bp-ico">🔑</div><div><h4>Vous êtes toujours décisionnaire</h4><p>Une campagne se lance uniquement quand vous le décidez, au montant que vous choisissez. Aucun prélèvement automatique, aucune reconduction sans validation.</p></div></div>
-      <div class="bp"><div class="bp-ico">📈</div><div><h4>Traçabilité totale pour vos rapports</h4><p>Chaque bon distribué, chaque utilisation, chaque remboursement commerçant est visible en temps réel. Les données sont exportables pour vos conseils municipaux.</p></div></div>
-      <div class="bp"><div class="bp-ico">🤝</div><div><h4>Vos commerçants en bénéficient directement</h4><p>Les bons génèrent du trafic et du chiffre d'affaires additionnel pour vos commerces et artisans partenaires. Un levier économique concret pour votre territoire.</p></div></div>
-      <div class="bp"><div class="bp-ico">📋</div><div><h4>Abonnement annuel clair, sans surprise</h4><p>L'accès à la plateforme complète est compris dans votre abonnement annuel. Les bons sont un module optionnel facturé uniquement à l'utilisation réelle.</p></div></div>
+    <div class="foncts-grid" id="inclus" style="margin-top:52px">
+      <div class="fonct-card reveal"><span class="fonct-ico">📣</span><div class="fonct-title">Alerte push géolocalisée</div><div class="fonct-desc">Urgence, travaux, météo : prévenez les bons habitants, au bon endroit, en un instant.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📅</span><div class="fonct-title">Agenda municipal</div><div class="fonct-desc">Vos événements dans l'app, avec rappel push automatique.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📰</span><div class="fonct-title">Actualités municipales</div><div class="fonct-desc">Toute l'info officielle de la commune, diffusée en temps réel.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">ℹ️</span><div class="fonct-title">Infos mairie</div><div class="fonct-desc">Horaires, contacts, services : les infos pratiques toujours à jour.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🗓️</span><div class="fonct-title">Prise de rendez-vous en ligne</div><div class="fonct-desc">Les habitants réservent leurs créneaux en mairie, sans appel.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📍</span><div class="fonct-title">Signalement citoyen</div><div class="fonct-desc">Photo + localisation. Vous gérez, l'habitant est notifié à chaque étape.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🗳️</span><div class="fonct-title">Sondages & consultations</div><div class="fonct-desc">Consultez vos administrés, résultats en temps réel.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🤝</span><div class="fonct-title">Associations</div><div class="fonct-desc">Les associations de la commune, leurs événements et leurs actus au même endroit.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🏪</span><div class="fonct-title">Gestion des marchés</div><div class="fonct-desc">Marchés, emplacements, marchands ambulants — pilotés depuis le dashboard.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🗑️</span><div class="fonct-title">Collecte des déchets</div><div class="fonct-desc">Calendrier de ramassage et rappels par quartier.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🚌</span><div class="fonct-title">Transport & horaires</div><div class="fonct-desc">Lignes et horaires des transports, à portée des habitants.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">❤️</span><div class="fonct-title">Défibrillateurs</div><div class="fonct-desc">Localisez les défibrillateurs de la commune en cas d'urgence.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🦊</span><div class="fonct-title">Loki assistant municipal</div><div class="fonct-desc">L'assistant IA qui répond aux habitants 24h/24, avec les infos de votre commune.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">👥</span><div class="fonct-title">Multi-accès élus</div><div class="fonct-desc">Plusieurs élus et agents sur le dashboard, chacun avec ses droits.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">📊</span><div class="fonct-title">Dashboard élu sécurisé</div><div class="fonct-desc">Activité en temps réel, stats et rapports exportables pour vos conseils.</div></div>
+      <div class="fonct-card reveal"><span class="fonct-ico">🎟️</span><div class="fonct-title">Bons de commerce</div><div class="fonct-desc">Module optionnel : la commune peut financer des bons dépensables chez les commerçants locaux.</div></div>
     </div>
   </div>
 </section>
 
-<section class="steps-section">
-  <div class="section-in">
-    <div class="reveal" style="text-align:center;max-width:580px;margin:0 auto">
-      <span class="section-tag">Mise en place</span>
-      <h2 class="section-h">Opérationnel en 48h,<br/>sans effort de votre côté.</h2>
-    </div>
-    <div class="steps-grid reveal">
-      <div class="step"><div class="step-num">1</div><div class="step-ico">📞</div><div class="step-title">Démo gratuite</div><div class="step-desc">30 minutes en visio ou en présentiel. On vous montre la plateforme, vous posez vos questions.</div></div>
-      <div class="step"><div class="step-num">2</div><div class="step-ico">📋</div><div class="step-title">Devis personnalisé</div><div class="step-desc">Tarif adapté à la taille de votre commune. Sous 24h. Aucun frais caché, aucune surprise.</div></div>
-      <div class="step"><div class="step-num">3</div><div class="step-ico">⚙️</div><div class="step-title">Déploiement 48h</div><div class="step-desc">On configure votre dashboard, on intègre vos commerçants, on forme votre équipe. Zéro technique côté mairie.</div></div>
-      <div class="step"><div class="step-num">4</div><div class="step-ico">🚀</div><div class="step-title">Vous pilotez</div><div class="step-desc">Alertes, agenda, signalements, sondages — tout depuis votre dashboard sécurisé.</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="foncts" id="inclus">
-  <div class="section-in">
-    <div class="reveal">
-      <span class="section-tag">Ce qui est inclus dans l'abonnement</span>
-      <h2 class="section-h">Un outil complet,<br/>pas un outil partiel.</h2>
-      <p class="section-p">Toutes les fonctionnalités suivantes sont comprises dans votre abonnement annuel. Les bons sont un module optionnel supplémentaire.</p>
-    </div>
-    <div class="foncts-grid">
-      <div class="fonct-card reveal"><span class="fonct-ico">📣</span><div class="fonct-title">Alertes push géolocalisées</div><div class="fonct-desc">5 types d'alertes (urgence, travaux, météo, info, événement) ciblées par zone. Instantané.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">📅</span><div class="fonct-title">Agenda municipal</div><div class="fonct-desc">Événements publiés dans l'app avec notification push automatique et rappel.</div></div>
-      <!-- [FONCT-RDV] -->
-      <div class="fonct-card reveal"><span class="fonct-ico">📅</span><div class="fonct-title">Prise de rendez-vous en ligne</div><div class="fonct-desc">Vos habitants réservent un créneau (CNI, passeport, urbanisme…) depuis l’app. Vous ouvrez les horaires, bloquez ce qui est pris au téléphone, zéro double réservation.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">📍</span><div class="fonct-title">Signalement citoyen</div><div class="fonct-desc">Photo + localisation. Vous gérez les statuts, le citoyen est notifié à chaque avancement.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">🗳️</span><div class="fonct-title">Sondages & consultations</div><div class="fonct-desc">Créez des sondages en quelques clics. Résultats anonymes analysables en temps réel.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">🏪</span><div class="fonct-title">Gestion des marchés</div><div class="fonct-desc">Marchés, emplacements, marchands ambulants — tout géré depuis le dashboard.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">📊</span><div class="fonct-title">Dashboard élu sécurisé</div><div class="fonct-desc">Accès unique pour votre commune. Stats, rapports exportables pour vos conseils municipaux.</div></div>
-      <!-- LOKALIST_FONCT_MAIRIES_V1 -->
-      <div class="fonct-card reveal"><span class="fonct-ico">📄</span><div class="fonct-title">Démarches en ligne</div><div class="fonct-desc">Acte de naissance, inscription, urbanisme… vos habitants lancent leurs démarches depuis l'app, sans se déplacer.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">📰</span><div class="fonct-title">Actualités & infos mairie</div><div class="fonct-desc">Publiez vos actualités municipales, comptes-rendus et infos pratiques. Toujours à jour, toujours à portée de main.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">🤖</span><div class="fonct-title">Loki, assistant IA municipal</div><div class="fonct-desc">Loki connaît votre commune et répond aux habitants 24h/24. Plus vous l'alimentez, plus il connaît votre mairie. Un accueil numérique qui ne dort jamais.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">❤️</span><div class="fonct-title">Défibrillateurs (carte DAE)</div><div class="fonct-desc">Vos défibrillateurs enfin visibles : localisation cartographiée dans l'app, accessible en un instant en cas d'urgence.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">🗑️</span><div class="fonct-title">Collecte des déchets</div><div class="fonct-desc">Calendrier de collecte, tri, encombrants, rappels. Vos habitants savent quoi sortir et quand, sans vous appeler.</div></div>
-      <div class="fonct-card reveal"><span class="fonct-ico">🚌</span><div class="fonct-title">Transport & horaires</div><div class="fonct-desc">Lignes, arrêts et horaires de transport de la commune, centralisés et consultables directement depuis l'app.</div></div>
-      <!-- /LOKALIST_FONCT_MAIRIES_V1 -->
-    </div>
-    <div style="margin-top:32px;background:var(--al);border:1px solid rgba(239,159,39,.3);border-radius:16px;padding:24px 28px;display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap" class="reveal">
-      <div style="flex:1"><div style="font-family:'Bricolage Grotesque',sans-serif;font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px">Bons de commerce — module optionnel, unique en France</div><div style="font-size:13px;color:var(--muted);line-height:1.6">Distribuez des bons à vos habitants, valables uniquement chez vos commerçants locaux. Vous l'activez quand vous le souhaitez. Lokalist prend 15% sur les bons <strong>réellement utilisés</strong>.</div></div>
-      <a href="/contact?demo=mairie" style="display:inline-flex;align-items:center;gap:6px;background:var(--a);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .25s" onmouseenter="this.style.background='#D98A1A'" onmouseleave="this.style.background='var(--a)'">En savoir plus →</a>
-    </div>
-  </div>
-</section>
-
-<section class="tarif-section" id="tarif">
-  <div class="tarif-in section-in">
-    <div class="tarif-card reveal">
-      <div class="tarif-inner">
-        <div class="tarif-eyebrow"><span>Offre Mairie Lokalist</span><span class="badge">ANNUEL · SUR DEVIS</span></div>
-        <h3 class="tarif-h">Un partenariat sur mesure.<br/>Aucun engagement caché.</h3>
-        <p class="tarif-sub">L'abonnement est établi sur devis selon la taille de votre commune. Les bons sont un module optionnel, facturé à la performance (15% sur les bons utilisés seulement).</p>
-        <div class="tarif-kpis">
-          <div class="tkpi"><div class="tkpi-v">0€</div><div class="tkpi-l">À l'activation</div></div>
-          <div class="tkpi"><div class="tkpi-v">15%</div><div class="tkpi-l">Commission bons uniquement</div></div>
-          <div class="tkpi"><div class="tkpi-v">48h</div><div class="tkpi-l">Déploiement garanti</div></div>
-          <div class="tkpi"><div class="tkpi-v">∞</div><div class="tkpi-l">Fonctionnalités incluses</div></div>
-        </div>
-        <div class="tarif-feats">
-          <div class="tarif-feat"><span>✓</span>Dashboard mairie dédié & sécurisé</div>
-          <div class="tarif-feat"><span>✓</span>Alertes push géolocalisées illimitées</div>
-          <div class="tarif-feat"><span>✓</span>Agenda municipal avec notifications</div>
-          <div class="tarif-feat"><span>✓</span>Signalements citoyens avec suivi</div>
-          <div class="tarif-feat"><span>✓</span>Sondages & consultations illimités</div>
-          <div class="tarif-feat"><span>✓</span>Gestion des marchés & emplacements</div>
-          <div class="tarif-feat"><span>✓</span>Statistiques & rapports exportables</div>
-          <div class="tarif-feat"><span>✓</span>Support dédié · Accompagnement humain</div>
-        </div>
-        <div class="tarif-btns">
-          <a href="/contact?demo=mairie" class="btn-white">Demander un devis gratuit →</a>
-          <a href="/contact?demo=mairie" class="btn-white-ghost">📞 Prendre rendez-vous</a>
-        </div>
-      </div>
-    </div>
-    <div class="tarif-right reveal">
-      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--dark);margin-bottom:8px">Pourquoi nous faire confiance ?</div>
-      <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px">Des élus comme vous nous ont posé les mêmes questions. Voici ce qui revient le plus souvent.</p>
-      <div class="tarif-point"><div class="tarif-point-ico">✅</div><div><h4>Aucun frais si vous n'utilisez pas les bons</h4><p>Toutes les fonctionnalités de communication et de pilotage sont dans l'abonnement. Les bons ne sont facturés qu'à l'utilisation réelle.</p></div></div>
-      <div class="tarif-point"><div class="tarif-point-ico">🔒</div><div><h4>Données hébergées en Europe, RGPD respecté</h4><p>Chaque commune a un espace isolé. Vos données et celles de vos habitants ne sont jamais partagées ni revendues.</p></div></div>
-      <div class="tarif-point"><div class="tarif-point-ico">🤝</div><div><h4>Un interlocuteur humain, pas un ticket support</h4><p>Une équipe disponible par téléphone et email. Accompagnement de la démo au pilotage quotidien.</p></div></div>
-      <div class="tarif-point"><div class="tarif-point-ico">📍</div><div><h4>Disponible partout en France</h4><p>Communes rurales, bourgs, villes moyennes — Lokalist s'adapte à toutes les tailles de territoire.</p></div></div>
-    </div>
-  </div>
-</section>
 <section class="loki reveal-in" id="loki">
   <div class="loki__wrap">
 
@@ -534,52 +404,53 @@ fbq('track','PageView');
       </div>
 
       <h2 class="loki__title" data-reveal>
-        <span class="fox">LOKI 🦊</span> simplifie le lien entre la <span class="hl">mairie et ses habitants</span>
+        <span class="fox">LOKI 🦊</span> connaît votre commune et répond à vos habitants <span class="hl">24h/24</span>
       </h2>
 
       <p class="loki__lead" data-reveal>
-        Le renard de Lokalist devient le bras droit numérique de votre commune : il rédige vos
-        communications, écoute les habitants et vous fait gagner un temps précieux sur la
-        communication locale.
+        LOKI, c'est l'atout unique de Lokalist. Il connaît votre commune grâce à vous : il répond aux
+        habitants à partir des informations que vous ajoutez dans le dashboard, connaît tous les
+        services publics, et grandit de jour en jour grâce à un travail collectif. Une question ?
+        LOKI répond — 24h/24, pour la mairie comme pour les habitants.
       </p>
     </div>
 
     <div class="loki__grid">
 
       <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🧠</div>
+        <h3>Il connaît votre commune</h3>
+        <p>Horaires, services, contacts, événements : LOKI s'appuie sur les informations que vous ajoutez dans le dashboard. Plus vous l'alimentez, plus il est précis.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">💬</div>
+        <h3>Il répond aux habitants 24h/24</h3>
+        <p>Une question sur un service, une démarche, un horaire ? LOKI répond à toute heure, à partir des données réelles de votre commune.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
+        <div class="loki-card__icon">🏛️</div>
+        <h3>Il connaît les services publics</h3>
+        <p>Démarches, administrations, bons interlocuteurs : LOKI oriente chaque habitant vers le bon service public, sans détour.</p>
+      </article>
+
+      <article class="loki-card" data-reveal>
         <div class="loki-card__icon">📣</div>
-        <h3>Il rédige vos alertes</h3>
-        <p>Coupure d'eau, travaux, alerte météo : décrivez la situation, LOKI rédige un message clair et envoyé aux habitants concernés par géolocalisation. L'info passe, vite et bien.</p>
+        <h3>Il rédige vos communications</h3>
+        <p>Coupure d'eau, travaux, météo : décrivez la situation, LOKI rédige l'alerte et l'envoie aux habitants concernés par géolocalisation.</p>
       </article>
 
       <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📅</div>
-        <h3>Il anime votre agenda</h3>
-        <p>Marchés, événements, réunions publiques : LOKI met en forme et publie votre agenda local. Les habitants voient ce qui se passe près de chez eux, sans rien chercher.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🗣️</div>
-        <h3>Il synthétise les signalements</h3>
-        <p>Voirie, propreté, éclairage : LOKI regroupe et résume les signalements citoyens avec photo et géolocalisation. Vous voyez l'essentiel d'un coup d'œil.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">📊</div>
-        <h3>Il anime vos sondages</h3>
-        <p>Une décision à prendre, un avis à recueillir ? LOKI vous aide à lancer un sondage citoyen et à en lire les résultats. La démocratie locale, en quelques clics.</p>
-      </article>
-
-      <article class="loki-card" data-reveal>
-        <div class="loki-card__icon">🏆</div>
-        <h3>Il dynamise la vie locale</h3>
-        <p>Défis citoyens, points, récompenses : LOKI aide à créer des animations qui rapprochent les habitants de leur commune et des commerces du territoire.</p>
+        <div class="loki-card__icon">🌱</div>
+        <h3>Il grandit de jour en jour</h3>
+        <p>Grâce à un travail collectif, LOKI s'enrichit en continu et devient plus complet et plus fiable chaque jour.</p>
       </article>
 
       <article class="loki-card" data-reveal>
         <div class="loki-card__icon">⏱️</div>
-        <h3>Il vous fait gagner du temps</h3>
-        <p>Moins de rédaction, moins de mises en page, moins de tri : LOKI s'occupe du digital pour que vos équipes se concentrent sur le terrain et les habitants.</p>
+        <h3>Il fait gagner du temps</h3>
+        <p>Moins de rédaction, moins de tri : LOKI s'occupe du digital pour que vos équipes se concentrent sur le terrain et les habitants.</p>
       </article>
 
     </div>
@@ -591,7 +462,7 @@ fbq('track','PageView');
       </span>
       <span class="loki__proof-item">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        Une commune plus vivante
+        Accessible à toute votre équipe d'élus
       </span>
       <span class="loki__proof-item">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -609,69 +480,81 @@ fbq('track','PageView');
 
   </div>
 </section>
+<section class="steps-section">
+  <div class="section-in">
+    <div class="reveal" style="text-align:center;max-width:580px;margin:0 auto">
+      <span class="section-tag">Mise en place</span>
+      <h2 class="section-h">Opérationnel en 48h,<br/>sans effort de votre côté.</h2>
+    </div>
+    <div class="steps-grid reveal">
+      <div class="step"><div class="step-num">1</div><div class="step-ico">📞</div><div class="step-title">Démo gratuite</div><div class="step-desc">30 minutes en visio ou en présentiel. On vous montre la plateforme, vous posez vos questions.</div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-ico">📋</div><div class="step-title">Devis personnalisé</div><div class="step-desc">Tarif adapté à la taille de votre commune. Sous 24h. Aucun frais caché, aucune surprise.</div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-ico">⚙️</div><div class="step-title">Déploiement 48h</div><div class="step-desc">On configure votre dashboard, on intègre vos commerçants, on forme votre équipe. Zéro technique côté mairie.</div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-ico">🚀</div><div class="step-title">Vous pilotez</div><div class="step-desc">Alertes, agenda, signalements, sondages — tout depuis votre dashboard sécurisé.</div></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="tarif-section" id="tarif">
+  <div class="tarif-in section-in">
+    <div class="tarif-card reveal">
+      <div class="tarif-inner">
+        <div class="tarif-eyebrow"><span>Offre Mairie Lokalist</span><span class="badge">ANNUEL · SUR DEVIS</span></div>
+        <h3 class="tarif-h">Un partenariat sur mesure.<br/>Aucun engagement caché.</h3>
+        <p class="tarif-sub">L'abonnement est établi sur devis selon la taille de votre commune. Les bons de commerce restent un module optionnel, activé seulement si vous le souhaitez.</p>
+        <div class="tarif-kpis">
+          <div class="tkpi"><div class="tkpi-v">0€</div><div class="tkpi-l">À l'activation</div></div>
+          <div class="tkpi"><div class="tkpi-v">RGPD</div><div class="tkpi-l">Données hébergées en Europe</div></div>
+          <div class="tkpi"><div class="tkpi-v">48h</div><div class="tkpi-l">Déploiement garanti</div></div>
+          <div class="tkpi"><div class="tkpi-v">∞</div><div class="tkpi-l">Fonctionnalités incluses</div></div>
+        </div>
+        <div class="tarif-feats">
+          <div class="tarif-feat"><span>✓</span>Dashboard mairie dédié & sécurisé</div>
+          <div class="tarif-feat"><span>✓</span>Alertes push géolocalisées illimitées</div>
+          <div class="tarif-feat"><span>✓</span>Agenda municipal avec notifications</div>
+          <div class="tarif-feat"><span>✓</span>Signalements citoyens avec suivi</div>
+          <div class="tarif-feat"><span>✓</span>Sondages & consultations illimités</div>
+          <div class="tarif-feat"><span>✓</span>Gestion des marchés & emplacements</div>
+          <div class="tarif-feat"><span>✓</span>Statistiques & rapports exportables</div>
+          <div class="tarif-feat"><span>✓</span>Support dédié · Accompagnement humain</div>
+          <div class="tarif-feat"><span>✓</span>Multi-accès pour vos élus</div>
+          <div class="tarif-feat" style="color:var(--a);font-weight:700"><span>✨</span>Et d'autres modules inédits vous attendent</div>
+        </div>
+        <div class="tarif-btns">
+          <a href="/contact?demo=mairie" class="btn-white">Demander un devis gratuit →</a>
+          <a href="/contact?demo=mairie" class="btn-white-ghost">📞 Prendre rendez-vous</a>
+        </div>
+      </div>
+    </div>
+    <div class="tarif-right reveal">
+      <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--dark);margin-bottom:8px">Pourquoi nous faire confiance ?</div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px">Des élus comme vous nous ont posé les mêmes questions. Voici ce qui revient le plus souvent.</p>
+      
+      <div class="tarif-point"><div class="tarif-point-ico">🔒</div><div><h4>Données hébergées en Europe, RGPD respecté</h4><p>Chaque commune a un espace isolé. Vos données et celles de vos habitants ne sont jamais partagées ni revendues.</p></div></div>
+      <div class="tarif-point"><div class="tarif-point-ico">🤝</div><div><h4>Un interlocuteur humain, pas un ticket support</h4><p>Une équipe disponible par téléphone et email. Accompagnement de la démo au pilotage quotidien.</p></div></div>
+      <div class="tarif-point"><div class="tarif-point-ico">📍</div><div><h4>Disponible partout en France</h4><p>Communes rurales, bourgs, villes moyennes — Lokalist s'adapte à toutes les tailles de territoire.</p></div></div>
+    </div>
+  </div>
+</section>
 <!-- INTERLOCUTEUR -->
 <section style="padding:60px 5%;background:var(--surf);border-top:1px solid var(--bdr)">
   <div style="max-width:720px;margin:0 auto;background:var(--bg);border:1.5px solid var(--bdr);border-radius:24px;padding:36px;display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center">
     <div style="flex-shrink:0">
-      <picture><source srcset="/images/damien.webp" type="image/webp"><img src="/images/damien.jpg" alt="Damien, fondateur de Lokalist" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gm);display:block" decoding="async" loading="lazy"/></picture>
+      <img src="/images/damien.jpg" alt="Damien, fondateur de Lokalist" style="width:100px;height:100px;border-radius:50%;object-fit:cover;border:3px solid var(--gm);display:block"/>
     </div>
     <div>
       <div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px">Votre interlocuteur direct</div>
-      <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:6px">Bonjour, je suis Damien</div>
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:6px">Bonjour, je suis Damien</div>
       <div style="font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:18px">Fondateur de Lokalist. Je réponds personnellement à chaque mairie — pas un service commercial, pas un formulaire automatique. Appelez-moi ou écrivez-moi directement.</div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a href="tel:0633282153" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .25s" onmouseenter="this.style.background='var(--gd)'" onmouseleave="this.style.background='var(--g)'">📞 06 33 28 21 53</a>
-        <a href="mailto:contact@lokalist.fr" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:10px 20px;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s" onmouseenter="this.style.borderColor='var(--g)';this.style.color='var(--g)'" onmouseleave="this.style.borderColor='var(--bdr)';this.style.color='var(--dark)'">✉️ contact@lokalist.fr</a>
+        <a href="tel:0633282153" style="display:inline-flex;align-items:center;gap:8px;background:var(--g);color:#fff;padding:11px 22px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-decoration:none;transition:all .25s" onmouseenter="this.style.background='var(--gd)'" onmouseleave="this.style.background='var(--g)'">📞 06 33 28 21 53</a>
+        <a href="mailto:contact@lokalist.fr" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--dark);padding:10px 20px;border-radius:100px;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;text-decoration:none;border:1.5px solid var(--bdr);transition:all .25s" onmouseenter="this.style.borderColor='var(--g)';this.style.color='var(--g)'" onmouseleave="this.style.borderColor='var(--bdr)';this.style.color='var(--dark)'">✉️ contact@lokalist.fr</a>
       </div>
     </div>
   </div>
 </section>
-
-<!-- [SP-URGENCE-MAIRIE] -->
-<section id="securite-civile" style="padding:90px 5%;max-width:1200px;margin:0 auto">
-  <div style="text-align:center;margin-bottom:44px">
-    <p class="sec-tag">Securite civile</p>
-    <h2 class="sec-h">Vos administres ont les bons reflexes</h2>
-    <p class="sec-p">Chaque commune Lokalist embarque un Mode Urgence : numeros officiels, defibrillateurs recenses sur votre territoire, gestes qui sauvent hors connexion. Vous n'avez rien a imprimer, rien a maintenir.</p>
-  </div>
-
-  <div class="sec-civ-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px">
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:26px 24px">
-      <div style="font-size:28px;margin-bottom:12px">&#127963;&#65039;</div>
-      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px">Un devoir d'information rempli</h3>
-      <p style="font-size:13.5px;color:var(--muted);line-height:1.65;font-weight:300">L'information preventive de la population fait partie de vos obligations. Lokalist la porte dans la poche de vos habitants.</p>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:26px 24px">
-      <div style="font-size:28px;margin-bottom:12px">&#9889;</div>
-      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px">Vos defibrillateurs enfin visibles</h3>
-      <p style="font-size:13.5px;color:var(--muted);line-height:1.65;font-weight:300">Les DAE de la commune apparaissent sur la carte, avec itineraire. Signalez-nous ceux qui manquent, nous les ajoutons.</p>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:26px 24px">
-      <div style="font-size:28px;margin-bottom:12px">&#128246;</div>
-      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px">Fonctionne sans reseau</h3>
-      <p style="font-size:13.5px;color:var(--muted);line-height:1.65;font-weight:300">Les fiches premiers secours sont embarquees dans l'app. En zone blanche, elles restent consultables.</p>
-    </div>
-    <div style="background:var(--surf);border:1px solid var(--bdr);border-radius:20px;padding:26px 24px">
-      <div style="font-size:28px;margin-bottom:12px">&#129309;</div>
-      <h3 style="font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px">Aucune responsabilite transferee</h3>
-      <p style="font-size:13.5px;color:var(--muted);line-height:1.65;font-weight:300">Lokalist oriente, ne secourt pas. Aucun appel n'est declenche automatiquement, aucun engagement de secours n'est pris au nom de la commune.</p>
-    </div>
-  </div>
-
-  <div style="display:flex;gap:14px;align-items:flex-start;background:#FEF2F2;border:1px solid #FECACA;border-left:4px solid #DC2626;border-radius:14px;padding:18px 20px">
-    <div style="font-size:19px;line-height:1.4">&#9888;&#65039;</div>
-    <p style="font-size:13.5px;color:#7F1D1D;line-height:1.65;margin:0">
-      <strong style="font-weight:700">Lokalist n'est pas un service de secours.</strong>
-      Le Mode Urgence est un outil d'orientation et d'information. Il ne se substitue ni au 15, ni au 18, ni au 112, ni au dispositif communal de sauvegarde.
-    </p>
-  </div>
-</section>
-
-<style>
-  @media(max-width:1000px){ #securite-civile .sec-civ-grid{grid-template-columns:repeat(2,1fr)!important} } /* SECCIV_RESP_FIX_V1 */
-  @media(max-width:620px){ #securite-civile .sec-civ-grid{grid-template-columns:1fr!important} }
-</style>
-
 <section class="faq">
   <div class="faq-in">
     <div class="reveal" style="text-align:center">
@@ -679,17 +562,20 @@ fbq('track','PageView');
       <h2 class="section-h">Ce que les élus nous demandent</h2>
     </div>
     <div class="faq-list reveal">
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Lokalist est-il une alternative à PanneauPocket ?<span class="faq-ico">+</span></div><div class="faq-a">Oui, et Lokalist va nettement plus loin. Comme une application d'information municipale, Lokalist envoie vos alertes et actualités en notification push géolocalisée à vos habitants (intempéries, travaux, coupures, événements), gère votre agenda, vos signalements citoyens, vos sondages, vos rendez-vous et vos marchés. Mais là où une simple appli d'alerte s'arrête à l'information, Lokalist dynamise aussi l'économie locale : vos commerçants et artisans sont référencés dans l'app et sur une page web publique dédiée à votre ville, visible sur Google.<br/><br/>Surtout, Lokalist intègre <strong>Loki</strong>, votre assistant intelligent municipal. Loki connaît votre commune — vos services, vos horaires, vos démarches, votre actualité — et répond aux habitants à votre place, 24h/24. Plus vous l'alimentez, plus il connaît votre mairie et plus ses réponses sont précises : un agent d'accueil numérique qui ne dort jamais. Aucune application d'information classique n'offre ça.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Est-ce que les bons de commerce sont obligatoires ?<span class="faq-ico">+</span></div><div class="faq-a">Non, absolument pas. Les bons de commerce sont un module optionnel que vous activez si et quand vous le souhaitez. L'abonnement annuel couvre toutes les autres fonctionnalités (alertes, agenda, signalements, sondages, marchés, dashboard) sans qu'aucune campagne de bons ne soit requise.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">L'abonnement Lokalist constitue-t-il un marché public ? Faut-il lancer un appel d'offres ?<span class="faq-ico">+</span></div><div class="faq-a">L'abonnement Lokalist est un marché de services. Son montant annuel étant largement inférieur au seuil de 60 000€ HT (en vigueur depuis avril 2026), votre commune bénéficie d'une dispense totale de publicité et de mise en concurrence. Le maire peut signer directement le contrat, sans procédure formalisée ni appel d'offres, à condition de disposer d'une délégation générale du conseil municipal — ce qui est le cas dans la grande majorité des communes. Si vous avez un doute, nous vous recommandons de consulter votre secrétaire général ou votre préfecture.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Faut-il une délibération du conseil municipal pour rejoindre Lokalist ?<span class="faq-ico">+</span></div><div class="faq-a">Pour l'abonnement annuel, si le maire dispose d'une délégation générale du conseil municipal (article L.2122-22 du CGCT), aucune délibération spécifique n'est requise. En revanche, si vous souhaitez lancer des campagnes de bons pour vos habitants (dépense budgétaire), une délibération inscrivant ce crédit au budget est recommandée — c'est une bonne pratique de transparence vis-à-vis de votre conseil. Nous vous fournissons un modèle de délibération sur demande.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Les bons distribués aux habitants constituent-ils un marché public ?<span class="faq-ico">+</span></div><div class="faq-a">Non. Les bons distribués aux habitants sont une dépense d'intérêt public local (soutien à l'économie de territoire), pas un marché public — car la commune ne reçoit aucune prestation en contrepartie. C'est comparable à une aide directe aux habitants, inscrite au budget en section de fonctionnement. La jurisprudence reconnaît le soutien à l'économie locale comme relevant de l'intérêt public communal.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment Lokalist respecte-t-il le RGPD ?<span class="faq-ico">+</span></div><div class="faq-a">Toutes les données sont hébergées sur des serveurs européens (conformité RGPD). Chaque commune dispose d'un espace entièrement isolé des autres — aucune donnée n'est partagée entre collectivités ni revendue à des tiers. Les habitants s'inscrivent sur la base d'un consentement explicite. Un DPA (accord de traitement des données) est fourni lors de la signature du partenariat. Vous gardez la propriété totale de vos données et pouvez en demander la suppression à tout moment.</div></div>
-      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment est calculé le tarif de l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">Le tarif s'adapte à la taille de votre commune — un village de 300 habitants ne paie pas comme une ville de 10 000. Plutôt qu'un prix sur étagère, nous préférons vous faire découvrir tout ce que Lokalist peut faire pour votre commune : alertes, agenda, démarches, Loki, visibilité de vos commerces… Contactez-nous, on vous montre la puissance de l'outil — vous verrez vite que l'investissement en vaut le détour. Activation à 0€, sans engagement.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Comment est calculé le tarif de l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">Le tarif est établi sur devis selon la taille de votre commune. Une commune de 300 habitants ne paie pas comme une ville de 10 000 — c'est notre engagement. L'abonnement est annuel et fixe pour toutes les fonctionnalités. Devis gratuit sous 24h, sans engagement.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Que se passe-t-il si des habitants ne dépensent pas leurs bons ?<span class="faq-ico">+</span></div><div class="faq-a">Les bons non utilisés ne sont jamais facturés. La commission de 15% s'applique uniquement sur les bons effectivement utilisés chez vos commerçants. C'est un modèle entièrement à la performance, sans risque financier pour la commune.</div></div>
       <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Peut-on résilier l'abonnement ?<span class="faq-ico">+</span></div><div class="faq-a">L'abonnement est annuel mais n'est pas renouvelé automatiquement — vous décidez à chaque fin d'année si vous souhaitez continuer. Pas de reconduction tacite. Contactez Damien directement à contact@lokalist.fr pour toute question.</div></div>
     </div>
   </div>
+</section>
+
+<section style="padding:56px 5%;background:var(--gl);text-align:center">
+  <p style="max-width:820px;margin:0 auto;font-family:'Syne',sans-serif;font-size:clamp(19px,2.6vw,27px);font-weight:800;color:var(--gd);line-height:1.35">Une commune qui s'engage, c'est une commune qui prend soin de son territoire et de ses habitants — avec cœur. ❤️</p>
 </section>
 
 <section class="cta">
@@ -713,7 +599,7 @@ fbq('track','PageView');
 
 <footer>
   <div class="foot-in">
-    <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</div>
+    <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#1D9E75">Lokalist</div>
     <div class="foot-links"><a href="/proposer-un-evenement">Proposer un événement</a><a href="/">Accueil</a><a href="/mairies">Mairies</a><a href="/commercants">Commerçants</a><a href="/artisans">Artisans</a><a href="/agences">🏠 Agences Immo</a><a href="/courtiers">💶 Courtiers</a><a href="/tarifs">Tarifs</a><a href="/contact">Contact</a></div>
     <div class="foot-links"><a href="/mentions-legales">Mentions légales</a><a href="/confidentialite">Confidentialité</a></div>
     <div class="foot-copy">© 2026 Lokalist — Disponible partout en France 🇫🇷</div>
