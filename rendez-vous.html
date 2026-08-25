@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Prendre rendez-vous - Lokalist</title>
-<meta name="description" content="Proposez un cr�neau pour �changer avec Damien, fondateur de Lokalist. Sans engagement, r�ponse rapide."/>
+<meta name="description" content="Proposez un créneau pour échanger avec Damien, fondateur de Lokalist. Sans engagement, réponse rapide."/>
 <meta name="robots" content="noindex"/>
 <!-- OG:RDV (lokalist) -->
 <meta property="og:type" content="website"/>
@@ -59,10 +59,10 @@
 
       <div id="form-view">
         <h1>Prenons 10 minutes ensemble</h1>
-        <p class="lead">Proposez le cr�neau qui vous arrange - je vous confirme rapidement, par t�l�phone ou en visio. Sans engagement.</p>
+        <p class="lead">Proposez le créneau qui vous arrange - je vous confirme rapidement, par téléphone ou en visio. Sans engagement.</p>
 
         <label for="nom">Votre nom</label>
-        <input id="nom" type="text" autocomplete="name" placeholder="Pr�nom Nom"/>
+        <input id="nom" type="text" autocomplete="name" placeholder="Prénom Nom"/>
 
         <div class="row">
           <div>
@@ -70,42 +70,42 @@
             <input id="email" type="email" autocomplete="email" placeholder="vous@exemple.fr"/>
           </div>
           <div>
-            <label for="tel">T�l�phone</label>
+            <label for="tel">Téléphone</label>
             <input id="tel" type="tel" autocomplete="tel" placeholder="06 12 34 56 78"/>
           </div>
         </div>
 
         <div class="row">
           <div>
-            <label for="date">Jour souhait�</label>
+            <label for="date">Jour souhaité</label>
             <input id="date" type="date"/>
           </div>
           <div>
-            <label for="heure">Cr�neau</label>
+            <label for="heure">Créneau</label>
             <select id="heure"></select>
           </div>
         </div>
 
         <label for="message">Votre message <span style="font-weight:400;color:var(--muted)">(optionnel)</span></label>
-        <textarea id="message" placeholder="Une question pr�cise ? Votre activit� ?"></textarea>
+        <textarea id="message" placeholder="Une question précise ? Votre activité ?"></textarea>
 
         <div id="err" class="msg err"></div>
 
-        <button id="btn" class="btn" type="button">Proposer ce cr�neau ?</button>
-        <p class="note">Vos coordonn�es servent uniquement � vous recontacter. Aucun engagement.</p>
+        <button id="btn" class="btn" type="button">Proposer ce créneau ?</button>
+        <p class="note">Vos coordonnées servent uniquement à vous recontacter. Aucun engagement.</p>
 
         <div class="alt">
-          Vous pr�f�rez un autre canal ?<br/>
-          <a href="tel:+33633282153">?? 06 33 28 21 53</a> &nbsp;�&nbsp;
-          <a href="https://wa.me/33633282153" target="_blank" rel="noopener">?? WhatsApp</a> &nbsp;�&nbsp;
-          <a href="mailto:contact@lokalist.fr">?? Email</a>
+          Vous préférez un autre canal ?<br/>
+          <a href="tel:+33633282153">📞 06 33 28 21 53</a> &nbsp;·&nbsp;
+          <a href="https://wa.me/33633282153" target="_blank" rel="noopener">💬 WhatsApp</a> &nbsp;·&nbsp;
+          <a href="mailto:contact@lokalist.fr">📩 Email</a>
         </div>
       </div>
 
       <div id="ok-view" class="ok-view">
-        <div class="ico">?</div>
-        <h2>C'est not�, merci !</h2>
-        <p>J'ai bien re�u votre demande de cr�neau. Je reviens vers vous tr�s vite pour confirmer. � tout de suite - Damien.</p>
+        <div class="ico">✅</div>
+        <h2>C'est noté, merci !</h2>
+        <p>J'ai bien reçu votre demande de créneau. Je reviens vers vous très vite pour confirmer. à tout de suite - Damien.</p>
       </div>
 
     </div>
@@ -113,7 +113,7 @@
 
 <script>
   var API = "https://lokalist-api-production.up.railway.app"; // base API Railway
-  // Cr�neaux 09:00 -> 18:00 (pas de 30 min)
+  // Créneaux 09:00 -> 18:00 (pas de 30 min)
   (function(){
     var sel = document.getElementById('heure');
     for (var h=9; h<=18; h++){ for (var m=0; m<60; m+=30){ if(h===18&&m>0)break;
@@ -166,8 +166,8 @@
       document.getElementById('form-view').style.display='none';
       document.getElementById('ok-view').style.display='block';
     }catch(err){
-      showErr("Oups, l'envoi n'a pas fonctionn�. R�essayez, ou appelez le 06 33 28 21 53.");
-      btn.disabled=false; btn.textContent='Proposer ce cr�neau ?';
+      showErr("Oups, l'envoi n'a pas fonctionné. Réessayez, ou appelez le 06 33 28 21 53.");
+      btn.disabled=false; btn.textContent='Proposer ce créneau ?';
     }
   });
 </script>
