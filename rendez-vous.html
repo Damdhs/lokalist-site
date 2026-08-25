@@ -150,9 +150,9 @@
     var heure=document.getElementById('heure').value;
     var message=document.getElementById('message').value.trim();
 
-    if(!nom) return showErr('Merci d'indiquer votre nom.');
-    if(!email || email.indexOf('@')<1) return showErr('Merci d'indiquer un email valide.');
-    if(!date || !heure) return showErr('Choisissez un jour et un cr�neau.');
+    if(!nom) return showErr('Merci d\'indiquer votre nom.');
+    if(!email || email.indexOf('@')<1) return showErr('Merci d\'indiquer un email valide.');
+    if(!date || !heure) return showErr('Choisissez un jour et un creneau.');
 
     btn.disabled=true; btn.textContent='Envoi.';
     document.getElementById('err').className='msg';

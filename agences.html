@@ -506,283 +506,58 @@
 <!-- ═══════════════════════════════════════════════════════════════════
      BLOC PARRAINAGE AGENCES — page /agences
      À COLLER juste AVANT  <section class="paliers">
-     CSS scopé sous .parrainage-sec → n'impacte rien d'autre.
-     Réutilise les fonts Syne + DM Sans déjà chargées.
-     ═══════════════════════════════════════════════════════════════════ -->
-<section class="parrainage-sec reveal" id="parrainage">
-  <style>
-    .parrainage-sec{
-      --pg:#1D9E75;--pgd:#0F6E56;--pb:#3B82F6;--pa:#EF9F27;
-      position:relative;padding:96px 5%;overflow:hidden;
-      background:linear-gradient(150deg,#08221A 0%,#0B2A3F 60%,#0A1E33 100%);
-    }
-    /* halos d'ambiance */
-    .parrainage-sec::before{
-      content:'';position:absolute;top:-15%;left:-5%;width:520px;height:520px;
-      background:radial-gradient(circle,rgba(29,158,117,.35),transparent 65%);
-      filter:blur(20px);pointer-events:none;
-    }
-    .parrainage-sec::after{
-      content:'';position:absolute;bottom:-20%;right:-8%;width:560px;height:560px;
-      background:radial-gradient(circle,rgba(59,130,246,.30),transparent 65%);
-      filter:blur(20px);pointer-events:none;
-    }
-    .parr-wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto}
-
-    /* ── En-tête ── */
-    .parr-head{text-align:center;max-width:680px;margin:0 auto 56px}
-    .parr-badge{
-      display:inline-flex;align-items:center;gap:8px;
-      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);
-      color:#fff;font-size:11.5px;font-weight:700;padding:7px 18px;border-radius:100px;
-      text-transform:uppercase;letter-spacing:1.4px;margin-bottom:22px;backdrop-filter:blur(8px);
-    }
-    .parr-badge .pulse{
-      width:8px;height:8px;border-radius:50%;background:var(--pa);
-      box-shadow:0 0 0 0 rgba(239,159,39,.7);animation:parrPulse 2s infinite;
-    }
-    @keyframes parrPulse{
-      0%{box-shadow:0 0 0 0 rgba(239,159,39,.6)}
-      70%{box-shadow:0 0 0 10px rgba(239,159,39,0)}
-      100%{box-shadow:0 0 0 0 rgba(239,159,39,0)}
-    }
-    .parr-title{
-      font-family:'Syne',sans-serif;font-size:clamp(28px,4vw,46px);font-weight:800;
-      line-height:1.08;letter-spacing:-1px;color:#fff;margin-bottom:16px;
-    }
-    .parr-title em{font-style:normal;background:linear-gradient(100deg,#34D399,#60A5FA);
-      -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-    .parr-lead{font-size:16px;line-height:1.7;color:rgba(255,255,255,.6);font-weight:300}
-    .parr-lead strong{color:rgba(255,255,255,.92);font-weight:600}
-
-    /* ── Parcours des paliers ── */
-    .parr-track{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    /* ligne de liaison derrière les cartes (desktop) */
-    .parr-track::before{
-      content:'';position:absolute;top:78px;left:14%;right:14%;height:3px;
-      background:linear-gradient(90deg,var(--pg),var(--pa),var(--pb));
-      border-radius:3px;opacity:.5;z-index:0;
-    }
-    .parr-step{
-      position:relative;z-index:1;background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:32px 26px 28px;
-      backdrop-filter:blur(10px);transition:transform .35s,border-color .35s,box-shadow .35s;
-      display:flex;flex-direction:column;align-items:center;text-align:center;
-    }
-    .parr-step:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.28)}
-    .parr-step:hover .parr-medal{transform:scale(1.08) rotate(-4deg)}
-
-    /* médaille / numéro de palier */
-    .parr-medal{
-      width:84px;height:84px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-      font-family:'Syne',sans-serif;font-weight:800;font-size:30px;color:#fff;margin-bottom:18px;
-      position:relative;transition:transform .35s;
-    }
-    .parr-medal::after{
-      content:'';position:absolute;inset:-6px;border-radius:50%;
-      border:2px dashed rgba(255,255,255,.25);animation:parrSpin 14s linear infinite;
-    }
-    @keyframes parrSpin{to{transform:rotate(360deg)}}
-    .m1{background:linear-gradient(135deg,#1D9E75,#0F6E56);box-shadow:0 16px 40px rgba(29,158,117,.45)}
-    .m2{background:linear-gradient(135deg,#EF9F27,#D98A1A);box-shadow:0 16px 40px rgba(239,159,39,.45)}
-    .m3{background:linear-gradient(135deg,#3B82F6,#2563EB);box-shadow:0 16px 40px rgba(59,130,246,.45)}
-
-    .parr-step-tag{
-      font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;
-      color:rgba(255,255,255,.5);margin-bottom:6px;
-    }
-    .parr-step-count{
-      font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#fff;margin-bottom:14px;
-    }
-    .parr-reward{
-      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;
-      padding:16px 16px;width:100%;
-    }
-    .parr-reward-ico{font-size:30px;margin-bottom:8px;display:block}
-    .parr-reward-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:4px}
-    .parr-reward-desc{font-size:12.5px;color:rgba(255,255,255,.6);line-height:1.55}
-
-    /* ── Bandeau "cycle répétable" + CTA ── */
-    .parr-foot{
-      margin-top:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.13);
-      border-radius:20px;padding:24px 30px;backdrop-filter:blur(10px);
-    }
-    .parr-foot-txt{display:flex;align-items:center;gap:16px;min-width:280px;flex:1}
-    .parr-loop-ico{
-      font-size:28px;width:54px;height:54px;flex-shrink:0;border-radius:14px;
-      background:rgba(52,211,153,.15);border:1px solid rgba(52,211,153,.3);
-      display:flex;align-items:center;justify-content:center;
-    }
-    .parr-foot-txt h4{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:4px}
-    .parr-foot-txt p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.55}
-    .parr-cta{
-      background:#fff;color:#08221A;padding:14px 28px;border-radius:100px;
-      font-family:'Syne',sans-serif;font-size:14px;font-weight:800;text-decoration:none;
-      white-space:nowrap;transition:transform .25s,box-shadow .25s;
-      box-shadow:0 10px 30px rgba(0,0,0,.25);
-    }
-    .parr-cta:hover{transform:translateY(-2px);box-shadow:0 16px 42px rgba(0,0,0,.35)}
-
-    /* ── Responsive ── */
-    @media(max-width:860px){
-      .parr-track{grid-template-columns:1fr;gap:16px;max-width:440px;margin:0 auto}
-      .parr-track::before{
-        left:50%;right:auto;top:8%;bottom:8%;width:3px;height:auto;
-        background:linear-gradient(180deg,var(--pg),var(--pa),var(--pb));
-        transform:translateX(-50%);
-      }
-    }
-    @media(max-width:480px){
-      .parrainage-sec{padding:70px 5%}
-      .parr-foot{padding:20px;flex-direction:column;align-items:stretch;text-align:center}
-      .parr-foot-txt{flex-direction:column;text-align:center}
-      .parr-cta{text-align:center;justify-content:center}
-    }
-  </style>
-
-  <div class="parr-wrap">
-
-    <div class="parr-head">
-      <span class="parr-badge"><span class="pulse"></span> Programme parrainage agences</span>
-      <h2 class="parr-title">Recommandez des pros,<br/><em>débloquez des avantages</em></h2>
-      <p class="parr-lead">
-        Vous connaissez des commerçants, artisans ou courtiers de votre secteur&nbsp;?
-        Donnez-leur votre code. Chaque pro qui rejoint Lokalist fait grimper votre compteur — et
-        <strong>plus vous parrainez, plus votre visibilité explose</strong>. Aucun plafond&nbsp;: le cycle recommence à l'infini.
-      </p>
-    </div>
-
-    <div class="parr-track">
-
-      <!-- PALIER 5 -->
-      <div class="parr-step">
-        <div class="parr-medal m1">5</div>
-        <div class="parr-step-tag">Palier 1</div>
-        <div class="parr-step-count">5 pros parrainés</div>
-        <div class="parr-reward">
-          <span class="parr-reward-ico">⚡</span>
-          <div class="parr-reward-name">5 boosts offerts</div>
-          <div class="parr-reward-desc">5 mises en avant de 6h pour propulser vos annonces en tête de liste.</div>
-        </div>
-      </div>
-
-      <!-- PALIER 10 -->
-      <div class="parr-step">
-        <div class="parr-medal m2">10</div>
-        <div class="parr-step-tag">Palier 2</div>
-        <div class="parr-step-count">10 pros parrainés</div>
-        <div class="parr-reward">
-          <span class="parr-reward-ico">⭐</span>
-          <div class="parr-reward-name">Fiche sponsorisée 30j</div>
-          <div class="parr-reward-desc">Votre agence mise en avant pendant 30 jours auprès des habitants de vos communes.</div>
-        </div>
-      </div>
-
-      <!-- PALIER 20 -->
-      <div class="parr-step">
-        <div class="parr-medal m3">20</div>
-        <div class="parr-step-tag">Palier 3 · le gros lot</div>
-        <div class="parr-step-count">20 pros parrainés</div>
-        <div class="parr-reward">
-          <span class="parr-reward-ico">📣</span>
-          <div class="parr-reward-name">Campagne push géolocalisée</div>
-          <div class="parr-reward-desc">Une notification ciblée envoyée aux habitants de votre zone + sponsoring 30j cumulé.</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="parr-foot">
-      <div class="parr-foot-txt">
-        <div class="parr-loop-ico">🔄</div>
-        <div>
-          <h4>Un cycle sans fin</h4>
-          <p>Une fois les 20 parrainages atteints, le compteur repart à zéro. Vous pouvez débloquer les récompenses autant de fois que vous le souhaitez.</p>
-        </div>
-      </div>
-      <a href="/contact?type=agence" class="parr-cta">Rejoindre &amp; obtenir mon code →</a>
-    </div>
-
-  </div>
-</section>
-<!-- ═══════════════ FIN BLOC PARRAINAGE AGENCES ═══════════════ -->
-<section class="paliers">
   <p class="sec-tag reveal">Abonnements agences</p>
   <h2 class="sec-h reveal">Choisissez votre niveau<br/>de visibilité</h2>
-  <p class="sec-p reveal">Tarif fixe mensuel, sans commission sur vos transactions. Vous gardez 100% de vos honoraires.</p>
+  <p class="sec-p reveal">Accès annuel — 0% de commission sur vos transactions. Vous gardez 100% de vos honoraires.</p>
 
-  <div class="paliers-grid">
+  <div class="paliers-grid" style="grid-template-columns:repeat(3,1fr)">
 
-    <!-- STARTER -->
+    <!-- ESSENTIELLE -->
     <div class="palier-card reveal">
-      <div class="palier-name">Starter</div>
-      <div class="palier-price">49<span>,90€/mois</span></div>
-      <div class="palier-sub">15 communes · 10 annonces</div>
+      <div class="palier-name">Essentielle</div>
+      <div class="palier-price">490<span>€/an</span></div>
+      <div class="palier-sub">390 €/an dès la 2ᵉ agence</div>
       <ul class="palier-feats">
         <li>Fiche agence complète</li>
-        <li>10 annonces actives</li>
-        <li>Leads acquéreurs &amp; vendeurs</li>
-        <li>2 boosts annonce/mois</li>
-        <li>Stats de base</li>
-        <li class="muted">🎬 Vidéos annonces</li>
-        <li class="muted">Multi-locaux</li>
+        <li>Tous les modules inclus</li>
+        <li>Leads qualifiés (secteur &amp; spécialité)</li>
+        <li>Messagerie &amp; avis vérifiés</li>
+        <li>4 boosts de visibilité / an</li>
+        <li class="muted">🎬 Vidéo de présentation</li>
+        <li class="muted">Logo premium</li>
+        <li class="muted">Préférence Loki</li>
       </ul>
       <a href="/contact?type=agence" class="btn btn-o" style="width:100%;justify-content:center">Commencer →</a>
     </div>
 
-    <!-- PRO (mis en avant) -->
+    <!-- VITRINE (mis en avant) -->
     <div class="palier-card pro reveal">
-      <div class="palier-name">Pro</div>
-      <div class="palier-price">89<span>,90€/mois</span></div>
-      <div class="palier-sub">20 communes · 15 annonces</div>
+      <div class="palier-name">Vitrine ⭐</div>
+      <div class="palier-price">890<span>€/an</span></div>
+      <div class="palier-sub">690 €/an dès la 2ᵉ agence</div>
       <ul class="palier-feats">
-        <li>Fiche agence premium</li>
-        <li>15 annonces actives</li>
-        <li>Leads acquéreurs &amp; vendeurs</li>
-        <li>5 boosts annonce/mois</li>
+        <li>Tout Essentielle inclus</li>
+        <li>Leads qualifiés (secteur &amp; spécialité)</li>
+        <li>12 boosts de visibilité / an</li>
+        <li class="gold">🎬 Vidéo de présentation agence</li>
+        <li>Logo premium sur votre fiche</li>
+        <li>Préférence Loki — mieux référencée</li>
         <li>Stats avancées</li>
-        <li>20 communes couvertes</li>
-        <li class="muted">🎬 Vidéos annonces</li>
-        <li class="muted">Multi-locaux</li>
       </ul>
-      <a href="/contact?type=agence" class="btn btn-g" style="width:100%;justify-content:center">Choisir Pro →</a>
+      <a href="/contact?type=agence" class="btn btn-g" style="width:100%;justify-content:center">Choisir Vitrine →</a>
     </div>
 
-    <!-- PREMIUM -->
-    <div class="palier-card reveal">
-      <div class="palier-top a">🚀 Multi-zones</div>
-      <div class="palier-name">Premium</div>
-      <div class="palier-price">149<span>,90€/mois</span></div>
-      <div class="palier-sub">25 communes · 30 annonces</div>
-      <ul class="palier-feats">
-        <li>Tout Pro inclus</li>
-        <li>30 annonces actives</li>
-        <li>20 boosts annonce/mois</li>
-        <li>25 communes couvertes</li>
-        <li>Badge ⭐ Premium</li>
-        <li class="gold">🎬 2 vidéos de biens/mois + vidéo agence</li>
-        <li>Account manager dédié</li>
-        <li>Rapport mensuel personnalisé</li>
-        <li class="muted">Multi-locaux illimités</li>
-      </ul>
-      <a href="/contact?type=agence" class="btn btn-b" style="width:100%;justify-content:center">Choisir Premium →</a>
-    </div>
-
-    <!-- ENTERPRISE -->
+    <!-- MULTI-AGENCES -->
     <div class="palier-card enterprise reveal">
       <div class="palier-top p">🏢 Réseaux &amp; Groupes</div>
-      <div class="palier-name">Enterprise</div>
+      <div class="palier-name">Multi-agences</div>
       <div class="palier-price devis">Sur devis</div>
-      <div class="palier-sub">Agences multi-locaux<br/>&amp; réseaux nationaux</div>
+      <div class="palier-sub">Réseaux &amp; groupes · tarif dégressif</div>
       <ul class="palier-feats">
-        <li>Tout Premium inclus</li>
-        <li>Annonces personnalisées</li>
-        <li>Boosts personnalisés</li>
-        <li class="gold">🎬 Vidéos personnalisées</li>
-        <li>Communes au choix</li>
+        <li>Tarif dégressif par agence</li>
+        <li>Facturation par entité (SIRET)</li>
+        <li>Boosts &amp; crédits mutualisés</li>
         <li class="gold">Accompagnement sur-mesure</li>
-        <li class="gold">Multi-locaux centralisés</li>
         <li class="gold">Onboarding dédié</li>
         <li class="gold">Tarif négocié</li>
       </ul>
@@ -790,15 +565,28 @@
     </div>
   </div>
 
-  <!-- Note Enterprise -->
-  <div class="reveal" style="max-width:760px;margin:48px auto 0;padding:24px;background:var(--pl);border:1px solid #DDD6FE;border-radius:16px;text-align:center">
+  <!-- Encart crédits -->
+  <div class="reveal" style="max-width:640px;margin:40px auto 0;padding:32px 28px;background:var(--surf,#fff);border:1.5px solid var(--bdr);border-radius:20px;text-align:center">
+    <div style="display:inline-block;font-size:11px;font-weight:700;color:var(--b);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">💳 Publication à l'usage</div>
+    <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--dark);margin-bottom:6px">Des crédits, pas d'engagement</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:560px;margin:0 auto 22px">1 crédit = 1 annonce publiée · 2 crédits si vidéo. Achetez des packs quand vous en avez besoin, sans abonnement supplémentaire.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:600px;margin:0 auto">
+      <div style="border:1.5px solid var(--bdr);border-radius:14px;padding:18px 14px"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px">25 crédits</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dark)">300 €</div><div style="font-size:11px;color:var(--muted);margin-top:4px">12 € / annonce</div></div>
+      <div style="border:1.5px solid var(--b);background:var(--bl);border-radius:14px;padding:18px 14px"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px">50 crédits</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dark)">550 €</div><div style="font-size:11px;color:var(--muted);margin-top:4px">11 € / annonce</div></div>
+      <div style="border:1.5px solid var(--bdr);border-radius:14px;padding:18px 14px"><div style="font-size:12px;color:var(--muted);font-weight:600;margin-bottom:4px">100 crédits</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--dark)">1 000 €</div><div style="font-size:11px;color:var(--muted);margin-top:4px">10 € / annonce</div></div>
+    </div>
+  </div>
+
+  <!-- Note réseau -->
+  <div class="reveal" style="max-width:760px;margin:24px auto 0;padding:24px;background:var(--pl);border:1px solid #DDD6FE;border-radius:16px;text-align:center">
     <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px">🏢 Vous êtes un groupe ou un réseau ?</div>
-    <p style="font-size:14px;color:var(--muted);line-height:1.7">Si votre agence dispose de plusieurs locaux ou si vous représentez un réseau (Century 21, Orpi, Foncia, Stéphane Plaza...), nous proposons un accompagnement <strong style="color:var(--p)">Enterprise sur-mesure</strong> avec onboarding dédié, multi-locaux centralisés et tarif négocié.</p>
+    <p style="font-size:14px;color:var(--muted);line-height:1.7">Si votre agence dispose de plusieurs locaux ou si vous représentez un réseau (Century 21, Orpi, Foncia, Stéphane Plaza...), nous proposons un accompagnement <strong style="color:var(--p)">Multi-agences sur-mesure</strong> avec onboarding dédié, multi-locaux centralisés et tarif négocié.</p>
   </div>
 </section>
 
 <!-- CTA FINAL -->
 <section class="cta">
+
   <div class="cta-in">
     <h2>Rejoignez<br/><em>l'immobilier local</em></h2>
     <p>Référencez votre agence sur Lokalist et accédez aux leads qualifiés de votre commune dès aujourd'hui.</p>
