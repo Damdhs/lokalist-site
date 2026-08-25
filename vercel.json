@@ -256,5 +256,7 @@
                                         }
                                     ]
                     }
-                ]
+                ],
+    "buildCommand":  "",
+    "outputDirectory":  "."
 }
