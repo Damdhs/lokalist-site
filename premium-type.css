@@ -1,39 +1,56 @@
-/* premium-type.css — Lokalist : titrage & chiffres sobres (Manrope) */
-/* Remplace Syne par Manrope, chiffres tabulaires, prix insecables, graisses reduites. */
+/* premium-type.css — Lokalist : titrage & chiffres sobres (Manrope) v2 */
 
 :root{ --lk-title:'Manrope',ui-sans-serif,system-ui,sans-serif; }
 
-/* Titres de sections / hero / cartes : ex-Syne -> Manrope, moins gras */
-.sec-h, .hero h1, .cta h2,
-.palier-name, .palier-price,
-.tarif-card-name, .tarif-card-price,
-.credits-h-t, .tarif-section-h,
-.parr-title, .loki__title,
-h1, h2, h3{
-  font-family: var(--lk-title) !important;
+/* ---- Titres : ex-Syne -> Manrope, moins gras ---- */
+.sec-h,.hero h1,.cta h2,.palier-name,.palier-price,
+.tarif-card-name,.tarif-card-price,.credits-h-t,
+.parr-title,.loki__title,h1,h2,h3{
+  font-family:var(--lk-title) !important;
   letter-spacing:-.4px;
 }
+.sec-h,.hero h1,.cta h2{ font-weight:700 !important; }
+.palier-name,.tarif-card-name{ font-weight:700 !important; }
 
-/* Graisses : on descend les 800 -> 700 pour un rendu premium/sobre */
-.sec-h, .hero h1, .cta h2{ font-weight:700 !important; }
-.palier-name, .tarif-card-name{ font-weight:700 !important; }
-
-/* PRIX : chiffres tabulaires + insecables (fini le "1 / 000 / €") */
-.palier-price, .tarif-card-price, .cp-prix, .credit-pack-t .cp-prix{
-  font-family: var(--lk-title) !important;
+/* ---- PRIX (paliers + tarifs) : tabulaire, insecable, € colle ---- */
+.palier-price,.tarif-card-price{
+  font-family:var(--lk-title) !important;
   font-weight:700 !important;
-  font-feature-settings:"tnum" 1,"lnum" 1 !important;
-  font-variant-numeric: tabular-nums lining-nums !important;
+  font-variant-numeric:tabular-nums lining-nums !important;
   white-space:nowrap !important;
   letter-spacing:-.5px;
 }
-.palier-price span, .tarif-card-price span{
-  font-weight:500 !important;
-  letter-spacing:0;
-}
-
-/* Petits montants (packs credits, badges chiffres) : idem tabulaire */
-.cp-prix, .cp-unit, .price-num, .amount{
-  font-variant-numeric: tabular-nums lining-nums !important;
+.palier-price span,.tarif-card-price span{
+  font-weight:500 !important; letter-spacing:0;
   white-space:nowrap !important;
 }
+
+/* ---- CREDITS : bat le style inline 'Syne' via attribut ---- */
+/* les gros montants des packs credits sont inline-styles en Syne : on gagne en ciblant l'attribut */
+div[style*="Syne"]{
+  font-family:var(--lk-title) !important;
+}
+/* montants credits : tabulaire + insecable partout */
+.cp-prix,.credit-pack-t div[style*="font-weight:800"],
+.credit-pack-t div[style*="Syne"]{
+  font-family:var(--lk-title) !important;
+  font-weight:700 !important;
+  font-variant-numeric:tabular-nums lining-nums !important;
+  white-space:nowrap !important;
+  letter-spacing:-.4px;
+}
+
+/* ---- GRILLE PALIERS : 3 colonnes sur desktop, propre ---- */
+.paliers-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:16px !important;
+  align-items:stretch;
+}
+.paliers-grid > *{ min-width:0; }              /* evite le debordement */
+@media(max-width:900px){
+  .paliers-grid{ grid-template-columns:1fr !important; }
+}
+
+/* filet : tout chiffre de prix suivi d'un € ne casse jamais */
+.palier-price,.tarif-card-price,.cp-prix{ text-wrap:nowrap; }
