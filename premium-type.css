@@ -1,0 +1,39 @@
+/* premium-type.css — Lokalist : titrage & chiffres sobres (Manrope) */
+/* Remplace Syne par Manrope, chiffres tabulaires, prix insecables, graisses reduites. */
+
+:root{ --lk-title:'Manrope',ui-sans-serif,system-ui,sans-serif; }
+
+/* Titres de sections / hero / cartes : ex-Syne -> Manrope, moins gras */
+.sec-h, .hero h1, .cta h2,
+.palier-name, .palier-price,
+.tarif-card-name, .tarif-card-price,
+.credits-h-t, .tarif-section-h,
+.parr-title, .loki__title,
+h1, h2, h3{
+  font-family: var(--lk-title) !important;
+  letter-spacing:-.4px;
+}
+
+/* Graisses : on descend les 800 -> 700 pour un rendu premium/sobre */
+.sec-h, .hero h1, .cta h2{ font-weight:700 !important; }
+.palier-name, .tarif-card-name{ font-weight:700 !important; }
+
+/* PRIX : chiffres tabulaires + insecables (fini le "1 / 000 / €") */
+.palier-price, .tarif-card-price, .cp-prix, .credit-pack-t .cp-prix{
+  font-family: var(--lk-title) !important;
+  font-weight:700 !important;
+  font-feature-settings:"tnum" 1,"lnum" 1 !important;
+  font-variant-numeric: tabular-nums lining-nums !important;
+  white-space:nowrap !important;
+  letter-spacing:-.5px;
+}
+.palier-price span, .tarif-card-price span{
+  font-weight:500 !important;
+  letter-spacing:0;
+}
+
+/* Petits montants (packs credits, badges chiffres) : idem tabulaire */
+.cp-prix, .cp-unit, .price-num, .amount{
+  font-variant-numeric: tabular-nums lining-nums !important;
+  white-space:nowrap !important;
+}
