@@ -597,6 +597,92 @@
   </div>
 </section>
 
+<!-- LK-PARRAINAGE-AGENCES:BEGIN -->
+<style id="parr-agences-css">
+.parr{padding:90px 5%;max-width:1180px;margin:0 auto}
+.parr .sec-tag,.parr .sec-h,.parr .sec-p{text-align:center}
+.parr .sec-h{max-width:760px;margin-left:auto;margin-right:auto}
+.parr .sec-p{max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:48px}
+.parr-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1000px;margin:0 auto}
+.parr-card{position:relative;background:var(--surf);border:1.5px solid var(--bdr);border-radius:22px;padding:36px 26px 28px;text-align:center;display:flex;flex-direction:column;transition:all .3s;min-width:0}
+.parr-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:22px 22px 0 0;transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.parr-card:hover{transform:translateY(-4px)}
+.parr-card:hover::before{transform:scaleX(1)}
+.parr-card.t5::before{background:var(--g)}
+.parr-card.t10::before{background:var(--b)}
+.parr-card.t20::before{background:var(--a)}
+.parr-card.t5:hover{box-shadow:0 20px 52px rgba(29,158,117,.12);border-color:var(--gm)}
+.parr-card.t10:hover{box-shadow:0 20px 52px rgba(59,130,246,.12);border-color:#BFDBFE}
+.parr-card.t20{border-color:var(--a);box-shadow:0 20px 56px rgba(239,159,39,.14);background:linear-gradient(160deg,#fff 0%,var(--al) 100%)}
+.parr-card.t20:hover{box-shadow:0 26px 64px rgba(239,159,39,.22)}
+.parr-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:100px;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;background:var(--a);color:var(--dark)}
+.parr-num{font-family:'Syne',sans-serif;font-weight:800;font-size:54px;line-height:1;letter-spacing:-2px}
+.parr-card.t5 .parr-num{color:var(--g)}
+.parr-card.t10 .parr-num{color:var(--b)}
+.parr-card.t20 .parr-num{color:#B26A0F}
+.parr-numlab{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin:8px 0 18px}
+.parr-reward{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:var(--dark);line-height:1.25;margin-bottom:8px}
+.parr-sub{font-size:13px;color:var(--muted);line-height:1.65}
+.parr-feats{list-style:none;text-align:left;display:flex;flex-direction:column;gap:8px;margin:16px auto 0;padding:0;max-width:340px}
+.parr-feats li{font-size:12.5px;color:var(--text);display:flex;gap:7px;align-items:flex-start;line-height:1.45}
+.parr-feats li::before{content:'\2713';color:var(--a);font-weight:800;flex:none;margin-top:1px}
+.parr-foot{max-width:760px;margin:34px auto 0;padding:22px 26px;background:var(--bl);border:1px solid #BFDBFE;border-radius:16px;text-align:center}
+.parr-foot-tag{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--b);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.parr-foot-txt{max-width:660px;margin:0 auto}
+.parr-foot-txt p{font-size:13.5px;color:var(--muted);line-height:1.7}
+.parr-cta-wrap{text-align:center;margin-top:28px}
+@media(max-width:960px){.parr-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:640px}.parr-card.t20{grid-column:1 / -1}}
+@media(max-width:640px){.parr{padding:70px 5%}.parr-grid{grid-template-columns:1fr;max-width:420px}.parr-card.t20{grid-column:auto}.parr-num{font-size:46px}}
+@media(max-width:480px){.parr{padding:60px 4%}.parr-card{padding:30px 22px 26px}.parr-foot{padding:20px}}
+</style>
+
+<section class="parr">
+  <p class="sec-tag reveal">Parrainage agences</p>
+  <h2 class="sec-h reveal">Parrainez une agence,<br/>on vous récompense</h2>
+  <p class="sec-p reveal">Vous connaissez une agence qui aurait sa place sur Lokalist ? Parrainez-la. À 5, 10 et 20 filleuls, on vous offre des boosts, du sponsoring et un push dans votre secteur. Et tout repart à zéro tous les 20 : vous rejouez les paliers autant de fois que vous voulez.</p>
+
+  <div class="parr-grid">
+
+    <div class="parr-card t5 reveal">
+      <div class="parr-num">5</div>
+      <div class="parr-numlab">filleuls parrainés</div>
+      <div class="parr-reward">5 boosts offerts</div>
+      <div class="parr-sub">Cinq coups de projecteur sur votre agence, dès votre 5ᵉ parrainage.</div>
+    </div>
+
+    <div class="parr-card t10 reveal">
+      <div class="parr-num">10</div>
+      <div class="parr-numlab">filleuls parrainés</div>
+      <div class="parr-reward">1 mois de sponsoring</div>
+      <div class="parr-sub">Votre agence mise en avant pendant 30 jours. Offert.</div>
+    </div>
+
+    <div class="parr-card t20 reveal">
+      <div class="parr-badge">🎁 Le gros lot</div>
+      <div class="parr-num">20</div>
+      <div class="parr-numlab">filleuls parrainés</div>
+      <div class="parr-reward">Sponsoring + push local</div>
+      <ul class="parr-feats">
+        <li>30 jours de sponsoring en plus</li>
+        <li>Un push géolocalisé dans votre secteur</li>
+        <li>Puis le compteur repart : rejouable sans limite</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="parr-foot reveal">
+    <div class="parr-foot-tag">Comment ça marche</div>
+    <div class="parr-foot-txt">
+      <p>Un filleul compte dès que son inscription est validée. Les récompenses tombent toutes seules, vous n'avez rien à demander. Tous les 20 parrainages, le compteur repart de zéro — et vous rejouez les paliers autant de fois que vous parrainez.</p>
+    </div>
+  </div>
+
+  <div class="parr-cta-wrap reveal">
+    <a href="/contact?type=agence" class="btn btn-b parr-cta">Parrainer une agence →</a>
+  </div>
+</section>
+<!-- LK-PARRAINAGE-AGENCES:END -->
 <!-- CTA FINAL -->
 </section>
 <section class="cta">
