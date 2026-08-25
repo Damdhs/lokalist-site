@@ -198,6 +198,7 @@ fbq('track','PageView');
     <div class="profil-btn" onclick="selectProfil('artisan')" id="btn-artisan"><div class="profil-btn-ico">🔧</div><div class="profil-btn-lbl">Artisan</div><div class="profil-btn-sub">Bâtiment & services</div></div>
     <div class="profil-btn" onclick="selectProfil('agence')" id="btn-agence"><div class="profil-btn-ico">🏠</div><div class="profil-btn-lbl">Agence immo</div><div class="profil-btn-sub">Immobilier</div></div>
     <div class="profil-btn" onclick="selectProfil('courtier')" id="btn-courtier"><div class="profil-btn-ico">💶</div><div class="profil-btn-lbl">Courtier</div><div class="profil-btn-sub">Financement</div></div>
+    <div class="profil-btn" onclick="selectProfil('hebergement')" id="btn-hebergement"><div class="profil-btn-ico">🛏️</div><div class="profil-btn-lbl">Hébergement</div><div class="profil-btn-sub">Hôtel, gîte, chambre</div></div>
     <div class="profil-btn" onclick="selectProfil('loisirs')" id="btn-loisirs"><div class="profil-btn-ico">🎳</div><div class="profil-btn-lbl">Loisirs</div><div class="profil-btn-sub">Activités & sorties</div></div>
   </div>
   <div class="form-container form-hidden" id="form-mairie">
@@ -399,7 +400,7 @@ document.addEventListener('click',(e)=>{
     const btn=document.getElementById('btn-'+p);if(btn)btn.classList.add('active')
     if(p==='mairie'){document.getElementById('form-mairie').classList.remove('form-hidden')}
     else{
-      const titles={commercant:["🏪 Devenir commerçant partenaire","Rejoignez Lokalist et commencez à fidéliser vos clients locaux."],artisan:["🔧 Rejoindre comme artisan","Créez votre fiche artisan et apparaissez dans les résultats Lokalist de votre secteur."],agence:["🏠 Référencer mon agence","Accédez aux leads immobiliers locaux et publiez vos annonces sur Lokalist."],courtier:["💶 Devenir courtier partenaire","Rejoignez la rubrique courtiers Lokalist et recevez des leads financement qualifiés."],loisirs:["🎳 Référencer mon activité loisirs","Cinéma, bowling, escape game, yoga — rejoignez la rubrique Loisirs de Lokalist et touchez les habitants de votre commune."]}
+      const titles={hebergement:["🛏️ Rejoindre comme hébergement","Hôtel, gîte, chambre d'hôtes, camping — proposez vos disponibilités et la réservation en ligne sur Lokalist."],commercant:["🏪 Devenir commerçant partenaire","Rejoignez Lokalist et commencez à fidéliser vos clients locaux."],artisan:["🔧 Rejoindre comme artisan","Créez votre fiche artisan et apparaissez dans les résultats Lokalist de votre secteur."],agence:["🏠 Référencer mon agence","Accédez aux leads immobiliers locaux et publiez vos annonces sur Lokalist."],courtier:["💶 Devenir courtier partenaire","Rejoignez la rubrique courtiers Lokalist et recevez des leads financement qualifiés."],loisirs:["🎳 Référencer mon activité loisirs","Cinéma, bowling, escape game, yoga — rejoignez la rubrique Loisirs de Lokalist et touchez les habitants de votre commune."]}
       if(titles[p]){document.getElementById('form-pro-title').textContent=titles[p][0];document.getElementById('form-pro-sub').textContent=titles[p][1]}
       document.getElementById('field-categorie-artisan').style.display=p==='artisan'?'block':'none'
       document.getElementById('field-communes-agence').style.display=(p==='agence'||p==='courtier')?'block':'none'
@@ -440,7 +441,7 @@ document.addEventListener('click',(e)=>{
         resetParrainFeedback();
       }
 
-      const sl={commercant:"🏪 Envoyer ma demande partenaire",artisan:"🔧 Créer ma fiche artisan",agence:"🏠 Référencer mon agence",courtier:"💶 Devenir courtier partenaire",loisirs:"🎳 Référencer mon activité"}
+      const sl={hebergement:"🛏️ Rejoindre comme hébergement",commercant:"🏪 Envoyer ma demande partenaire",artisan:"🔧 Créer ma fiche artisan",agence:"🏠 Référencer mon agence",courtier:"💶 Devenir courtier partenaire",loisirs:"🎳 Référencer mon activité"}
 
       // ⭐ Listener formule loisirs (afficher/masquer profils + idée pack)
       if (isLoisirs) {
