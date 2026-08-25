@@ -214,7 +214,21 @@
 .nav-espaces-drop a:hover{background:var(--gl);color:var(--g)!important}
 .nav-espaces-drop a .ico{font-size:18px}
 /* === FIN DROPDOWN === */
-  </style>
+  
+/* LK-PALIERS-FIX */
+/* LK-PALIERS-FIX : centrage + grille propre de la section tarifs agences */
+.paliers{max-width:1180px;margin:0 auto;padding-left:20px;padding-right:20px}
+.paliers-grid{max-width:1120px;margin:0 auto;grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.palier-card{min-width:0}
+@media(max-width:1024px){ .paliers-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important} }
+@media(max-width:760px){ .paliers-grid{grid-template-columns:1fr!important;max-width:460px} }
+
+/* LK-PALIERS-TITRES */
+/* LK-PALIERS-TITRES : centrage des titres de la section tarifs agences */
+.paliers .sec-tag,.paliers .sec-h,.paliers .sec-p{ text-align:center; }
+.paliers .sec-h{ max-width:820px;margin-left:auto;margin-right:auto; }
+.paliers .sec-p{ max-width:640px;margin-left:auto;margin-right:auto; }
+</style>
   <!-- Favicon Lokalist -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
