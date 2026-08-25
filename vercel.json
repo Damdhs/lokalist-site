@@ -1,6 +1,10 @@
 {
     "rewrites":  [
                      {
+                         "source":  "/hebergement",
+                         "destination":  "/hebergement.html"
+                     },
+                     {
                          "source":  "/rendez-vous",
                          "destination":  "/rendez-vous.html"
                      },
