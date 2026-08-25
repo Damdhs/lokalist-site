@@ -13,7 +13,7 @@ const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=fr.lokalist.app';
-const APP_STORE_URL  = 'https://apps.apple.com/app/lokalist'; // à mettre à jour quand iOS publié
+const APP_STORE_URL  = 'https://apps.apple.com/fr/app/lokalist/id6778774911'; // à mettre à jour quand iOS publié
 const SITE_URL       = 'https://lokalist.fr';
 
 const TYPE_LABELS = {
