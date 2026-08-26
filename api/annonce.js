@@ -18,6 +18,7 @@ const APP_STORE_URL  = 'https://apps.apple.com/fr/app/lokalist/id6778774911'; //
 const SITE_URL       = 'https://lokalist.fr';
 
 // ─── Helpers ────────────────────────────────────────────────────
+/* LKL_ANNONCE_CONTACT_AGENCE_V1 */ function normUrl(u){ let s=String(u||'').trim(); if(!s) return ''; if(!/^https?:\/\//i.test(s)) s='https://'+s; return s; }
 const escapeHtml = (str) => {
   if (!str) return '';
   return String(str)
@@ -215,6 +216,12 @@ export default async function handler(req) {
   .agence-icon { width: 50px; height: 50px; border-radius: 14px; background: var(--primary-l); display: flex; align-items: center; justify-content: center; font-size: 26px; }
   .agence-nom { font-size: 15px; font-weight: 700; }
   .agence-note { font-size: 13px; color: var(--accent); margin-top: 2px; }
+    /* LKL_ANNONCE_CONTACT_AGENCE_V1 */
+    .ag-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+    .ag-btn { display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 16px; border:1px solid var(--border); border-radius:22px; background:#fff; color:var(--text); font-weight:600; font-size:13.5px; text-decoration:none; box-shadow:0 1px 2px rgba(0,0,0,.04); transition:transform .15s ease,box-shadow .15s ease; }
+    .ag-btn:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(0,0,0,.09); }
+    .ag-btn-primary { background:var(--primary); color:#fff; border-color:var(--primary); }
+    @media (max-width:520px){ .ag-btn { flex:1 1 auto; justify-content:center; } }
 
   .cta-block { background: var(--primary); color: #fff; margin-top: 20px; margin-bottom: 28px; border-radius: 18px; padding: 24px 20px; text-align: center; box-shadow: 0 6px 18px rgba(29,158,117,0.25); }
   .cta-block h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px; }
@@ -295,6 +302,16 @@ export default async function handler(req) {
         }
       </div>
     </div>
+      ${(() => { /* LKL_ANNONCE_CONTACT_AGENCE_V1 */
+      const tel = a.agences_immo?.telephone;
+      const web = a.agences_immo?.site_web;
+      const agId = a.agence_id;
+      const btns = [];
+      if (tel) btns.push(`<a class="ag-btn ag-btn-primary" href="tel:${escapeHtml(String(tel))}">📞 Appeler</a>`);
+      if (web) btns.push(`<a class="ag-btn" href="${escapeHtml(normUrl(web))}" target="_blank" rel="noopener nofollow">🌐 Site web</a>`);
+      if (agId) btns.push(`<a class="ag-btn" href="/agence/${escapeHtml(String(agId))}">🏢 Voir l\u2019agence</a>`);
+      return btns.length ? `<div class="ag-actions">${btns.join('')}</div>` : '';
+    })()}
   </section>
 
   ${a.numero_mandat ? `
