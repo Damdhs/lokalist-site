@@ -5,6 +5,7 @@
 //  contact, localisation, avis). Deep link lokalist://immo/agence/:id.
 // ════════════════════════════════════════════════════════════════
 
+// LKL_SOCIAL_LOGOS_V1
 export const config = { runtime: 'edge' };
 
 const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
@@ -141,11 +142,17 @@ export default async function handler(req) {
     if (a.telephone && a.afficher_telephone !== false) contactRows.push(`<a class="ct-row" href="tel:${escapeHtml(a.telephone)}"><span class="ct-ic">📞</span><span class="ct-body"><span class="ct-lab">Téléphone</span><span class="ct-val">${escapeHtml(a.telephone)}</span></span></a>`);
     if (a.email && a.afficher_email !== false) contactRows.push(`<a class="ct-row" href="mailto:${escapeHtml(a.email)}"><span class="ct-ic">✉️</span><span class="ct-body"><span class="ct-lab">Email</span><span class="ct-val">${escapeHtml(a.email)}</span></span></a>`);
     if (adresse)     contactRows.push(`<div class="ct-row"><span class="ct-ic">📍</span><span class="ct-body"><span class="ct-lab">Adresse</span><span class="ct-val">${escapeHtml(adresse)}</span></span></div>`);
+    const SOCIAL_ICONS = {
+      site: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20"/></svg>',
+      instagram: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><defs><radialGradient id="lklIg" cx="30%" cy="107%" r="135%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><path fill="url(#lklIg)" d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23 8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 2.7.27.27 2.69.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.2 4.36 2.62 6.78 6.98 6.98C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c4.35-.2 6.78-2.62 6.98-6.98.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.2-4.35-2.62-6.78-6.98-6.98C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>',
+      facebook: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="#1877F2"><path d="M24 12.07C24 5.44 18.63.07 12 .07S0 5.44 0 12.07c0 5.99 4.39 10.95 10.13 11.85v-8.38H7.08v-3.47h3.05V9.43c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.24 2.69.24v2.95h-1.51c-1.49 0-1.96.93-1.96 1.87v2.25h3.33l-.53 3.47h-2.8v8.38C19.61 23.02 24 18.06 24 12.07z"/></svg>',
+      linkedin: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="#0A66C2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>',
+    };
     const socialChips = [];
-    if (a.site_web)      socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(a.site_web))}" target="_blank" rel="noopener nofollow">🌐 Site web</a>`);
-    if (a.facebook_url)  socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(a.facebook_url))}" target="_blank" rel="noopener nofollow">👍 Facebook</a>`);
-    if (a.instagram_url) socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(a.instagram_url))}" target="_blank" rel="noopener nofollow">📷 Instagram</a>`);
-    if (a.linkedin_url)  socialChips.push(`<a class="soc" href="${escapeHtml(normUrl(a.linkedin_url))}" target="_blank" rel="noopener nofollow">💼 LinkedIn</a>`);
+    if (a.site_web)      socialChips.push(`<a class="soc soc-site" href="${escapeHtml(normUrl(a.site_web))}" target="_blank" rel="noopener nofollow" aria-label="Site web (nouvel onglet)">${SOCIAL_ICONS.site}<span>Site web</span></a>`);
+    if (a.facebook_url)  socialChips.push(`<a class="soc soc-fb" href="${escapeHtml(normUrl(a.facebook_url))}" target="_blank" rel="noopener nofollow" aria-label="Facebook (nouvel onglet)">${SOCIAL_ICONS.facebook}<span>Facebook</span></a>`);
+    if (a.instagram_url) socialChips.push(`<a class="soc soc-ig" href="${escapeHtml(normUrl(a.instagram_url))}" target="_blank" rel="noopener nofollow" aria-label="Instagram (nouvel onglet)">${SOCIAL_ICONS.instagram}<span>Instagram</span></a>`);
+    if (a.linkedin_url)  socialChips.push(`<a class="soc soc-li" href="${escapeHtml(normUrl(a.linkedin_url))}" target="_blank" rel="noopener nofollow" aria-label="LinkedIn (nouvel onglet)">${SOCIAL_ICONS.linkedin}<span>LinkedIn</span></a>`);
     const contactHtml = (contactRows.length || socialChips.length) ? `
       <section class="section">
         <h2>Contact</h2>
@@ -240,7 +247,12 @@ export default async function handler(req) {
   .ct-lab{ font-size:12px;color:var(--muted); }
   .ct-val{ font-size:14px;font-weight:600; }
   .soc-row{ display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
-  .soc{ display:inline-flex;align-items:center;gap:6px;background:var(--primary-l);color:var(--primary-d);padding:9px 14px;border-radius:20px;font-weight:600;text-decoration:none;font-size:13px; }
+  .soc{ display:inline-flex;align-items:center;gap:7px;min-height:44px;background:#fff;color:var(--text);padding:0 15px;border:1px solid var(--border);border-radius:22px;font-weight:600;text-decoration:none;font-size:13.5px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease; }
+  .soc svg{ width:16px;height:16px;flex:none;display:block; }
+  .soc:hover{ transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.09);border-color:#d6d6d6; }
+  .soc:focus-visible{ outline:2px solid var(--primary);outline-offset:2px; }
+  .soc-site{ color:var(--primary-d); }
+  @media (max-width:600px){ .soc{ font-size:13px;padding:0 13px; } .soc-row{ gap:8px; } }
 
   .video-wrap{ position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#000; }
   .video-frame{ position:absolute;inset:0;width:100%;height:100%;border:0; }
