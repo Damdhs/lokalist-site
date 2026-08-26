@@ -85,6 +85,60 @@ export default async function handler(req) {
         ${av.reponse ? `<div class="avis-rep"><div class="avis-rep-lab">Réponse du professionnel</div>${escapeHtml(av.reponse)}</div>` : ''}
       </div>`).join('');
 
+    /* LKL_AGENCE_ANNONCES_V1 : annonces de l'agence (2 sections vente/location, SEO) */
+    let annoncesHtml = '';
+    try {
+      const anUrl = `${SUPABASE_URL}/rest/v1/annonces_immo?agence_id=eq.${id}&statut=eq.active&order=created_at.desc&limit=48&select=id,titre,type_transaction,type_bien,ville,code_postal,prix,surface,nb_pieces,nb_chambres,photos`;
+      const anR = await fetch(anUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const annonces = anR.ok ? (await anR.json()) : [];
+
+      const LABEL_BIEN = { appartement: 'Appartement', maison: 'Maison', terrain: 'Terrain', local_commercial: 'Local commercial', garage: 'Garage', autre: 'Bien' };
+      const fmtPrix = (p, tx) => {
+        const n = Number(p);
+        if (!n || isNaN(n)) return 'Prix sur demande';
+        const s = n.toLocaleString('fr-FR') + ' \u20AC';
+        return tx === 'location' ? s + '\u00A0/mois' : s;
+      };
+      const carte = (an) => {
+        const photo = Array.isArray(an.photos) && an.photos.length ? an.photos[0] : null;
+        const media = photo
+          ? `<div class="anc-img" style="background-image:url('${escapeHtml(String(photo))}')"></div>`
+          : `<div class="anc-img anc-img-fb">\uD83C\uDFE0</div>`;
+        const meta = [
+          an.surface ? `${an.surface}\u00A0m\u00B2` : '',
+          an.nb_pieces ? `${an.nb_pieces}\u00A0p.` : '',
+          an.nb_chambres ? `${an.nb_chambres}\u00A0ch.` : '',
+        ].filter(Boolean).join(' \u00B7 ');
+        const lieu = [an.ville, an.code_postal].filter(Boolean).map(escapeHtml).join(' ');
+        const titre = escapeHtml(an.titre || (LABEL_BIEN[an.type_bien] || 'Bien'));
+        return `<a class="anc" href="/annonce/${escapeHtml(String(an.id))}">
+          ${media}
+          <div class="anc-body">
+            <div class="anc-prix">${escapeHtml(fmtPrix(an.prix, an.type_transaction))}</div>
+            <div class="anc-titre">${titre}</div>
+            <div class="anc-meta">${escapeHtml(LABEL_BIEN[an.type_bien] || 'Bien')}${meta ? ' \u00B7 ' + meta : ''}</div>
+            ${lieu ? `<div class="anc-lieu">\uD83D\uDCCD ${lieu}</div>` : ''}
+          </div>
+        </a>`;
+      };
+      const section = (titre, liste) => {
+        if (!liste.length) return '';
+        const visibles = liste.slice(0, 12);
+        const reste = liste.length - visibles.length;
+        const voirTout = reste > 0
+          ? `<a class="anc-all" href="${deepLink}">Voir toutes les annonces (${liste.length})</a>`
+          : '';
+        return `<section class="section">
+          <h2>${escapeHtml(titre)} (${liste.length})</h2>
+          <div class="anc-grid">${visibles.map(carte).join('')}</div>
+          ${voirTout}
+        </section>`;
+      };
+      const ventes = annonces.filter((x) => x.type_transaction === 'vente');
+      const locs   = annonces.filter((x) => x.type_transaction === 'location');
+      annoncesHtml = section('\u00C0 vendre', ventes) + section('\u00C0 louer', locs);
+    } catch (e) { console.error('[agence annonces]', e); }
+
     // ─── Données ───
     const nom         = a.nom || 'Agence immobilière';
     const adresse     = a.adresse || '';
@@ -247,6 +301,19 @@ export default async function handler(req) {
   .ct-lab{ font-size:12px;color:var(--muted); }
   .ct-val{ font-size:14px;font-weight:600; }
   .soc-row{ display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
+  /* LKL_AGENCE_ANNONCES_V1 */
+  .anc-grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:6px; }
+  .anc{ display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--text);background:#fff;transition:transform .15s ease,box-shadow .15s ease; }
+  .anc:hover{ transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.10); }
+  .anc-img{ aspect-ratio:4/3;background-size:cover;background-position:center;background-color:var(--primary-l); }
+  .anc-img-fb{ display:flex;align-items:center;justify-content:center;font-size:38px; }
+  .anc-body{ padding:11px 13px 13px; }
+  .anc-prix{ font-size:16px;font-weight:800;color:var(--primary-d); }
+  .anc-titre{ font-size:14px;font-weight:600;margin-top:2px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden; }
+  .anc-meta{ font-size:12.5px;color:var(--muted);margin-top:4px; }
+  .anc-lieu{ font-size:12.5px;color:var(--muted);margin-top:2px; }
+  .anc-all{ display:inline-block;margin-top:12px;background:var(--primary-l);color:var(--primary-d);padding:9px 16px;border-radius:20px;font-weight:600;text-decoration:none;font-size:13px; }
+  @media (max-width:520px){ .anc-grid{ grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px; } }
   .soc{ display:inline-flex;align-items:center;gap:7px;min-height:44px;background:#fff;color:var(--text);padding:0 15px;border:1px solid var(--border);border-radius:22px;font-weight:600;text-decoration:none;font-size:13.5px;line-height:1;box-shadow:0 1px 2px rgba(0,0,0,.04);transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease; }
   .soc svg{ width:16px;height:16px;flex:none;display:block; }
   .soc:hover{ transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.09);border-color:#d6d6d6; }
@@ -327,6 +394,7 @@ export default async function handler(req) {
   ${videoHtml}
   ${contactHtml}
   ${localHtml}
+        ${annoncesHtml}
 
   <section class="section">
     <h2>Avis${avisNb > 0 ? ` (${avisNb})` : ''}</h2>
