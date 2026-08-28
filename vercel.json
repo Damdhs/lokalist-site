@@ -191,6 +191,10 @@
                      {
                          "source":  "/paiement/evenement-ok",
                          "destination":  "/paiement-evenement-ok.html"
+                     },
+                     {
+                         "source":  "/app",
+                         "destination":  "/app.html"
                      }
                  ],
     "headers":  [
