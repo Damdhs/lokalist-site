@@ -112,12 +112,13 @@ fbq('track','PageView');
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><!-- LK-PREMIUM-TYPE --><link rel="stylesheet" href="/premium-type.css">
 </head>
 <body>
+<!-- NAV:START (source unique — regenere par build-nav.cjs, ne pas editer a la main) -->
 <nav id="nav">
   <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
     <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
-      <picture><source srcset="/logo.webp" type="image/webp"><img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain" decoding="async"/></picture>
+      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
     </div>
-    <span style="font-family:'Bricolage Grotesque',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
+    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
   </a>
   <ul class="nav-links">
     <li><a href="/mairies">Mairies</a></li>
@@ -130,6 +131,15 @@ fbq('track','PageView');
     <li><a href="/courtiers">Courtiers</a></li>
     <li><a href="/hebergement">Hébergement</a></li>
     <li><a href="/tarifs">Tarifs</a></li>
+    <li class="nav-espaces" id="navEspaces">
+      <button class="nav-espaces-btn" onclick="toggleEspaces(event)">🚪 Espaces Pros <span class="chev">▾</span></button>
+      <div class="nav-espaces-drop">
+        <a href="https://dashboard.lokalist.fr" target="_blank"><span class="ico">🏛️</span> Dashboard</a>
+        <a href="https://agence.lokalist.fr" target="_blank"><span class="ico">🏠</span> Espace Agence</a>
+        <a href="https://dashboard.lokalist.fr/pages/courtier.html" target="_blank" data-heb="courtier"><span class="ico">💶</span> Espace Courtier</a>
+        <a href="https://dashboard.lokalist.fr" target="_blank" data-heb="hebergeur"><span class="ico">🏠</span> Espace Hébergeur</a>
+      </div>
+    </li>
     <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
   </ul>
   <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -138,12 +148,21 @@ fbq('track','PageView');
   <a href="/mairies">🏛️ Mairies</a>
   <a href="/commercants">🏪 Commerçants</a>
   <a href="/artisans">🔧 Artisans</a>
+  <a href="/appels-offres">📣 Appels d'offres</a>
   <a href="/loisirs">🎳 Loisirs</a>
   <a href="/idees-sorties">🎉 Idées Sorties</a>
   <a href="/agences">🏠 Agences</a>
+  <a href="/courtiers">💶 Courtiers</a>
+  <a href="/hebergement">🏛️ Hébergement</a>
   <a href="/tarifs">💶 Tarifs</a>
   <a href="/contact" style="color:var(--g);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
+  <div style="height:1px;background:var(--bdr);margin:8px 0"></div>
+  <a href="https://dashboard.lokalist.fr" target="_blank">🏛️ Dashboard</a>
+  <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
+  <a href="https://dashboard.lokalist.fr/pages/courtier.html" target="_blank" data-heb="courtier-m">💶 Espace Courtier</a>
+  <a href="https://dashboard.lokalist.fr" target="_blank" data-heb="hebergeur-m">🏠 Espace Hébergeur</a>
 </div>
+<!-- NAV:END -->
 
 <section style="background:var(--bg)">
   <div class="hero">
