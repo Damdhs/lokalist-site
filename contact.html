@@ -654,12 +654,38 @@ document.addEventListener('click',(e)=>{
       }
     }
 
-    // Envoi Formspree (toujours)
+    // === PREINSCR_CONTACT_V1 : envoi vers l'API pre-inscription (remplace Formspree) ===
+    var _actif = document.querySelector('.profil-btn.active');
+    var _profilBtn = ((_actif && _actif.id) || '').replace('btn-', '') || type;
+    var _profilType = (_profilBtn === 'hebergement') ? 'hebergeur' : _profilBtn;
+    if (type === 'mairie') _profilType = 'mairie';
+    var _mp = [];
+    if (formData.get('population')) _mp.push('Population: ' + formData.get('population'));
+    if (formData.get('role')) _mp.push('Role: ' + formData.get('role'));
+    if (formData.get('budget')) _mp.push('Budget: ' + formData.get('budget'));
+    if (formData.get('communes')) _mp.push('Communes: ' + formData.get('communes'));
+    if (formData.get('message')) _mp.push(formData.get('message'));
+    var _payloadPre = {
+      profil_type: _profilType,
+      nom: formData.get('nom') || formData.get('commune') || '',
+      prenom: formData.get('prenom') || null,
+      email: formData.get('email') || '',
+      telephone: formData.get('telephone') || null,
+      etablissement: formData.get('entreprise') || formData.get('commune') || null,
+      activite: formData.get('categorie') || formData.get('type_loisir') || null,
+      ville: formData.get('ville') || null,
+      dispo_preferee: formData.get('disponibilite') || null,
+      message: _mp.join(' | ') || null,
+      veut_rappel: true,
+      consentement: true,
+      source: 'contact_site'
+    };
+    // Envoi vers l'API pre-inscription (remonte dans le dashboard + mail auto Brevo)
     try {
-      const res = await fetch('https://formspree.io/f/xgopdbjp', {
+      const res = await fetch('https://lokalist-api-production.up.railway.app/preinscription-pro', {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        body: JSON.stringify(_payloadPre),
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
       });
       if (res.ok) {
         document.getElementById('form-mairie').classList.add('form-hidden');
