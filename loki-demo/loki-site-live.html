@@ -180,6 +180,92 @@ body:not(.go) .eco-bg,body:not(.go) .eco-center,body:not(.go) .eco-center .ecl-f
 .bwbadges{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
 .bwb{font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:100px;background:rgba(29,158,117,.14);color:#0F6E56}
 .bwb.inedit{background:rgba(239,159,39,.16);color:#a8690a}
+
+.stage3{display:flex;flex-direction:column;gap:14px}
+.devices3{display:flex;gap:14px;align-items:flex-start}
+@media(max-width:680px){.devices3{flex-direction:column;align-items:center}}
+.devices3 .phone{width:188px;flex:none}
+.webs{flex:1;min-width:0;display:flex;flex-direction:column;gap:12px}
+@media(max-width:680px){.webs{width:100%;max-width:340px}}
+.appui{display:flex;flex-direction:column;height:392px;background:#f4f6f5;color:#1a2620}
+.apphead{background:#0F6E56;color:#fff;padding:9px 11px;display:flex;align-items:center;justify-content:space-between}
+.appwm{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px}.appwm span{color:#F2C230}
+.appcity{font-size:9.5px;background:rgba(255,255,255,.18);padding:3px 8px;border-radius:100px}
+.appbody{padding:2px 0 6px;flex:1;overflow:hidden}
+.apphello{font-size:11.5px;font-weight:700;padding:8px 12px 2px}
+.apphello small{font-weight:500;color:#2f8f6f;font-size:9.5px}
+.appfid{margin:6px 11px;background:#fff;border-radius:12px;padding:9px 11px;box-shadow:0 3px 10px rgba(0,0,0,.06)}
+.appfidname{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:11.5px}
+.appbar{height:6px;border-radius:6px;background:linear-gradient(90deg,#EF9F27,#f2c230);margin:6px 0 4px}
+.appfidsub{font-size:9px;color:#7a857f}
+.appscan{margin:6px 11px;background:#1D9E75;color:#fff;border-radius:12px;padding:10px 11px;font-size:11px;font-weight:700}
+.apptiles{display:flex;gap:8px;margin:7px 11px}
+.apptile{flex:1;border-radius:12px;padding:8px 9px;font-size:9.5px;font-weight:700}
+.apptile small{display:block;font-weight:500;opacity:.7;margin-top:2px}
+.apptile.blue{background:#e8eefc;color:#3a4a7a}.apptile.red{background:#fdeaea;color:#b5423a}
+.apptab{margin-top:auto;background:#fff;border-top:1px solid #e6eee9;display:flex;justify-content:space-around;padding:6px 0 7px;font-size:7.5px;color:#8a958f;text-align:center;line-height:1.3}
+.apptab span:first-child{color:#1D9E75}
+.webpage{background:#fbf9f3}
+.webcover{height:50px;background:linear-gradient(120deg,#26313a,#3a4a5f);display:grid;place-items:center;font-size:23px;color:#fff}
+.webcover.green{background:linear-gradient(120deg,#1D9E75,#0F6E56);font-size:11.5px;font-weight:700}
+.webbody{padding:11px 12px}
+.webrow{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.webbtn{font-size:10px;font-weight:700;padding:5px 9px;border-radius:8px;background:#eaf5f0;color:#0F6E56}
+.webbtn.g{background:#1D9E75;color:#fff}
+.weblabel{font-size:9.5px;color:#7a857f;margin-top:8px}
+.webcta{margin-top:9px;background:#0F6E56;color:#fff;text-align:center;border-radius:9px;padding:8px;font-size:10.5px;font-weight:700}
+.villecat{margin-top:9px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:12px;display:flex;align-items:center;gap:6px}
+.villecount{background:#1D9E75;color:#fff;font-size:9px;border-radius:100px;padding:1px 7px}
+.villecard{margin-top:7px;background:#f0ece1;border-radius:10px;padding:8px 10px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:8px}
+.villelogo{width:24px;height:24px;border-radius:7px;background:#F2C230;color:#2a1e00;display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:12px;flex:none}
+.webbadges{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+
+.slider{position:relative;overflow:hidden;border-radius:14px}
+.track{display:flex;width:300%;transition:transform .6s cubic-bezier(.4,0,.2,1)}
+.slide{width:33.333%;flex:none;display:flex;justify-content:center;align-items:flex-start;padding:2px 4px;min-height:480px}
+.dots{display:flex;justify-content:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+.dots span{font-size:11px;font-weight:700;color:#8AA398;padding:5px 11px;border-radius:100px;background:rgba(255,255,255,.05);border:1px solid var(--line);cursor:pointer}
+.dots span.on{color:var(--orange-s);border-color:rgba(239,159,39,.4);background:rgba(239,159,39,.1)}
+.phone.big{width:252px;background:#0a1712;border:7px solid #05100c;border-radius:30px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.app2{background:#f4f6f5;color:#1a2620;display:flex;flex-direction:column}
+.phone.big{align-self:flex-start}
+.browser.big{align-self:flex-start}
+.pnav{background:#1D9E75;color:#fff;padding:12px 14px;font-size:14px;font-weight:700;display:flex;align-items:center;gap:10px}
+.pcov{height:86px;background:linear-gradient(120deg,#26313a,#3a4a5f);display:grid;place-items:center;font-size:34px;color:#fff}
+.pbadges{display:flex;gap:6px;padding:9px 13px 0;flex-wrap:wrap}
+.pb{font-size:10px;font-weight:700;padding:4px 9px;border-radius:100px}
+.pb.a{background:#1D9E75;color:#fff}.pb.b{background:#eaf5f0;color:#0F6E56}
+.pcard{padding:8px 14px 2px}
+.ptitle{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.02em}
+.psub{color:#1D9E75;font-weight:700;font-size:11.5px;margin-top:2px}
+.ploc{color:#5f6f66;font-size:11px;margin-top:3px}
+.pstars{color:#EF9F27;font-size:12px;margin-top:5px}.pstars small{color:#7a857f;margin-left:4px}
+.pdesc{color:#3a4650;font-size:10.5px;line-height:1.5;margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pradius{color:#0F6E56;font-size:10.5px;font-weight:600;margin-top:7px}
+.pactions{display:flex;gap:6px;padding:11px 12px;flex-wrap:wrap}
+.pa{flex:1;text-align:center;font-size:10.5px;font-weight:700;padding:10px 4px;border-radius:12px;background:#eaf5f0;color:#0F6E56;min-width:58px}
+.pa.call{background:#1D9E75;color:#fff}
+.pverif{margin:0 12px 12px;background:#eaf5f0;color:#0F6E56;font-size:10.5px;font-weight:600;text-align:center;padding:8px;border-radius:10px}
+.browser.big{width:100%;max-width:480px;background:#fbf9f3;border-radius:12px;overflow:hidden;box-shadow:0 22px 55px rgba(0,0,0,.4)}
+.wpcover{height:96px;background:linear-gradient(120deg,#26313a,#3a4a5f);display:grid;place-items:center;font-size:34px;color:#fff}
+.wpcover.green{background:linear-gradient(120deg,#1D9E75,#0F6E56);flex-direction:column;gap:2px}
+.wpcover .cvname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px}
+.wpcover .cvsub{font-size:11px;opacity:.92}
+.wpbody{padding:13px 15px}
+.wprow{display:flex;align-items:center;gap:10px}
+.wplogo{width:40px;height:40px;border-radius:11px;background:#F2C230;color:#2a1e00;display:grid;place-items:center;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:18px;flex:none}
+.wpname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px}
+.wpmeta{font-size:11px;color:#5f6f66}
+.wpsec{background:#f0ece1;border-radius:10px;padding:9px 11px;margin-top:9px;font-size:11px;color:#3a4650;line-height:1.45}
+.wpsec b{color:#1a2620;font-family:'Bricolage Grotesque',sans-serif}
+.wpcontact{display:flex;gap:6px;margin-top:9px;flex-wrap:wrap}
+.wpc{font-size:10.5px;font-weight:700;padding:6px 10px;border-radius:8px;background:#eaf5f0;color:#0F6E56}
+.wpcta{margin-top:11px;background:#0F6E56;color:#fff;text-align:center;border-radius:10px;padding:10px;font-weight:700;font-size:12px}
+.vvcat{margin-top:10px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;display:flex;align-items:center;gap:7px}
+.vvcount{background:#1D9E75;color:#fff;font-size:9.5px;border-radius:100px;padding:2px 8px}
+.vvcard{margin-top:8px;background:#f0ece1;border-radius:11px;padding:9px 11px;display:flex;align-items:center;gap:9px;font-size:12px;font-weight:600}
+.vvchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.vvchip{font-size:10px;background:#f0ece1;color:#3a4650;padding:5px 9px;border-radius:100px;font-weight:600}
 </style>
 </head>
 <body>
@@ -435,33 +521,59 @@ async function build(m,key,v2){
  if(LEAD.metier&&m.label!==LEAD.metier)nm=LEAD.metier;
  else if((key==='artisan'||key==='commercant')&&LEAD.q1&&!m.q1.o.map(x=>x.toLowerCase()).includes(LEAD.q1.toLowerCase()))nm=cap(LEAD.q1);
  const init=nm.trim()[0].toUpperCase();
- const stage=document.createElement('div');stage.className='stage2';
- stage.innerHTML='<div class="devices">'
-  +'<div class="phone"><div class="pscreen"><div class="pcover rv">'+m.ico+'<div class="plogo">'+init+'</div></div><div class="pbody"><div class="pname rv">'+nm+'</div><div class="scr"></div></div></div></div>'
-  +'<div class="browser" id="bw"><div class="bwbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">lokalist.fr/<span class="pcity">ta-ville</span>/'+slug(nm)+'</span></div>'
-  +'<div class="bwbody"><div class="bwname">'+nm+'</div><div class="bwmeta">📍 <span class="pcity">ta ville</span> · <span class="bwstars">★★★★★</span></div><div class="bwtiles" id="bwtiles"></div>'
-  +'<div class="bwbadges"><span class="bwb">🔎 Référencé Google</span><span class="bwb inedit">🌍 Site <span class="pcity">ta ville</span> · inédit</span></div></div></div>'
-  +'</div>'
-  +'<div class="value"><div class="vtitle rv">Ce que <span class="who">Loki</span> met en marche</div><div class="vpts"></div></div>';
- $('.ck-in').innerHTML='';$('.ck-in').appendChild(stage);
- let step=0;const rv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:step++*140);};
- stage.querySelectorAll('.pcover,.pname').forEach(rv);
- const scr=stage.querySelector('.scr');
- m.screen.forEach(html=>{const d=document.createElement('div');d.className='rv';d.innerHTML=html;scr.appendChild(d);rv(d);});
- var bw=stage.querySelector('#bw'), bwt=stage.querySelector('#bwtiles');
- (WEB[key]||[]).forEach(function(t){var e=document.createElement('span');e.className='bwtile';e.textContent=t;if(bwt)bwt.appendChild(e);});
- if(bw){ setTimeout(function(){bw.classList.add('in');}, reduce?0:step*140+250); }
- const vp=stage.querySelector('.vpts');
- m.val.forEach(v=>{const d=document.createElement('div');d.className='vpt rv'+(v[3]?' acc':'');d.innerHTML='<div class="vi">'+v[0]+'</div><div><div class="vt">'+v[1]+'</div><div class="vs">'+v[2]+'</div></div>';vp.appendChild(d);rv(d);});
- if(EXTRA[key]){var ex=EXTRA[key];var ed=document.createElement('div');ed.className='vpt rv acc';ed.innerHTML='<div class="vi">'+ex[0]+'</div><div><div class="vt">'+ex[1]+'</div><div class="vs">'+ex[2]+'</div></div>';vp.appendChild(ed);rv(ed);}
- if(GOOGLE[key]){var gp=document.createElement('div');gp.className='vpt rv acc';gp.innerHTML='<div class="vi">🔎</div><div><div class="vt">'+GOOGLE[key][0]+'</div><div class="vs">'+GOOGLE[key][1]+'</div></div>';vp.appendChild(gp);rv(gp);}
- if(m.offre3){const o=document.createElement('div');o.className='pricepill rv';o.style.cssText='background:rgba(239,159,39,.14);border-color:rgba(239,159,39,.4);color:#F7C56E';o.textContent='🎁 3 mois offerts au lancement';vp.appendChild(o);rv(o);}
- const pill=document.createElement('div');pill.className='pricepill rv';pill.textContent='💶 '+m.price;vp.appendChild(pill);rv(pill);
- await wait(reduce?0:step*140+400);
- if(!m.mairie){await loki(PARRAIN[key]||PARRAIN.d);}
- await loki(pick(["Voilà — c'est pas une fiche, c'est tout ça qui tourne pour toi, 24h/24. Et t'as encore rien signé. T'es sur quelle ville ?","Et ça, ça bosse pour toi jour et nuit — sans que tu lèves le petit doigt. Dis-moi juste ta ville et je boucle.","Franchement, regarde tout ce qui s'allume pour toi là. Zéro engagement pour l'instant. Ta ville, c'est laquelle ?"]));
- setChips([{t:"Fécamp",go:v=>ville(m,v)},{t:"Yvetot",go:v=>ville(m,v)},{t:"Le Havre",go:v=>ville(m,v)}],true,"…ta ville");
- window._go=v=>ville(m,v);
+ const stage=document.createElement('div');stage.className='stage3';
+  var CAT={artisan:"🔧 Artisans",commercant:"🏪 Commerçants",resto:"🍽️ Restos",hebergeur:"🏨 Hébergements",agence:"🏠 Agences",courtier:"💶 Courtiers",loisirs:"🎉 Loisirs"};
+  var DESC={artisan:"Travail soigné, devis clair et transparent. Réactif et à l\u2019écoute de vos besoins, j\u2019interviens rapidement.",commercant:"Ta boutique de proximité : des produits de qualité et un accueil qui fait la différence.",resto:"Cuisine généreuse, produits frais et ambiance conviviale au cœur de ta ville.",hebergeur:"Un séjour au calme, tout confort, à deux pas des essentiels. Réservation en direct.",agence:"Votre partenaire local pour vendre et acheter en toute confiance.",courtier:"Votre financement optimisé, un accompagnement de A à Z.",loisirs:"Des expériences et des sorties près de chez vous."};
+  var BADGE={artisan:["✓ Certifié RGE","● Disponible"],hebergeur:["★ Séjours","● Disponible"],resto:["🍽️ Ouvert","● Réservation"],commercant:["● Ouvert","🔁 Fidélité"],agence:["✓ Vérifié","● Ouvert"],courtier:["✓ Vérifié","💶 Financement"],loisirs:["🎟️ Réservable","● Ouvert"]};
+  var ACT={artisan:["📞 Appeler","💬 Message","🌐 Site"],hebergeur:["📅 Réserver","📞 Appeler","🌐 Site"],resto:["📅 Réserver","📞 Appeler","🍽️ Menu"],commercant:["📞 Appeler","🏷️ Offres","🌐 Site"],agence:["📞 Appeler","💬 Message","🌐 Site"],courtier:["📞 Appeler","💬 Message","🌐 Site"],loisirs:["📅 Réserver","📞 Appeler","🌐 Site"]};
+  var EXT={artisan:"➤ Intervient dans un rayon de 100 km",hebergeur:"🛏️ Réservation en ligne · calendrier",resto:"🍽️ Carte & réservation en ligne"};
+  var bd=BADGE[key]||["● Ouvert","✓ Vérifié"], ac=ACT[key]||["📞 Appeler","💬 Message","🌐 Site"], ds=DESC[key]||"Votre pro de proximité, à votre service.", ex=EXT[key]||"", cat=CAT[key]||"🏪 Commerçants";
+  var appHTML='<div class="phone big"><div class="app2">'
+   +'<div class="pnav">←  '+nm+'</div>'
+   +'<div class="pcov">'+m.ico+'</div>'
+   +'<div class="pbadges"><span class="pb a">'+bd[0]+'</span><span class="pb b">'+bd[1]+'</span></div>'
+   +'<div class="pcard"><div class="ptitle">'+nm+'</div><div class="psub">'+m.label+'</div><div class="ploc">📍 <span class="pcity">ta ville</span></div>'
+   +'<div class="pstars">★★★★★ <small>0 avis vérifié</small></div><div class="pdesc">'+ds+'</div>'+(ex?'<div class="pradius">'+ex+'</div>':'')+'</div>'
+   +'<div class="pactions">'+ac.map(function(a,i){return '<span class="pa'+(i===0?' call':'')+'">'+a+'</span>';}).join('')+'</div>'
+   +'<div class="pverif">🛡️ Professionnel vérifié Lokalist</div>'
+   +'</div></div>';
+  var proHTML='<div class="browser big"><div class="bwbar"><span class="dots" style="display:flex"><i style="width:8px;height:8px;border-radius:50%;background:#e8734a"></i><i style="width:8px;height:8px;border-radius:50%;background:#f2c230"></i><i style="width:8px;height:8px;border-radius:50%;background:#1D9E75"></i></span><span class="url">lokalist.fr/pro/'+slug(nm)+'</span></div>'
+   +'<div class="wpcover">'+m.ico+'</div><div class="wpbody"><div class="wprow"><span class="wplogo">'+init+'</span><div><div class="wpname">'+nm+'</div><div class="wpmeta">📍 <span class="pcity">ta ville</span> · '+m.label+'</div></div></div>'
+   +'<div class="wpsec"><b>À propos</b><br>'+ds+'</div>'
+   +'<div class="wpsec"><b>Garanties & confiance</b> · Certifications · Avis vérifiés · Zone d\u2019intervention</div>'
+   +'<div class="wpcontact"><span class="wpc">📞 Appeler</span><span class="wpc">✉️ Email</span><span class="wpc">📍 Adresse</span><span class="wpc">🌐 Site</span></div>'
+   +'<div class="wpcta">Ouvrir dans l\u2019app</div></div></div>';
+  var villeHTML='<div class="browser big"><div class="bwbar"><span class="dots" style="display:flex"><i style="width:8px;height:8px;border-radius:50%;background:#e8734a"></i><i style="width:8px;height:8px;border-radius:50%;background:#f2c230"></i><i style="width:8px;height:8px;border-radius:50%;background:#1D9E75"></i></span><span class="url">lokalist.fr/villes/<span class="pcity">ta-ville</span></span></div>'
+   +'<div class="wpcover green"><span class="cvname"><span class="pcity">Ta ville</span></span><span class="cvsub">Commerçants, artisans & services de proximité</span></div>'
+   +'<div class="wpbody"><div class="wpsec">🗺️ <b>Le réseau Lokalist</b> · la carte des pros, mairies, défibrillateurs et stations</div>'
+   +'<div class="vvcat">'+cat+' <span class="vvcount">+1</span></div>'
+   +'<div class="vvcard"><span class="wplogo">'+init+'</span><div><div class="wpname" style="font-size:13px">'+nm+'</div><div class="wpmeta">📍 <span class="pcity">ta ville</span></div></div></div>'
+   +'<div class="wpsec" style="margin-top:10px">⛽ <b>Carburants près de <span class="pcity">ta ville</span></b> · prix en direct</div>'
+   +'<div class="vvchips"><span class="vvchip">📍 Communes voisines</span><span class="vvchip">❓ FAQ locale</span><span class="vvchip">🔎 Référencé Google</span></div></div></div>';
+  stage.innerHTML='<div class="slider"><div class="track" id="track">'
+   +'<div class="slide">'+appHTML+'</div><div class="slide">'+proHTML+'</div><div class="slide">'+villeHTML+'</div>'
+   +'</div></div>'
+   +'<div class="dots" id="sdots"><span class="on">📱 Dans l\u2019app</span><span>🌐 Ton site</span><span>🏙️ Ta ville</span></div>'
+   +'<div class="value" style="margin-top:6px"><div class="vtitle rv">Ce que <span class="who">Loki</span> met en marche</div><div class="vpts"></div></div>';
+  $('.ck-in').innerHTML='';$('.ck-in').appendChild(stage);
+  var track=stage.querySelector('#track'), sdots=stage.querySelectorAll('#sdots span');
+  function goSlide(i){track.style.transform='translateX(-'+(i*33.333)+'%)';sdots.forEach(function(d,k){d.classList.toggle('on',k===i);});}
+  sdots.forEach(function(d,k){d.addEventListener('click',function(){goSlide(k);});});
+  if(!reduce){ setTimeout(function(){goSlide(1);},2600); setTimeout(function(){goSlide(2);},5200); }
+  await loki(pick(["Et le truc de fou : une seule inscription, et je te crée TROIS présences d'un coup — ta fiche dans l'app, ton site perso indexé, et ta place sur la page de ta ville. Trois adresses où Google et les habitants te trouvent.","Une inscription, et je te génère trois portes d'entrée : l'app que les gens utilisent, ton propre site web référencé, et la page de ta commune. Et plus il y a de pros sur ta ville, plus cette page pèse lourd sur Google — donc plus tu ressors.","D'un coup je te crée ta fiche dans l'app, ton site à toi, et ta présence sur le site de ta ville. Les trois bossent ensemble et se renforcent avec le temps : ta visibilité grossit toute seule.","Trois présences en une inscription : l'app, ton site perso, la page de ta ville. Et tes offres, je les republie avec les bons mots-clés en continu — tu montes sur Google sans rien faire.","Une seule inscription = trois adresses à ton nom. Et c'est un cercle : chaque nouveau pro sur ta ville renforce la page, qui renforce ta visibilité, qui t'amène plus de monde. Ça tourne pour toi, non-stop."]));
+  const vp=stage.querySelector('.vpts');
+  let vstep=0; const rvv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:120+vstep++*120);};
+  stage.querySelector('.vtitle').classList.add('in');
+  m.val.forEach(v=>{const d=document.createElement('div');d.className='vpt rv'+(v[3]?' acc':'');d.innerHTML='<div class="vi">'+v[0]+'</div><div><div class="vt">'+v[1]+'</div><div class="vs">'+v[2]+'</div></div>';vp.appendChild(d);rvv(d);});
+  if(EXTRA[key]){var exx=EXTRA[key];var ed=document.createElement('div');ed.className='vpt rv acc';ed.innerHTML='<div class="vi">'+exx[0]+'</div><div><div class="vt">'+exx[1]+'</div><div class="vs">'+exx[2]+'</div></div>';vp.appendChild(ed);rvv(ed);}
+  if(GOOGLE[key]){var gp=document.createElement('div');gp.className='vpt rv acc';gp.innerHTML='<div class="vi">🔎</div><div><div class="vt">'+GOOGLE[key][0]+'</div><div class="vs">'+GOOGLE[key][1]+'</div></div>';vp.appendChild(gp);rvv(gp);}
+  if(m.offre3){const o=document.createElement('div');o.className='pricepill rv';o.style.cssText='background:rgba(239,159,39,.14);border-color:rgba(239,159,39,.4);color:#F7C56E';o.textContent='🎁 3 mois offerts au lancement';vp.appendChild(o);rvv(o);}
+  const pill=document.createElement('div');pill.className='pricepill rv';pill.textContent='💶 '+m.price;vp.appendChild(pill);rvv(pill);
+  await wait(reduce?0:500);
+  if(!m.mairie){await loki(PARRAIN[key]||PARRAIN.d);}
+  await loki(pick(["Voilà — c'est pas une fiche, c'est TOUT ça qui tourne pour toi, 24h/24. Et t'as encore rien signé. T'es sur quelle ville ?","Et ça, ça bosse pour toi jour et nuit. Dis-moi juste ta ville et je boucle.","Franchement, regarde tout ce qui s'allume pour toi. Ta ville, c'est laquelle ?"]));
+  setChips([{t:"Fécamp",go:v=>ville(m,v)},{t:"Yvetot",go:v=>ville(m,v)},{t:"Le Havre",go:v=>ville(m,v)}],true,"…ta ville");
+  window._go=v=>ville(m,v);
 }
 async function ville(m,v){
  clr();me(v);LEAD.ville=v;
