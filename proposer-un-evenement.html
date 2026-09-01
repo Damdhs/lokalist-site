@@ -80,7 +80,15 @@
     .foot-copy{font-size:12px;color:rgba(255,255,255,.22)}
     @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
     @media(max-width:1100px){.nav-links{display:none}.hamburger{display:flex}.form-row{grid-template-columns:1fr}.formules{grid-template-columns:1fr}}
-  </style>
+  
+  .evt-top{max-width:1080px;margin:0 auto;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .evt-brand{display:inline-flex;align-items:center;gap:9px;text-decoration:none}
+  .evt-brand img{height:32px;display:block}
+  .evt-wm{font-family:'Syne','Bricolage Grotesque',sans-serif;font-weight:800;font-size:21px;letter-spacing:-.5px;color:#0B1612}
+  .evt-wm span{color:#EF9F27}
+  .evt-back{font-size:13.5px;color:#5C7268;text-decoration:none;font-weight:600}
+  .evt-back:hover{color:#0B1612}
+</style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png"/>
@@ -112,57 +120,10 @@ fbq('track','PageView');
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><!-- LK-PREMIUM-TYPE --><link rel="stylesheet" href="/premium-type.css">
 </head>
 <body>
-<!-- NAV:START (source unique — regenere par build-nav.cjs, ne pas editer a la main) -->
-<nav id="nav">
-  <a href="/" class="logo" style="display:flex;align-items:center;gap:8px;text-decoration:none">
-    <div style="width:48px;height:48px;flex-shrink:0;display:flex;align-items:center">
-      <img src="/logo.png" alt="Lokalist" width="48" height="48" style="display:block;width:48px;height:48px;object-fit:contain"/>
-    </div>
-    <span style="font-family:'Syne',sans-serif;font-size:23px;font-weight:800;color:#1D9E75;letter-spacing:-.5px">Lokal<span style="color:#EF9F27">ist</span></span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="/mairies">Mairies</a></li>
-    <li><a href="/commercants">Commerçants</a></li>
-    <li><a href="/artisans">Artisans</a></li>
-    <li><a href="/appels-offres">Appels d'offres</a></li>
-    <li><a href="/loisirs">Loisirs</a></li>
-    <li><a href="/idees-sorties">Idées Sorties</a></li>
-    <li><a href="/agences">Agences</a></li>
-    <li><a href="/courtiers">Courtiers</a></li>
-    <li><a href="/hebergement">Hébergement</a></li>
-    <li><a href="/tarifs">Tarifs</a></li>
-    <li class="nav-espaces" id="navEspaces">
-      <button class="nav-espaces-btn" onclick="toggleEspaces(event)">🚪 Espaces Pros <span class="chev">▾</span></button>
-      <div class="nav-espaces-drop">
-        <a href="https://dashboard.lokalist.fr" target="_blank"><span class="ico">🏛️</span> Dashboard</a>
-        <a href="https://agence.lokalist.fr" target="_blank"><span class="ico">🏠</span> Espace Agence</a>
-        <a href="https://dashboard.lokalist.fr/pages/courtier.html" target="_blank" data-heb="courtier"><span class="ico">💶</span> Espace Courtier</a>
-        <a href="https://dashboard.lokalist.fr" target="_blank" data-heb="hebergeur"><span class="ico">🏠</span> Espace Hébergeur</a>
-      </div>
-    </li>
-    <li><a href="/contact" class="nav-cta">Nous rejoindre</a></li>
-  </ul>
-  <button class="hamburger" onclick="toggleMobile()" aria-label="Menu"><span></span><span></span><span></span></button>
-</nav>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="/mairies">🏛️ Mairies</a>
-  <a href="/commercants">🏪 Commerçants</a>
-  <a href="/artisans">🔧 Artisans</a>
-  <a href="/appels-offres">📣 Appels d'offres</a>
-  <a href="/loisirs">🎳 Loisirs</a>
-  <a href="/idees-sorties">🎉 Idées Sorties</a>
-  <a href="/agences">🏠 Agences</a>
-  <a href="/courtiers">💶 Courtiers</a>
-  <a href="/hebergement">🏛️ Hébergement</a>
-  <a href="/tarifs">💶 Tarifs</a>
-  <a href="/contact" style="color:var(--g);font-weight:700;border:none;margin-top:8px">Nous rejoindre →</a>
-  <div style="height:1px;background:var(--bdr);margin:8px 0"></div>
-  <a href="https://dashboard.lokalist.fr" target="_blank">🏛️ Dashboard</a>
-  <a href="https://agence.lokalist.fr" target="_blank">🏠 Espace Agence</a>
-  <a href="https://dashboard.lokalist.fr/pages/courtier.html" target="_blank" data-heb="courtier-m">💶 Espace Courtier</a>
-  <a href="https://dashboard.lokalist.fr" target="_blank" data-heb="hebergeur-m">🏠 Espace Hébergeur</a>
-</div>
-<!-- NAV:END -->
+<header class="evt-top">
+  <a href="/" class="evt-brand"><img src="/logo.png" alt="Lokalist" onerror="this.style.display='none'"/><span class="evt-wm">Lokal<span>ist</span></span></a>
+  <a href="/idees-sorties" class="evt-back">← Retour</a>
+</header>
 
 <section style="background:var(--bg)">
   <div class="hero">
@@ -308,8 +269,7 @@ fbq('track','PageView');
   const $ = (id) => document.getElementById(id);
   const val = (id) => ($(id)?.value || '').trim();
 
-  function toggleMobile(){ $('mobileMenu').classList.toggle('open'); }
-  document.addEventListener('click', e => { if(!e.target.closest('nav') && !e.target.closest('#mobileMenu')) $('mobileMenu').classList.remove('open'); });
+  // (menu retiré — header épuré, comme la page projet)
 
   // ── Formule (visuel) ──
   document.querySelectorAll('input[name="formule"]').forEach(r => r.addEventListener('change', () => {

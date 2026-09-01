@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loki — Lokalist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0C1A15;--panel:#12241D;--panel2:#183026;--green:#1D9E75;--green-l:#38C793;--yellow:#F2C230;--orange:#EF9F27;--orange-s:#F7C56E;--cream:#F3F1E9;--muted:#8AA398;--line:rgba(255,255,255,.09)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--cream);-webkit-font-smoothing:antialiased;background:radial-gradient(1100px 520px at 82% -8%,rgba(239,159,39,.10),transparent 60%),radial-gradient(900px 500px at 5% 108%,rgba(29,158,117,.12),transparent 60%),var(--ink);min-height:100vh;min-height:100dvh}
+.wrap{max-width:1160px;margin:0 auto;padding:16px 18px 44px}
+.top{display:flex;align-items:center;gap:12px;padding:2px 2px 14px}
+.logo-slot{width:36px;height:36px;border-radius:10px;overflow:hidden;flex:none;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.logo-slot img{width:100%;height:100%;object-fit:contain}
+.brand{font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;letter-spacing:-.02em}
+.brand .g{color:var(--green-l)}.brand .y{color:var(--yellow)}
+.status{margin-left:auto;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green-l);box-shadow:0 0 0 4px rgba(56,199,147,.16)}
+.grid{display:grid;grid-template-columns:1fr;gap:16px;align-items:start}
+@media(min-width:880px){.grid.live{grid-template-columns:minmax(0,43fr) minmax(0,57fr)}}
+
+/* ===== HERO ÉCOSYSTÈME ===== */
+.hero{padding:6px 4px 4px;text-align:center}
+.eco{position:relative;width:min(86vw,392px);aspect-ratio:1;margin:0 auto 14px}
+.eco-bg{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(29,158,117,.16),transparent 70%)}
+.eco-lines{position:absolute;inset:0;width:100%;height:100%}
+.eco-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:34%;aspect-ratio:.62;background:linear-gradient(180deg,#123,#0a1712);border:2px solid rgba(255,255,255,.12);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 14px 40px rgba(0,0,0,.5);z-index:3}
+.ecl-logo{width:26px;height:26px;border-radius:7px;overflow:hidden}.ecl-logo img{width:100%;height:100%}
+.ecl-name{font-family:'Bricolage Grotesque';font-weight:800;font-size:12px;margin-top:2px}
+.ecl-name .g{color:var(--green-l)}.ecl-name .y{color:var(--yellow)}
+.ecl-fox{font-size:26px;margin:3px 0 1px}
+.ecl-loki{font-family:'Bricolage Grotesque';font-weight:700;font-size:11px;color:var(--orange)}
+.ecl-tag{font-size:8.5px;color:var(--muted)}
+.node{position:absolute;transform:translate(-50%,-50%);background:rgba(243,241,233,.96);color:#183026;border-radius:100px;padding:6px 11px 6px 8px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;box-shadow:0 6px 16px rgba(0,0,0,.28);white-space:nowrap;z-index:2}
+.node .ni{font-size:14px}
+@media(max-width:430px){.node{font-size:10.5px;padding:5px 9px 5px 7px}.node .ni{font-size:12px}}
+.hero h1{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(24px,4.6vw,36px);line-height:1.06;letter-spacing:-.03em}
+.hero h1 .u{color:var(--orange)}
+.hero .sub{margin:13px auto 0;font-size:15px;line-height:1.55;color:#D5DED8;max-width:44ch}
+
+.talk{min-width:0}
+.thread{display:flex;flex-direction:column;gap:11px;margin-bottom:14px}
+.msg{display:flex;gap:10px;align-items:flex-start;max-width:96%}
+.msg .av{width:28px;height:28px;flex:none;margin-top:1px;border-radius:8px;display:grid;place-items:center;font-size:17px;background:radial-gradient(circle at 40% 35%,#F7C56E,#EF9F27)}
+.bub{background:var(--panel);border:1px solid var(--line);border-radius:5px 15px 15px 15px;padding:11px 14px;font-size:14.5px;line-height:1.5;color:#E9EEE9}
+.msg.me{align-self:flex-end;max-width:82%}
+.msg.me .bub{background:linear-gradient(180deg,rgba(239,159,39,.16),rgba(239,159,39,.09));border-color:rgba(239,159,39,.34);border-radius:15px 15px 5px 15px;color:var(--orange-s);font-weight:600}
+.cursor{display:inline-block;width:7px;height:16px;background:var(--orange);vertical-align:-3px;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.dock{display:flex;flex-direction:column;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.grid.live .chips{justify-content:flex-start}
+.chip{font-family:'Manrope';font-weight:600;font-size:13.5px;color:var(--cream);background:var(--panel);border:1px solid var(--line);padding:9px 14px;border-radius:100px;cursor:pointer;transition:.14s;display:inline-flex;gap:7px;align-items:center}
+.chip:hover{border-color:var(--orange);background:rgba(239,159,39,.10);transform:translateY(-1px)}
+.chip .e{font-size:15px}
+.inrow{display:flex;gap:9px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:5px 5px 5px 15px}
+.inrow:focus-within{border-color:var(--orange)}
+.inrow input{flex:1;background:none;border:none;color:var(--cream);font-family:'Manrope';font-size:14.5px;outline:none;padding:9px 0}
+.inrow input::placeholder{color:var(--muted)}
+.send{width:38px;height:38px;flex:none;border:none;border-radius:10px;background:var(--orange);color:#3a2606;font-size:17px;cursor:pointer;display:grid;place-items:center}
+
+.cockpit{background:linear-gradient(180deg,var(--panel2),var(--ink));border:1px solid var(--line);border-radius:20px;padding:18px;position:relative;overflow:hidden;min-height:360px}
+.cockpit::before{content:"";position:absolute;inset:0;background:radial-gradient(360px 240px at 84% 0,rgba(29,158,117,.14),transparent 62%);pointer-events:none}
+.ck-head{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--muted);margin-bottom:14px;position:relative;z-index:1}
+.ck-head .live{color:var(--green-l);font-weight:700;display:flex;align-items:center;gap:6px}
+.ck-head .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green-l);animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{0%,100%{opacity:.4}50%{opacity:1;box-shadow:0 0 0 4px rgba(56,199,147,.2)}}
+.ck-empty{position:relative;z-index:1;color:var(--muted);font-size:14px;line-height:1.6;padding:44px 14px;text-align:center}
+.ck-empty .big{font-size:34px;margin-bottom:12px}
+.ck-in{position:relative;z-index:1}
+.stage{display:flex;gap:18px;align-items:flex-start}
+@media(max-width:520px){.stage{flex-direction:column;align-items:center}}
+.phone{width:210px;flex:none;background:#0a1712;border:6px solid #05100c;border-radius:26px;padding:7px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.pscreen{background:#fbf9f3;border-radius:18px;overflow:hidden;color:#1a2620}
+.pcover{height:74px;background:linear-gradient(120deg,#1D9E75,#0F6E56);display:grid;place-items:center;font-size:30px;position:relative}
+.plogo{position:absolute;left:12px;bottom:-16px;width:40px;height:40px;border-radius:11px;background:var(--yellow);border:3px solid #fbf9f3;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;color:#2a1e00;font-size:18px}
+.pbody{padding:22px 12px 14px}
+.pname{font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;letter-spacing:-.02em;line-height:1.15}
+.pmeta{font-size:11px;color:#5f6f66;margin-top:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.pstars{color:var(--orange)}
+.ptile{background:#f0ece1;border-radius:10px;padding:9px 11px;margin-top:9px;font-size:11.5px;color:#33413a;line-height:1.35}
+.ptile b{color:#1a2620;font-family:'Bricolage Grotesque'}
+.pbtn{background:#1a2620;color:#fbf9f3;text-align:center;border-radius:9px;padding:9px;margin-top:9px;font-size:11.5px;font-weight:700}
+.pbadge{display:inline-block;background:rgba(29,158,117,.16);color:#0F6E56;font-size:10px;font-weight:700;padding:2px 7px;border-radius:100px;margin:0 4px 4px 0}
+.pbadge.o{background:rgba(239,159,39,.18);color:#a8690a}
+.pqr{width:34px;height:34px;border-radius:6px;background:conic-gradient(#1a2620 25%,transparent 0 50%,#1a2620 0 75%,transparent 0),conic-gradient(#1a2620 25%,transparent 0 50%,#1a2620 0 75%,transparent 0);background-size:12px 12px,12px 12px;background-position:0 0,6px 6px;background-color:#fff;border:2px solid #fff;flex:none}
+.prow{display:flex;align-items:center;gap:9px}
+.rv{opacity:0;transform:translateY(8px)}
+.rv.in{animation:rise .5s cubic-bezier(.2,.8,.25,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.value{flex:1;min-width:0;display:flex;flex-direction:column;gap:9px}
+.vtitle{font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;letter-spacing:-.02em}
+.vtitle .who{color:var(--orange)}
+.vpt{display:flex;gap:10px;align-items:flex-start}
+.vpt .vi{width:26px;height:26px;flex:none;border-radius:8px;background:rgba(29,158,117,.16);display:grid;place-items:center;font-size:14px}
+.vpt.acc .vi{background:rgba(239,159,39,.18)}
+.vpt .vt{font-family:'Bricolage Grotesque';font-weight:700;font-size:13.5px;line-height:1.2}
+.vpt .vs{font-size:12px;color:#AFC0B7;line-height:1.4;margin-top:2px}
+.vpt.acc .vt{color:var(--orange-s)}
+.pricepill{display:inline-flex;align-items:center;gap:7px;background:rgba(56,199,147,.12);border:1px solid rgba(56,199,147,.3);color:var(--green-l);font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:100px;align-self:flex-start;margin-top:2px}
+.lead{position:relative;z-index:1;background:rgba(239,159,39,.06);border:1px solid rgba(239,159,39,.3);border-radius:15px;padding:16px;margin-top:14px}
+.lead .ctx{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ctx .k{font-size:11.5px;background:rgba(255,255,255,.06);border:1px solid var(--line);padding:4px 10px;border-radius:100px;color:#C6D3CC}
+.ctx .k b{color:var(--orange)}
+.lead input{width:100%;background:var(--ink);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--cream);font-family:'Manrope';font-size:14px;outline:none;margin-bottom:9px}
+.lead input:focus{border-color:var(--orange)}
+.lead .go{width:100%;background:var(--orange);color:#3a2606;border:none;border-radius:10px;padding:12px;font-family:'Bricolage Grotesque';font-weight:800;font-size:14.5px;cursor:pointer;text-decoration:none;display:block;text-align:center}
+.lead .ng{text-align:center;font-size:11.5px;color:var(--muted);margin-top:8px}
+.bs-note{position:relative;z-index:1;text-align:center;font-size:12.5px;color:var(--muted);margin-bottom:11px}
+.bs-note b{color:var(--orange)}
+.leadcard{position:relative;z-index:1;background:var(--ink);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.lc-head{background:linear-gradient(90deg,rgba(239,159,39,.2),rgba(29,158,117,.14));padding:12px 15px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+.heat{font-size:11.5px;font-weight:800;color:var(--orange);background:rgba(239,159,39,.16);padding:4px 10px;border-radius:100px}
+.lc-head .who{font-family:'Bricolage Grotesque';font-weight:800;font-size:15px}
+.lc-body{padding:13px 15px;display:flex;flex-direction:column;gap:9px}
+.lrow{display:flex;justify-content:space-between;font-size:13px;gap:12px}
+.lrow .kk{color:var(--muted)}.lrow .vv{color:var(--cream);font-weight:600;text-align:right}
+.lrow .vv .ok{color:var(--green-l)}
+.restart{display:inline-block;margin-top:14px;background:none;border:1px solid var(--line);color:var(--muted);font-family:'Manrope';font-weight:600;font-size:13px;padding:9px 16px;border-radius:100px;cursor:pointer}
+.restart:hover{border-color:var(--orange);color:var(--cream)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo-slot"><img src="data:image/png;base64,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" alt="Lokalist"></div>
+    <span class="brand"><span class="g">Lokal</span><span class="y">ist</span></span>
+    <span class="status"><span class="pulse"></span> Loki est là</span>
+  </div>
+  <div class="grid" id="grid">
+    <div class="talk">
+      <div class="hero" id="hero">
+        <div class="eco">
+          <div class="eco-bg"></div>
+          <svg class="eco-lines" viewBox="0 0 400 400" fill="none" stroke="rgba(29,158,117,.4)" stroke-width="1.5">
+            <line x1="200" y1="200" x2="200" y2="40"/><line x1="200" y1="200" x2="330" y2="78"/>
+            <line x1="200" y1="200" x2="366" y2="200"/><line x1="200" y1="200" x2="330" y2="322"/>
+            <line x1="200" y1="200" x2="200" y2="360"/><line x1="200" y1="200" x2="70" y2="322"/>
+            <line x1="200" y1="200" x2="34" y2="200"/><line x1="200" y1="200" x2="70" y2="78"/>
+            <circle cx="200" cy="40" r="3" fill="#EF9F27" stroke="none"/><circle cx="330" cy="78" r="3" fill="#38C793" stroke="none"/>
+            <circle cx="366" cy="200" r="3" fill="#EF9F27" stroke="none"/><circle cx="330" cy="322" r="3" fill="#38C793" stroke="none"/>
+            <circle cx="200" cy="360" r="3" fill="#EF9F27" stroke="none"/><circle cx="70" cy="322" r="3" fill="#38C793" stroke="none"/>
+            <circle cx="34" cy="200" r="3" fill="#EF9F27" stroke="none"/><circle cx="70" cy="78" r="3" fill="#38C793" stroke="none"/>
+          </svg>
+          <div class="eco-center">
+            <div class="ecl-logo"><img src="data:image/png;base64,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" alt=""></div>
+            <span class="ecl-name"><span class="g">Lokal</span><span class="y">ist</span></span>
+            <div class="ecl-fox">🦊</div><span class="ecl-loki">Loki</span><span class="ecl-tag">l'IA au cœur</span>
+          </div>
+          <div class="node" style="left:50%;top:10%"><span class="ni">🏛️</span>Mairie</div>
+          <div class="node" style="left:82%;top:19%"><span class="ni">🏪</span>Commerçants</div>
+          <div class="node" style="left:92%;top:50%"><span class="ni">🔧</span>Artisans</div>
+          <div class="node" style="left:82%;top:81%"><span class="ni">🏨</span>Hébergeurs</div>
+          <div class="node" style="left:50%;top:90%"><span class="ni">🏘️</span>Agences</div>
+          <div class="node" style="left:18%;top:81%"><span class="ni">💶</span>Courtiers</div>
+          <div class="node" style="left:8%;top:50%"><span class="ni">👥</span>Habitants</div>
+          <div class="node" style="left:18%;top:19%"><span class="ni">🎉</span>Loisirs</div>
+        </div>
+        <h1>Rejoins toi aussi <span class="u">l'écosystème</span> Lokalist.</h1>
+        <p class="sub">Commerçants, artisans, mairies, hébergeurs, habitants — tout le coin sur une même app, avec Loki 🦊 au cœur. Dis-moi ton métier, je te montre.</p>
+      </div>
+      <div class="thread" id="thread" style="display:none"></div>
+      <div class="dock" id="dock">
+        <div class="chips" id="chips"></div>
+        <div class="inrow" id="inrow" style="display:none"><input id="free" type="text" placeholder="…ou écris ton métier" autocomplete="off"><button class="send" id="send">↑</button></div>
+      </div>
+    </div>
+    <div class="cockpit" id="cockpit" style="display:none">
+      <div class="ck-head"><span class="live">en marche</span><span id="cklabel">— ton Lokalist se construit ici</span></div>
+      <div id="ck"></div>
+    </div>
+  </div>
+</div>
+<script>
+const AV='<span class="av">🦊</span>';
+const $=s=>document.querySelector(s);
+const thread=$('#thread'),chips=$('#chips'),ck=$('#ck'),cockpit=$('#cockpit'),hero=$('#hero'),grid=$('#grid'),inrow=$('#inrow'),free=$('#free'),cklabel=$('#cklabel');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
+let LEAD={metier:'',q1:'',q2:'',ville:''};
+const CITY='<span class="pcity">ta commune</span>';
+
+const M={
+ resto:{label:"Restaurant",name:"Le Bistrot du Port",ico:"🍽️",
+  open:"Resto ? Bouge pas. En 30 secondes je te montre tout ce que Lokalist met en marche pour toi — pas juste une fiche.",
+  q1:{q:"Tu tournes plutôt quand ?",o:["Midi","Soir","Non-stop"]},
+  q2:{q:"Ton vrai souci ?",o:["Salle pas pleine","Ils reviennent pas","On me trouve pas"]},
+  diag:a=>`OK. ${a.q1} + « ${a.q2.toLowerCase()} ». Ton sujet c'est remplir et fidéliser ton quartier. Je m'en occupe, et Loki fait tourner ça pour toi non-stop.`,
+  screen:['<div class="pmeta">📍 '+CITY+' · Resto <span class="pstars">★★★★★</span></div>',
+    '<div class="pbtn">🍽️ Réserver une table</div>',
+    '<div class="ptile"><b>Menu du soir −20%</b><br>offre poussée à tes habitants</div>',
+    '<div class="ptile">🦊 <b>Loki</b> t\u2019envoie ceux qui cherchent où manger</div>'],
+  val:[["🍽️","Réservation en ligne","Depuis l\u2019app et ton mini-site. Moins d\u2019appels, plus de couverts.",1],
+    ["📣","Repas de groupe","Tu vois passer les appels d\u2019offres traiteur / fin d\u2019année."]],
+  price:"19,90 €/mois",offre3:1},
+
+ commercant:{label:"Commerçant",name:"L'Épicerie du Coin",ico:"🏪",
+  open:"Commerçant ? En 30 secondes je te montre tout ce que Lokalist met en marche pour toi. Tu tapes, je bosse.",
+  q1:{q:"Tu vends quoi ?",o:["Alimentaire","Boutique","Autre"]},
+  q2:{q:"Ton vrai souci ?",o:["Pas assez de monde","Ils reviennent pas","On me trouve pas"]},
+  diag:a=>`OK, ${a.q1.toLowerCase()} et « ${a.q2.toLowerCase()} ». Ton levier : ramener les gens du coin ET les garder. Pile ce que je fais.`,
+  screen:['<div class="pmeta">📍 '+CITY+' · Commerçant <span class="pstars">★★★★★</span></div>',
+    '<div class="prow ptile"><div class="pqr"></div><div><b>247 scans</b><br>fidélité, sans terminal</div></div>',
+    '<div class="ptile"><b>−15% ce week-end</b><br>ton offre, poussée aux habitants</div>',
+    '<div class="ptile">🦊 <b>Loki</b> oriente les habitants vers toi</div>'],
+  val:[["🔁","Fidélité sans terminal","QR fidélité, tes clients reviennent. Selon ton commerce.",1],
+    ["🛍️","Ta boutique en ligne","Click & collect, livraison, paiement — en Premium à 24,90 €/mois."],
+    ["📊","Ton dashboard","Scans, avis, revenus en temps réel."]],
+  price:"dès 19,90 €/mois",offre3:1},
+
+ artisan:{label:"Artisan",name:"Martin — Plomberie",ico:"🔧",
+  open:"Artisan ? En 30 secondes je te montre comment je te ramène des chantiers de ton coin.",
+  q1:{q:"Tu fais quoi ?",o:["Bâtiment / réno","Élec / plomberie","Jardin / extérieur"]},
+  q2:{q:"Ton vrai souci ?",o:["Pas assez de chantiers","Pas assez visible","On me trouve pas"]},
+  diag:a=>`OK. ${a.q1} + « ${a.q2.toLowerCase()} ». Ton sujet c'est la visibilité locale au bon moment. Fiche géoloc + mode urgence + appels d'offres, je m'en charge.`,
+  screen:['<div class="pmeta">📍 '+CITY+' · Rayon 30 km</div>',
+    '<div class="ptile"><span class="pbadge">✓ RGE</span><span class="pbadge">✓ Assurance</span><span class="pbadge o">🚨 Urgence ON</span></div>',
+    '<div class="ptile"><b>3 chantiers près de toi</b><br>appels d\u2019offres — gratuit en ce moment</div>',
+    '<div class="pbtn">Répondre avec un devis</div>'],
+  val:[["🚨","Mode urgence","Tu remontes en tête quand un client cherche maintenant.",1],
+    ["⭐","Badges & avis vérifiés","RGE, assurance, avis — tu inspires confiance direct."]],
+  price:"19,90 €/mois",offre3:1},
+
+ hebergeur:{label:"Hébergeur",name:"Le Gîte des Falaises",ico:"🏨",
+  open:"Un hébergement ? En 30 secondes je te montre comment tu prends tes réservations en direct, sur ta propre page.",
+  q1:{q:"C'est quoi ?",o:["Hôtel","Gîte","Chambre d'hôtes","Camping"]},
+  q2:{q:"Ton vrai souci ?",o:["Nuits creuses","Trop dépendant des plateformes","Visibilité"]},
+  diag:a=>`OK, ${a.q1.toLowerCase()} et « ${a.q2.toLowerCase()} ». Ton sujet : reprendre la main sur tes réservations. Mini-site + résa intégrée, c'est réglé.`,
+  screen:['<div class="pmeta">📍 '+CITY+' · référencé Google</div>',
+    '<div class="ptile"><b>89 €</b> / nuit · <span class="pbadge">réservation directe</span></div>',
+    '<div class="pbtn">📅 Réserver ces dates</div>',
+    '<div class="ptile">🦊 <b>Loki</b> répond aux voyageurs & montre ta région</div>'],
+  val:[["🌐","Mini-site référencé Google","Réservation en ligne, partageable sur tes réseaux.",1],
+    ["🗓️","Anti-surbooking","Calendrier synchro, multi-tarifs saison."]],
+  price:"24,90 €/mois",offre3:1},
+
+ agence:{label:"Agence immo",name:"Agence Côte d'Albâtre",ico:"🏘️",
+  open:"Agence immo ? En 30 secondes je te montre comment je te ramène des leads qualifiés de ton secteur.",
+  q1:{q:"Tu couvres quelle zone ?",o:["Ma commune","10-20 km","Plusieurs communes"]},
+  q2:{q:"Ton vrai souci ?",o:["Pas assez de mandats","Visibilité locale","Trop de concurrence"]},
+  diag:a=>`OK, « ${a.q1.toLowerCase()} » et « ${a.q2.toLowerCase()} ». Capter les leads locaux en direct. Fiche + leads qualifiés, je m'en charge.`,
+  screen:['<div class="pmeta">📍 '+CITY+' · Agence</div>',
+    '<div class="ptile"><b>Maison T4 · 245 000 €</b><br>publiée sur Lokalist</div>',
+    '<div class="ptile"><b>4 leads cette semaine</b><br>acquéreurs & vendeurs qualifiés</div>',
+    '<div class="ptile">🦊 <b>Loki</b> te met en avant & rapproche les deals</div>'],
+  val:[["📡","Leads locaux en direct","Par mail et dashboard, en direct.",1],
+    ["🎬","Vidéo & visibilité","Fiche vidéo, mieux référencée sur ta zone."]],
+  price:"2 formules · dès 490 €/an"},
+
+ courtier:{label:"Courtier",name:"Crédit Malin",ico:"💶",
+  open:"Courtier ? Je te mets pile devant l'acheteur au moment où il regarde un bien. Regarde.",
+  q1:{q:"Ta zone ?",o:["Ma commune","Secteur élargi"]},
+  q2:{q:"Ton vrai souci ?",o:["Trouver des acheteurs","Visibilité"]},
+  diag:a=>`OK. Presque tout acheteur a besoin d'un prêt — et je te place pile là, sur les fiches d'agences de ta zone.`,
+  screen:['<div class="pmeta">📍 '+CITY+' · sur les fiches d\u2019agences</div>',
+    '<div class="ptile" style="border:1.5px solid #EF9F27"><b>💶 Demande de financement</b><br>Crédit Malin — encart sur ce bien</div>',
+    '<div class="ptile"><b>Le bon moment</b><br>l\u2019acheteur regarde → ton offre est là</div>',
+    '<div class="ptile">🦊 <b>Loki</b> te met devant les acheteurs</div>'],
+  val:[["⏱️","Le bon timing","Ton encart sur les 3 agences les plus proches.",1],
+    ["📩","Leads acheteurs qualifiés","Par mail et dashboard, prêts à financer."]],
+  price:"19,90 €/mois",offre3:1},
+
+ mairie:{label:"Mairie",name:"Votre commune",ico:"🏛️",mairie:1,
+  open:"Vous êtes de la mairie ? En 30 secondes je vous montre comment Lokalist rend votre commune plus attractive — 0 € à l'activation.",
+  q1:{q:"Votre commune, quelle taille ?",o:["Village / petite","Moyenne","Grande ville"]},
+  q2:{q:"Votre enjeu n°1 ?",o:["Redynamiser l'économie","Mieux informer","Impliquer les habitants"]},
+  diag:a=>`OK. Commune « ${a.q1.toLowerCase()} », priorité « ${a.q2.toLowerCase()} ». Votre levier : reconnecter commerces, artisans et habitants sur un même outil. Et pour la mairie, c'est gratuit.`,
+  screen:['<div class="pmeta">📍 votre territoire</div>',
+    '<div class="ptile"><span class="pbadge o">📣 Alerte</span><span class="pbadge">📅 Agenda</span><span class="pbadge">🗳️ Sondage</span><span class="pbadge">🏪 Marché</span></div>',
+    '<div class="ptile"><b>Tout le tissu local connecté</b><br>commerces · artisans · agences · habitants</div>',
+    '<div class="ptile">🎁 <b>0 € à l\u2019activation</b> · déployé en 48h</div>'],
+  val:[["🌱","L\u2019attractivité du territoire","Loki fait vivre votre commune, pas juste afficher.",1],
+    ["📊","Dashboard & suivi","Stats en temps réel, budget transparent."]],
+  price:"0 € à l'activation · gratuit pour les habitants"},
+};
+
+const POST={
+ projet:{label:"Un projet",ico:"🛠️",
+  open:"Un projet ? Travaux, un coup de main, un besoin… Tu le décris et les pros vérifiés de ton coin viennent à toi avec leurs devis.",
+  line2:"Ça se dépose en 2 minutes. Je t'envoie sur la page pour le poster.",
+  card:["📝 Décris ton besoin","📍 Les pros du coin te répondent","💬 Tu compares, tu choisis, sans intermédiaire"],
+  cta:"Déposer mon projet",url:"https://lokalist.fr/deposer-projet"},
+ evenement:{label:"Un événement",ico:"🎉",
+  open:"Un événement à faire connaître ? Concert, marché, brocante, animation… Il apparaît dans les Idées Sorties, vu par tout le coin.",
+  line2:"Ça se propose en 2 minutes. Je t'envoie sur la page pour le déposer.",
+  card:["🎉 Décris ton événement","📅 Il entre dans l'agenda local","📣 Poussé aux habitants autour de toi"],
+  cta:"Proposer mon événement",url:"https://lokalist.fr/proposer-un-evenement"},
+};
+
+function detect(v){const s=v.toLowerCase();
+ if(/resto|restaur|pizz|brasser|bistro|food.?truck|traiteur|cr[eê]p|burger|kebab/.test(s))return'resto';
+ if(/héberg|hôtel|hotel|gîte|gite|chambre|camping|meubl|tourisme/.test(s))return'hebergeur';
+ if(/agence|immobil|\bimmo\b/.test(s))return'agence';
+ if(/courtier|financ|\bprêt|\bpret/.test(s))return'courtier';
+ if(/\bmairie\b|\bélu\b|\belu\b|\bmaire\b|collectivit/.test(s))return'mairie';
+ if(/photograph|coiffeur|coiffure|fleurist|esthé|estheti|boulang|boucher|épicerie|epicerie|opticien|caviste|primeur|toilett|ambulant|boutique|magasin|commerç|commerc/.test(s))return'commercant';
+ if(/artisan|plomb|électri|electri|maçon|macon|menuis|peintre|jardin|paysag|chauffag|serrur|couvreur|carrel|bâtiment|batiment|rénov|renov/.test(s))return'artisan';
+ return null;}
+
+function startSplit(){if(hero.style.display!=='none'){hero.style.display='none';thread.style.display='flex';grid.classList.add('live');cockpit.style.display='block';}}
+async function loki(t){startSplit();const m=document.createElement('div');m.className='msg';m.innerHTML=AV+'<div class="bub"></div>';thread.appendChild(m);
+ const b=m.querySelector('.bub');const c=document.createElement('span');c.className='cursor';b.appendChild(c);scroll();
+ if(reduce){c.remove();b.textContent=t;return;}
+ for(let i=0;i<t.length;i++){c.insertAdjacentText('beforebegin',t[i]);if(i%2===0)scroll();await wait(t[i]===' '?12:20);}c.remove();scroll();}
+function me(t){const m=document.createElement('div');m.className='msg me';m.innerHTML='<div class="bub">'+t+'</div>';thread.appendChild(m);scroll();}
+function scroll(){thread.scrollTop=thread.scrollHeight;if(window.innerWidth<880)cockpit.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'});}
+function setChips(list,f,ph){chips.innerHTML='';list.forEach(c=>{const b=document.createElement('button');b.className='chip';b.innerHTML=(c.e?'<span class="e">'+c.e+'</span>':'')+c.t;b.onclick=()=>c.go(c.t);chips.appendChild(b);});
+ if(f){inrow.style.display='flex';free.value='';free.placeholder=ph||'…écris';const sub=()=>{const v=free.value.trim();if(v)window._go(v);};$('#send').onclick=sub;free.onkeydown=e=>{if(e.key==='Enter')sub();};setTimeout(()=>free.focus(),40);}else inrow.style.display='none';}
+function clr(){chips.innerHTML='';inrow.style.display='none';}
+function cap(s){return s.charAt(0).toUpperCase()+s.slice(1);}
+
+function boot(){
+ cklabel.textContent='— ton Lokalist se construit ici';
+ ck.innerHTML='<div class="ck-empty"><div class="big">🦊</div>Choisis ton métier — je te montre, en direct, tout ce que Lokalist met en marche pour toi. Pas une fiche : un écosystème.</div>';
+ setChips([
+  {e:"🍽️",t:"Resto",go:()=>run('resto')},{e:"🏪",t:"Commerçant",go:()=>run('commercant')},
+  {e:"🔧",t:"Artisan",go:()=>run('artisan')},{e:"🏨",t:"Hébergeur",go:()=>run('hebergeur')},
+  {e:"🏘️",t:"Agence",go:()=>run('agence')},{e:"💶",t:"Courtier",go:()=>run('courtier')},
+  {e:"🏛️",t:"Mairie",go:()=>run('mairie')},{e:"🛠️",t:"Un projet",go:()=>post('projet')},
+  {e:"🎉",t:"Un événement",go:()=>post('evenement')},
+ ],true,"…ou écris ton métier (traiteur, coiffeur, camping…)");
+ window._go=v=>{const k=detect(v);me(v);if(k)run(k,M[k].label.toLowerCase()===v.toLowerCase()?null:v);else runUnknown(v);};
+}
+async function runUnknown(v){
+ clr();cklabel.textContent='— '+v;
+ ck.innerHTML='<div class="ck-empty" style="padding:30px 14px"><div class="big">🦊</div>« '+v+' » — dis-m\u2019en un peu plus pour que je vise juste. Tu es plutôt :</div>';
+ setChips([{t:"Un commerce",go:()=>run('commercant',v)},{t:"Un artisan",go:()=>run('artisan',v)},{t:"De l\u2019hébergement",go:()=>run('hebergeur',v)},{t:"Immo / financement",go:()=>run('agence',v)}],false);
+}
+async function run(key,custom){
+ const m=M[key];clr();me(custom||m.label);
+ LEAD={metier:custom?cap(custom):m.label,q1:'',q2:'',ville:''};
+ cklabel.textContent='— '+(custom?cap(custom):m.label)+' : ta puissance Lokalist';
+ ck.innerHTML='<div class="ck-in"></div>';
+ await loki(m.open);await loki(m.q1.q);
+ setChips(m.q1.o.map(o=>({t:o,go:v=>step2(m,key,v)})),true,"…ou écris ta réponse");
+ window._go=v=>{const k2=detect(v);if(k2&&k2!==key&&k2!=='mairie'){reclass(k2,v);}else step2(m,key,v);};
+}
+async function reclass(k2,v){
+ const m2=M[k2];me(v);clr();
+ LEAD={metier:cap(v),q1:'',q2:'',ville:''};
+ cklabel.textContent='— '+cap(v)+' : ta puissance Lokalist';
+ ck.innerHTML='<div class="ck-in"></div>';
+ await loki(`Ah, ${v.toLowerCase()} ? Ça, c'est plutôt un ${m2.label.toLowerCase()} — même ambulant, ça compte. Je te montre ça.`);
+ await loki(m2.q1.q);
+ setChips(m2.q1.o.map(o=>({t:o,go:x=>step2(m2,k2,x)})),true,"…ou écris ta réponse");
+ window._go=x=>{const k3=detect(x);if(k3&&k3!==k2&&k3!=='mairie'){reclass(k3,x);}else step2(m2,k2,x);};
+}
+async function step2(m,key,v){clr();me(v);LEAD.q1=v;await loki(m.q2.q);setChips(m.q2.o.map(o=>({t:o,go:x=>build(m,key,x)})),true,"…ou écris ta réponse");window._go=x=>build(m,key,x);}
+async function build(m,key,v2){
+ clr();me(v2);LEAD.q2=v2;
+ await loki(m.diag({q1:LEAD.q1,q2:v2}));
+ await loki(pick(["Et attends — une fois dedans, ça fait bien plus que ça.","Et crois-moi, ce que tu vois là, c'est juste le début.","Regarde — et dis-toi que dans l'app, ça va encore plus loin."]));
+ let nm=m.name;
+ if(LEAD.metier&&m.label!==LEAD.metier)nm=LEAD.metier;
+ else if((key==='artisan'||key==='commercant')&&LEAD.q1&&!m.q1.o.map(x=>x.toLowerCase()).includes(LEAD.q1.toLowerCase()))nm=cap(LEAD.q1);
+ const init=nm.trim()[0].toUpperCase();
+ const stage=document.createElement('div');stage.className='stage';
+ stage.innerHTML='<div class="phone"><div class="pscreen"><div class="pcover rv">'+m.ico+'<div class="plogo">'+init+'</div></div><div class="pbody"><div class="pname rv">'+nm+'</div><div class="scr"></div></div></div></div><div class="value"><div class="vtitle rv">Ce que <span class="who">Loki</span> met en marche</div><div class="vpts"></div></div>';
+ $('.ck-in').innerHTML='';$('.ck-in').appendChild(stage);
+ let step=0;const rv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:step++*140);};
+ stage.querySelectorAll('.pcover,.pname').forEach(rv);
+ const scr=stage.querySelector('.scr');
+ m.screen.forEach(html=>{const d=document.createElement('div');d.className='rv';d.innerHTML=html;scr.appendChild(d);rv(d);});
+ const vp=stage.querySelector('.vpts');
+ m.val.forEach(v=>{const d=document.createElement('div');d.className='vpt rv'+(v[3]?' acc':'');d.innerHTML='<div class="vi">'+v[0]+'</div><div><div class="vt">'+v[1]+'</div><div class="vs">'+v[2]+'</div></div>';vp.appendChild(d);rv(d);});
+ if(m.offre3){const o=document.createElement('div');o.className='pricepill rv';o.style.cssText='background:rgba(239,159,39,.14);border-color:rgba(239,159,39,.4);color:#F7C56E';o.textContent='🎁 3 mois offerts au lancement';vp.appendChild(o);rv(o);}
+ const pill=document.createElement('div');pill.className='pricepill rv';pill.textContent='💶 '+m.price;vp.appendChild(pill);rv(pill);
+ await wait(reduce?0:step*140+400);
+ await loki(pick(["Voilà — c'est pas une fiche, c'est tout ça qui tourne pour toi, 24h/24. Et t'as encore rien signé. T'es sur quelle ville ?","Et ça, ça bosse pour toi jour et nuit — sans que tu lèves le petit doigt. Dis-moi juste ta ville et je boucle.","Franchement, regarde tout ce qui s'allume pour toi là. Zéro engagement pour l'instant. Ta ville, c'est laquelle ?"]));
+ setChips([{t:"Fécamp",go:v=>ville(m,v)},{t:"Yvetot",go:v=>ville(m,v)},{t:"Le Havre",go:v=>ville(m,v)}],true,"…ta ville");
+ window._go=v=>ville(m,v);
+}
+async function ville(m,v){
+ clr();me(v);LEAD.ville=v;
+ document.querySelectorAll('.pcity').forEach(e=>e.textContent=v);
+ await loki(m.mairie?"Parfait. Le plus simple : une démo sur votre commune. Vous recevrez un SMS pour caler un RDV, sans engagement — juste pour répondre à vos questions."
+  :"Nickel. Laisse ton numéro — tu recevras juste un SMS pour caler un petit RDV, sans engagement. On répond à tes questions et on t'aide à démarrer. C'est tout.");
+ const lead=document.createElement('div');lead.className='lead';
+ lead.innerHTML='<div class="ctx"><span class="k"><b>'+LEAD.metier+'</b></span><span class="k">📍 <b>'+LEAD.ville+'</b></span></div><input id="lnom" placeholder="'+(m.mairie?"Votre nom / commune":"Ton prénom")+'"><input id="ltel" placeholder="'+(m.mairie?"Email ou téléphone":"Ton numéro")+'"><button class="go" id="lgo">'+(m.mairie?"Demander une démo":"Réserver ma place — pré-inscription")+'</button><div class="ng">Un simple SMS pour convenir d\u2019un RDV sans engagement — juste pour t\u2019aider et répondre à tes questions.</div>';
+ $('.ck-in').appendChild(lead);$('#lgo').onclick=()=>coulisses();
+}
+async function coulisses(){
+ const nom=($('#lnom')?.value.trim())||LEAD.metier;
+ cklabel.textContent='— ce que Damien reçoit, lui';$('.ck-in').innerHTML='';
+ await loki('Nickel '+nom.split(' ')[0]+'. Tu recevras ton SMS. Et entre nous, regarde côté coulisses…');
+ const rows=[["Cible",LEAD.metier],["Situation",LEAD.q1+' · '+LEAD.q2],LEAD.ville?["Ville",LEAD.ville]:null,["Enregistré",'<span class="ok">✓ ajouté à la pré-inscription</span>'],["Statut",'<span class="ok">✓ prêt pour le RDV</span>']].filter(Boolean);
+ const c=document.createElement('div');
+ c.innerHTML='<div class="bs-note">pendant que ce pro discutait 2 min, <b>Damien</b> reçoit ça :</div><div class="leadcard"><div class="lc-head"><span class="heat">🔥 LEAD CHAUD</span><span class="who">'+nom+'</span></div><div class="lc-body">'+rows.map(r=>'<div class="lrow"><span class="kk">'+r[0]+'</span><span class="vv">'+r[1]+'</span></div>').join('')+'</div></div>';
+ $('.ck-in').appendChild(c);await wait(reduce?0:700);
+ await loki("Ça, c'est un lead validé : il atterrit direct dans tes pré-inscriptions, avec tout son contexte. Pas un formulaire vide — un pro qui a vu Lokalist tourner pour lui avant même de te parler.");
+ addRestart();
+}
+async function post(key){
+ const p=POST[key];clr();me(p.label);
+ LEAD={metier:p.label,q1:'',q2:'',ville:''};
+ cklabel.textContent='— '+p.label;ck.innerHTML='<div class="ck-in"></div>';
+ await loki(p.open);await loki(p.line2);
+ const box=document.createElement('div');box.className='lead';
+ box.innerHTML='<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">'+p.card.map(x=>'<div class="ptile" style="background:rgba(255,255,255,.04);color:#DDE6E0;border:1px solid var(--line)">'+x+'</div>').join('')+'</div><a class="go" href="'+p.url+'" target="_blank" rel="noopener">'+p.cta+' →</a><div class="ng">Loki t\u2019envoie sur la page de dépôt — rien à signer.</div>';
+ $('.ck-in').appendChild(box);addRestart();
+}
+function addRestart(){const b=document.createElement('button');b.className='restart';b.textContent='↺ tester autre chose';b.onclick=()=>{thread.innerHTML='';boot();};$('.ck-in').appendChild(b);}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+boot();
+</script>
+</body>
+</html>
