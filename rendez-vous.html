@@ -116,11 +116,12 @@
   // Créneaux 09:00 -> 18:00 (pas de 30 min)
   (function(){
     var sel = document.getElementById('heure');
-    for (var h=9; h<=18; h++){ for (var m=0; m<60; m+=30){ if(h===18&&m>0)break;
+    for (var h=9; h<=19; h++){ for (var m=0; m<60; m+=30){ if(h===19&&m>0)break;
       var v = (h<10?'0':'')+h+':'+(m===0?'00':'30');
       var o = document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); } }
     // date min = aujourd'hui
     var d = document.getElementById('date');
+    d.addEventListener('change', function(){ if(d.value && new Date(d.value+'T12:00:00').getDay()===0){ showErr('Le dimanche, c'est fermé - on vous attend du lundi au samedi, 9h-19h.'); d.value=''; } });
     var t = new Date(); var iso = t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2);
     d.min = iso; d.value = iso;
   })();
@@ -154,6 +155,7 @@
     if(!nom) return showErr('Merci d\'indiquer votre nom.');
     if(!email || email.indexOf('@')<1) return showErr('Merci d\'indiquer un email valide.');
     if(!date || !heure) return showErr('Choisissez un jour et un creneau.');
+    if(new Date(date+'T12:00:00').getDay()===0) return showErr('Le dimanche, c'est fermé. Choisissez un jour du lundi au samedi (9h-19h).');
 
     btn.disabled=true; btn.textContent='Envoi.';
     document.getElementById('err').className='msg';
