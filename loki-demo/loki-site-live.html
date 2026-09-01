@@ -476,9 +476,9 @@ async function submit(m){
   if(err){err.textContent="L'envoi n'a pas abouti. Réessaie dans un instant.";err.style.display='block';}
  }
 }
-function addRestart(){const b=document.createElement('button');b.className='restart';b.textContent='↺ tester autre chose';b.onclick=()=>{thread.innerHTML='';(function(){var intro=document.getElementById('intro3d');if(reduce){if(intro)intro.style.display='none';document.body.classList.add('go');return;}setTimeout(function(){if(intro)intro.classList.add('out');document.body.classList.add('go');},2500);setTimeout(function(){if(intro)intro.style.display='none';},3150);})();
-boot();};$('.ck-in').appendChild(b);}
+function addRestart(){const b=document.createElement('button');b.className='restart';b.textContent='↺ tester autre chose';b.onclick=()=>{thread.innerHTML='';boot();};$('.ck-in').appendChild(b);}
 function pick(a){return a[Math.floor(Math.random()*a.length)];}
+(function(){var intro=document.getElementById('intro3d');if(reduce){if(intro)intro.style.display='none';document.body.classList.add('go');return;}setTimeout(function(){if(intro)intro.classList.add('out');document.body.classList.add('go');},2500);setTimeout(function(){if(intro)intro.style.display='none';},3150);})();
 boot();
 </script>
 </body>
