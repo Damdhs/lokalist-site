@@ -207,6 +207,11 @@
   var CTX = detectContext();
   var DATA = CONTENTS[CTX] || CONTENTS.user;
 
+  /* Rabattage : capture de lead -> preinscriptions_pros (dashboard) */
+  var LEAD_URL = 'https://lokalist-api-production.up.railway.app/preinscription-pro';
+  var PRO_CTX = { commercant:1, artisan:1, agence:1, courtier:1, mairie:1 };
+  var isPro = !!PRO_CTX[CTX];
+
   /* Choisit un scénario de chat au hasard parmi ceux du contexte. */
   function pickChat() {
     var list = DATA.chats || [];
@@ -265,6 +270,16 @@
     + '@keyframes lkiFox{0%{transform:scale(.3) rotate(-16deg);opacity:0}60%{transform:scale(1.16) rotate(6deg)}100%{transform:scale(1) rotate(0);opacity:1}}'
     + '@keyframes lkiUp{to{opacity:1;transform:translateY(0)}}'
     + '@keyframes lkiOut{to{opacity:0;visibility:hidden}}'
+    + '.loki-lead{padding:2px 16px 16px;}'
+    + '.loki-lead .t{font-family:"Bricolage Grotesque","DM Sans",sans-serif;font-weight:700;font-size:14px;color:#14211C;margin-bottom:6px;}'
+    + '.loki-lead .d{font-size:12.5px;color:#5C6B64;line-height:1.45;margin-bottom:10px;}'
+    + '.loki-lead input{width:100%;border:1px solid #d7e0db;border-radius:10px;padding:10px 12px;font-family:inherit;font-size:13.5px;outline:none;margin-bottom:8px;}'
+    + '.loki-lead input:focus{border-color:#1D9E75;}'
+    + '.loki-lead button{width:100%;background:linear-gradient(135deg,#EF9F27,#e08a10);color:#3a2606;border:none;border-radius:10px;padding:11px;font-family:"Bricolage Grotesque","DM Sans",sans-serif;font-weight:800;font-size:14px;cursor:pointer;}'
+    + '.loki-lead button:disabled{opacity:.6;cursor:default;}'
+    + '.loki-lead .note{font-size:11px;color:#8A988F;text-align:center;margin-top:7px;}'
+    + '.loki-lead .ok{background:#EAF7F1;border:1px solid #BFE6D6;color:#0F6E56;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.5;text-align:center;}'
+    + '.loki-lead .err{color:#C0392B;font-size:12px;margin-top:6px;text-align:center;}'
     + '@media(prefers-reduced-motion:reduce){.loki-fab{animation:none!important}.loki-intro .fx,.loki-intro .nm,.loki-intro .tg{animation:none!important;opacity:1;transform:none}}';
 
   var style = document.createElement("style");
@@ -290,6 +305,7 @@
     + '<button class="loki-panel__close" aria-label="Fermer">✕</button></div>'
     + '<div class="loki-chat" id="lokiChat"></div>'
     + '<div class="loki-hint" id="lokiHint">🦊 Le vrai LOKI répond à toutes vos questions en langage naturel, dans l\'app Lokalist.</div>'
+    + '<div class="loki-lead" id="lokiLead"></div>'
     + '<div class="loki-intro" id="lokiIntro"><div class="fx">\uD83E\uDD8A</div>'
     + '<div class="nm"><span style="color:#38C793">Lokal</span><span style="color:#F2C230">ist</span></div>'
     + '<div class="tg">votre assistant local, toujours dispo</div></div>';
@@ -300,6 +316,7 @@
 
   var chatEl  = panel.querySelector("#lokiChat");
   var introEl = panel.querySelector("#lokiIntro");
+  var leadEl  = panel.querySelector("#lokiLead");
   var hintEl  = panel.querySelector("#lokiHint");
 
   /* ----- 5. Logique d'animation -----  */
@@ -310,7 +327,7 @@
     (function step() {
       if (i >= seq.length) {
         // Fin de la demo : on revele la phrase "texte libre dans l'app"
-        setTimeout(function () { hintEl.classList.add("in"); }, 350);
+        setTimeout(function () { if (isPro) showLead(); else hintEl.classList.add("in"); }, 350);
         return;
       }
       var item = seq[i];
@@ -337,6 +354,49 @@
     m.textContent = (who === "l" ? "🦊 " : "") + text;
     chatEl.appendChild(m);
     chatEl.scrollTop = chatEl.scrollHeight;
+  }
+
+  /* ----- Rabattage : formulaire + envoi vers preinscriptions_pros ----- */
+  function showLead() {
+    if (!leadEl) return;
+    leadEl.innerHTML =
+        '<div class="t">Envie de \u00e7a pour votre activit\u00e9 ?</div>'
+      + '<div class="d">Laissez vos coordonn\u00e9es \u2014 on vous rappelle. Juste un SMS pour caler un RDV, sans engagement.</div>'
+      + '<input id="lk-nom" placeholder="Votre pr\u00e9nom" autocomplete="given-name">'
+      + '<input id="lk-tel" placeholder="Votre num\u00e9ro" inputmode="tel" autocomplete="tel">'
+      + '<input id="lk-email" placeholder="Votre email" inputmode="email" autocomplete="email">'
+      + '<button id="lk-go">R\u00e9server ma place</button>'
+      + '<div class="note">Sans engagement \u00b7 vos infos ne sont jamais revendues.</div>'
+      + '<div class="err" id="lk-err" style="display:none"></div>';
+    leadEl.querySelector('#lk-go').addEventListener('click', submitLead);
+    chatEl.scrollTop = chatEl.scrollHeight;
+  }
+  async function submitLead() {
+    var g = function (id) { var e = document.getElementById(id); return e ? e.value.trim() : ''; };
+    var nom = g('lk-nom'), tel = g('lk-tel'), email = g('lk-email');
+    var err = document.getElementById('lk-err');
+    function fail(msg){ if(err){ err.textContent = msg; err.style.display = 'block'; } }
+    if (!nom || !tel) { fail('Votre pr\u00e9nom et votre num\u00e9ro, au minimum.'); return; }
+    var btn = document.getElementById('lk-go');
+    btn.disabled = true; btn.textContent = 'Envoi\u2026'; if (err) err.style.display = 'none';
+    try {
+      var res = await fetch(LEAD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          profil_type: CTX, nom: nom, prenom: nom, email: email, telephone: tel,
+          ville: '', code_postal: '', message: 'Inscrit via Loki (widget) \u2014 ' + location.pathname,
+          veut_rappel: true, consentement: true, source: 'loki-widget'
+        })
+      });
+      var data = await res.json().catch(function () { return {}; });
+      if (!res.ok || !data.ok) throw new Error(data.error || ('HTTP ' + res.status));
+      leadEl.innerHTML = '<div class="ok"></div>';
+      leadEl.querySelector('.ok').textContent = '\u2705 C\u2019est not\u00e9 ' + nom + ' ! On vous rappelle tr\u00e8s vite. \u00c0 tout de suite \uD83E\uDD8A';
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'R\u00e9server ma place';
+      fail('L\u2019envoi n\u2019a pas abouti. R\u00e9essayez dans un instant.');
+    }
   }
 
   var opened = false;
