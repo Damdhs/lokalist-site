@@ -159,6 +159,27 @@ body{font-family:'Manrope',system-ui,sans-serif;color:var(--cream);-webkit-font-
 @keyframes fu3{to{opacity:1;transform:translateY(0)}}
 @keyframes glint3{0%{transform:translateX(-130%)}45%,100%{transform:translateX(130%)}}
 body:not(.go) .eco-bg,body:not(.go) .eco-center,body:not(.go) .eco-center .ecl-fox,body:not(.go) .eco-lines line,body:not(.go) .eco-lines circle,body:not(.go) .eco .node,body:not(.go) .hero h1,body:not(.go) .hero .sub,body:not(.go) .dock{animation-play-state:paused!important;}
+
+.stage2{display:flex;flex-direction:column;gap:14px}
+.devices{display:flex;gap:16px;align-items:flex-start}
+@media(max-width:640px){.devices{flex-direction:column;align-items:center}}
+.browser{flex:1;min-width:0;width:100%;background:#fbf9f3;border-radius:12px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.4);opacity:0;transform:translateX(26px)}
+.browser.in{animation:slideWeb .6s cubic-bezier(.2,.8,.25,1) forwards}
+@keyframes slideWeb{to{opacity:1;transform:none}}
+.bwbar{background:#e7e2d6;display:flex;align-items:center;gap:8px;padding:7px 10px}
+.bwbar .dots{display:flex;gap:4px}
+.bwbar .dots i{width:8px;height:8px;border-radius:50%;background:#c3bcac;display:block}
+.bwbar .dots i:nth-child(1){background:#e8734a}.bwbar .dots i:nth-child(2){background:#f2c230}.bwbar .dots i:nth-child(3){background:#1D9E75}
+.bwbar .url{flex:1;background:#fff;border-radius:6px;padding:4px 9px;font-size:10.5px;color:#5a6472;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bwbody{padding:14px}
+.bwname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px;color:#1a2620;letter-spacing:-.02em}
+.bwmeta{font-size:11px;color:#5f6f66;margin-top:2px}
+.bwstars{color:#EF9F27}
+.bwtiles{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.bwtile{background:#f0ece1;border-radius:8px;padding:6px 10px;font-size:11px;color:#33413a;font-weight:600}
+.bwbadges{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.bwb{font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:100px;background:rgba(29,158,117,.14);color:#0F6E56}
+.bwb.inedit{background:rgba(239,159,39,.16);color:#a8690a}
 </style>
 </head>
 <body>
@@ -342,6 +363,11 @@ const POST={
 
 const PROFIL={resto:'restaurant',commercant:'commercant',artisan:'artisan',hebergeur:'hebergeur',agence:'agence',courtier:'courtier',mairie:'mairie',loisirs:'loisir'};
 const LEAD_URL='https://lokalist-api-production.up.railway.app/preinscription-pro';
+const GOOGLE={resto:["Trouvé sur Google","Loki publie ta carte et tes offres avec les bons mots-clés — tu ressors sur Google, pas juste dans l'app."],commercant:["Trouvé sur Google","Loki publie tes offres avec les bons mots-clés. Une vraie présence référencée, pas qu'une fiche."],artisan:["Trouvé sur Google","Ta fiche et tes interventions indexées — quand on cherche ton métier près de toi, tu ressors."],hebergeur:["Référencé sur Google","Ton mini-site et tes dispos indexés avec les bons mots-clés — les voyageurs te trouvent."],agence:["Annonces référencées Google","Chaque bien publié est diffusé et optimisé mots-clés par Loki — une grosse présence Google, automatique."],courtier:["Trouvé sur Google","Ta fiche courtier référencée sur ta zone — les acheteurs te trouvent."]};
+const PARRAIN={d:"Et entre pros, il y a un p'tit système gagnant-gagnant quand tu fais venir un confrère — je t'en dis plus au téléphone 😉",agence:"Et entre agences, le parrainage te fait gagner en visibilité — des pubs spécialisées, ce genre de chose. Je t'en dis plus au téléphone 😉"};
+const WEB={resto:["🍽️ Menu","🏷️ Offres","⭐ Avis","📅 Réserver"],commercant:["🏷️ Offres","🔁 Fidélité","⭐ Avis"],artisan:["✓ RGE","✓ Assurance","📞 Contact","⭐ Avis"],hebergeur:["📷 Photos","📅 Calendrier","🛏️ Réserver","⭐ Avis"],agence:["🏠 Biens","🎬 Vidéo","📩 Contact"],courtier:["💶 Financement","📩 Contact"],mairie:["📣 Alertes","📅 Agenda","🗳️ Sondages"],loisirs:["🎟️ Réserver","📅 Agenda","⭐ Avis"]};
+const EXTRA={artisan:["📞","On t'appelle + tu postules","Les clients te contactent en direct, et tu candidates aux projets de particuliers.",1],agence:["📈","Prospection IA stratégique","Le module grandit en puissance, remonte les opportunités et motive ton équipe.",1],hebergeur:["📅","Résa, photos & calendrier","Galerie photos, calendrier de dispos et réservation — tout inclus sur ton site.",1]};
+function slug(x){return (x||'').toString().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')||'ma-ville';}
 function detect(v){const s=v.toLowerCase();
  if(/resto|restaur|pizz|brasser|bistro|food.?truck|traiteur|cr[eê]p|burger|kebab/.test(s))return'resto';
  if(/héberg|hôtel|hotel|gîte|gite|chambre|camping|meubl|tourisme/.test(s))return'hebergeur';
@@ -409,18 +435,30 @@ async function build(m,key,v2){
  if(LEAD.metier&&m.label!==LEAD.metier)nm=LEAD.metier;
  else if((key==='artisan'||key==='commercant')&&LEAD.q1&&!m.q1.o.map(x=>x.toLowerCase()).includes(LEAD.q1.toLowerCase()))nm=cap(LEAD.q1);
  const init=nm.trim()[0].toUpperCase();
- const stage=document.createElement('div');stage.className='stage';
- stage.innerHTML='<div class="phone"><div class="pscreen"><div class="pcover rv">'+m.ico+'<div class="plogo">'+init+'</div></div><div class="pbody"><div class="pname rv">'+nm+'</div><div class="scr"></div></div></div></div><div class="value"><div class="vtitle rv">Ce que <span class="who">Loki</span> met en marche</div><div class="vpts"></div></div>';
+ const stage=document.createElement('div');stage.className='stage2';
+ stage.innerHTML='<div class="devices">'
+  +'<div class="phone"><div class="pscreen"><div class="pcover rv">'+m.ico+'<div class="plogo">'+init+'</div></div><div class="pbody"><div class="pname rv">'+nm+'</div><div class="scr"></div></div></div></div>'
+  +'<div class="browser" id="bw"><div class="bwbar"><span class="dots"><i></i><i></i><i></i></span><span class="url">lokalist.fr/<span class="pcity">ta-ville</span>/'+slug(nm)+'</span></div>'
+  +'<div class="bwbody"><div class="bwname">'+nm+'</div><div class="bwmeta">📍 <span class="pcity">ta ville</span> · <span class="bwstars">★★★★★</span></div><div class="bwtiles" id="bwtiles"></div>'
+  +'<div class="bwbadges"><span class="bwb">🔎 Référencé Google</span><span class="bwb inedit">🌍 Site <span class="pcity">ta ville</span> · inédit</span></div></div></div>'
+  +'</div>'
+  +'<div class="value"><div class="vtitle rv">Ce que <span class="who">Loki</span> met en marche</div><div class="vpts"></div></div>';
  $('.ck-in').innerHTML='';$('.ck-in').appendChild(stage);
  let step=0;const rv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:step++*140);};
  stage.querySelectorAll('.pcover,.pname').forEach(rv);
  const scr=stage.querySelector('.scr');
  m.screen.forEach(html=>{const d=document.createElement('div');d.className='rv';d.innerHTML=html;scr.appendChild(d);rv(d);});
+ var bw=stage.querySelector('#bw'), bwt=stage.querySelector('#bwtiles');
+ (WEB[key]||[]).forEach(function(t){var e=document.createElement('span');e.className='bwtile';e.textContent=t;if(bwt)bwt.appendChild(e);});
+ if(bw){ setTimeout(function(){bw.classList.add('in');}, reduce?0:step*140+250); }
  const vp=stage.querySelector('.vpts');
  m.val.forEach(v=>{const d=document.createElement('div');d.className='vpt rv'+(v[3]?' acc':'');d.innerHTML='<div class="vi">'+v[0]+'</div><div><div class="vt">'+v[1]+'</div><div class="vs">'+v[2]+'</div></div>';vp.appendChild(d);rv(d);});
+ if(EXTRA[key]){var ex=EXTRA[key];var ed=document.createElement('div');ed.className='vpt rv acc';ed.innerHTML='<div class="vi">'+ex[0]+'</div><div><div class="vt">'+ex[1]+'</div><div class="vs">'+ex[2]+'</div></div>';vp.appendChild(ed);rv(ed);}
+ if(GOOGLE[key]){var gp=document.createElement('div');gp.className='vpt rv acc';gp.innerHTML='<div class="vi">🔎</div><div><div class="vt">'+GOOGLE[key][0]+'</div><div class="vs">'+GOOGLE[key][1]+'</div></div>';vp.appendChild(gp);rv(gp);}
  if(m.offre3){const o=document.createElement('div');o.className='pricepill rv';o.style.cssText='background:rgba(239,159,39,.14);border-color:rgba(239,159,39,.4);color:#F7C56E';o.textContent='🎁 3 mois offerts au lancement';vp.appendChild(o);rv(o);}
  const pill=document.createElement('div');pill.className='pricepill rv';pill.textContent='💶 '+m.price;vp.appendChild(pill);rv(pill);
  await wait(reduce?0:step*140+400);
+ if(!m.mairie){await loki(PARRAIN[key]||PARRAIN.d);}
  await loki(pick(["Voilà — c'est pas une fiche, c'est tout ça qui tourne pour toi, 24h/24. Et t'as encore rien signé. T'es sur quelle ville ?","Et ça, ça bosse pour toi jour et nuit — sans que tu lèves le petit doigt. Dis-moi juste ta ville et je boucle.","Franchement, regarde tout ce qui s'allume pour toi là. Zéro engagement pour l'instant. Ta ville, c'est laquelle ?"]));
  setChips([{t:"Fécamp",go:v=>ville(m,v)},{t:"Yvetot",go:v=>ville(m,v)},{t:"Le Havre",go:v=>ville(m,v)}],true,"…ta ville");
  window._go=v=>ville(m,v);
