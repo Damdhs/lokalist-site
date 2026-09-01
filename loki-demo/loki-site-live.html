@@ -246,7 +246,7 @@ body:not(.go) .eco-bg,body:not(.go) .eco-center,body:not(.go) .eco-center .ecl-f
 .pa{flex:1;text-align:center;font-size:10.5px;font-weight:700;padding:10px 4px;border-radius:12px;background:#eaf5f0;color:#0F6E56;min-width:58px}
 .pa.call{background:#1D9E75;color:#fff}
 .pverif{margin:0 12px 12px;background:#eaf5f0;color:#0F6E56;font-size:10.5px;font-weight:600;text-align:center;padding:8px;border-radius:10px}
-.browser.big{width:100%;max-width:480px;background:#fbf9f3;border-radius:12px;overflow:hidden;box-shadow:0 22px 55px rgba(0,0,0,.4)}
+.browser.big{width:100%;max-width:480px;background:#fbf9f3;border-radius:12px;overflow:hidden;box-shadow:0 22px 55px rgba(0,0,0,.4);opacity:1!important;transform:none!important}
 .wpcover{height:96px;background:linear-gradient(120deg,#26313a,#3a4a5f);display:grid;place-items:center;font-size:34px;color:#fff}
 .wpcover.green{background:linear-gradient(120deg,#1D9E75,#0F6E56);flex-direction:column;gap:2px}
 .wpcover .cvname{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px}
@@ -579,9 +579,9 @@ async function ville(m,v){
  clr();me(v);LEAD.ville=v;
  document.querySelectorAll('.pcity').forEach(e=>e.textContent=v);
  await loki(m.mairie?"Parfait. Le plus simple : une démo sur votre commune. Vous recevrez un SMS pour caler un RDV, sans engagement — juste pour répondre à vos questions."
-  :"Nickel. Laisse ton numéro — tu recevras juste un SMS pour caler un petit RDV, sans engagement. On répond à tes questions et on t'aide à démarrer. C'est tout.");
+  :"Nickel. Deux façons de continuer, sans engagement : soit tu laisses ton numéro et on te rappelle, soit tu prends direct un RDV en ligne. Comme tu préfères 🦊");
  const lead=document.createElement('div');lead.className='lead';
- lead.innerHTML='<div class="ctx"><span class="k"><b>'+LEAD.metier+'</b></span><span class="k">📍 <b>'+LEAD.ville+'</b></span></div><input id="lnom" placeholder="'+(m.mairie?"Votre nom / commune":"Ton prénom")+'"><input id="ltel" placeholder="Ton numéro" inputmode="tel"><input id="lemail" placeholder="Ton email" inputmode="email"><button class="go" id="lgo">'+(m.mairie?"Demander une démo":"Réserver ma place — pré-inscription")+'</button><div class="ng">Un simple SMS pour convenir d\u2019un RDV sans engagement — juste pour t\u2019aider et répondre à tes questions.</div><div class="ng" id="lerr" style="display:none;color:#F0906B"></div>';
+ lead.innerHTML='<div class="ctx"><span class="k"><b>'+LEAD.metier+'</b></span><span class="k">📍 <b>'+LEAD.ville+'</b></span></div><input id="lnom" placeholder="'+(m.mairie?"Votre nom / commune":"Ton prénom")+'"><input id="ltel" placeholder="Ton numéro" inputmode="tel"><input id="lemail" placeholder="Ton email" inputmode="email"><button class="go" id="lgo">'+(m.mairie?"Demander une démo":"📞 On me rappelle")+'</button><a class="go" href="https://lokalist.fr/rendez-vous" target="_blank" rel="noopener" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--cream);margin-top:8px;display:block;text-align:center;text-decoration:none;font-weight:700">📅 Ou je prends RDV directement</a><div class="ng">Un simple SMS pour convenir d\u2019un RDV sans engagement — juste pour t\u2019aider et répondre à tes questions.</div><div class="ng" id="lerr" style="display:none;color:#F0906B"></div>';
  $('.ck-in').appendChild(lead);$('#lgo').onclick=()=>submit(m);
 }
 async function coulisses(){
