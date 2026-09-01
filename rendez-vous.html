@@ -121,7 +121,7 @@
       var o = document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); } }
     // date min = aujourd'hui
     var d = document.getElementById('date');
-    d.addEventListener('change', function(){ if(d.value && new Date(d.value+'T12:00:00').getDay()===0){ showErr('Le dimanche, c'est fermé - on vous attend du lundi au samedi, 9h-19h.'); d.value=''; } });
+    d.addEventListener('change', function(){ if(d.value && new Date(d.value+'T12:00:00').getDay()===0){ showErr('Dimanche fermé - on vous attend du lundi au samedi, 9h-19h.'); d.value=''; } });
     var t = new Date(); var iso = t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2);
     d.min = iso; d.value = iso;
   })();
@@ -155,7 +155,7 @@
     if(!nom) return showErr('Merci d\'indiquer votre nom.');
     if(!email || email.indexOf('@')<1) return showErr('Merci d\'indiquer un email valide.');
     if(!date || !heure) return showErr('Choisissez un jour et un creneau.');
-    if(new Date(date+'T12:00:00').getDay()===0) return showErr('Le dimanche, c'est fermé. Choisissez un jour du lundi au samedi (9h-19h).');
+    if(new Date(date+'T12:00:00').getDay()===0) return showErr('Dimanche fermé : choisissez du lundi au samedi (9h-19h).');
 
     btn.disabled=true; btn.textContent='Envoi.';
     document.getElementById('err').className='msg';
