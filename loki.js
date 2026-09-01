@@ -257,7 +257,15 @@
     + '@keyframes lokiDot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}'
     + '.loki-hint{font-size:12.5px;color:#5C6B64;text-align:center;padding:0 18px 16px;'
     + 'line-height:1.45;opacity:0;transition:opacity .5s;}.loki-hint.in{opacity:1;}'
-    + '@media(prefers-reduced-motion:reduce){.loki-fab{animation:none!important}}';
+    + '.loki-intro{position:absolute;inset:0;z-index:5;background:linear-gradient(160deg,#12241D,#0F6E56);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;}'
+    + '.loki-intro .fx{font-size:58px;filter:drop-shadow(0 10px 26px rgba(239,159,39,.55));animation:lkiFox .75s cubic-bezier(.2,.9,.25,1.3) both;}'
+    + '.loki-intro .nm{font-family:"Bricolage Grotesque","DM Sans",sans-serif;font-weight:800;font-size:24px;letter-spacing:-.5px;opacity:0;transform:translateY(8px);animation:lkiUp .5s ease .38s forwards;}'
+    + '.loki-intro .tg{font-size:12.5px;color:#BFE6D6;opacity:0;transform:translateY(8px);animation:lkiUp .5s ease .58s forwards;}'
+    + '.loki-intro.out{animation:lkiOut .45s ease forwards;}'
+    + '@keyframes lkiFox{0%{transform:scale(.3) rotate(-16deg);opacity:0}60%{transform:scale(1.16) rotate(6deg)}100%{transform:scale(1) rotate(0);opacity:1}}'
+    + '@keyframes lkiUp{to{opacity:1;transform:translateY(0)}}'
+    + '@keyframes lkiOut{to{opacity:0;visibility:hidden}}'
+    + '@media(prefers-reduced-motion:reduce){.loki-fab{animation:none!important}.loki-intro .fx,.loki-intro .nm,.loki-intro .tg{animation:none!important;opacity:1;transform:none}}';
 
   var style = document.createElement("style");
   style.textContent = css;
@@ -281,13 +289,17 @@
     + '<div><b>LOKI</b><div class="sub">votre assistant Lokalist</div></div>'
     + '<button class="loki-panel__close" aria-label="Fermer">✕</button></div>'
     + '<div class="loki-chat" id="lokiChat"></div>'
-    + '<div class="loki-hint" id="lokiHint">🦊 Le vrai LOKI répond à toutes vos questions en langage naturel, dans l\'app Lokalist.</div>';
+    + '<div class="loki-hint" id="lokiHint">🦊 Le vrai LOKI répond à toutes vos questions en langage naturel, dans l\'app Lokalist.</div>'
+    + '<div class="loki-intro" id="lokiIntro"><div class="fx">\uD83E\uDD8A</div>'
+    + '<div class="nm"><span style="color:#38C793">Lokal</span><span style="color:#F2C230">ist</span></div>'
+    + '<div class="tg">votre assistant local, toujours dispo</div></div>';
 
   document.body.appendChild(bubble);
   document.body.appendChild(panel);
   document.body.appendChild(fab);
 
   var chatEl  = panel.querySelector("#lokiChat");
+  var introEl = panel.querySelector("#lokiIntro");
   var hintEl  = panel.querySelector("#lokiHint");
 
   /* ----- 5. Logique d'animation -----  */
@@ -332,8 +344,14 @@
     bubble.classList.remove("in");
     fab.classList.remove("ring");
     panel.classList.add("in");
-    if (!opened) { opened = true; playChat(); }
-    else playChat();
+    if (!opened) {
+      opened = true;
+      if (introEl) {
+        introEl.classList.remove("out");
+        introEl.style.display = "flex";
+        setTimeout(function () { introEl.classList.add("out"); playChat(); }, 1300);
+      } else { playChat(); }
+    } else { playChat(); }
   }
   function closePanel() { panel.classList.remove("in"); }
 
