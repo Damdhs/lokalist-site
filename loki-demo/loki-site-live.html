@@ -468,7 +468,7 @@ function startSplit(){if(hero.style.display!=='none'){hero.style.display='none';
 async function loki(t){startSplit();const m=document.createElement('div');m.className='msg';m.innerHTML=AV+'<div class="bub"></div>';thread.appendChild(m);
  const b=m.querySelector('.bub');const c=document.createElement('span');c.className='cursor';b.appendChild(c);scroll();
  if(reduce){c.remove();b.textContent=t;return;}
- for(let i=0;i<t.length;i++){c.insertAdjacentText('beforebegin',t[i]);if(i%2===0)scroll();await wait(t[i]===' '?12:20);}c.remove();scroll();}
+ for(let i=0;i<t.length;i++){c.insertAdjacentText('beforebegin',t[i]);if(i%2===0)scroll();await wait(t[i]===' '?6:11);}c.remove();scroll();}
 function me(t){const m=document.createElement('div');m.className='msg me';m.innerHTML='<div class="bub">'+t+'</div>';thread.appendChild(m);scroll();}
 function scroll(){thread.scrollTop=thread.scrollHeight;if(window.innerWidth<880)cockpit.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest'});}
 function setChips(list,f,ph){chips.innerHTML='';list.forEach(c=>{const b=document.createElement('button');b.className='chip';b.innerHTML=(c.e?'<span class="e">'+c.e+'</span>':'')+c.t;b.onclick=()=>c.go(c.t);chips.appendChild(b);});
@@ -512,8 +512,19 @@ async function reclass(k2,v){
  setChips(m2.q1.o.map(o=>({t:o,go:x=>step2(m2,k2,x)})),true,"…ou écris ta réponse");
  window._go=x=>{const k3=detect(x);if(k3&&k3!==k2&&k3!=='mairie'){reclass(k3,x);}else step2(m2,k2,x);};
 }
-async function step2(m,key,v){clr();me(v);LEAD.q1=v;await loki(m.q2.q);setChips(m.q2.o.map(o=>({t:o,go:x=>build(m,key,x)})),true,"…ou écris ta réponse");window._go=x=>build(m,key,x);}
-async function build(m,key,v2){
+async function step2(m,key,v){clr();me(v);LEAD.q1=v;await loki(m.q2.q);setChips(m.q2.o.map(o=>({t:o,go:x=>existant(m,key,x)})),true,"…ou écris ta réponse");window._go=x=>existant(m,key,x);}
+async function existant(m,key,v2){
+ clr();LEAD.q2=v2;if(exist!==undefined){LEAD.existant=exist;me(exist);await loki(m.mairie?"Parfait — on récupère tout ça. Votre site et vos infos, Loki s'appuie dessus pour répondre aux habitants ; vous n'avez rien à refaire.":pick(["Parfait — on garde tout ça et on le booste. Tu changes rien : au contraire, tout va servir et Loki s'appuie dessus.","Nickel — tout ce que t'as déjà, on le réutilise et on l'amplifie. Tu touches à rien, Loki fait le reste."]));}else{me(v2);}
+ if(m.mairie){
+  await loki("Une question avant de finir : la commune a déjà un site ? Si oui, on l'utilise aussi — Loki y pioche vos infos (horaires, démarches, événements) pour répondre directement aux habitants.");
+  setChips([{t:"🌐 Oui, un site",go:x=>build(m,key,v2,x)},{t:"📱 Surtout les réseaux",go:x=>build(m,key,v2,x)},{t:"📋 Rien pour l'instant",go:x=>build(m,key,v2,x)}],true,"…ou dites-moi");
+ }else{
+  await loki("Dernière chose : t'as déjà quoi en place aujourd'hui ? Site, réseaux, fiche Google… tout compte.");
+  setChips([{t:"🌐 Un site web",go:x=>build(m,key,v2,x)},{t:"📱 Réseaux sociaux",go:x=>build(m,key,v2,x)},{t:"🔎 Fiche Google",go:x=>build(m,key,v2,x)},{t:"🚫 Rien encore",go:x=>build(m,key,v2,x)}],true,"…ou écris ta réponse");
+ }
+ window._go=x=>build(m,key,v2,x);
+}
+async function build(m,key,v2,exist){
  clr();me(v2);LEAD.q2=v2;
  await loki(m.diag({q1:LEAD.q1,q2:v2}));
  await loki(pick(["Et attends — une fois dedans, ça fait bien plus que ça.","Et crois-moi, ce que tu vois là, c'est juste le début.","Regarde — et dis-toi que dans l'app, ça va encore plus loin."]));
@@ -559,10 +570,10 @@ async function build(m,key,v2){
   var track=stage.querySelector('#track'), sdots=stage.querySelectorAll('#sdots span');
   function goSlide(i){track.style.transform='translateX(-'+(i*33.333)+'%)';sdots.forEach(function(d,k){d.classList.toggle('on',k===i);});}
   sdots.forEach(function(d,k){d.addEventListener('click',function(){goSlide(k);});});
-  if(!reduce){ setTimeout(function(){goSlide(1);},2600); setTimeout(function(){goSlide(2);},5200); }
+  if(!reduce){ setTimeout(function(){goSlide(1);},1500); setTimeout(function(){goSlide(2);},3200); }
   await loki(pick(["Et le truc de fou : une seule inscription, et je te crée TROIS présences d'un coup — ta fiche dans l'app, ton site perso indexé, et ta place sur la page de ta ville. Trois adresses où Google et les habitants te trouvent.","Une inscription, et je te génère trois portes d'entrée : l'app que les gens utilisent, ton propre site web référencé, et la page de ta commune. Et plus il y a de pros sur ta ville, plus cette page pèse lourd sur Google — donc plus tu ressors.","D'un coup je te crée ta fiche dans l'app, ton site à toi, et ta présence sur le site de ta ville. Les trois bossent ensemble et se renforcent avec le temps : ta visibilité grossit toute seule.","Trois présences en une inscription : l'app, ton site perso, la page de ta ville. Et tes offres, je les republie avec les bons mots-clés en continu — tu montes sur Google sans rien faire.","Une seule inscription = trois adresses à ton nom. Et c'est un cercle : chaque nouveau pro sur ta ville renforce la page, qui renforce ta visibilité, qui t'amène plus de monde. Ça tourne pour toi, non-stop."]));
   const vp=stage.querySelector('.vpts');
-  let vstep=0; const rvv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:120+vstep++*120);};
+  let vstep=0; const rvv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:70+vstep++*70);};
   stage.querySelector('.vtitle').classList.add('in');
   m.val.forEach(v=>{const d=document.createElement('div');d.className='vpt rv'+(v[3]?' acc':'');d.innerHTML='<div class="vi">'+v[0]+'</div><div><div class="vt">'+v[1]+'</div><div class="vs">'+v[2]+'</div></div>';vp.appendChild(d);rvv(d);});
   if(EXTRA[key]){var exx=EXTRA[key];var ed=document.createElement('div');ed.className='vpt rv acc';ed.innerHTML='<div class="vi">'+exx[0]+'</div><div><div class="vt">'+exx[1]+'</div><div class="vs">'+exx[2]+'</div></div>';vp.appendChild(ed);rvv(ed);}
@@ -612,7 +623,7 @@ async function submit(m){
  try{
   const res=await fetch(LEAD_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
    profil_type:(PROFIL[LEAD.key]||'commercant'), nom:nom, prenom:nom, email:email, telephone:tel,
-   ville:LEAD.ville||'', code_postal:'', message:'Inscrit via Loki — '+LEAD.metier, veut_rappel:true, consentement:true, source:'loki-widget'
+   ville:LEAD.ville||'', code_postal:'', message:'Inscrit via Loki — '+LEAD.metier+(LEAD.existant?' · Existant: '+LEAD.existant:''), veut_rappel:true, consentement:true, source:'loki-widget'
   })});
   const data=await res.json().catch(()=>({}));
   if(!res.ok||!data.ok) throw new Error(data.error||('HTTP '+res.status));
@@ -628,7 +639,7 @@ async function submit(m){
 }
 function addRestart(){const b=document.createElement('button');b.className='restart';b.textContent='↺ tester autre chose';b.onclick=()=>{thread.innerHTML='';boot();};$('.ck-in').appendChild(b);}
 function pick(a){return a[Math.floor(Math.random()*a.length)];}
-(function(){var intro=document.getElementById('intro3d');if(reduce){if(intro)intro.style.display='none';document.body.classList.add('go');return;}setTimeout(function(){if(intro)intro.classList.add('out');document.body.classList.add('go');},2500);setTimeout(function(){if(intro)intro.style.display='none';},3150);})();
+(function(){var intro=document.getElementById('intro3d');if(reduce){if(intro)intro.style.display='none';document.body.classList.add('go');return;}setTimeout(function(){if(intro)intro.classList.add('out');document.body.classList.add('go');},1200);setTimeout(function(){if(intro)intro.style.display='none';},1650);})();
 boot();
 </script>
 </body>
