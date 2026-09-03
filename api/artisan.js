@@ -68,7 +68,7 @@ export default async function handler(req) {
     const ref = sanitizeRef(url.searchParams.get('ref'));
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,photo_couverture,note_moyenne,nb_avis,rayon_intervention,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
+    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,photo_couverture,note_moyenne,nb_avis,rayon_intervention,sous_type,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
     const r = await fetch(`${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=${cols}`, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound('Erreur lors du chargement');
     const list = await r.json();
@@ -143,6 +143,7 @@ export default async function handler(req) {
       ? `<img class="hero-logo" src="${escapeHtml(photoMain)}" alt="${escapeHtml(nom)}"/>`
       : `<div class="hero-logo hero-logo-fb">${catEmoji}</div>`;
     const heroBadges = [`<span class="hb">${catEmoji} ${escapeHtml(catNom)}</span>`];
+    if (a.sous_type === 'service') heroBadges.push(`<span class="hb hb-ok">🏠 Services à la personne</span>`);
     if (rge)             heroBadges.push(`<span class="hb hb-ok">✓ RGE</span>`);
     if (a.badge_verifie) heroBadges.push(`<span class="hb hb-ok">✓ Vérifié</span>`);
     if (a.badge_top)     heroBadges.push(`<span class="hb hb-top">★ Top</span>`);
