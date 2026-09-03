@@ -29,7 +29,7 @@ export default async function handler() {
       sb('actus_mairie?select=id,created_at&statut=eq.publie'),
       sb('offres?select=id,date_debut,expire_at&statut=eq.active'),
       sb('packs_loisir?select=id&actif=eq.true'),
-      sb('commercants?select=id&statut=eq.actif&demo=is.false'),
+      sb('commercants?select=id,nom,type_pro&statut=eq.actif&demo=is.false'),
       sb('artisans?select=id&statut=eq.actif&suspendu_plainte=eq.false&demo=is.false'),
       sb('agences_immo?select=id&actif=eq.true'),
       sb('courtiers_immo?select=id&actif=eq.true'),
@@ -49,10 +49,12 @@ export default async function handler() {
     // Sorties / packs loisir actifs
     (packs || []).forEach((p) => parts.push(U(`/sortie/${p.id}`, now, 'weekly', '0.6')));
     // Fiches pros actives
-    (comm || []).forEach((c) => parts.push(U(`/pro/${c.id}`, now, 'weekly', '0.7')));
+    (comm || []).forEach((c) => { if (c.type_pro === 'hebergeur') { const sl = String(c.nom||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') || 'hebergement'; parts.push(U(`/hebergement/${sl}-${c.id}`, now, 'weekly', '0.8')); } else { parts.push(U(`/pro/${c.id}`, now, 'weekly', '0.7')); } });
     (arti || []).forEach((a) => parts.push(U(`/artisan/${a.id}`, now, 'weekly', '0.7')));
     (agences || []).forEach((a) => parts.push(U(`/agence/${a.id}`, now, 'weekly', '0.7')));
     (courtiers || []).forEach((c) => parts.push(U(`/courtier/${c.id}`, now, 'weekly', '0.7')));
+    const annonces = await sb('annonces_immo?select=id&statut=eq.active');
+    (annonces || []).forEach((a) => parts.push(U(`/annonce/${a.id}`, now, 'weekly', '0.7')));
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
