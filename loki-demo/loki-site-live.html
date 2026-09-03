@@ -514,7 +514,7 @@ async function reclass(k2,v){
 }
 async function step2(m,key,v){clr();me(v);LEAD.q1=v;await loki(m.q2.q);setChips(m.q2.o.map(o=>({t:o,go:x=>existant(m,key,x)})),true,"…ou écris ta réponse");window._go=x=>existant(m,key,x);}
 async function existant(m,key,v2){
- clr();LEAD.q2=v2;if(exist!==undefined){LEAD.existant=exist;me(exist);await loki(m.mairie?"Parfait — on récupère tout ça. Votre site et vos infos, Loki s'appuie dessus pour répondre aux habitants ; vous n'avez rien à refaire.":pick(["Parfait — on garde tout ça et on le booste. Tu changes rien : au contraire, tout va servir et Loki s'appuie dessus.","Nickel — tout ce que t'as déjà, on le réutilise et on l'amplifie. Tu touches à rien, Loki fait le reste."]));}else{me(v2);}
+ clr();me(v2);LEAD.q2=v2;
  if(m.mairie){
   await loki("Une question avant de finir : la commune a déjà un site ? Si oui, on l'utilise aussi — Loki y pioche vos infos (horaires, démarches, événements) pour répondre directement aux habitants.");
   setChips([{t:"🌐 Oui, un site",go:x=>build(m,key,v2,x)},{t:"📱 Surtout les réseaux",go:x=>build(m,key,v2,x)},{t:"📋 Rien pour l'instant",go:x=>build(m,key,v2,x)}],true,"…ou dites-moi");
@@ -525,7 +525,7 @@ async function existant(m,key,v2){
  window._go=x=>build(m,key,v2,x);
 }
 async function build(m,key,v2,exist){
- clr();me(v2);LEAD.q2=v2;
+ clr();LEAD.q2=v2;if(exist!==undefined){LEAD.existant=exist;me(exist);await loki(m.mairie?"Parfait — on récupère tout ça. Votre site et vos infos, Loki s'appuie dessus pour répondre aux habitants ; vous n'avez rien à refaire.":pick(["Parfait — on garde tout ça et on le booste. Tu changes rien : au contraire, tout va servir et Loki s'appuie dessus.","Nickel — tout ce que t'as déjà, on le réutilise et on l'amplifie. Tu touches à rien, Loki fait le reste."]));}else{me(v2);}
  await loki(m.diag({q1:LEAD.q1,q2:v2}));
  await loki(pick(["Et attends — une fois dedans, ça fait bien plus que ça.","Et crois-moi, ce que tu vois là, c'est juste le début.","Regarde — et dis-toi que dans l'app, ça va encore plus loin."]));
  let nm=m.name;
