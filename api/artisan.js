@@ -74,6 +74,16 @@ export default async function handler(req) {
     const list = await r.json();
     if (!list || !list.length) return pageNotFound();
     const a = list[0];
+
+    // SERVICE_MENTIONS_WEB_V1 : badge "Services a la personne" conditionne sur la mention cochee
+    let aServicePersonne = false;
+    try {
+      const MENTION_SAP_ID = '36ca186a-5726-45e3-a7d6-2a8c1a8bd20e';
+      const mUrl = `${SUPABASE_URL}/rest/v1/artisan_mentions?artisan_id=eq.${id}&mention_id=eq.${MENTION_SAP_ID}&select=mention_id&limit=1`;
+      const mR = await fetch(mUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const mRows = mR.ok ? (await mR.json()) : [];
+      aServicePersonne = Array.isArray(mRows) && mRows.length > 0;
+    } catch (e) { console.error('[artisan mentions]', e); }
     if (a.demo === true) return pageNotFound("Fiche non disponible");
     if (a.actif === false) return pageNotFound("Cet artisan n'est plus actif");
     if (a.suspendu_plainte === true) return pageNotFound("Cet artisan n'est plus disponible");
@@ -143,7 +153,7 @@ export default async function handler(req) {
       ? `<img class="hero-logo" src="${escapeHtml(photoMain)}" alt="${escapeHtml(nom)}"/>`
       : `<div class="hero-logo hero-logo-fb">${catEmoji}</div>`;
     const heroBadges = [`<span class="hb">${catEmoji} ${escapeHtml(catNom)}</span>`];
-    if (a.sous_type === 'service') heroBadges.push(`<span class="hb hb-ok">🏠 Services à la personne</span>`);
+    if (aServicePersonne) /* SERVICE_MENTIONS_WEB_V1 */ heroBadges.push(`<span class="hb hb-ok">🏠 Services à la personne</span>`);
     if (rge)             heroBadges.push(`<span class="hb hb-ok">✓ RGE</span>`);
     if (a.badge_verifie) heroBadges.push(`<span class="hb hb-ok">✓ Vérifié</span>`);
     if (a.badge_top)     heroBadges.push(`<span class="hb hb-top">★ Top</span>`);
