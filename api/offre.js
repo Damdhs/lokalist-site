@@ -153,15 +153,15 @@ export default async function handler(req) {
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>${escapeHtml(titre)} — Lokalist</title>
+<title>${escapeHtml(titre)}${ville ? ' à ' + escapeHtml(ville) : ''} — Lokalist</title>
 <meta name="description" content="${escapeHtml(ogDesc)}"/>
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="${escapeHtml(titre)} — Lokalist"/>
+<meta property="og:title" content="${escapeHtml(titre)}${ville ? ' à ' + escapeHtml(ville) : ''} — Lokalist"/>
 <meta property="og:description" content="${escapeHtml(ogDesc)}"/>
 <meta property="og:url" content="${pageUrl}"/>
 <meta property="og:image" content="${escapeHtml(ogImage)}"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="${escapeHtml(titre)} — Lokalist"/>
+<meta name="twitter:title" content="${escapeHtml(titre)}${ville ? ' à ' + escapeHtml(ville) : ''} — Lokalist"/>
 <meta name="twitter:description" content="${escapeHtml(ogDesc)}"/>
 <meta name="twitter:image" content="${escapeHtml(ogImage)}"/>
 <meta name="apple-itunes-app" content="app-argument=${DEEP_LINK}"/>

@@ -134,14 +134,14 @@ export default async function handler(req) {
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-<title>${escapeHtml(titre)} — ${prix} — Lokalist</title>
+<title>${escapeHtml(titre)}${ville ? ' à ' + escapeHtml(ville) : ''} — ${prix} — Lokalist</title>
 <meta name="description" content="${escapeHtml(descShort)}"/>
 <link rel="canonical" href="${canonical}"/>
 
 <!-- Open Graph / Facebook / WhatsApp / LinkedIn -->
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Lokalist"/>
-<meta property="og:title" content="${escapeHtml(titre)} — ${prix}"/>
+<meta property="og:title" content="${escapeHtml(titre)}${ville ? ' à ' + escapeHtml(ville) : ''} — ${prix}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
 <meta property="og:image" content="${escapeHtml(photoMain)}"/>
 <meta property="og:image:width" content="1200"/>
@@ -151,7 +151,7 @@ export default async function handler(req) {
 
 <!-- Twitter / X Card -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="${escapeHtml(titre)} — ${prix}"/>
+<meta name="twitter:title" content="${escapeHtml(titre)}${ville ? ' à ' + escapeHtml(ville) : ''} — ${prix}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
 <meta name="twitter:image" content="${escapeHtml(photoMain)}"/>
 
