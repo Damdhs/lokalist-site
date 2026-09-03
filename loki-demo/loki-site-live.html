@@ -449,6 +449,7 @@ const POST={
 
 const PROFIL={resto:'restaurant',commercant:'commercant',artisan:'artisan',hebergeur:'hebergeur',agence:'agence',courtier:'courtier',mairie:'mairie',loisirs:'loisir'};
 const LEAD_URL='https://lokalist-api-production.up.railway.app/preinscription-pro';
+const LOKI_WEB_URL='https://lokalist-api-production.up.railway.app/loki-web/repondre';
 const GOOGLE={resto:["Trouvé sur Google","Loki publie ta carte et tes offres avec les bons mots-clés — tu ressors sur Google, pas juste dans l'app."],commercant:["Trouvé sur Google","Loki publie tes offres avec les bons mots-clés. Une vraie présence référencée, pas qu'une fiche."],artisan:["Trouvé sur Google","Ta fiche et tes interventions indexées — quand on cherche ton métier près de toi, tu ressors."],hebergeur:["Référencé sur Google","Ton mini-site et tes dispos indexés avec les bons mots-clés — les voyageurs te trouvent."],agence:["Annonces référencées Google","Chaque bien publié est diffusé et optimisé mots-clés par Loki — une grosse présence Google, automatique."],courtier:["Trouvé sur Google","Ta fiche courtier référencée sur ta zone — les acheteurs te trouvent."]};
 const PARRAIN={d:"Et entre pros, il y a un p'tit système gagnant-gagnant quand tu fais venir un confrère — je t'en dis plus au téléphone 😉",agence:"Et entre agences, le parrainage te fait gagner en visibilité — des pubs spécialisées, ce genre de chose. Je t'en dis plus au téléphone 😉"};
 const WEB={resto:["🍽️ Menu","🏷️ Offres","⭐ Avis","📅 Réserver"],commercant:["🏷️ Offres","🔁 Fidélité","⭐ Avis"],artisan:["✓ RGE","✓ Assurance","📞 Contact","⭐ Avis"],hebergeur:["📷 Photos","📅 Calendrier","🛏️ Réserver","⭐ Avis"],agence:["🏠 Biens","🎬 Vidéo","📩 Contact"],courtier:["💶 Financement","📩 Contact"],mairie:["📣 Alertes","📅 Agenda","🗳️ Sondages"],loisirs:["🎟️ Réserver","📅 Agenda","⭐ Avis"]};
@@ -515,14 +516,18 @@ async function reclass(k2,v){
 async function step2(m,key,v){clr();me(v);LEAD.q1=v;await loki(m.q2.q);setChips(m.q2.o.map(o=>({t:o,go:x=>existant(m,key,x)})),true,"…ou écris ta réponse");window._go=x=>existant(m,key,x);}
 async function existant(m,key,v2){
  clr();me(v2);LEAD.q2=v2;
- if(m.mairie){
-  await loki("Une question avant de finir : la commune a déjà un site ? Si oui, on l'utilise aussi — Loki y pioche vos infos (horaires, démarches, événements) pour répondre directement aux habitants.");
-  setChips([{t:"🌐 Oui, un site",go:x=>build(m,key,v2,x)},{t:"📱 Surtout les réseaux",go:x=>build(m,key,v2,x)},{t:"📋 Rien pour l'instant",go:x=>build(m,key,v2,x)}],true,"…ou dites-moi");
- }else{
-  await loki("Dernière chose : t'as déjà quoi en place aujourd'hui ? Site, réseaux, fiche Google… tout compte.");
-  setChips([{t:"🌐 Un site web",go:x=>build(m,key,v2,x)},{t:"📱 Réseaux sociaux",go:x=>build(m,key,v2,x)},{t:"🔎 Fiche Google",go:x=>build(m,key,v2,x)},{t:"🚫 Rien encore",go:x=>build(m,key,v2,x)}],true,"…ou écris ta réponse");
- }
- window._go=x=>build(m,key,v2,x);
+ var mairie=!!m.mairie;
+ await loki(mairie?"Une question avant de finir : la commune a déjà quoi en ligne ? Coche ce qui existe — on l'utilise, Loki pioche dedans pour répondre aux habitants.":"Dernière chose : t'as déjà quoi en place ? Coche tout ce qui s'applique — on garde tout et on le booste, tu changes rien.");
+ var opts=mairie?[["🌐","Site de la commune"],["📱","Réseaux (Facebook…)"],["📰","Bulletin / actu"],["🗺️","Appli / panneau existant"]]:[["🌐","Un site web"],["📱","Réseaux sociaux"],["🔎","Fiche Google"],["🛒","Vente en ligne"],["📇","Fichier clients"]];
+ var sel=new Set();
+ chips.innerHTML='';
+ opts.forEach(function(o){var b=document.createElement('button');b.className='chip';b.type='button';b.innerHTML='<span class="e">'+o[0]+'</span>'+o[1];b.onclick=function(){if(sel.has(o[1])){sel.delete(o[1]);b.style.borderColor='';b.style.background='';}else{sel.add(o[1]);b.style.borderColor='var(--orange)';b.style.background='rgba(239,159,39,.16)';}};chips.appendChild(b);});
+ var gob=document.createElement('button');gob.className='chip';gob.type='button';gob.style.cssText='background:var(--orange);color:#1a1205;border-color:var(--orange);font-weight:700';gob.innerHTML='C’est bon →';
+ var finish=function(){var t=(free&&free.value.trim())||'';var out=Array.from(sel);if(t)out.push(t);build(m,key,v2,out.length?out.join(', '):(mairie?'Rien en ligne':'Rien pour l’instant'));};
+ gob.onclick=finish;chips.appendChild(gob);
+ inrow.style.display='flex';free.value='';free.placeholder=mairie?'…ou précisez':'…ou écris (ex : bouche-à-oreille)';
+ $('#send').onclick=finish;free.onkeydown=function(e){if(e.key==='Enter')finish();};setTimeout(function(){free.focus();},40);
+ window._go=function(){finish();};
 }
 async function build(m,key,v2,exist){
  clr();LEAD.q2=v2;if(exist!==undefined){LEAD.existant=exist;me(exist);await loki(m.mairie?"Parfait — on récupère tout ça. Votre site et vos infos, Loki s'appuie dessus pour répondre aux habitants ; vous n'avez rien à refaire.":pick(["Parfait — on garde tout ça et on le booste. Tu changes rien : au contraire, tout va servir et Loki s'appuie dessus.","Nickel — tout ce que t'as déjà, on le réutilise et on l'amplifie. Tu touches à rien, Loki fait le reste."]));}else{me(v2);}
@@ -586,6 +591,24 @@ async function build(m,key,v2,exist){
   setChips([{t:"Fécamp",go:v=>ville(m,v)},{t:"Yvetot",go:v=>ville(m,v)},{t:"Le Havre",go:v=>ville(m,v)}],true,"…ta ville");
   window._go=v=>ville(m,v);
 }
+async function askMore(m){
+ var box=document.createElement('div');box.className='lead';box.style.marginTop='10px';
+ box.innerHTML='<div class="ng" style="margin:0 0 8px">'+(m.mairie?'Une question avant de valider ? (tarif, déploiement, RGPD…)':'Une autre question ? (prix, fidélité, comment ça marche…)')+'</div><input id="qmore" placeholder="'+(m.mairie?'Posez votre question à Loki':'Pose ta question à Loki')+'"><button class="go" id="qmoreb" style="margin-top:8px">Demander à Loki</button>';
+ $('.ck-in').appendChild(box);
+ var input=box.querySelector('#qmore'),btn=box.querySelector('#qmoreb');
+ var envoyer=async function(){
+  var q=(input.value||'').trim();if(!q)return;
+  me(q);input.value='';btn.disabled=true;var lab=btn.textContent;btn.textContent='…';
+  try{
+   var r=await fetch(LOKI_WEB_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q,metier:LEAD.metier||''})});
+   var d=await r.json().catch(function(){return {};});
+   if(d&&d.ok&&d.reponse){await loki(d.reponse);}
+   else{await loki("Bonne question — le plus simple, c'est qu'on en parle de vive voix. Laisse ton numéro juste au-dessus 🦊");}
+  }catch(e){await loki("Petit souci de connexion. Réessaie, ou laisse ton numéro au-dessus et on t'explique tout 🦊");}
+  btn.disabled=false;btn.textContent=lab;
+ };
+ btn.onclick=envoyer;input.onkeydown=function(e){if(e.key==='Enter')envoyer();};
+}
 async function ville(m,v){
  clr();me(v);LEAD.ville=v;
  document.querySelectorAll('.pcity').forEach(e=>e.textContent=v);
@@ -593,7 +616,7 @@ async function ville(m,v){
   :"Nickel. Deux façons de continuer, sans engagement : soit tu laisses ton numéro et on te rappelle, soit tu prends direct un RDV en ligne. Comme tu préfères 🦊");
  const lead=document.createElement('div');lead.className='lead';
  lead.innerHTML='<div class="ctx"><span class="k"><b>'+LEAD.metier+'</b></span><span class="k">📍 <b>'+LEAD.ville+'</b></span></div><input id="lnom" placeholder="'+(m.mairie?"Votre nom / commune":"Ton prénom")+'"><input id="ltel" placeholder="Ton numéro" inputmode="tel"><input id="lemail" placeholder="Ton email" inputmode="email"><button class="go" id="lgo">'+(m.mairie?"Demander une démo":"📞 On me rappelle")+'</button><a class="go" href="https://lokalist.fr/rendez-vous" target="_blank" rel="noopener" style="background:transparent;border:1px solid rgba(255,255,255,.2);color:var(--cream);margin-top:8px;display:block;text-align:center;text-decoration:none;font-weight:700">📅 Ou je prends RDV directement</a><div class="ng">Un simple SMS pour convenir d\u2019un RDV sans engagement — juste pour t\u2019aider et répondre à tes questions.</div><div class="ng" id="lerr" style="display:none;color:#F0906B"></div>';
- $('.ck-in').appendChild(lead);$('#lgo').onclick=()=>submit(m);
+ $('.ck-in').appendChild(lead);$('#lgo').onclick=()=>submit(m);askMore(m);
 }
 async function coulisses(){
  const nom=($('#lnom')?.value.trim())||LEAD.metier;
