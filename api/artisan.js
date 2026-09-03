@@ -272,12 +272,12 @@ export default async function handler(req) {
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
-<title>${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''} — ${escapeHtml(catNom)} — Lokalist</title>
+<title>${escapeHtml(nom)} — ${escapeHtml(catNom)}${ville ? ' à ' + escapeHtml(ville) : ''} — Lokalist</title>
 <meta name="description" content="${escapeHtml(descShort)}"/>
 <link rel="canonical" href="${canonical}"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Lokalist"/>
-<meta property="og:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
+<meta property="og:title" content="${escapeHtml(nom)} — ${escapeHtml(catNom)}${ville ? ' à ' + escapeHtml(ville) : ''}"/>
 <meta property="og:description" content="${escapeHtml(descShort)}"/>
 <meta property="og:image" content="${escapeHtml(photoOg)}"/>
 <meta property="og:image:width" content="1200"/>
@@ -285,7 +285,7 @@ export default async function handler(req) {
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:locale" content="fr_FR"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="${escapeHtml(nom)}${ville ? ' — ' + escapeHtml(ville) : ''}"/>
+<meta name="twitter:title" content="${escapeHtml(nom)} — ${escapeHtml(catNom)}${ville ? ' à ' + escapeHtml(ville) : ''}"/>
 <meta name="twitter:description" content="${escapeHtml(descShort)}"/>
 <meta name="twitter:image" content="${escapeHtml(photoOg)}"/>
 <meta name="apple-itunes-app" content="app-argument=${deepLink}"/>

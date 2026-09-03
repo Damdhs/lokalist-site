@@ -53,6 +53,10 @@ export default async function handler() {
     (arti || []).forEach((a) => parts.push(U(`/artisan/${a.id}`, now, 'weekly', '0.7')));
     (agences || []).forEach((a) => parts.push(U(`/agence/${a.id}`, now, 'weekly', '0.7')));
     (courtiers || []).forEach((c) => parts.push(U(`/courtier/${c.id}`, now, 'weekly', '0.7')));
+    // Evenements a venir uniquement (table servie par /evenement/:id)
+    const _evToday = new Date().toISOString().slice(0, 10);
+    const _evAvenir = await sb('evenements?select=id,date_debut&date_debut=gte.' + _evToday);
+    (_evAvenir || []).forEach((ev) => parts.push(U(`/evenement/${ev.id}`, (ev.date_debut ? String(ev.date_debut).slice(0, 10) : now), 'weekly', '0.6')));
     const annonces = await sb('annonces_immo?select=id&statut=eq.active');
     (annonces || []).forEach((a) => parts.push(U(`/annonce/${a.id}`, now, 'weekly', '0.7')));
 
