@@ -69,7 +69,18 @@
       <div id="form-view">
         <h1 style="text-wrap:balance;font-size:clamp(22px,5.2vw,30px);line-height:1.2">Prenons un moment ensemble.</h1>
         <p class="lead">Proposez le créneau qui vous arrange - je vous confirme rapidement, par téléphone ou en visio.</p>
-        <div id="accroche" style="display:none;margin:16px 0 2px"><!-- ACCROCHE_V3 --></div>
+        <div id="profil-select" style="margin:14px 0 2px">
+          <div style="font-size:13px;color:#7c8a82;margin-bottom:8px">Vous êtes...</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button type="button" class="pfl" data-profil="commercant" style="font-family:inherit;font-size:13px;color:#0f6e56;background:#fff;border:1px solid #cfe5da;border-radius:20px;padding:6px 14px;cursor:pointer">Commerçant</button>
+            <button type="button" class="pfl" data-profil="artisan" style="font-family:inherit;font-size:13px;color:#0f6e56;background:#fff;border:1px solid #cfe5da;border-radius:20px;padding:6px 14px;cursor:pointer">Artisan</button>
+            <button type="button" class="pfl" data-profil="agence" style="font-family:inherit;font-size:13px;color:#0f6e56;background:#fff;border:1px solid #cfe5da;border-radius:20px;padding:6px 14px;cursor:pointer">Agence immo</button>
+            <button type="button" class="pfl" data-profil="loisirs" style="font-family:inherit;font-size:13px;color:#0f6e56;background:#fff;border:1px solid #cfe5da;border-radius:20px;padding:6px 14px;cursor:pointer">Loisirs</button>
+            <button type="button" class="pfl" data-profil="hebergeur" style="font-family:inherit;font-size:13px;color:#0f6e56;background:#fff;border:1px solid #cfe5da;border-radius:20px;padding:6px 14px;cursor:pointer">Hébergeur</button>
+            <button type="button" class="pfl" data-profil="mairie" style="font-family:inherit;font-size:13px;color:#0f6e56;background:#fff;border:1px solid #cfe5da;border-radius:20px;padding:6px 14px;cursor:pointer">Mairie</button>
+          </div>
+        </div>
+        <div id="accroche" style="display:none;margin:14px 0 2px"><!-- ACCROCHE_V4 --></div>
 
         <label for="nom">Votre nom</label>
         <input id="nom" type="text" autocomplete="name" placeholder="Prénom Nom"/>
@@ -136,33 +147,46 @@
     d.min = iso; d.value = iso;
   })();
 
-  // === ACCROCHE_V3 : accroche par profil (ecosysteme, restylee) =========
-  // Pilote par /rendez-vous?profil=commercant|artisan|agence|mairie
-  // Aucun profil => cachee. Modifie librement les textes ci-dessous.
-  var ACCROCHE_V3 = {
+  // === ACCROCHE_V4 : selecteur de profil + accroche (ecosysteme) =========
+  // Le visiteur choisit son profil -> l'accroche s'affiche et le profil part
+  // avec la demande (prefixe dans le message). ?profil=... preselectionne.
+  var PROFILS = {
     commercant: { label:"Commerçants", hook:"Entrez dans l'écosystème que vos clients utilisent déjà.", puces:["Loki vous recommande","Les habitants vous trouvent","App + site + Google"] },
     artisan:    { label:"Artisans", hook:"L'écosystème local où les chantiers viennent à vous.", puces:["Loki vous envoie les projets","Demandes de votre secteur","App + site + Google"] },
     agence:     { label:"Agences immo", hook:"L'écosystème local qui fait remonter les vendeurs.", puces:["Prospection IA (Radar)","Vendeurs de votre zone","App + site + Google"] },
+    loisirs:    { label:"Loisirs et activités", hook:"L'écosystème local qui remplit vos activités.", puces:["Vos sorties dans l'app","Packs et réservations","App + site + Google"] },
+    hebergeur:  { label:"Hébergeurs", hook:"L'écosystème local qui remplit vos nuitées.", puces:["Réservation de séjour intégrée","Voyageurs et habitants","App + site + Google"] },
     mairie:     { label:"Élus et mairies", hook:"L'écosystème qui relie votre commune à ses commerces.", puces:["Vos habitants connectés","Commerces dynamisés","Loki au cœur"] }
   };
+  function rendreAccroche(p){
+    var box=document.getElementById('accroche'); if(!box) return;
+    var a=PROFILS[p];
+    if(!a){ box.style.display='none'; window.__profilLabel=null; return; }
+    var puces=a.puces.map(function(t){
+      return "<span style='display:inline-flex;align-items:center;font-size:11px;color:#2f4038;background:#fff;border:1px solid #d3e9df;padding:4px 10px;border-radius:8px;margin:0 6px 6px 0'><span style='color:#12946a;margin-right:5px;font-weight:700'>✓</span>"+t+"</span>";
+    }).join("");
+    box.innerHTML=
+      "<div style='background:#eef7f2;border:1px solid #d3e9df;border-radius:12px;padding:14px 16px'>"+
+        "<span style='display:inline-block;font-size:11px;font-weight:500;color:#fff;background:#12946a;padding:3px 11px;border-radius:20px;letter-spacing:.3px'>"+a.label+"</span>"+
+        "<div style='font-family:Syne,sans-serif;font-weight:800;font-size:18px;line-height:1.22;color:#143a2c;margin-top:10px'>"+a.hook+"</div>"+
+        "<div style='display:flex;flex-wrap:wrap;margin-top:12px'>"+puces+"</div>"+
+      "</div>";
+    box.style.display='block';
+    window.__profilLabel=a.label;
+  }
   (function(){
     try{
-      var box = document.getElementById('accroche');
-      if(!box) return;
-      var q = new URLSearchParams(window.location.search);
-      var p = (q.get('profil')||"").trim().toLowerCase();
-      var a = ACCROCHE_V3[p];
-      if(!a){ box.style.display='none'; return; }
-      var puces = a.puces.map(function(t){
-        return "<span style='display:inline-flex;align-items:center;font-size:11px;color:#2f4038;background:#fff;border:1px solid #d3e9df;padding:4px 10px;border-radius:8px;margin:0 6px 6px 0'><span style='color:#12946a;margin-right:5px;font-weight:700'>✓</span>"+t+"</span>";
-      }).join("");
-      box.innerHTML =
-        "<div style='background:#eef7f2;border:1px solid #d3e9df;border-radius:12px;padding:14px 16px'>"+
-          "<span style='display:inline-block;font-size:11px;font-weight:500;color:#fff;background:#12946a;padding:3px 11px;border-radius:20px;letter-spacing:.3px'>"+a.label+"</span>"+
-          "<div style='font-family:Syne,sans-serif;font-weight:800;font-size:18px;line-height:1.22;color:#143a2c;margin-top:10px'>"+a.hook+"</div>"+
-          "<div style='display:flex;flex-wrap:wrap;margin-top:12px'>"+puces+"</div>"+
-        "</div>";
-      box.style.display='block';
+      var btns=document.querySelectorAll('#profil-select .pfl');
+      function selectBtn(b){
+        btns.forEach(function(x){ x.style.background='#fff'; x.style.color='#0f6e56'; x.style.borderColor='#cfe5da'; });
+        if(b){ b.style.background='#12946a'; b.style.color='#fff'; b.style.borderColor='#12946a'; }
+      }
+      btns.forEach(function(b){
+        b.addEventListener('click', function(){ selectBtn(b); rendreAccroche(b.getAttribute('data-profil')); });
+      });
+      var q=new URLSearchParams(window.location.search);
+      var p0=(q.get('profil')||"").trim().toLowerCase();
+      if(PROFILS[p0]){ rendreAccroche(p0); btns.forEach(function(b){ if(b.getAttribute('data-profil')===p0) selectBtn(b); }); }
     }catch(e){}
   })();
 
@@ -191,6 +215,7 @@
     var date=document.getElementById('date').value;
     var heure=document.getElementById('heure').value;
     var message=document.getElementById('message').value.trim();
+    if(window.__profilLabel){ message = "[Profil : "+window.__profilLabel+"] " + message; }
 
     if(!nom) return showErr('Merci d\'indiquer votre nom.');
     if(!email || email.indexOf('@')<1) return showErr('Merci d\'indiquer un email valide.');
