@@ -69,7 +69,7 @@
       <div id="form-view">
         <h1 style="text-wrap:balance;font-size:clamp(22px,5.2vw,30px);line-height:1.2">Prenons un moment ensemble,&nbsp;<span style="white-space:nowrap">sans engagement.</span></h1>
         <p class="lead">Proposez le créneau qui vous arrange - je vous confirme rapidement, par téléphone ou en visio.</p>
-        <div id="accroche" class="accroche" style="display:none;margin:12px 0 2px;padding:11px 14px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;color:#9a3412;font-weight:500;font-size:15px;line-height:1.35"><!-- ACCROCHE_V1 --></div>
+        <div id="accroche" style="display:none;margin:14px 0 2px"><!-- ACCROCHE_V2 --></div>
 
         <label for="nom">Votre nom</label>
         <input id="nom" type="text" autocomplete="name" placeholder="Prénom Nom"/>
@@ -136,26 +136,30 @@
     d.min = iso; d.value = iso;
   })();
 
-  // === ACCROCHE_V1 : accroche pilotable (interrupteur + URL) ===============
-  // ACCROCHE_ACTIVE : passe a false pour la cacher partout d'un coup.
-  var ACCROCHE_ACTIVE = true;
-  // Texte par defaut, affiche si aucun departement n'est precise dans l'URL.
-  var ACCROCHE_DEFAUT = "15 minutes au telephone pour voir ce que Lokalist peut faire pour votre activite. Sans engagement.";
-  // Optionnel : un texte par departement, cible via /rendez-vous?dep=76
-  // Ajoute tes departements ici quand tu veux ; sinon c'est le texte par defaut.
-  var ACCROCHE_DEP = {
-    "76": "Commercant ou artisan en Seine-Maritime ? 15 min pour decouvrir Lokalist. Sans engagement.",
+  // === ACCROCHE_V2 : accroche par profil (ecosysteme) ===================
+  // Pilote par /rendez-vous?profil=commercant|artisan|agence|mairie
+  // Aucun profil => cachee. Modifie librement les textes ci-dessous.
+  var ACCROCHE_V2 = {
+    commercant: { label:"Commerçants", hook:"Entrez dans l'écosystème que vos clients utilisent déjà.", puces:["Loki vous recommande","Les habitants vous trouvent","App + site + Google"] },
+    artisan:    { label:"Artisans", hook:"L'écosystème local où les chantiers viennent à vous.", puces:["Loki vous envoie les projets","Demandes de votre secteur","App + site + Google"] },
+    agence:     { label:"Agences immo", hook:"L'écosystème local qui fait remonter les vendeurs.", puces:["Prospection IA (Radar)","Vendeurs de votre zone","App + site + Google"] },
+    mairie:     { label:"Élus et mairies", hook:"L'écosystème qui relie votre commune à ses commerces.", puces:["Vos habitants connectés","Commerces dynamisés","Loki au cœur"] }
   };
   (function(){
     try{
       var box = document.getElementById('accroche');
       if(!box) return;
       var q = new URLSearchParams(window.location.search);
-      var force = (q.get('accroche')||'').toLowerCase();   // ?accroche=on / ?accroche=off
-      var actif = force==='off' ? false : (force==='on' ? true : ACCROCHE_ACTIVE);
-      if(!actif){ box.style.display='none'; return; }
-      var dep = (q.get('dep')||'').trim();                 // ?dep=76
-      box.textContent = (dep && ACCROCHE_DEP[dep]) ? ACCROCHE_DEP[dep] : ACCROCHE_DEFAUT;
+      var p = (q.get('profil')||"").trim().toLowerCase();
+      var a = ACCROCHE_V2[p];
+      if(!a){ box.style.display='none'; return; }
+      var puces = a.puces.map(function(t){
+        return "<span style='display:inline-block;font-size:11px;color:#33403a;background:#f2f4f0;padding:4px 9px;border-radius:8px;margin:0 6px 6px 0'>"+t+"</span>";
+      }).join("");
+      box.innerHTML =
+        "<span style='display:inline-block;font-size:12px;font-weight:500;color:#0f6e56;background:#e6f4ee;padding:3px 10px;border-radius:20px'>"+a.label+"</span>"+
+        "<div style='font-family:Syne,sans-serif;font-weight:800;font-size:18px;line-height:1.2;color:#1b1b1b;margin-top:10px'>"+a.hook+"</div>"+
+        "<div style='display:flex;flex-wrap:wrap;margin-top:12px'>"+puces+"</div>";
       box.style.display='block';
     }catch(e){}
   })();
