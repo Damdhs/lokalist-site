@@ -69,6 +69,7 @@
       <div id="form-view">
         <h1 style="text-wrap:balance;font-size:clamp(22px,5.2vw,30px);line-height:1.2">Prenons un moment ensemble,&nbsp;<span style="white-space:nowrap">sans engagement.</span></h1>
         <p class="lead">Proposez le créneau qui vous arrange - je vous confirme rapidement, par téléphone ou en visio.</p>
+        <div id="accroche" class="accroche" style="display:none;margin:12px 0 2px;padding:11px 14px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;color:#9a3412;font-weight:500;font-size:15px;line-height:1.35"><!-- ACCROCHE_V1 --></div>
 
         <label for="nom">Votre nom</label>
         <input id="nom" type="text" autocomplete="name" placeholder="Prénom Nom"/>
@@ -133,6 +134,30 @@
     d.addEventListener('change', function(){ if(d.value && new Date(d.value+'T12:00:00').getDay()===0){ showErr('Dimanche fermé - on vous attend du lundi au samedi, 9h-19h.'); d.value=''; } });
     var t = new Date(); var iso = t.getFullYear()+'-'+('0'+(t.getMonth()+1)).slice(-2)+'-'+('0'+t.getDate()).slice(-2);
     d.min = iso; d.value = iso;
+  })();
+
+  // === ACCROCHE_V1 : accroche pilotable (interrupteur + URL) ===============
+  // ACCROCHE_ACTIVE : passe a false pour la cacher partout d'un coup.
+  var ACCROCHE_ACTIVE = true;
+  // Texte par defaut, affiche si aucun departement n'est precise dans l'URL.
+  var ACCROCHE_DEFAUT = "15 minutes au telephone pour voir ce que Lokalist peut faire pour votre activite. Sans engagement.";
+  // Optionnel : un texte par departement, cible via /rendez-vous?dep=76
+  // Ajoute tes departements ici quand tu veux ; sinon c'est le texte par defaut.
+  var ACCROCHE_DEP = {
+    "76": "Commercant ou artisan en Seine-Maritime ? 15 min pour decouvrir Lokalist. Sans engagement.",
+  };
+  (function(){
+    try{
+      var box = document.getElementById('accroche');
+      if(!box) return;
+      var q = new URLSearchParams(window.location.search);
+      var force = (q.get('accroche')||'').toLowerCase();   // ?accroche=on / ?accroche=off
+      var actif = force==='off' ? false : (force==='on' ? true : ACCROCHE_ACTIVE);
+      if(!actif){ box.style.display='none'; return; }
+      var dep = (q.get('dep')||'').trim();                 // ?dep=76
+      box.textContent = (dep && ACCROCHE_DEP[dep]) ? ACCROCHE_DEP[dep] : ACCROCHE_DEFAUT;
+      box.style.display='block';
+    }catch(e){}
   })();
 
   // Pre-remplissage auto depuis l'URL : /rendez-vous?prenom=..&nom=..&email=..&tel=..&message=..
