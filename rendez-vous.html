@@ -67,9 +67,9 @@
     <div class="card">
 
       <div id="form-view">
-        <h1 style="text-wrap:balance;font-size:clamp(22px,5.2vw,30px);line-height:1.2">Prenons un moment ensemble,&nbsp;<span style="white-space:nowrap">sans engagement.</span></h1>
+        <h1 style="text-wrap:balance;font-size:clamp(22px,5.2vw,30px);line-height:1.2">Prenons un moment ensemble.</h1>
         <p class="lead">Proposez le créneau qui vous arrange - je vous confirme rapidement, par téléphone ou en visio.</p>
-        <div id="accroche" style="display:none;margin:14px 0 2px"><!-- ACCROCHE_V2 --></div>
+        <div id="accroche" style="display:none;margin:16px 0 2px"><!-- ACCROCHE_V3 --></div>
 
         <label for="nom">Votre nom</label>
         <input id="nom" type="text" autocomplete="name" placeholder="Prénom Nom"/>
@@ -136,10 +136,10 @@
     d.min = iso; d.value = iso;
   })();
 
-  // === ACCROCHE_V2 : accroche par profil (ecosysteme) ===================
+  // === ACCROCHE_V3 : accroche par profil (ecosysteme, restylee) =========
   // Pilote par /rendez-vous?profil=commercant|artisan|agence|mairie
   // Aucun profil => cachee. Modifie librement les textes ci-dessous.
-  var ACCROCHE_V2 = {
+  var ACCROCHE_V3 = {
     commercant: { label:"Commerçants", hook:"Entrez dans l'écosystème que vos clients utilisent déjà.", puces:["Loki vous recommande","Les habitants vous trouvent","App + site + Google"] },
     artisan:    { label:"Artisans", hook:"L'écosystème local où les chantiers viennent à vous.", puces:["Loki vous envoie les projets","Demandes de votre secteur","App + site + Google"] },
     agence:     { label:"Agences immo", hook:"L'écosystème local qui fait remonter les vendeurs.", puces:["Prospection IA (Radar)","Vendeurs de votre zone","App + site + Google"] },
@@ -151,15 +151,17 @@
       if(!box) return;
       var q = new URLSearchParams(window.location.search);
       var p = (q.get('profil')||"").trim().toLowerCase();
-      var a = ACCROCHE_V2[p];
+      var a = ACCROCHE_V3[p];
       if(!a){ box.style.display='none'; return; }
       var puces = a.puces.map(function(t){
-        return "<span style='display:inline-block;font-size:11px;color:#33403a;background:#f2f4f0;padding:4px 9px;border-radius:8px;margin:0 6px 6px 0'>"+t+"</span>";
+        return "<span style='display:inline-flex;align-items:center;font-size:11px;color:#2f4038;background:#fff;border:1px solid #d3e9df;padding:4px 10px;border-radius:8px;margin:0 6px 6px 0'><span style='color:#12946a;margin-right:5px;font-weight:700'>✓</span>"+t+"</span>";
       }).join("");
       box.innerHTML =
-        "<span style='display:inline-block;font-size:12px;font-weight:500;color:#0f6e56;background:#e6f4ee;padding:3px 10px;border-radius:20px'>"+a.label+"</span>"+
-        "<div style='font-family:Syne,sans-serif;font-weight:800;font-size:18px;line-height:1.2;color:#1b1b1b;margin-top:10px'>"+a.hook+"</div>"+
-        "<div style='display:flex;flex-wrap:wrap;margin-top:12px'>"+puces+"</div>";
+        "<div style='background:#eef7f2;border:1px solid #d3e9df;border-radius:12px;padding:14px 16px'>"+
+          "<span style='display:inline-block;font-size:11px;font-weight:500;color:#fff;background:#12946a;padding:3px 11px;border-radius:20px;letter-spacing:.3px'>"+a.label+"</span>"+
+          "<div style='font-family:Syne,sans-serif;font-weight:800;font-size:18px;line-height:1.22;color:#143a2c;margin-top:10px'>"+a.hook+"</div>"+
+          "<div style='display:flex;flex-wrap:wrap;margin-top:12px'>"+puces+"</div>"+
+        "</div>";
       box.style.display='block';
     }catch(e){}
   })();
