@@ -1,4 +1,4 @@
-﻿{
+{
   "rewrites": [
     { "source": "/aide-agence", "destination": "/aide-agence.html" },
     { "source": "/aide-artisan", "destination": "/aide-artisan.html" },
