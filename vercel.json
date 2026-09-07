@@ -1,4 +1,4 @@
-{
+﻿{
   "rewrites": [
     { "source": "/aide-agence", "destination": "/aide-agence.html" },
     { "source": "/aide-artisan", "destination": "/aide-artisan.html" },
@@ -22,6 +22,7 @@
       "source": "/rendez-vous",
       "destination": "/rendez-vous.html"
     },
+    { "source": "/mobile-canvas", "destination": "/mobile-canvas.html" },
     {
       "source": "/i/:code",
       "destination": "/i.html"
