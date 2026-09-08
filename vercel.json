@@ -152,6 +152,10 @@
       "destination": "/api/hebergement?slug=:slug"
     },
     {
+      "source": "/affichage/:slug",
+      "destination": "/api/affichage?slug=:slug"
+    },
+    {
       "source": "/pro/:id",
       "destination": "/api/pro?id=:id"
     },
