@@ -1,5 +1,5 @@
 //  ============================================================
-//  api/affichage.js  —  Mode affichage kiosque plein ecran
+//  api/affichage.js  â€”  Mode affichage kiosque plein ecran
 //  ------------------------------------------------------------
 //  URL publique : lokalist.fr/affichage/<commune>
 //  (rewrite vercel.json : /affichage/:slug -> /api/affichage?slug=:slug)
@@ -17,7 +17,7 @@
 //  ============================================================
 
 const SUPABASE_URL  = 'https://kukathominhssogthplc.supabase.co';
-const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzA4MjkyNjMsImV4cCI6MjA0NjQwNTI2M30.qNAaWJiUnP8QYFWkl3xMcQlZ0Ib7z1KJ5c6nR4qE0g';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 
 const SOURCES_DEFAUT = ['agenda', 'actualites', 'alertes'];
 const DUREE_DEFAUT   = 10;   // secondes par affiche
@@ -140,9 +140,9 @@ async function collecterSlides(mairie, sources) {
 // --- rendu HTML ---------------------------------------------
 
 const LABELS = {
-  alerte: { txt: 'Alerte', emoji: '&#9888;&#65039;' },  // ⚠️
-  agenda: { txt: 'Agenda', emoji: '&#128197;' },        // 📅
-  actu:   { txt: 'Actualite', emoji: '&#128240;' },     // 📰
+  alerte: { txt: 'Alerte', emoji: '&#9888;&#65039;' },  // âš ï¸
+  agenda: { txt: 'Agenda', emoji: '&#128197;' },        // ðŸ“…
+  actu:   { txt: 'Actualite', emoji: '&#128240;' },     // ðŸ“°
 };
 
 function renderSlide(s) {
