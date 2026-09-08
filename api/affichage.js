@@ -12,6 +12,10 @@
 //    - 'alertes'     -> alertes_mairie (statut=active)
 //  Rythme : mairies_partenaires.affichage_duree (secondes/affiche).
 //
+//  Visuels : logo de la commune (mairies_partenaires.logo_url) en bas,
+//  image des actus (actus_mairie.photo_url) et des evenements
+//  (evenements_mairie.image_url) a droite de l'affiche.
+//
 //  La page se recharge seule toutes les 5 min pour rafraichir les
 //  donnees sans toucher au boitier.
 //  ============================================================
@@ -53,7 +57,7 @@ async function sb(pathAndQuery) {
 async function resolveCommune(want) {
   if (!want) return null;
   const loose = '%' + want.split('-').filter(Boolean).join('%') + '%';
-  const cols  = 'id,nom,ville,affichage_sources,affichage_duree';
+  const cols  = 'id,nom,ville,logo_url,affichage_sources,affichage_duree';
   const rows  = await sb(
     `mairies_partenaires?statut=eq.actif&ville=ilike.${enc(loose)}&select=${cols}&limit=25`
   );
@@ -104,7 +108,7 @@ async function collecterSlides(mairie, sources) {
     const nowIso = new Date(Date.now() - 6 * 3600 * 1000).toISOString(); // marge : garde l'evenement du jour
     const rows = await sb(
       `evenements_mairie?ville=ilike.${enc(mairie.ville)}&date_debut=gte.${enc(nowIso)}` +
-      `&select=id,titre,description,lieu,type,statut,date_debut&order=date_debut.asc&limit=${MAX_PAR_SOURCE}`
+      `&select=id,titre,description,lieu,type,statut,date_debut,image_url&order=date_debut.asc&limit=${MAX_PAR_SOURCE}`
     );
     rows.forEach((e) => {
       const st = String(e.statut || '').toLowerCase();
@@ -114,7 +118,7 @@ async function collecterSlides(mairie, sources) {
         kind: 'agenda',
         titre: e.titre || 'Evenement',
         corps: e.description || '',
-        image: '',
+        image: e.image_url || '',
         meta: (formatDate(e.date_debut) + lieu).trim(),
       });
     });
@@ -140,20 +144,21 @@ async function collecterSlides(mairie, sources) {
 // --- rendu HTML ---------------------------------------------
 
 const LABELS = {
-  alerte: { txt: 'Alerte', emoji: '&#9888;&#65039;' },  // âš ï¸
-  agenda: { txt: 'Agenda', emoji: '&#128197;' },        // ðŸ“…
-  actu:   { txt: 'Actualite', emoji: '&#128240;' },     // ðŸ“°
+  alerte: { txt: 'Alerte', emoji: '&#9888;&#65039;' },  // warning
+  agenda: { txt: 'Agenda', emoji: '&#128197;' },        // calendar
+  actu:   { txt: 'Actualite', emoji: '&#128240;' },     // newspaper
 };
 
 function renderSlide(s) {
   const lab = LABELS[s.kind] || LABELS.actu;
   const corps = escapeHtml(s.corps || '');
-  const img = s.image
+  const hasImg = !!s.image;
+  const img = hasImg
     ? `<div class="slide-media"><img src="${escapeHtml(s.image)}" alt=""/></div>`
     : '';
   const meta = s.meta ? `<div class="slide-meta">${escapeHtml(s.meta)}</div>` : '';
   return `
-    <section class="slide slide--${s.kind}">
+    <section class="slide slide--${s.kind}${hasImg ? ' has-media' : ''}">
       <div class="slide-body">
         <div class="slide-tag"><span class="slide-emoji">${lab.emoji}</span>${lab.txt}</div>
         <h1 class="slide-titre">${escapeHtml(s.titre)}</h1>
@@ -176,6 +181,9 @@ function pageVide(nomCommune) {
 
 function renderPage(mairie, slides, dureeMs) {
   const nom = mairie.ville || mairie.nom || 'la commune';
+  const logo = mairie.logo_url
+    ? `<img class="bar-logo" src="${escapeHtml(mairie.logo_url)}" alt=""/>`
+    : '';
   const corpsSlides = slides.length
     ? slides.map(renderSlide).join('')
     : pageVide(escapeHtml(nom));
@@ -198,7 +206,7 @@ function renderPage(mairie, slides, dureeMs) {
     font-family:var(--disp);color:var(--fg);}
   .stage{position:fixed;inset:0;}
   .slide{position:absolute;inset:0;display:flex;flex-direction:column;
-    justify-content:center;gap:3vh;padding:7vh 8vw;opacity:0;
+    justify-content:center;gap:3vh;padding:7vh 8vw 14vh;opacity:0;
     transition:opacity .6s ease;background:
       radial-gradient(1200px 600px at 80% -10%, var(--bg2), var(--bg));}
   .slide.active{opacity:1;}
@@ -219,20 +227,23 @@ function renderPage(mairie, slides, dureeMs) {
   .slide-texte{font-size:3.4vh;line-height:1.4;color:#e8f1f8;max-width:34ch;
     display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;
     overflow:hidden;}
-  .slide-media{position:absolute;right:0;top:0;bottom:0;width:38vw;}
+  .slide.has-media .slide-body{max-width:58vw;}
+  .slide-media{position:absolute;right:0;top:0;bottom:14vh;width:38vw;}
   .slide-media img{width:100%;height:100%;object-fit:cover;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 22%);
     mask-image:linear-gradient(90deg,transparent,#000 22%);}
-  .bar{position:fixed;left:0;right:0;bottom:0;height:9vh;display:flex;
+  .bar{position:fixed;left:0;right:0;bottom:0;height:11vh;display:flex;
     align-items:center;justify-content:space-between;padding:0 5vw;
     background:rgba(0,0,0,.35);backdrop-filter:blur(6px);font-size:3vh;}
-  .bar-com{font-weight:800;}
+  .bar-com{display:flex;align-items:center;gap:.6em;font-weight:800;}
+  .bar-logo{height:7vh;width:auto;max-width:16vw;object-fit:contain;
+    background:#fff;border-radius:8px;padding:.7vh;}
   .bar-brand{display:flex;align-items:center;gap:.5em;color:var(--muted);
     font-weight:700;font-size:2.6vh;}
   .bar-dot{width:.7em;height:.7em;border-radius:50%;background:var(--accent);}
   .bar-clock{font-variant-numeric:tabular-nums;font-weight:800;}
   .prog{position:fixed;left:0;top:0;height:.6vh;background:var(--accent);
-    width:0;transition:width linear;}
+    width:0;transition:width linear;z-index:2;}
 </style>
 </head>
 <body>
@@ -241,7 +252,7 @@ function renderPage(mairie, slides, dureeMs) {
     ${corpsSlides}
   </div>
   <div class="bar">
-    <div class="bar-com">${escapeHtml(nom)}</div>
+    <div class="bar-com">${logo}${escapeHtml(nom)}</div>
     <div class="bar-clock" id="clock">--:--</div>
     <div class="bar-brand"><span class="bar-dot"></span>Lokalist</div>
   </div>
@@ -254,7 +265,6 @@ function renderPage(mairie, slides, dureeMs) {
 
   function show(n){
     slides.forEach(function(s,k){ s.classList.toggle('active', k===n); });
-    // barre de progression
     prog.style.transition='none'; prog.style.width='0';
     void prog.offsetWidth;
     prog.style.transition='width '+DUREE+'ms linear'; prog.style.width='100%';
@@ -263,7 +273,6 @@ function renderPage(mairie, slides, dureeMs) {
 
   if(slides.length){ show(0); if(slides.length>1){ setInterval(next, DUREE); } }
 
-  // horloge
   function tick(){
     var d=new Date();
     document.getElementById('clock').textContent =
@@ -271,7 +280,6 @@ function renderPage(mairie, slides, dureeMs) {
   }
   tick(); setInterval(tick, 15000);
 
-  // rafraichit les donnees toutes les 5 min (nouvelles publis)
   setTimeout(function(){ location.reload(); }, 5*60*1000);
 })();
 </script>
