@@ -195,6 +195,9 @@ function renderPage(mairie, slides, dureeMs) {
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="robots" content="noindex,nofollow"/>
 <title>Affichage - ${escapeHtml(nom)}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 <style>
   :root{
     --bg:#0f1e2e; --bg2:#16324a; --fg:#ffffff; --muted:#a9c2d6;
@@ -238,9 +241,12 @@ function renderPage(mairie, slides, dureeMs) {
   .bar-com{display:flex;align-items:center;gap:.6em;font-weight:800;}
   .bar-logo{height:7vh;width:auto;max-width:16vw;object-fit:contain;
     background:#fff;border-radius:8px;padding:.7vh;}
-  .bar-brand{display:flex;align-items:center;gap:.5em;color:var(--muted);
-    font-weight:700;font-size:2.6vh;}
-  .bar-dot{width:.7em;height:.7em;border-radius:50%;background:var(--accent);}
+  .bar-brand{display:flex;align-items:center;gap:.5em;
+    font-family:'Syne',var(--disp);font-weight:800;font-size:3.4vh;
+    letter-spacing:-.02em;}
+  .bar-brand img{height:5.2vh;width:auto;display:block;}
+  .bar-brand .lk-v{color:#1D9E75;}
+  .bar-brand .lk-j{color:#EF9F27;}
   .bar-clock{font-variant-numeric:tabular-nums;font-weight:800;}
   .prog{position:fixed;left:0;top:0;height:.6vh;background:var(--accent);
     width:0;transition:width linear;z-index:2;}
@@ -254,7 +260,7 @@ function renderPage(mairie, slides, dureeMs) {
   <div class="bar">
     <div class="bar-com">${logo}${escapeHtml(nom)}</div>
     <div class="bar-clock" id="clock">--:--</div>
-    <div class="bar-brand"><span class="bar-dot"></span>Lokalist</div>
+    <div class="bar-brand"><img src="/logo.png" alt=""/><span><span class="lk-v">Lokal</span><span class="lk-j">ist</span></span></div>
   </div>
 <script>
 (function(){
