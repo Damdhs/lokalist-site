@@ -62,23 +62,41 @@ async function resolveCommune(want) {
     `mairies_partenaires?statut=eq.actif&ville=ilike.${enc(loose)}&select=${cols}&limit=25`
   );
   if (!rows.length) return null;
+  // Correspondance STRICTE (comme ville.js) : un slug errone renvoie
+  // 404, jamais le contenu d'une autre commune (crucial pour les alertes).
   return rows.find((c) => slugify(c.ville) === want)
       || rows.find((c) => slugify(c.nom)   === want)
-      || rows[0]
       || null;
 }
 
-// Formatage date FR courte : "sam. 14 juin - 18h30"
+// Date FR courte, fuseau Europe/Paris (calque sur api/mairie.js).
+// Ex : "Sam. 14 juin - 18h30" (heure omise si minuit pile).
 function formatDate(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
-  if (isNaN(d.getTime())) return '';
-  const jours = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
-  const mois  = ['janv.', 'fevr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'aout', 'sept.', 'oct.', 'nov.', 'dec.'];
-  let out = `${jours[d.getDay()]} ${d.getDate()} ${mois[d.getMonth()]}`;
-  const h = d.getHours(), mn = d.getMinutes();
-  if (h || mn) out += ` - ${h}h${mn ? String(mn).padStart(2, '0') : ''}`;
-  return out;
+  try {
+    const dObj = new Date(iso);
+    if (isNaN(dObj.getTime())) return '';
+
+    const datePart = new Intl.DateTimeFormat('fr-FR', {
+      timeZone: 'Europe/Paris',
+      weekday: 'short', day: 'numeric', month: 'long',
+    }).format(dObj);
+
+    // Heure au fuseau Paris, sans dependre du fuseau du serveur
+    const hm = new Intl.DateTimeFormat('fr-FR', {
+      timeZone: 'Europe/Paris', hour: '2-digit', minute: '2-digit', hour12: false,
+    }).formatToParts(dObj);
+    const hh = (hm.find((p) => p.type === 'hour')   || {}).value || '00';
+    const mm = (hm.find((p) => p.type === 'minute') || {}).value || '00';
+
+    let out = datePart.replace(/\.$/, '');       // "sam." garde son point, on nettoie un eventuel point final
+    out = out.charAt(0).toUpperCase() + out.slice(1);
+    if (!(hh === '00' && mm === '00')) out += ` - ${hh}h${mm === '00' ? '' : mm}`;
+    return out;
+  } catch (e) {
+    const d = new Date(iso);
+    return isNaN(d) ? '' : d.toISOString().slice(0, 16).replace('T', ' ');
+  }
 }
 
 // Statuts d'evenement a NE PAS afficher (liste noire = tolerant aux
@@ -169,6 +187,30 @@ function renderSlide(s) {
     </section>`;
 }
 
+// Ordonne les affiches : une alerte en tete + reinjectee toutes les
+// ~3 affiches, pour qu'un message urgent ne soit jamais noye.
+function ordonner(slides) {
+  const alertes = slides.filter((s) => s.kind === 'alerte');
+  const autres  = slides.filter((s) => s.kind !== 'alerte');
+  if (!alertes.length || !autres.length) return slides;
+  const out = [alertes[0]];
+  let ai = 0;
+  for (let i = 0; i < autres.length; i++) {
+    out.push(autres[i]);
+    if ((i + 1) % 2 === 0) { ai = (ai + 1) % alertes.length; out.push(alertes[ai]); }
+  }
+  // garantir que chaque alerte distincte passe au moins une fois
+  alertes.forEach((a) => { if (out.indexOf(a) === -1) out.push(a); });
+  return out;
+}
+
+// Construit le HTML de la scene (les <section> a faire defiler).
+function buildStage(slides, nom) {
+  return slides.length
+    ? ordonner(slides).map(renderSlide).join('')
+    : pageVide(escapeHtml(nom));
+}
+
 function pageVide(nomCommune) {
   return renderSlide({
     kind: 'actu',
@@ -184,9 +226,7 @@ function renderPage(mairie, slides, dureeMs) {
   const logo = mairie.logo_url
     ? `<img class="bar-logo" src="${escapeHtml(mairie.logo_url)}" alt=""/>`
     : '';
-  const corpsSlides = slides.length
-    ? slides.map(renderSlide).join('')
-    : pageVide(escapeHtml(nom));
+  const corpsSlides = buildStage(slides, nom);
 
   return `<!doctype html>
 <html lang="fr">
@@ -224,7 +264,9 @@ function renderPage(mairie, slides, dureeMs) {
   .slide--agenda .slide-tag{background:var(--agenda);color:#fff;}
   .slide--actu   .slide-tag{background:var(--actu);color:#fff;}
   .slide-titre{font-size:7vh;line-height:1.05;font-weight:900;
-    max-width:22ch;text-wrap:balance;}
+    max-width:22ch;text-wrap:balance;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;}
   .slide--alerte .slide-titre{font-size:8vh;}
   .slide-meta{font-size:3.4vh;font-weight:700;color:var(--muted);}
   .slide-texte{font-size:3.4vh;line-height:1.4;color:#e8f1f8;max-width:34ch;
@@ -265,28 +307,60 @@ function renderPage(mairie, slides, dureeMs) {
 <script>
 (function(){
   var DUREE = ${dureeMs};
-  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
-  var prog = document.getElementById('prog');
-  var i = 0;
+  var REFRESH = 5*60*1000;              // rafraichit les donnees toutes les 5 min
+  var stage = document.getElementById('stage');
+  var prog  = document.getElementById('prog');
+  var slides = [];
+  var i = 0, timer = null;
+
+  function collect(){ slides = Array.prototype.slice.call(stage.querySelectorAll('.slide')); }
 
   function show(n){
     slides.forEach(function(s,k){ s.classList.toggle('active', k===n); });
-    prog.style.transition='none'; prog.style.width='0';
-    void prog.offsetWidth;
-    prog.style.transition='width '+DUREE+'ms linear'; prog.style.width='100%';
+    if(prog){
+      prog.style.transition='none'; prog.style.width='0';
+      void prog.offsetWidth;
+      prog.style.transition='width '+DUREE+'ms linear'; prog.style.width='100%';
+    }
   }
-  function next(){ i=(i+1)%slides.length; show(i); }
 
-  if(slides.length){ show(0); if(slides.length>1){ setInterval(next, DUREE); } }
+  function schedule(){
+    if(timer){ clearTimeout(timer); timer = null; }
+    if(slides.length > 1){
+      timer = setTimeout(function(){ i=(i+1)%slides.length; show(i); schedule(); }, DUREE);
+    }
+  }
 
+  function restart(){ collect(); i=0; if(slides.length){ show(0); } schedule(); }
+
+  // Rafraichissement en arriere-plan : on ne remplace l'ecran QUE si
+  // le nouveau contenu est arrive correctement. Un incident reseau /
+  // Supabase laisse le dernier contenu valide affiche (invisible pour
+  // le passant), et on retentera au cycle suivant.
+  function refresh(){
+    var sep = location.search ? (location.search + '&') : '?';
+    var url = location.pathname + sep + 'format=json';
+    fetch(url, { cache:'no-store' })
+      .then(function(r){ if(!r.ok) throw new Error('http'); return r.json(); })
+      .then(function(d){
+        if(!d || typeof d.html !== 'string' || !d.html) return;   // rien de bon : on garde
+        if(d.duree) DUREE = d.duree;
+        stage.innerHTML = d.html;
+        restart();
+      })
+      .catch(function(){ /* incident : on garde l'ecran actuel */ });
+  }
+
+  // horloge (heure locale du boitier = heure francaise sur place)
   function tick(){
     var d=new Date();
-    document.getElementById('clock').textContent =
-      String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    var c=document.getElementById('clock');
+    if(c) c.textContent = String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
   }
-  tick(); setInterval(tick, 15000);
 
-  setTimeout(function(){ location.reload(); }, 5*60*1000);
+  restart();
+  tick(); setInterval(tick, 15000);
+  setInterval(refresh, REFRESH);
 })();
 </script>
 </body>
@@ -296,12 +370,30 @@ function renderPage(mairie, slides, dureeMs) {
 // --- handler -------------------------------------------------
 
 module.exports = async (req, res) => {
+  const url  = new URL(req.url, `https://${req.headers.host || 'lokalist.fr'}`);
+  const isJson = ((req.query && req.query.format) || url.searchParams.get('format')) === 'json';
+
   try {
-    const url  = new URL(req.url, `https://${req.headers.host || 'lokalist.fr'}`);
     const raw  = (req.query && req.query.slug) || url.searchParams.get('slug') || '';
     const want = slugify(raw);
 
     const mairie = await resolveCommune(want);
+
+    // --- mode JSON : donnees seules, pour le refresh en arriere-plan ---
+    if (isJson) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      if (!mairie) { res.status(404).send(JSON.stringify({ ok: false })); return; }
+      let src = Array.isArray(mairie.affichage_sources) ? mairie.affichage_sources : SOURCES_DEFAUT;
+      src = src.map((s) => String(s).toLowerCase());
+      let dur = parseInt(mairie.affichage_duree, 10);
+      if (!dur || dur < 3) dur = DUREE_DEFAUT;
+      if (dur > 120) dur = 120;
+      const sl = await collecterSlides(mairie, src);
+      const nom = mairie.ville || mairie.nom || 'la commune';
+      res.status(200).send(JSON.stringify({ ok: true, html: buildStage(sl, nom), duree: dur * 1000 }));
+      return;
+    }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=60');
@@ -329,6 +421,11 @@ module.exports = async (req, res) => {
 
     res.status(200).send(renderPage(mairie, slides, duree * 1000));
   } catch (e) {
+    if (isJson) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.status(500).send(JSON.stringify({ ok: false }));
+      return;
+    }
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.status(500).send('<!doctype html><meta charset="utf-8"><body style="background:#0f1e2e"></body>');
   }
