@@ -682,7 +682,8 @@ document.addEventListener('click',(e)=>{
       message: _mp.join(' | ') || null,
       veut_rappel: true,
       consentement: true,
-      source: 'contact_site'
+      source: 'contact_site',
+      parrain: parrainNomValide || null
     };
     // Envoi vers l'API pre-inscription (remonte dans le dashboard + mail auto Brevo)
     try {
