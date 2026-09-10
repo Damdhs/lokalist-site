@@ -584,17 +584,17 @@ async function build(m,key,v2,exist){
   var track=stage.querySelector('#track'), sdots=stage.querySelectorAll('#sdots span');
   function goSlide(i){track.style.transform='translateX(-'+(i*33.333)+'%)';sdots.forEach(function(d,k){d.classList.toggle('on',k===i);});}
   sdots.forEach(function(d,k){d.addEventListener('click',function(){goSlide(k);});});
-  if(!reduce){ setTimeout(function(){goSlide(1);},1500); setTimeout(function(){goSlide(2);},3200); }
+  if(!reduce){ /*LOKI_FLUIDE_V1 R1 : avance pilotee plus bas*/ }
   await loki(pick(["Et le truc de fou : une seule inscription, et je te crée TROIS présences d'un coup — ta fiche dans l'app, ton site perso indexé, et ta place sur la page de ta ville. Trois adresses où Google et les habitants te trouvent.","Une inscription, et je te génère trois portes d'entrée : l'app que les gens utilisent, ton propre site web référencé, et la page de ta commune. Et plus il y a de pros sur ta ville, plus cette page pèse lourd sur Google — donc plus tu ressors.","D'un coup je te crée ta fiche dans l'app, ton site à toi, et ta présence sur le site de ta ville. Les trois bossent ensemble et se renforcent avec le temps : ta visibilité grossit toute seule.","Trois présences en une inscription : l'app, ton site perso, la page de ta ville. Et tes offres, je les republie avec les bons mots-clés en continu — tu montes sur Google sans rien faire.","Une seule inscription = trois adresses à ton nom. Et c'est un cercle : chaque nouveau pro sur ta ville renforce la page, qui renforce ta visibilité, qui t'amène plus de monde. Ça tourne pour toi, non-stop."]));
-  const vp=stage.querySelector('.vpts');
-  let vstep=0; const rvv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:70+vstep++*70);};
+  if(!reduce){goSlide(1);await wait(650);goSlide(2);await wait(650);}/*LOKI_FLUIDE_V1 R2*/ const vp=stage.querySelector('.vpts');
+  let vstep=0; const rvv=el=>{setTimeout(()=>el.classList.add('in'),reduce?0:120+vstep++*260/*LOKI_FLUIDE_V1 R3*/);};
   stage.querySelector('.vtitle').classList.add('in');
   m.val.forEach(v=>{const d=document.createElement('div');d.className='vpt rv'+(v[3]?' acc':'');d.innerHTML='<div class="vi">'+v[0]+'</div><div><div class="vt">'+v[1]+'</div><div class="vs">'+v[2]+'</div></div>';vp.appendChild(d);rvv(d);});
   if(EXTRA[key]){var exx=EXTRA[key];var ed=document.createElement('div');ed.className='vpt rv acc';ed.innerHTML='<div class="vi">'+exx[0]+'</div><div><div class="vt">'+exx[1]+'</div><div class="vs">'+exx[2]+'</div></div>';vp.appendChild(ed);rvv(ed);}
   if(GOOGLE[key]){var gp=document.createElement('div');gp.className='vpt rv acc';gp.innerHTML='<div class="vi">🔎</div><div><div class="vt">'+GOOGLE[key][0]+'</div><div class="vs">'+GOOGLE[key][1]+'</div></div>';vp.appendChild(gp);rvv(gp);}
   if(m.offre3){const o=document.createElement('div');o.className='pricepill rv';o.style.cssText='background:rgba(239,159,39,.14);border-color:rgba(239,159,39,.4);color:#F7C56E';o.textContent='🎁 3 mois offerts au lancement';vp.appendChild(o);rvv(o);}
   const pill=document.createElement('div');pill.className='pricepill rv';pill.textContent='💶 '+m.price;vp.appendChild(pill);rvv(pill);
-  await wait(reduce?0:500);
+  await wait(reduce?0:500); await loki(pick(["Et tout ça, Loki le monte en direct — mais derrière, y'a l'équipe Lokalist, des vrais gens, qui repassent chaque fiche à la main. Zéro truc bâclé.","Ça, c'est Loki qui l'assemble en 2 min. Et l'équipe Lokalist valide derrière — l'IA pour la vitesse, l'humain pour le soin.","Loki fait le gros du boulot, l'équipe Lokalist met la dernière main. Le meilleur des deux."]));/*LOKI_FLUIDE_V1 R4*/
   if(!m.mairie){await loki(PARRAIN[key]||PARRAIN.d);}
   await loki(pick(["Voilà — c'est pas une fiche, c'est TOUT ça qui tourne pour toi, 24h/24. Et t'as encore rien signé. T'es sur quelle ville ?","Et ça, ça bosse pour toi jour et nuit. Dis-moi juste ta ville et je boucle.","Franchement, regarde tout ce qui s'allume pour toi. Ta ville, c'est laquelle ?"]));
   setChips([{t:"Fécamp",go:v=>ville(m,v)},{t:"Yvetot",go:v=>ville(m,v)},{t:"Le Havre",go:v=>ville(m,v)}],true,"…ta ville");
