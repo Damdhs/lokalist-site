@@ -464,15 +464,17 @@ const metierMap = {};
       annoncesImmo.map((a) => annonceCard(a)).join(''), annoncesImmo.length);
     /* LOKALIST_VILLE_ANNONCES_V1:FETCH:END */
 
-    if (total === 0 && !mairie) return notFound(`${ville} — bientôt sur Lokalist`);
+    /* BARENTIN_FIX_V1 : charger les realisations AVANT le garde-fou */
+    const _realis = await sb(`realisations?select=id,titre,metier,ville,photo_url,artisan_id&ville=ilike.${vEnc}&statut=eq.valide&order=created_at.desc&limit=8`);
+    const _nbRealis = (_realis || []).length;
+    if (total === 0 && _nbRealis === 0 && !mairie) return notFound(`${ville} — bientot sur Lokalist`);
 
     const secCommercants = section('Commerçants', '🏪',
       commercants.map((c) => card(`/pro/${c.id}`, c.photo_url || c.logo_url, '🏪', c.nom, c.ville, +c.note_moyenne, c.nb_avis, '', slugCat(c.categorie), c.categorie || '', emojiCommerce(c.categorie))).join(''),
       commercants.length);
 
     /* REALIS_VILLE_V1 */
-    const _realis = await sb(`realisations?select=id,titre,metier,ville,photo_url,artisan_id&ville=ilike.${vEnc}&statut=eq.valide&order=created_at.desc&limit=8`);
-    const secRealisations = section('Réalisations récentes', '📸',
+        const secRealisations = section('Réalisations récentes', '📸',
       (_realis || []).map(function (r) {
         const _alt = `${r.titre || 'Realisation'}${r.metier ? ' — ' + r.metier : ''} à ${r.ville || ''}`;
         return `<a class="card" href="/artisan/${r.artisan_id}">`
