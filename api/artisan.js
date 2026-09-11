@@ -209,6 +209,25 @@ export default async function handler(req) {
 
     const couv = a.photo_couverture || null;
     const heroCouvStyle = couv ? ` style="background-image:linear-gradient(180deg,rgba(4,20,17,0.12),rgba(4,20,17,0.46)),url('${escapeHtml(couv)}');background-size:cover;background-position:center;"` : '';
+    // GALERIE_REALIS_V1 : realisations validees de l'artisan (SSR)
+    let realisationsHtml = '';
+    try {
+      const _rUrl = `${SUPABASE_URL}/rest/v1/realisations?artisan_id=eq.${id}&statut=eq.valide&select=id,titre,metier,ville,photo_url&order=created_at.desc&limit=24`;
+      const _rR = await fetch(_rUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const _reals = _rR.ok ? await _rR.json() : [];
+      if (Array.isArray(_reals) && _reals.length) {
+        const _cards = _reals.map(function (rz) {
+          const _alt = `${rz.titre || 'Realisation'}${rz.metier ? ' — ' + rz.metier : ''}${rz.ville ? ' a ' + rz.ville : ''}`;
+          return `<figure class="realis-card"><img src="${escapeHtml(rz.photo_url)}" alt="${escapeHtml(_alt)}" loading="lazy"/>${rz.titre ? `<figcaption>${escapeHtml(rz.titre)}</figcaption>` : ''}</figure>`;
+        }).join('');
+        realisationsHtml = `
+        <section class="section">
+          <h2>Réalisations</h2>
+          <div class="realis-grid">${_cards}</div>
+        </section>`;
+      }
+    } catch (_er) { console.error('[artisan realisations]', _er && _er.message); }
+
     // ─── Certifications (logos) ───
     let certifsHtml = '';
     try {
@@ -345,7 +364,7 @@ export default async function handler(req) {
   .apropos-meta{ display:flex;flex-direction:column;gap:6px;margin-top:12px; }
   .apropos-meta div{ display:flex;align-items:center;gap:8px;font-size:14px;color:#2A332E; }
 
-  .garanties{ display:flex;flex-direction:column;gap:11px; }
+  .realis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;}.realis-card{margin:0;border-radius:12px;overflow:hidden;background:#F3F4F6;border:1px solid #ECE9E4;}.realis-card img{width:100%;height:130px;object-fit:cover;display:block;}.realis-card figcaption{padding:7px 9px;font-size:12px;color:#374151;font-weight:600;} .garanties{ display:flex;flex-direction:column;gap:11px; }
   .gar-row{ display:flex;align-items:center;gap:10px;font-size:14px; }
   .gar-ic{ display:flex;width:24px;height:24px;border-radius:50%;background:var(--primary-l);color:var(--primary-d);align-items:center;justify-content:center;font-size:13px;font-weight:700;flex:0 0 auto; }
   .gar-lab{ font-weight:600; }
@@ -450,6 +469,7 @@ ${ref ? `<div class="ref-banner">🎁 Invité par un ami — bienvenue sur Lokal
 
   ${garantiesHtml}
   ${certifsHtml}
+            ${realisationsHtml}
   ${agendaHtml}
   ${contactHtml}
   ${localHtml}
