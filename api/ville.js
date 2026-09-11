@@ -470,6 +470,18 @@ const metierMap = {};
       commercants.map((c) => card(`/pro/${c.id}`, c.photo_url || c.logo_url, '🏪', c.nom, c.ville, +c.note_moyenne, c.nb_avis, '', slugCat(c.categorie), c.categorie || '', emojiCommerce(c.categorie))).join(''),
       commercants.length);
 
+    /* REALIS_VILLE_V1 */
+    const _realis = await sb(`realisations?select=id,titre,metier,ville,photo_url,artisan_id&ville=ilike.${vEnc}&statut=eq.valide&order=created_at.desc&limit=8`);
+    const secRealisations = section('Réalisations récentes', '📸',
+      (_realis || []).map(function (r) {
+        const _alt = `${r.titre || 'Realisation'}${r.metier ? ' — ' + r.metier : ''} à ${r.ville || ''}`;
+        return `<a class="card" href="/artisan/${r.artisan_id}">`
+          + `<img src="${escapeHtml(r.photo_url)}" alt="${escapeHtml(_alt)}" loading="lazy" style="width:100%;height:130px;object-fit:cover"/>`
+          + `<div style="padding:8px 10px"><div style="font-weight:700;font-size:14px">${escapeHtml(r.titre || '')}</div>`
+          + `<div style="font-size:12px;color:#8A8F8B">${escapeHtml(r.metier || '')}${r.ville ? ' · ' + escapeHtml(r.ville) : ''}</div></div></a>`;
+      }).join(''),
+      (_realis || []).length);
+
     const secArtisans = section('Artisans', '🔧',
       artisans.map((a) => { var _m = metierMap[a.categorie_id]; return card(`/artisan/${a.id}`, a.photo_url, '🔧',
         a.nom_entreprise || a.nom, a.ville, +a.note_moyenne, a.nb_avis,
@@ -961,6 +973,7 @@ ${eventsLd}
     <a class='evenement-cta-btn' href='${SITE_URL}/proposer-un-evenement'>Proposer un événement</a>
   </div>
   ${secArtisans}
+            ${secRealisations}
   ${secBonsPlans}
   ${secAgences}
   ${secCourtiers}
