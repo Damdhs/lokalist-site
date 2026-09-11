@@ -930,8 +930,9 @@ ${eventsLd}
     ${mairie && mairie.logo_url ? `<div class="hero-mairie"><img src="${escapeHtml(mairie.logo_url)}" alt="Mairie de ${escapeHtml(ville)}" loading="lazy"/><span>🏛️ Mairie partenaire</span></div>` : ''}
     <p class="lead">Tous les commerçants, artisans et services de proximité de ${escapeHtml(ville)} réunis au même endroit. Soutenez l'économie locale et profitez des bons plans près de chez vous.</p>
     ${pillsHtml ? `<div class="pills">${pillsHtml}</div>` : ''}
-    <a class="hero-cta" href="${PLAY_STORE_URL}" id="btn-download-hero">📱 Télécharger Lokalist</a>
-    <a class="hero-cta-2" href="${SITE_URL}/deposer-projet">🛠️ Déposer un projet</a>
+    <p class="lead" style="margin-top:10px"><!-- PROJET_SEO_V1 -->Un projet de travaux à ${escapeHtml(ville)} — carrelage, salle de bain, maçonnerie, peinture, plomberie, rénovation ? Décrivez votre chantier et recevez des devis d’artisans à l’assurance vérifiée près de chez vous.</p>
+          <a class="hero-cta" href="${PLAY_STORE_URL}" id="btn-download-hero">📱 Télécharger Lokalist</a>
+    <a class="hero-cta-2" href="${SITE_URL}/deposer-projet?ville=${encodeURIComponent(ville)}">🛠️ Déposer un projet</a>
     <a class="hero-cta-2" href="${SITE_URL}/proposer-un-evenement">🎉 Proposer un événement</a>
     <a class="hero-cta-3" href="${SITE_URL}/contact"><span>🚀 Rejoindre Lokalist</span><small>je suis un pro</small></a>
   </div>
