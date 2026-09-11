@@ -68,7 +68,7 @@ export default async function handler(req) {
     const ref = sanitizeRef(url.searchParams.get('ref'));
     if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return pageNotFound("Identifiant invalide");
 
-    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,photo_couverture,note_moyenne,nb_avis,rayon_intervention,sous_type,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
+    const cols = 'id,nom,prenom,nom_entreprise,ville,code_postal,description,photo_url,photo_couverture,note_moyenne,nb_avis,rayon_intervention,sous_type,actif,demo,suspendu_plainte,telephone,email,afficher_email,afficher_telephone,site_web,adresse,adresse_masquee,latitude,longitude,siret,assurance,assurance_valide,assurance_expire,certifie_rge,rge_expire,decennale_valide,badge_verifie,badge_top,urgence,disponible,type_clientele,instagram,facebook,tiktok,afficher_gerant,categories_artisans(nom,emoji)';
     const r = await fetch(`${SUPABASE_URL}/rest/v1/artisans?id=eq.${id}&select=${cols}`, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
     if (!r.ok) return pageNotFound('Erreur lors du chargement');
     const list = await r.json();
@@ -162,7 +162,7 @@ export default async function handler(req) {
     const garRows = [];
     if (rge)                garRows.push(`<div class="gar-row"><span class="gar-ic">✓</span><span><span class="gar-lab">Certifié RGE</span>${a.rge_expire ? `<span class="gar-sub"> · valable jusqu'au ${fmtDate(a.rge_expire)}</span>` : ''}</span></div>`);
     if (a.decennale_valide) garRows.push(`<div class="gar-row"><span class="gar-ic">✓</span><span class="gar-lab">Garantie décennale</span></div>`);
-    if (a.assurance_valide || a.assurance) garRows.push(`<div class="gar-row"><span class="gar-ic">✓</span><span><span class="gar-lab">Assurance responsabilité civile</span>${a.assurance ? `<span class="gar-sub"> · ${escapeHtml(a.assurance)}</span>` : ''}</span></div>`);
+    if (a.assurance_valide === true && (!a.assurance_expire || new Date(a.assurance_expire) > new Date())) garRows.push(`<div class="gar-row"><span class="gar-ic">✓</span><span><span class="gar-lab">Assurance responsabilité civile</span>${a.assurance ? `<span class="gar-sub"> · ${escapeHtml(a.assurance)}</span>` : ''}</span></div>`);
     if (a.siret)            garRows.push(`<div class="gar-row"><span class="gar-ic">✓</span><span><span class="gar-lab">Entreprise immatriculée</span><span class="gar-sub"> · SIRET ${escapeHtml(a.siret)}</span></span></div>`);
     const garantiesHtml = garRows.length ? `
       <section class="section">
