@@ -208,7 +208,7 @@ export default async function handler(req) {
       </section>`;
 
     const couv = a.photo_couverture || null;
-    const heroCouvStyle = couv ? ` style="background-image:linear-gradient(180deg,rgba(4,20,17,0.30),rgba(4,20,17,0.62)),url('${escapeHtml(couv)}');background-size:cover;background-position:center;"` : '';
+    const heroCouvStyle = couv ? ` style="background-image:linear-gradient(180deg,rgba(4,20,17,0.12),rgba(4,20,17,0.46)),url('${escapeHtml(couv)}');background-size:cover;background-position:center;"` : '';
     // ─── Certifications (logos) ───
     let certifsHtml = '';
     try {
@@ -320,7 +320,7 @@ export default async function handler(req) {
   .verif img{ height:16px;width:auto;display:block; }
   .ref-banner{ background:var(--accent);color:#3A2600;text-align:center;padding:10px 16px;font-size:13px;font-weight:600; }
 
-  .hero{ position:relative;min-height:300px;display:flex;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-d) 100%); }
+  .hero{ position:relative;min-height:380px;display:flex;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-d) 100%); }
   .hero-ov{ position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,0.28) 100%); }
   .hero-in{ position:relative;z-index:2;max-width:1120px;margin:0 auto;width:100%;padding:20px;display:flex;flex-direction:column;justify-content:space-between; }
   .hero-top{ display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap; }
