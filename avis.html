@@ -40,6 +40,13 @@
     .fb{ margin-top:12px; padding:11px 12px; border-radius:10px; font-size:14px; }
     .fb.ok{ background:#E7F6EF; color:#0F6E56; }
     .fb.ko{ background:#FCEBEA; color:#B23B33; }
+    .photo-row{ margin-top:8px; }
+    .photo-btn{ display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px dashed var(--vert); color:var(--vert-d); border-radius:10px; padding:11px 14px; font-size:14px; font-weight:700; cursor:pointer; }
+    .photo-btn:disabled{ opacity:.6; cursor:default; }
+    .photo-prev{ position:relative; margin-top:10px; display:inline-block; }
+    .photo-prev img{ max-width:100%; max-height:220px; border-radius:12px; border:1px solid var(--border); display:block; }
+    .photo-del{ position:absolute; top:8px; right:8px; background:rgba(0,0,0,.6); color:#fff; border:none; width:30px; height:30px; border-radius:50%; font-size:16px; cursor:pointer; line-height:1; }
+    .photo-load{ font-size:13px; color:var(--muted); margin-top:8px; }
   </style>
 </head>
 <body>
@@ -67,6 +74,73 @@
     function esc(s){ return String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
     let note = 0;
+    let photoUrl = null;      // URL publique renvoyee par l'API apres upload
+    let photoEnCours = false;
+
+    // Redimensionne + compresse cote navigateur (max 1600px, JPEG ~0.82)
+    function compresser(file){
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader();
+        reader.onload = () => { img.src = reader.result; };
+        reader.onerror = () => reject(new Error('read'));
+        img.onload = () => {
+          const MAX = 1600;
+          let { width:w, height:h } = img;
+          if (w > MAX || h > MAX) { if (w >= h) { h = Math.round(h * MAX / w); w = MAX; } else { w = Math.round(w * MAX / h); h = MAX; } }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(canvas.toDataURL('image/jpeg', 0.82));
+        };
+        img.onerror = () => reject(new Error('img'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function brancherPhoto(){
+      const btn = document.getElementById('photo-btn');
+      const input = document.getElementById('photo-input');
+      const zone = document.getElementById('photo-zone');
+      if (!btn || !input) return;
+      btn.addEventListener('click', () => input.click());
+      input.addEventListener('change', async () => {
+        const file = input.files && input.files[0];
+        input.value = '';
+        if (!file) return;
+        photoEnCours = true;
+        btn.disabled = true;
+        zone.innerHTML = '<div class="photo-load">Envoi de la photo…</div>';
+        try {
+          const dataUrl = await compresser(file);
+          const r = await fetch(API_URL + '/avis/photo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, image_base64: dataUrl, content_type: 'image/jpeg' })
+          });
+          const data = await r.json().catch(() => ({}));
+          if (r.ok && data.ok && data.url) {
+            photoUrl = data.url;
+            zone.innerHTML = '<div class="photo-prev"><img src="'+esc(photoUrl)+'" alt=""/><button type="button" class="photo-del" id="photo-del">×</button></div>';
+            btn.style.display = 'none';
+            document.getElementById('photo-del').addEventListener('click', () => {
+              photoUrl = null;
+              zone.innerHTML = '';
+              btn.style.display = '';
+              btn.disabled = false;
+            });
+          } else {
+            zone.innerHTML = '<div class="photo-load">Photo non envoyée, réessayez.</div>';
+            btn.disabled = false;
+          }
+        } catch (e) {
+          zone.innerHTML = '<div class="photo-load">Photo non envoyée, réessayez.</div>';
+          btn.disabled = false;
+        } finally {
+          photoEnCours = false;
+        }
+      });
+    }
 
     async function chargerPro(cibleType, cibleId){
       const table = TABLE[cibleType];
@@ -124,6 +198,12 @@
         + '<div class="q">Votre commentaire</div>'
         + '<textarea id="commentaire" maxlength="2000" placeholder="Décrivez votre expérience…"></textarea>'
         + '<div class="hint">Maximum 2000 caractères.</div>'
+        + '<div class="q">Photo (facultatif)</div>'
+        + '<div class="photo-row">'
+        +   '<button type="button" class="photo-btn" id="photo-btn">📷 Ajouter une photo</button>'
+        +   '<input type="file" id="photo-input" accept="image/*" style="display:none"/>'
+        +   '<div id="photo-zone"></div>'
+        + '</div>'
         + '<div id="fb"></div>'
         + '</div>'
         + '<div class="sticky"><div class="sticky-inner"><button class="btn" id="btn-envoyer">Publier mon avis</button></div></div>';
@@ -138,6 +218,7 @@
         });
       });
 
+      brancherPhoto();
       document.getElementById('btn-envoyer').addEventListener('click', () => envoyer(inv));
     }
 
@@ -148,6 +229,7 @@
 
     async function envoyer(inv){
       if (note < 1) return feedback('ko', 'Merci de choisir une note.');
+      if (photoEnCours) return feedback('ko', 'Patientez, la photo est en cours d\'envoi.');
       const btn = document.getElementById('btn-envoyer');
       const titre = (document.getElementById('titre').value || '').trim();
       const commentaire = (document.getElementById('commentaire').value || '').trim();
@@ -156,7 +238,7 @@
         const r = await fetch(API_URL + '/avis/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token, note, titre: titre || null, commentaire: commentaire || null })
+          body: JSON.stringify({ token, note, titre: titre || null, commentaire: commentaire || null, photos: photoUrl ? [photoUrl] : [] })
         });
         const data = await r.json().catch(() => ({}));
         if (r.ok && data.ok) {
