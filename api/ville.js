@@ -467,6 +467,24 @@ const metierMap = {};
     /* BARENTIN_FIX_V1 : charger les realisations AVANT le garde-fou */
     const _realis = await sb(`realisations?select=id,titre,metier,ville,photo_url,artisan_id&ville=ilike.${vEnc}&statut=eq.valide&order=created_at.desc&limit=8`);
     const _nbRealis = (_realis || []).length;
+      // LKL_VILLE_REALIS_AVIS_V1 : realisations avec avis verifie mises en avant
+      let _realisAvisMap = {};
+      try {
+        const _rids = (_realis || []).map(function (rr) { return rr.id; }).filter(Boolean);
+        if (_rids.length) {
+          const _ag = await sb("avis_interaction_agrege?cible_type=eq.artisan&interaction_type=eq.realisation&interaction_id=in.(" + _rids.join(",") + ")");
+          (_ag || []).forEach(function (g) { _realisAvisMap[g.interaction_id] = g; });
+        }
+      } catch (e) { console.error("[ville realis avis]", e); }
+      const _realisTri = (_realis || []).slice().sort(function (a, b) {
+        const na = _realisAvisMap[a.id] ? (_realisAvisMap[a.id].nb_avis || 0) : 0;
+        const nb2 = _realisAvisMap[b.id] ? (_realisAvisMap[b.id].nb_avis || 0) : 0;
+        return nb2 - na;
+      });
+      const _badgeRealisVille = function (r) {
+        const g = _realisAvisMap[r.id]; if (!g) return "";
+        return "<div style='margin-top:4px;display:inline-flex;align-items:center;gap:5px;background:#1D9E75;color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:7px'>Avis client " + (g.note_moyenne ? ("(" + Number(g.note_moyenne).toFixed(1) + "/5, " + g.nb_avis + ")") : ("(" + g.nb_avis + ")")) + "</div>";
+      };
     /* LKL_VILLE_VENDUS_V1 : biens vendus/loues par ville (vue publique, SEO local) */
     let _vendus = [];
     try {
@@ -496,11 +514,11 @@ const metierMap = {};
 
     /* REALIS_VILLE_V1 */
         const secRealisations = section('Réalisations récentes', '📸',
-      (_realis || []).map(function (r) {
+      (_realisTri || []).map(function (r) {
         const _alt = `${r.titre || 'Realisation'}${r.metier ? ' — ' + r.metier : ''} à ${r.ville || ''}`;
         return `<a class="card" href="/artisan/${r.artisan_id}">`
           + `<img src="${escapeHtml(r.photo_url)}" alt="${escapeHtml(_alt)}" loading="lazy" style="width:100%;height:130px;object-fit:cover"/>`
-          + `<div style="padding:8px 10px"><div style="font-weight:700;font-size:14px">${escapeHtml(r.titre || '')}</div>`
+          + `<div style="padding:8px 10px"><div style="font-weight:700;font-size:14px">${escapeHtml(r.titre || '')}${_badgeRealisVille(r)}</div>`
           + `<div style="font-size:12px;color:#8A8F8B">${escapeHtml(r.metier || '')}${r.ville ? ' · ' + escapeHtml(r.ville) : ''}</div></div></a>`;
       }).join(''),
       (_realis || []).length);
