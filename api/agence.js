@@ -145,6 +145,26 @@ export default async function handler(req) {
       const vdUrl = `${SUPABASE_URL}/rest/v1/rpc/annonces_vendues?p_agence=${id}&limit=48`;
       const vdR = await fetch(vdUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
       const vendues = vdR.ok ? (await vdR.json()) : [];
+      // LKL_AGENCE_VENDUS_AVIS_V1 : avis rattaches par vente
+      let _aggV = [], _avisVList = [];
+      try {
+        const _vids = (vendues || []).map(function (x) { return x.id; }).filter(Boolean);
+        if (_vids.length) {
+          const _hV = { headers: { apikey: SUPABASE_ANON, Authorization: "Bearer " + SUPABASE_ANON } };
+          const _rV = await Promise.all([
+            fetch(SUPABASE_URL + "/rest/v1/avis_interaction_agrege?cible_type=eq.agence&interaction_type=eq.vente&interaction_id=in.(" + _vids.join(",") + ")", _hV),
+            fetch(SUPABASE_URL + "/rest/v1/avis_public?cible_type=eq.agence&interaction_type=eq.vente&interaction_id=in.(" + _vids.join(",") + ")&order=date_publication.desc&limit=60", _hV)
+          ]);
+          _aggV = _rV[0].ok ? await _rV[0].json() : [];
+          _avisVList = _rV[1].ok ? await _rV[1].json() : [];
+        }
+      } catch (_ev) { console.error("[agence vendues avis]", _ev && _ev.message); }
+      const _aggMapV = {}; (_aggV || []).forEach(function (g) { _aggMapV[g.interaction_id] = g; });
+      const _avisMapV = {}; (_avisVList || []).forEach(function (v) { (_avisMapV[v.interaction_id] = _avisMapV[v.interaction_id] || []).push(v); });
+      const _etoilesV = function (n) { const r = Math.round(Number(n) || 0); return "★".repeat(r) + "☆".repeat(5 - r); };
+      const _dateAvisV = function (iso) { try { return new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }); } catch (_) { return ""; } };
+      const _avisBadgeV = function (an) { const g = _aggMapV[an.id]; if (!g) return ""; return "<span class='anc-avis-badge'>Avis client " + (g.note_moyenne ? ("(" + Number(g.note_moyenne).toFixed(1) + "/5, " + g.nb_avis + ")") : ("(" + g.nb_avis + ")")) + "</span>"; };
+      const _avisV = function (an) { const list = _avisMapV[an.id]; if (!list || !list.length) return ""; const items = list.map(function (av) { const ph = (Array.isArray(av.photos) && av.photos.length) ? ("<img class='anc-avis-photo' src='" + escapeHtml(String(av.photos[0])) + "' alt='' loading='lazy'/>") : ""; const cm = av.commentaire ? ("<div class='anc-avis-t'>" + escapeHtml(av.commentaire) + "</div>") : ""; return "<div class='anc-avis'><div class='anc-avis-h'>" + escapeHtml(av.auteur_nom || "Client") + " <span class='anc-avis-s'>" + _etoilesV(av.note) + "</span></div>" + cm + ph + "<div class='anc-avis-d'>" + _dateAvisV(av.date_publication) + "</div></div>"; }).join(""); return "<div class='anc-avis-wrap'>" + items + "</div>"; };
       const LBL_BIEN_V = { appartement: "Appartement", maison: "Maison", terrain: "Terrain", local_commercial: "Local commercial", garage: "Garage", autre: "Bien" };
       const GENRE_F = { maison: true };
       const participeV = (an) => (an.statut === "loue" ? "loué" : "vendu") + (GENRE_F[an.type_bien] ? "e" : "");
@@ -158,12 +178,12 @@ export default async function handler(req) {
         const lbl = LBL_BIEN_V[an.type_bien] || "Bien";
         const titre = `${lbl} ${participeV(an)} à ${escapeHtml(an.ville || "")}`;
         const quand = an.vendu_at ? fmtMoisV(an.vendu_at) : "";
-        return `<div class="anc anc-vendu">${media}<div class="anc-body"><div class="anc-titre">${titre}</div><div class="anc-meta">${escapeHtml(lbl)}${meta ? " · " + meta : ""}</div>${quand ? `<div class="anc-lieu">${badgeV(an)} en ${escapeHtml(quand)}</div>` : ""}</div></div>`;
+        return `<div class="anc anc-vendu">${media}<div class="anc-body"><div class="anc-titre">${titre}${_avisBadgeV(an)}</div><div class="anc-meta">${escapeHtml(lbl)}${meta ? " · " + meta : ""}</div>${quand ? `<div class="anc-lieu">${badgeV(an)} en ${escapeHtml(quand)}</div>` : ""}</div></div>`;
       };
       const sectionV = (titre, liste) => {
         if (!liste.length) return "";
         const visibles = liste.slice(0, 12);
-        return `<section class="section"><h2>${escapeHtml(titre)} (${liste.length})</h2><div class="anc-grid">${visibles.map(carteV).join("")}</div></section>`;
+        return `<section class="section"><h2>${escapeHtml(titre)} (${liste.length})</h2><div class="anc-grid">${visibles.map(function (an) { return carteV(an) + _avisV(an); }).join("")}</div></section>`;
       };
       const vendus = vendues.filter((x) => x.statut === "vendu");
       const loues  = vendues.filter((x) => x.statut === "loue");
@@ -334,6 +354,15 @@ export default async function handler(req) {
   .soc-row{ display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
   /* LKL_AGENCE_ANNONCES_V1 */
     /* LKL_AGENCE_VENDUS_V1 */
+    /* LKL_AGENCE_VENDUS_AVIS_V1 */
+    .anc-avis-badge{ display:inline-block;margin-left:6px;background:#1D9E75;color:#fff;font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;vertical-align:middle; }
+    .anc-avis-wrap{ margin:6px 0 2px;display:flex;flex-direction:column;gap:6px; }
+    .anc-avis{ background:#F7F9F8;border:1px solid #E6EAE8;border-radius:8px;padding:7px 9px; }
+    .anc-avis-h{ font-size:12px;font-weight:600;display:flex;justify-content:space-between;gap:6px; }
+    .anc-avis-s{ color:#E8A13A; }
+    .anc-avis-t{ font-size:12px;color:#374039;line-height:1.5;margin-top:2px; }
+    .anc-avis-photo{ width:100%;max-width:180px;border-radius:6px;margin-top:5px; }
+    .anc-avis-d{ font-size:11px;color:#8A8F8B;margin-top:3px; }
     .anc-vendu .anc-img{ position:relative;filter:grayscale(.12); }
     .anc-badge{ position:absolute;top:10px;left:10px;background:#111;color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;letter-spacing:.5px;text-transform:uppercase;z-index:2; }
   .anc-grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:6px; }
