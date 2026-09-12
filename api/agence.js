@@ -139,6 +139,37 @@ export default async function handler(req) {
       annoncesHtml = section('\u00C0 vendre', ventes) + section('\u00C0 louer', locs);
     } catch (e) { console.error('[agence annonces]', e); }
 
+    /* LKL_AGENCE_VENDUS_V1 : biens vendus/loues (vue publique sans prix ni adresse, SEO local) */
+    let venduesHtml = "";
+    try {
+      const vdUrl = `${SUPABASE_URL}/rest/v1/annonces_vendues_public?agence_id=eq.${id}&order=vendu_at.desc&limit=48&select=id,statut,type_bien,ville,surface,nb_pieces,nb_chambres,photo,vendu_at`;
+      const vdR = await fetch(vdUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
+      const vendues = vdR.ok ? (await vdR.json()) : [];
+      const LBL_BIEN_V = { appartement: "Appartement", maison: "Maison", terrain: "Terrain", local_commercial: "Local commercial", garage: "Garage", autre: "Bien" };
+      const GENRE_F = { maison: true };
+      const participeV = (an) => (an.statut === "loue" ? "loué" : "vendu") + (GENRE_F[an.type_bien] ? "e" : "");
+      const badgeV = (an) => (an.statut === "loue" ? "Loué" : "Vendu");
+      const fmtMoisV = (d) => { try { return new Date(d).toLocaleDateString("fr-FR", { month: "long", year: "numeric" }); } catch (_) { return ""; } };
+      const carteV = (an) => {
+        const media = an.photo
+          ? `<div class="anc-img" style="background-image:url(${escapeHtml(String(an.photo))})"><span class="anc-badge">${badgeV(an)}</span></div>`
+          : `<div class="anc-img anc-img-fb">🏠<span class="anc-badge">${badgeV(an)}</span></div>`;
+        const meta = [ an.surface ? `${an.surface} m²` : "", an.nb_pieces ? `${an.nb_pieces} p.` : "", an.nb_chambres ? `${an.nb_chambres} ch.` : "" ].filter(Boolean).join(" · ");
+        const lbl = LBL_BIEN_V[an.type_bien] || "Bien";
+        const titre = `${lbl} ${participeV(an)} à ${escapeHtml(an.ville || "")}`;
+        const quand = an.vendu_at ? fmtMoisV(an.vendu_at) : "";
+        return `<div class="anc anc-vendu">${media}<div class="anc-body"><div class="anc-titre">${titre}</div><div class="anc-meta">${escapeHtml(lbl)}${meta ? " · " + meta : ""}</div>${quand ? `<div class="anc-lieu">${badgeV(an)} en ${escapeHtml(quand)}</div>` : ""}</div></div>`;
+      };
+      const sectionV = (titre, liste) => {
+        if (!liste.length) return "";
+        const visibles = liste.slice(0, 12);
+        return `<section class="section"><h2>${escapeHtml(titre)} (${liste.length})</h2><div class="anc-grid">${visibles.map(carteV).join("")}</div></section>`;
+      };
+      const vendus = vendues.filter((x) => x.statut === "vendu");
+      const loues  = vendues.filter((x) => x.statut === "loue");
+      venduesHtml = sectionV("Biens vendus", vendus) + sectionV("Biens loués", loues);
+    } catch (e) { console.error("[agence vendues]", e); }
+
     // ─── Données ───
     const nom         = a.nom || 'Agence immobilière';
     const adresse     = a.adresse || '';
@@ -302,6 +333,9 @@ export default async function handler(req) {
   .ct-val{ font-size:14px;font-weight:600; }
   .soc-row{ display:flex;flex-wrap:wrap;gap:8px;margin-top:12px; }
   /* LKL_AGENCE_ANNONCES_V1 */
+    /* LKL_AGENCE_VENDUS_V1 */
+    .anc-vendu .anc-img{ position:relative;filter:grayscale(.12); }
+    .anc-badge{ position:absolute;top:10px;left:10px;background:#111;color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:8px;letter-spacing:.5px;text-transform:uppercase;z-index:2; }
   .anc-grid{ display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:6px; }
   .anc{ display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--text);background:#fff;transition:transform .15s ease,box-shadow .15s ease; }
   .anc:hover{ transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.10); }
@@ -395,6 +429,7 @@ export default async function handler(req) {
   ${contactHtml}
   ${localHtml}
         ${annoncesHtml}
+            ${venduesHtml}
 
   <section class="section">
     <h2>Avis${avisNb > 0 ? ` (${avisNb})` : ''}</h2>
