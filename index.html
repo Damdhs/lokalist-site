@@ -1574,5 +1574,63 @@ async function chargerStats() {
 </script>
 
   <script src="loki.js" defer></script>
+<!-- lokalist-popup-accueil-v1 -->
+<style>
+#lkl-pop-ov{position:fixed;inset:0;background:rgba(15,23,42,.55);display:flex;align-items:center;justify-content:center;z-index:99999;padding:20px;opacity:0;transition:opacity .25s ease;}
+#lkl-pop-ov.on{opacity:1;}
+#lkl-pop-card{background:#fff;max-width:440px;width:100%;border-radius:20px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.35);transform:translateY(14px) scale(.98);transition:transform .25s ease;position:relative;font-family:inherit;}
+#lkl-pop-ov.on #lkl-pop-card{transform:none;}
+#lkl-pop-bar{height:8px;background:linear-gradient(90deg,#1D9E75,#0F6E56);}
+#lkl-pop-x{position:absolute;top:12px;right:14px;border:none;background:rgba(0,0,0,.05);color:#6B7280;width:32px;height:32px;border-radius:50%;font-size:18px;line-height:1;cursor:pointer;}
+#lkl-pop-x:hover{background:rgba(0,0,0,.1);}
+#lkl-pop-body{padding:30px 26px 26px;text-align:center;}
+#lkl-pop-title{font-size:23px;font-weight:800;color:#0F6E56;line-height:1.25;}
+#lkl-pop-msg{font-size:15px;color:#4B5563;line-height:1.6;margin:14px 0 22px;white-space:pre-line;}
+#lkl-pop-cta{display:inline-block;background:#1D9E75;color:#fff;padding:13px 30px;border-radius:11px;font-weight:800;font-size:16px;text-decoration:none;box-shadow:0 6px 16px rgba(29,158,117,.35);}
+#lkl-pop-cta:hover{background:#0F6E56;}
+#lkl-pop-note{font-size:12px;color:#9CA3AF;margin-top:14px;}
+@media(max-width:480px){#lkl-pop-title{font-size:20px;}#lkl-pop-body{padding:26px 20px 22px;}}
+</style>
+<script>
+(function(){
+  var URL="https://kukathominhssogthplc.supabase.co";
+  var ANON="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg";
+  var KEY="lokalist_popup_seen";
+  function safeUrl(u){ u=String(u||""); return /^https?:\/\//i.test(u)?u:("https://"+u); }
+  function esc(s){ return String(s==null?"":s); }
+  function show(p, stamp){
+    if(document.getElementById("lkl-pop-ov")) return;
+    var ov=document.createElement("div"); ov.id="lkl-pop-ov";
+    var card=document.createElement("div"); card.id="lkl-pop-card";
+    var bar=document.createElement("div"); bar.id="lkl-pop-bar"; card.appendChild(bar);
+    var x=document.createElement("button"); x.id="lkl-pop-x"; x.setAttribute("aria-label","Fermer"); x.innerHTML="&times;"; card.appendChild(x);
+    var body=document.createElement("div"); body.id="lkl-pop-body";
+    var h=document.createElement("div"); h.id="lkl-pop-title"; h.textContent=esc(p.titre); body.appendChild(h);
+    var m=document.createElement("div"); m.id="lkl-pop-msg"; m.textContent=esc(p.message); body.appendChild(m);
+    var a=document.createElement("a"); a.id="lkl-pop-cta"; a.href=safeUrl(p.cta_url); a.textContent=esc(p.cta_label)||"En savoir plus"; body.appendChild(a);
+    var n=document.createElement("div"); n.id="lkl-pop-note"; n.textContent="Sans engagement"; body.appendChild(n);
+    card.appendChild(body); ov.appendChild(card); document.body.appendChild(ov);
+    requestAnimationFrame(function(){ ov.classList.add("on"); });
+    function close(){ try{ localStorage.setItem(KEY, stamp); }catch(e){} ov.classList.remove("on"); setTimeout(function(){ if(ov.parentNode) ov.parentNode.removeChild(ov); }, 260); document.removeEventListener("keydown", onKey); }
+    function onKey(e){ if(e.key==="Escape") close(); }
+    x.addEventListener("click", close);
+    a.addEventListener("click", function(){ try{ localStorage.setItem(KEY, stamp); }catch(e){} });
+    ov.addEventListener("click", function(e){ if(e.target===ov) close(); });
+    document.addEventListener("keydown", onKey);
+  }
+  try{
+    fetch(URL+"/rest/v1/site_popup?id=eq.1&select=actif,titre,message,cta_label,cta_url,delai_secondes,updated_at",{headers:{apikey:ANON,Authorization:"Bearer "+ANON}})
+    .then(function(r){ return r.json(); })
+    .then(function(rows){
+      var p=rows&&rows[0]; if(!p||!p.actif) return;
+      var stamp=String(p.updated_at||"");
+      try{ if(localStorage.getItem(KEY)===stamp) return; }catch(e){}
+      var d=Math.max(0,(parseInt(p.delai_secondes,10)||0))*1000;
+      setTimeout(function(){ show(p, stamp); }, d);
+    }).catch(function(){});
+  }catch(e){}
+})();
+</script>
+<!-- /lokalist-popup-accueil-v1 -->
 </body>
 </html>
