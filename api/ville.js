@@ -470,7 +470,7 @@ const metierMap = {};
     /* LKL_VILLE_VENDUS_V1 : biens vendus/loues par ville (vue publique, SEO local) */
     let _vendus = [];
     try {
-      _vendus = await sb(`annonces_vendues_public?select=id,statut,type_bien,ville,photo,vendu_at&ville=ilike.${vEnc}&order=vendu_at.desc&limit=8`) || [];
+      _vendus = await sb(`rpc/annonces_vendues?p_ville=${vEnc}&limit=8`) || [];
     } catch (e) { console.error("[ville vendus]", e); }
     const _nbVendus = (_vendus || []).length;
     const _LBLV = { appartement: "Appartement", maison: "Maison", terrain: "Terrain", local_commercial: "Local commercial", garage: "Garage", autre: "Bien" };

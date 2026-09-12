@@ -142,7 +142,7 @@ export default async function handler(req) {
     /* LKL_AGENCE_VENDUS_V1 : biens vendus/loues (vue publique sans prix ni adresse, SEO local) */
     let venduesHtml = "";
     try {
-      const vdUrl = `${SUPABASE_URL}/rest/v1/annonces_vendues_public?agence_id=eq.${id}&order=vendu_at.desc&limit=48&select=id,statut,type_bien,ville,surface,nb_pieces,nb_chambres,photo,vendu_at`;
+      const vdUrl = `${SUPABASE_URL}/rest/v1/rpc/annonces_vendues?p_agence=${id}&limit=48`;
       const vdR = await fetch(vdUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
       const vendues = vdR.ok ? (await vdR.json()) : [];
       const LBL_BIEN_V = { appartement: "Appartement", maison: "Maison", terrain: "Terrain", local_commercial: "Local commercial", garage: "Garage", autre: "Bien" };
