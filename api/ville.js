@@ -467,7 +467,28 @@ const metierMap = {};
     /* BARENTIN_FIX_V1 : charger les realisations AVANT le garde-fou */
     const _realis = await sb(`realisations?select=id,titre,metier,ville,photo_url,artisan_id&ville=ilike.${vEnc}&statut=eq.valide&order=created_at.desc&limit=8`);
     const _nbRealis = (_realis || []).length;
-    if (total === 0 && _nbRealis === 0 && !mairie) return notFound(`${ville} — bientot sur Lokalist`);
+    /* LKL_VILLE_VENDUS_V1 : biens vendus/loues par ville (vue publique, SEO local) */
+    let _vendus = [];
+    try {
+      _vendus = await sb(`annonces_vendues_public?select=id,statut,type_bien,ville,photo,vendu_at&ville=ilike.${vEnc}&order=vendu_at.desc&limit=8`) || [];
+    } catch (e) { console.error("[ville vendus]", e); }
+    const _nbVendus = (_vendus || []).length;
+    const _LBLV = { appartement: "Appartement", maison: "Maison", terrain: "Terrain", local_commercial: "Local commercial", garage: "Garage", autre: "Bien" };
+    const _partV = (v) => (v.statut === "loue" ? "loué" : "vendu") + (v.type_bien === "maison" ? "e" : "");
+    const _badgeV = (v) => (v.statut === "loue" ? "Loué" : "Vendu");
+    const _moisV = (d) => { try { return new Date(d).toLocaleDateString("fr-FR", { month: "long", year: "numeric" }); } catch (_) { return ""; } };
+    const secVendus = section(`Biens vendus à ${ville}`, "🏡",
+      (_vendus || []).map(function (v) {
+        const _lbl = _LBLV[v.type_bien] || "Bien";
+        const _tit = `${_lbl} ${_partV(v)} à ${escapeHtml(v.ville || "")}`;
+        const _sub = v.vendu_at ? `${_badgeV(v)} en ${escapeHtml(_moisV(v.vendu_at))}` : "";
+        const _media = v.photo
+          ? `<div style="position:relative"><img src="${escapeHtml(v.photo)}" alt="${escapeHtml(_tit)}" loading="lazy" style="width:100%;height:130px;object-fit:cover"/><span style="position:absolute;top:8px;left:8px;background:#111;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase">${_badgeV(v)}</span></div>`
+          : `<div style="position:relative;height:130px;display:flex;align-items:center;justify-content:center;background:#EEF1EF;font-size:34px">🏡<span style="position:absolute;top:8px;left:8px;background:#111;color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;text-transform:uppercase">${_badgeV(v)}</span></div>`;
+        return `<div class="card">${_media}<div style="padding:8px 10px"><div style="font-weight:700;font-size:14px">${_tit}</div><div style="font-size:12px;color:#8A8F8B">${_sub}</div></div></div>`;
+      }).join(""),
+      (_vendus || []).length);
+    if (total === 0 && _nbRealis === 0 && _nbVendus === 0 && !mairie) return notFound(`${ville} — bientot sur Lokalist`);
 
     const secCommercants = section('Commerçants', '🏪',
       commercants.map((c) => card(`/pro/${c.id}`, c.photo_url || c.logo_url, '🏪', c.nom, c.ville, +c.note_moyenne, c.nb_avis, '', slugCat(c.categorie), c.categorie || '', emojiCommerce(c.categorie))).join(''),
@@ -980,6 +1001,7 @@ ${eventsLd}
   ${secAgences}
   ${secCourtiers}
   ${secAnnonces}
+  ${secVendus}
   ${secSorties}
   ${secCarburants}
   ${secVoisines}
