@@ -1,19 +1,61 @@
 {
   "rewrites": [
-    { "source": "/aide-agence", "destination": "/aide-agence.html" },
-    { "source": "/aide-artisan", "destination": "/aide-artisan.html" },
-    { "source": "/aide-commercant", "destination": "/aide-commercant.html" },
-    { "source": "/aide-commercant-scan", "destination": "/aide-commercant-scan.html" },
-    { "source": "/aide-courtier", "destination": "/aide-courtier.html" },
-    { "source": "/aide-hebergeur", "destination": "/aide-hebergeur.html" },
-    { "source": "/aide-mairie", "destination": "/aide-mairie.html" },
-    { "source": "/application-agence-immobiliere", "destination": "/application-agence-immobiliere.html" },
-    { "source": "/application-artisan", "destination": "/application-artisan.html" },
-    { "source": "/application-courtier", "destination": "/application-courtier.html" },
-    { "source": "/application-hebergeur", "destination": "/application-hebergeur.html" },
-    { "source": "/carte-fidelite-commercant", "destination": "/carte-fidelite-commercant.html" },
-    { "source": "/formulaire-mairie", "destination": "/formulaire-mairie.html" },
-    { "source": "/kit-mairie", "destination": "/kit-mairie.html" },
+    {
+      "source": "/aide-agence",
+      "destination": "/aide-agence.html"
+    },
+    {
+      "source": "/aide-artisan",
+      "destination": "/aide-artisan.html"
+    },
+    {
+      "source": "/aide-commercant",
+      "destination": "/aide-commercant.html"
+    },
+    {
+      "source": "/aide-commercant-scan",
+      "destination": "/aide-commercant-scan.html"
+    },
+    {
+      "source": "/aide-courtier",
+      "destination": "/aide-courtier.html"
+    },
+    {
+      "source": "/aide-hebergeur",
+      "destination": "/aide-hebergeur.html"
+    },
+    {
+      "source": "/aide-mairie",
+      "destination": "/aide-mairie.html"
+    },
+    {
+      "source": "/application-agence-immobiliere",
+      "destination": "/application-agence-immobiliere.html"
+    },
+    {
+      "source": "/application-artisan",
+      "destination": "/application-artisan.html"
+    },
+    {
+      "source": "/application-courtier",
+      "destination": "/application-courtier.html"
+    },
+    {
+      "source": "/application-hebergeur",
+      "destination": "/application-hebergeur.html"
+    },
+    {
+      "source": "/carte-fidelite-commercant",
+      "destination": "/carte-fidelite-commercant.html"
+    },
+    {
+      "source": "/formulaire-mairie",
+      "destination": "/formulaire-mairie.html"
+    },
+    {
+      "source": "/kit-mairie",
+      "destination": "/kit-mairie.html"
+    },
     {
       "source": "/hebergement",
       "destination": "/hebergement.html"
@@ -22,7 +64,10 @@
       "source": "/rendez-vous",
       "destination": "/rendez-vous.html"
     },
-    { "source": "/mobile-canvas", "destination": "/mobile-canvas.html" },
+    {
+      "source": "/mobile-canvas",
+      "destination": "/mobile-canvas.html"
+    },
     {
       "source": "/i/:code",
       "destination": "/i.html"
@@ -218,6 +263,10 @@
     {
       "source": "/app",
       "destination": "/app.html"
+    },
+    {
+      "source": "/avis",
+      "destination": "/avis.html"
     }
   ],
   "headers": [
