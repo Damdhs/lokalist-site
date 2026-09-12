@@ -215,10 +215,37 @@ export default async function handler(req) {
       const _rUrl = `${SUPABASE_URL}/rest/v1/realisations?artisan_id=eq.${id}&statut=eq.valide&select=id,titre,metier,ville,photo_url&order=created_at.desc&limit=24`;
       const _rR = await fetch(_rUrl, { headers: { apikey: SUPABASE_ANON, Authorization: `Bearer ${SUPABASE_ANON}` } });
       const _reals = _rR.ok ? await _rR.json() : [];
+      // GALERIE_REALIS_AVIS_V1 : avis rattaches par realisation
+      let _aggReal = [], _avisReal = [];
+      try {
+        const _agrUrl = SUPABASE_URL + "/rest/v1/avis_interaction_agrege?cible_type=eq.artisan&cible_id=eq." + id + "&interaction_type=eq.realisation";
+        const _avrUrl = SUPABASE_URL + "/rest/v1/avis_public?cible_type=eq.artisan&cible_id=eq." + id + "&interaction_type=eq.realisation&order=date_publication.desc&limit=60";
+        const _hdrs = { headers: { apikey: SUPABASE_ANON, Authorization: "Bearer " + SUPABASE_ANON } };
+        const _resp = await Promise.all([ fetch(_agrUrl, _hdrs), fetch(_avrUrl, _hdrs) ]);
+        _aggReal = _resp[0].ok ? await _resp[0].json() : [];
+        _avisReal = _resp[1].ok ? await _resp[1].json() : [];
+      } catch (_ea) { console.error("[artisan realis avis]", _ea && _ea.message); }
+      const _aggMap = {};
+      (_aggReal || []).forEach(function (g) { _aggMap[g.interaction_id] = g; });
+      const _avisMap = {};
+      (_avisReal || []).forEach(function (v) { (_avisMap[v.interaction_id] = _avisMap[v.interaction_id] || []).push(v); });
+      const _badgeRealis = function (rid) {
+        const g = _aggMap[rid]; if (!g) return "";
+        return "<div class='realis-badge'>" + etoiles(Number(g.note_moyenne) || 0) + " <span>" + g.nb_avis + " avis</span></div>";
+      };
+      const _avisRealis = function (rid) {
+        const list = _avisMap[rid]; if (!list || !list.length) return "";
+        const items = list.map(function (av) {
+          const ph = (Array.isArray(av.photos) && av.photos.length) ? ("<img class='realis-avis-photo' src='" + escapeHtml(String(av.photos[0])) + "' alt='' loading='lazy'/>") : "";
+          const cm = av.commentaire ? ("<div class='realis-avis-t'>" + escapeHtml(av.commentaire) + "</div>") : "";
+          return "<div class='realis-avis'><div class='realis-avis-h'>" + escapeHtml(av.auteur_nom || "Client") + " <span class='realis-avis-s'>" + etoiles(av.note) + "</span></div>" + cm + ph + "<div class='realis-avis-d'>" + fmtDate(av.date_publication) + "</div></div>";
+        }).join("");
+        return "<div class='realis-avis-wrap'>" + items + "</div>";
+      };
       if (Array.isArray(_reals) && _reals.length) {
         const _cards = _reals.map(function (rz) {
           const _alt = `${rz.titre || 'Realisation'}${rz.metier ? ' — ' + rz.metier : ''}${rz.ville ? ' a ' + rz.ville : ''}`;
-          return `<figure class="realis-card"><img src="${escapeHtml(rz.photo_url)}" alt="${escapeHtml(_alt)}" loading="lazy"/>${rz.titre ? `<figcaption>${escapeHtml(rz.titre)}</figcaption>` : ''}</figure>`;
+          return `<figure class="realis-card">${_badgeRealis(rz.id)}<img src="${escapeHtml(rz.photo_url)}" alt="${escapeHtml(_alt)}" loading="lazy"/>${rz.titre ? `<figcaption>${escapeHtml(rz.titre)}</figcaption>` : ''}${_avisRealis(rz.id)}</figure>`;
         }).join('');
         realisationsHtml = `
         <section class="section">
@@ -393,6 +420,16 @@ export default async function handler(req) {
   .avis-resume-note{ font-size:30px;font-weight:700;font-family:'Syne';line-height:1; }
   .avis-resume-stars{ color:var(--accent);font-size:18px;letter-spacing:2px; }
   .avis-card{ padding:14px 0;border-top:1px solid var(--border); }
+    /* GALERIE_REALIS_AVIS_V1 */
+    .realis-card{ position:relative; }
+    .realis-badge{ display:inline-flex;align-items:center;gap:6px;background:#1D9E75;color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:8px;margin-bottom:6px; }
+    .realis-avis-wrap{ margin-top:8px;display:flex;flex-direction:column;gap:8px; }
+    .realis-avis{ background:#F7F9F8;border:1px solid #E6EAE8;border-radius:10px;padding:8px 10px; }
+    .realis-avis-h{ font-size:13px;font-weight:600;display:flex;justify-content:space-between;gap:8px; }
+    .realis-avis-s{ color:#E8A13A;letter-spacing:1px; }
+    .realis-avis-t{ font-size:13px;color:#374039;line-height:1.5;margin-top:3px; }
+    .realis-avis-photo{ width:100%;max-width:220px;border-radius:8px;margin-top:6px; }
+    .realis-avis-d{ font-size:11px;color:#8A8F8B;margin-top:4px; }
   .avis-head{ display:flex;align-items:center;justify-content:space-between;margin-bottom:2px; }
   .avis-auteur{ font-weight:600;font-size:14px; }
   .avis-verif{ background:var(--primary-l);color:var(--primary-d);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px; }
