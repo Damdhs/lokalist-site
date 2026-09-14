@@ -77,8 +77,9 @@ ${head}
   body{font-family:'DM Sans',system-ui,sans-serif;background:#F7F8F4;color:#1A2E26;line-height:1.6}
   .wrap{max-width:960px;margin:0 auto;padding:28px 20px 80px}
   a{color:inherit}
-  .brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:800;font-size:20px;color:#0B1612;margin-bottom:24px}
-  .brand span{color:#EF9F27}
+  .brand{display:inline-block;text-decoration:none;font-weight:800;font-size:22px;letter-spacing:-.5px;margin-bottom:24px}
+  .brand .lk-g{color:#1D9E75}
+  .brand .lk-o{color:#EF9F27}
   h1{font-size:clamp(24px,4vw,34px);font-weight:800;color:#0B1612;line-height:1.15;margin-bottom:10px}
   .sub{font-size:15.5px;color:#5C7268;margin-bottom:22px;max-width:640px}
   .cta{display:inline-block;background:#1D9E75;color:#fff;font-weight:700;padding:13px 22px;border-radius:12px;text-decoration:none;margin-bottom:30px}
@@ -95,7 +96,7 @@ ${head}
 </head>
 <body>
 <div class="wrap">
-<a class="brand" href="${SITE_URL}">Lokali<span>st</span></a>
+<a class="brand" href="${SITE_URL}"><span class="lk-g">lokal</span><span class="lk-o">ist</span></a>
 ${bodyInner}
 </div>
 </body>
