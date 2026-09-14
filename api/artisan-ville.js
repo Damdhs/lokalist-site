@@ -49,10 +49,11 @@ async function sb(pathAndQuery) {
 
 async function resolveCommune(wantedSlug) {
   const loose = '%' + wantedSlug.split('-').filter(Boolean).join('%') + '%';
-  let rows = await sb(`communes_ref?select=nom,code_postal,lat,lng&nom=ilike.${encodeURIComponent(loose)}&limit=200`);
+  let rows = await sb(`communes_ref?select=nom,code_postal,code_insee,lat,lng&nom=ilike.${encodeURIComponent(loose)}&limit=200`);
   let hit = rows.find((c) => slugify(c.nom) === wantedSlug);
   if (hit) return hit;
-  return null;
+  rows = await sb('communes_ref?select=nom,code_postal,code_insee,lat,lng&limit=40000');
+  return rows.find((c) => slugify(c.nom) === wantedSlug) || null;
 }
 
 async function resolveMetier(wantedSlug) {
