@@ -37,3 +37,6 @@ patch-tarifs-*.cjs
 *.bak2
 
 node_modules/
+
+*.bak
+patch-*.cjs
