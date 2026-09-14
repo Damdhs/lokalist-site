@@ -190,6 +190,11 @@ fbq('track','PageView');
         <label class="f" for="p-nom">Votre nom <span class="rq">*</span></label>
         <input type="text" id="p-nom" placeholder="Prénom Nom" maxlength="80"/>
       </div>
+      <div class="row"><!-- MP_TEL_SITE_V1 -->
+        <label class="f" for="p-tel">Téléphone <span class="rq">*</span></label>
+        <input type="tel" id="p-tel" placeholder="06 12 34 56 78" autocomplete="tel" inputmode="tel"/>
+        <div class="hint">📞 Obligatoire — c'est ainsi que vous serez recontacté pour vos devis. Votre numéro n'est jamais communiqué directement aux artisans ni affiché publiquement.</div>
+      </div>
       <div class="grid2">
         <div class="row">
           <label class="f" for="p-email">Email <span class="rq">*</span></label>
@@ -204,6 +209,10 @@ fbq('track','PageView');
 
       <input type="text" id="p-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
 
+      <label class="row" style="flex-direction:row;align-items:flex-start;gap:9px;cursor:pointer;margin:6px 0 2px"><!-- MP_OPTIN_SITE_V1 -->
+        <input type="checkbox" id="p-optin" style="width:18px;height:18px;margin-top:2px;flex:0 0 auto;accent-color:var(--gd)"/>
+        <span style="font-size:12.5px;color:var(--muted);line-height:1.5">📧 Je veux aussi recevoir les bons plans de ma commune par email et SMS (zéro spam, désabonnable en 1 clic).</span>
+      </label>
       <div class="cgu">
         En déposant votre projet, vous acceptez les <a href="/cgu" target="_blank">CGU</a> et notre <a href="/confidentialite" target="_blank">politique de confidentialité</a>. Votre projet est vérifié par notre équipe avant d'être transmis aux artisans.
       </div>
@@ -331,6 +340,8 @@ fbq('track','PageView');
     if(!villeData.nom || !villeData.cp){ return showErr('Choisissez votre commune dans la liste de suggestions.'); }
     if(!nom){ return showErr('Indiquez votre nom.'); }
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ return showErr('Indiquez un email valide.'); }
+    var tel=(val('p-tel')||'').replace(/[\s.]/g,''); /* MP_TEL_SITE_V1 */
+    if(!/^(0[1-79])\d{8}$/.test(tel)){ return showErr('Indiquez un num\u00e9ro de t\u00e9l\u00e9phone valide (ex : 06 12 34 56 78).'); }
     if(pass.length<8){ return showErr('Le mot de passe doit faire au moins 8 caractères.'); }
 
     var btn=$('p-submit');
@@ -346,7 +357,8 @@ fbq('track','PageView');
         ville:villeData.nom, cp:villeData.cp, lat:villeData.lat, lng:villeData.lng,
         urgence:val('p-urgence')||'normal',
         budget_min:val('p-budmin')||null, budget_max:val('p-budmax')||null,
-        photo_base64:photo_base64, nom:nom, email:email, password:pass, hp:$('p-hp').value
+        photo_base64:photo_base64, nom:nom, email:email, password:pass, hp:$('p-hp').value,
+        telephone:tel, marketing_consent:$('p-optin')?$('p-optin').checked:false /* MP_TEL_SITE_V1 */
       };
 
       var r=await fetch(API+'/mp/projets/web', { method:'POST', headers:{ 'Content-Type':'application/json' }, body:JSON.stringify(body) });
