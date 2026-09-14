@@ -180,7 +180,7 @@ fbq('init','1203376311821134');fbq('track','PageView');
 
 <div class="layout">
   <div class="card"><div class="card-pad">
-    <div id="alert" class="alert err"></div>
+    <div id="alert" class="alert"></div>
 
     <div id="form-zone">
       <div class="step-lbl"><span class="step-num">1</span> De quoi avez-vous besoin ?</div>
@@ -321,8 +321,8 @@ fbq('init','1203376311821134');fbq('track','PageView');
   function normal(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
   function libelleDe(cle){ var m=ST.metiers.find(function(x){return x.metier===cle;}); return m?m.libelle:cle; }
 
-  function showErr(msg){ var a=$('alert'); a.textContent=msg; a.style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
-  function hideErr(){ $('alert').style.display='none'; }
+  function showErr(msg){ var a=$('alert'); a.className='alert err'; a.textContent=msg; a.style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
+  function hideErr(){ var a=$('alert'); a.style.display='none'; a.className='alert'; a.textContent=''; }
 
   // ---- referentiel ----
   async function chargerMetiers(){
