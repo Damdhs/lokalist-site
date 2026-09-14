@@ -530,6 +530,25 @@ const metierMap = {};
         slugCat(_m && _m.nom), (_m && _m.nom) || '', (_m && _m.emoji) || '🔧'); }).join(''),
       artisans.length);
 
+    /* MAILLAGE_METIERS_V1 : liens vers les pages /artisans/:metier/:ville (croise artisans + metierMap deja charges) */
+    const _metiersAutorises = new Set(['f637448d-df18-4bfd-a1db-bb25ae18c1aa','d45fee36-8095-43db-89fa-a72c4a7c0b48','45e0e67d-596b-418e-85d5-48ec4ebadefc','ca352294-e14c-473d-8886-6fcc909a5bea','d3d10f6d-f122-42bd-9ee2-b93240ea02e0','56210468-4e6c-4f0e-b732-702e2d6f2137','7ae896d3-b511-4f6c-8686-96203866e0d0','daeafa6a-92f4-4624-a2d9-4265ae4f1935','2fe7d86a-68f6-4f66-be7e-8d37c72850a6','715963ce-98ec-4740-8af8-7d45aead9e0d','d87cb6cf-7e88-463d-972d-4dac858a7638','d6fd74b4-0720-4adc-9236-e9a331993933','e2d3a975-1553-4edb-af8a-13e23d17c197','32e706b9-3731-4110-aaf4-b41b20199ebf','13076082-7429-4d30-8d70-165b979afcda','546809ac-f69a-455c-a98c-5e0e5e5f8248','b6ed378e-6c9a-41a8-b40e-28f8204e1bb5','49f1c029-2e9f-4491-9d79-4839fa19b6a5']);
+    const _metiersCommune = {};
+    (artisans || []).forEach(function(a){
+      if (!_metiersAutorises.has(a.categorie_id)) return;
+      var _mm = metierMap[a.categorie_id]; if (!_mm) return;
+      if (!_metiersCommune[a.categorie_id]) _metiersCommune[a.categorie_id] = { nom: _mm.nom, emoji: _mm.emoji || '', n: 0 };
+      _metiersCommune[a.categorie_id].n++;
+    });
+    const _metiersArr = Object.keys(_metiersCommune).map(function(k){ return _metiersCommune[k]; })
+      .sort(function(x,y){ return y.n - x.n; });
+    const secMetiers = _metiersArr.length ? `
+    <section class='section'>
+      <h2 class='section-titre'>\uD83D\uDD27 Trouvez un artisan \u00e0 ${escapeHtml(ville)}</h2>
+      <div class='metiers-liens'>
+        ${_metiersArr.map(function(m){ return `<a class='metier-lien' href='${SITE_URL}/artisans/${slugify(m.nom)}/${want}'>${m.emoji} ${escapeHtml(m.nom)}</a>`; }).join('')}
+      </div>
+    </section>` : '';
+
     const secAgences = section('Agences immobilières', '🏠',
       agences.map((ag) => card(`/agence/${ag.id}`, ag.logo_url, '🏠', ag.nom, ville, +ag.note_moyenne, ag.nb_avis)).join(''),
       agences.length);
@@ -1013,7 +1032,8 @@ ${eventsLd}
     <div class='evenement-cta-txt'><strong>🎉 Un événement à ${escapeHtml(ville)} ? Concert, brocante, marché…</strong><span>Organisateur, association, commerçant : publiez votre animation locale.</span></div>
     <a class='evenement-cta-btn' href='${SITE_URL}/proposer-un-evenement'>Proposer un événement</a>
   </div>
-  ${secArtisans}
+  ${secMetiers}
+${secArtisans}
             ${secRealisations}
   ${secBonsPlans}
   ${secAgences}
