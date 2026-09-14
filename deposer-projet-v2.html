@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Déposer un projet — Lokalist</title>
+<meta name="description" content="Décrivez votre projet (travaux, jardin, dépannage, événement…) et recevez des devis d'artisans locaux vérifiés, près de chez vous. Gratuit et sans engagement."/>
+<link rel="canonical" href="https://lokalist.fr/deposer-projet"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[{"@type":"Service","name":"Dépôt de projet — devis d'artisans locaux","serviceType":"Mise en relation avec des artisans locaux","description":"Décrivez votre projet (travaux, jardin, dépannage, événement…) et recevez des devis d'artisans vérifiés près de chez vous. Gratuit et sans engagement.","provider":{"@type":"Organization","name":"Lokalist","url":"https://lokalist.fr"},"areaServed":{"@type":"Country","name":"France"},"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"url":"https://lokalist.fr/deposer-projet"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Déposer un projet sur Lokalist, est-ce gratuit ?","acceptedAnswer":{"@type":"Answer","text":"Oui, déposer un projet est 100 % gratuit et sans engagement. Vous décrivez votre besoin, puis les artisans intéressés de votre secteur vous envoient leurs devis."}},{"@type":"Question","name":"Comment ça marche ?","acceptedAnswer":{"@type":"Answer","text":"Décrivez votre besoin en quelques minutes. Un compte Lokalist est créé automatiquement, vous recevez un email de confirmation, puis les professionnels locaux intéressés vous envoient leurs devis. Vous suivez et comparez tout dans l'application Lokalist."}},{"@type":"Question","name":"Qui répond à mon projet ?","acceptedAnswer":{"@type":"Answer","text":"Des artisans et professionnels locaux vérifiés, proches de chez vous et correspondant au métier recherché. Votre numéro n'est jamais communiqué directement : ce sont eux qui manifestent leur intérêt, et vous gardez la main sur le contact."}},{"@type":"Question","name":"Combien de devis vais-je recevoir ?","acceptedAnswer":{"@type":"Answer","text":"Un nombre limité d'artisans peut répondre à chaque projet, pour vous garantir des devis de professionnels réellement disponibles et intéressés, sans être submergé d'appels."}}]}]}
+</script>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://lokalist.fr/deposer-projet"/>
+<meta property="og:title" content="Déposez votre projet, recevez des devis d'artisans locaux"/>
+<meta property="og:description" content="Décrivez votre besoin en 2 minutes. Les artisans vérifiés de votre secteur vous répondent. Gratuit, sans engagement."/>
+<meta property="og:image" content="https://lokalist.fr/og-deposer-projet.png"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:image:alt" content="Lokalist — déposez votre projet, recevez des devis locaux"/>
+<meta property="og:site_name" content="Lokalist"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Déposez votre projet, recevez des devis d'artisans locaux"/>
+<meta name="twitter:description" content="Décrivez votre besoin en 2 minutes. Les artisans vérifiés de votre secteur vous répondent."/>
+<meta name="twitter:image" content="https://lokalist.fr/og-deposer-projet.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/premium-type.css"/>
+<style>
+  :root{
+    --g:#1D9E75;--gd:#0F6E56;--gl:#E1F5EE;--gm:#A7F3D0;--a:#EF9F27;--al:#FAEEDA;--ad:#B26A00;
+    --bg:#F7F8F4;--dark:#0B1612;--text:#1A2E26;--muted:#5C7268;--surf:#fff;--bdr:#E4EDE9;
+    --shadow-sm:0 1px 2px rgba(11,22,18,.04),0 4px 12px rgba(11,22,18,.04);
+    --shadow-md:0 8px 30px rgba(11,22,18,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .topbar{position:sticky;top:0;z-index:40;background:rgba(247,248,244,.85);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--bdr)}
+  .topbar-in{max-width:1120px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.6px}
+  .logo .g{color:var(--g)}.logo .o{color:var(--a)}
+  .back{font-size:13.5px;color:var(--muted);font-weight:500}
+  .hero{max-width:1120px;margin:0 auto;padding:52px 22px 26px;text-align:center}
+  .tag{display:inline-flex;align-items:center;gap:7px;background:var(--gl);color:var(--gd);font-size:12.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;padding:7px 15px;border-radius:30px;margin-bottom:20px}
+  .hero h1{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:800;color:var(--dark);line-height:1.08;letter-spacing:-1px;margin-bottom:16px}
+  .hero h1 .hl{color:var(--g)}
+  .hero p.lead{font-size:clamp(15.5px,2vw,18px);color:var(--muted);max-width:560px;margin:0 auto;font-weight:300}
+  .trust{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+  .trust b{display:inline-flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--bdr);box-shadow:var(--shadow-sm);font-size:13.5px;color:var(--text);font-weight:600;padding:9px 15px;border-radius:12px}
+  .trust b i{font-style:normal;font-size:15px}
+  .layout{max-width:1120px;margin:0 auto;padding:24px 22px 90px;display:grid;grid-template-columns:1fr 340px;gap:26px;align-items:start}
+  .card{background:var(--surf);border:1px solid var(--bdr);border-radius:22px;box-shadow:var(--shadow-md);overflow:hidden}
+  .card-pad{padding:32px}
+  .step-lbl{display:flex;align-items:center;gap:11px;font-family:'Bricolage Grotesque',sans-serif;font-size:18px;font-weight:800;color:var(--dark);margin-bottom:6px}
+  .step-num{flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;box-shadow:0 4px 12px rgba(29,158,117,.35)}
+  .step-sub{font-size:13.5px;color:var(--muted);margin:0 0 20px 41px}
+  .divider{height:1px;background:var(--bdr);margin:30px 0}
+  .famille{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:6px}
+  .fam{cursor:pointer;border:2px solid var(--bdr);border-radius:18px;padding:22px 18px;text-align:center;background:var(--bg);transition:all .16s}
+  .fam:hover{border-color:var(--gm);background:var(--gl)}
+  .fam.on{border-color:var(--g);background:var(--gl);box-shadow:0 0 0 4px rgba(29,158,117,.10)}
+  .fam .emo{font-size:34px;line-height:1}
+  .fam .ft{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:17px;color:var(--dark);margin-top:10px}
+  .fam .fd{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .fam.on .ft{color:var(--gd)}
+  .form-body{opacity:.4;pointer-events:none;transition:opacity .25s;margin-top:26px}
+  .form-body.active{opacity:1;pointer-events:auto}
+  .row{margin-bottom:17px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  label.f{display:block;font-size:13.5px;font-weight:600;color:var(--text);margin-bottom:7px}
+  label.f .rq{color:#E24B4A;font-weight:800}
+  label.f .opt{color:var(--muted);font-weight:400}
+  input,select,textarea{width:100%;background:var(--bg);border:1.5px solid var(--bdr);border-radius:13px;padding:13px 15px;font-size:15px;font-family:'DM Sans',sans-serif;color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s,background .15s}
+  input::placeholder,textarea::placeholder{color:#9DB0A8}
+  input:focus,select:focus,textarea:focus{border-color:var(--g);background:var(--surf);box-shadow:0 0 0 4px rgba(29,158,117,.12)}
+  input.valid-commune{border-color:var(--g)!important;background:var(--gl)!important}
+  textarea{min-height:120px;resize:vertical}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.5;display:flex;gap:6px;align-items:flex-start}
+  .hint .ic{flex:0 0 auto;font-size:14px}
+  .hint.reassure{color:var(--gd);background:var(--gl);border-radius:10px;padding:10px 12px;margin-top:9px}
+  .ac{position:relative}
+  .ac-drop{position:absolute;left:0;right:0;top:calc(100% + 4px);background:#fff;border:1px solid var(--bdr);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.1);z-index:20;display:none;overflow:hidden;max-height:260px;overflow-y:auto}
+  .ac-item{padding:10px 14px;font-size:14px;cursor:pointer}
+  .ac-item:hover{background:var(--gl)}
+  .commune-ok{display:none;font-size:12.5px;color:var(--gd);font-weight:600;margin-top:6px}
+  /* recherche + chips metiers */
+  .search{position:relative;margin-bottom:14px}
+  .search input{padding-left:42px}
+  .search .si{position:absolute;left:15px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:20px;border:1.5px solid var(--bdr);background:var(--bg);font-size:13.5px;color:var(--text);font-weight:600;transition:all .14s}
+  .chip:hover{border-color:var(--gm)}
+  .chip.on{background:var(--g);border-color:var(--g);color:#fff}
+  .chip .ck{font-weight:800}
+  .selinfo{font-size:12.5px;color:var(--gd);background:var(--gl);border-radius:10px;padding:10px 12px;margin-top:12px;display:none}
+  .selinfo.show{display:block}
+  /* lot card */
+  .lot{border:1.5px solid var(--bdr);border-radius:16px;padding:20px;margin-top:16px;background:var(--surf)}
+  .lot-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .lot-t{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15.5px;color:var(--dark);display:flex;align-items:center;gap:9px}
+  .lot-t .b{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--gl);color:var(--gd);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .lot-rm{cursor:pointer;font-size:12.5px;color:#B4231F;font-weight:600;background:#FEECEC;border:1px solid #F6C9C7;border-radius:9px;padding:6px 11px}
+  .lot-load{padding:16px 0;text-align:center;color:var(--muted);font-size:13px}
+  .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .opt-chip{cursor:pointer;padding:9px 13px;border-radius:20px;border:1.5px solid var(--bdr);background:var(--bg);font-size:13px;color:var(--text);transition:all .14s}
+  .opt-chip.on{background:var(--g);border-color:var(--g);color:#fff;font-weight:600}
+  .budget{display:flex;align-items:center;gap:10px}
+  .photos{display:flex;flex-wrap:wrap;gap:10px}
+  .ph{width:74px;height:74px;border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--bdr)}
+  .ph img{width:100%;height:100%;object-fit:cover;display:block}
+  .ph .x{position:absolute;top:3px;right:3px;background:rgba(0,0,0,.55);color:#fff;border-radius:9px;width:20px;height:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;line-height:1}
+  .ph-add{width:74px;height:74px;border-radius:10px;border:1.5px dashed var(--g);background:var(--gl);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:22px;color:var(--g)}
+  .ph-add input{display:none}
+  .check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;background:var(--al);border:1px solid #F0D9AE;border-radius:14px;padding:14px 16px;margin-top:4px;transition:background .15s}
+  .check:hover{background:#F7E7C8}
+  .check input{width:20px;height:20px;flex:0 0 auto;margin-top:1px;accent-color:var(--ad)}
+  .check .txt{font-size:13px;color:var(--ad);line-height:1.5}.check .txt b{font-weight:700}
+  .rgpd{font-size:12.5px;color:var(--muted);line-height:1.55;margin:18px 0 0}.rgpd a{color:var(--gd);text-decoration:underline}
+  .submit{width:100%;margin-top:22px;background:var(--g);color:#fff;border:none;border-radius:15px;padding:17px;font-size:16.5px;font-weight:700;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 12px 30px rgba(29,158,117,.32);transition:transform .12s,box-shadow .12s,background .12s;display:flex;align-items:center;justify-content:center;gap:9px}
+  .submit:hover{background:var(--gd);transform:translateY(-2px)}.submit:active{transform:translateY(0)}
+  .submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+  .req-note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}.req-note .rq{color:#E24B4A;font-weight:800}
+  .alert{display:none;padding:12px 14px;border-radius:12px;font-size:14px;margin-bottom:16px;font-weight:500}
+  .alert.err{display:block;background:#FEECEC;color:#B4231F;border:1px solid #F6C9C7}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+  .side{position:sticky;top:88px;display:flex;flex-direction:column;gap:16px}
+  .side-card{background:var(--surf);border:1px solid var(--bdr);border-radius:18px;box-shadow:var(--shadow-sm);padding:22px}
+  .side-card h3{font-family:'Bricolage Grotesque',sans-serif;font-size:15.5px;font-weight:800;color:var(--dark);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+  .steps{list-style:none;display:flex;flex-direction:column;gap:15px}
+  .steps li{display:flex;gap:12px;align-items:flex-start}
+  .steps .n{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--gl);color:var(--gd);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800}
+  .steps .st{font-size:13.5px;color:var(--text);line-height:1.45}.steps .st b{font-weight:700}
+  .promo{background:linear-gradient(135deg,var(--gd),var(--g));border-radius:18px;padding:22px;color:#fff;box-shadow:var(--shadow-md)}
+  .promo h3{font-family:'Bricolage Grotesque',sans-serif;font-size:16px;font-weight:800;margin-bottom:8px;color:#fff}
+  .promo p{font-size:13px;opacity:.92;line-height:1.5}
+  .promo .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .promo .badges span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);font-size:12px;font-weight:600;padding:6px 11px;border-radius:20px}
+  .done{display:none;text-align:center;padding:26px 0}
+  .done .ic{font-size:54px;margin-bottom:10px}
+  .done h2{font-family:'Bricolage Grotesque',sans-serif;font-size:26px;font-weight:800;color:var(--dark);margin-bottom:10px}
+  .done p{font-size:15px;color:var(--muted);max-width:460px;margin:0 auto 8px}
+  .done .btn{display:inline-block;margin-top:18px;background:var(--g);color:#fff;padding:13px 24px;border-radius:12px;font-weight:700}
+  .faq{max-width:820px;margin:0 auto;padding:10px 22px 90px}
+  .faq h2{font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(24px,3.5vw,32px);font-weight:800;color:var(--dark);text-align:center;margin-bottom:8px;letter-spacing:-.5px}
+  .faq .faq-sub{text-align:center;color:var(--muted);font-size:15px;margin-bottom:30px}
+  .qa{background:var(--surf);border:1px solid var(--bdr);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:box-shadow .15s}
+  .qa:hover{box-shadow:var(--shadow-sm)}
+  .qa summary{list-style:none;cursor:pointer;padding:20px 22px;font-size:16px;font-weight:600;color:var(--dark);display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary .chev{flex:0 0 auto;width:26px;height:26px;border-radius:8px;background:var(--gl);color:var(--gd);display:flex;align-items:center;justify-content:center;transition:transform .2s;font-size:18px}
+  .qa[open] summary .chev{transform:rotate(45deg)}
+  .qa .ans{padding:0 22px 20px;font-size:14.5px;color:var(--muted);line-height:1.65}
+  @media(max-width:900px){.layout{grid-template-columns:1fr}.side{position:static}}
+  @media(max-width:560px){.hero{padding:38px 18px 20px}.card-pad{padding:22px 18px}.grid2{grid-template-columns:1fr}.famille{grid-template-columns:1fr}.layout{padding:18px 16px 70px}}
+</style>
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1203376311821134');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1203376311821134&ev=PageView&noscript=1"/></noscript>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GKPWXWK5FV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-GKPWXWK5FV');</script>
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="logo" href="/"><span class="g">lokal</span><span class="o">ist</span></a>
+  <a class="back" href="/appels-offres.html">&larr; Retour</a>
+</div></div>
+
+<section class="hero">
+  <span class="tag">📋 Projet de particulier</span>
+  <h1>Décrivez votre projet,<br/>recevez des <span class="hl">devis locaux</span></h1>
+  <p class="lead">Travaux, jardin, dépannage, événement… Les artisans vérifiés de votre secteur vous répondent. Gratuit, sans engagement.</p>
+  <div class="trust">
+    <b><i>✅</i> Artisans vérifiés</b><b><i>📍</i> Près de chez vous</b><b><i>🆓</i> 100 % gratuit</b>
+  </div>
+</section>
+
+<div class="layout">
+  <div class="card"><div class="card-pad">
+    <div id="alert" class="alert err"></div>
+
+    <div id="form-zone">
+      <div class="step-lbl"><span class="step-num">1</span> De quoi avez-vous besoin ?</div>
+      <p class="step-sub">On adapte les questions à votre besoin.</p>
+      <div class="famille">
+        <div class="fam" data-fam="travaux" onclick="LK.pickFam('travaux',this)">
+          <div class="emo">🔨</div><div class="ft">Travaux / Services</div>
+          <div class="fd">Maison, jardin, dépannage, entretien…</div>
+        </div>
+        <div class="fam" data-fam="evenement" onclick="LK.pickFam('evenement',this)">
+          <div class="emo">🎉</div><div class="ft">Événement</div>
+          <div class="fd">Traiteur, animation, réception, salle…</div>
+        </div>
+      </div>
+
+      <div class="form-body" id="formBody">
+        <div class="divider"></div>
+        <div class="step-lbl"><span class="step-num">2</span> Votre projet</div>
+        <p class="step-sub" id="sub2">Plus vous êtes précis, meilleurs seront les devis.</p>
+
+        <div class="row">
+          <label class="f" for="p-titre">Titre du projet <span class="rq">*</span></label>
+          <input type="text" id="p-titre" placeholder="Ex : Rénovation salle de bain" maxlength="120"/>
+        </div>
+        <div class="row">
+          <label class="f" for="p-desc">Description <span class="rq">*</span></label>
+          <textarea id="p-desc" placeholder="Décrivez votre besoin : détails, contraintes, délais…" maxlength="1500"></textarea>
+        </div>
+        <div class="grid2">
+          <div class="row ac">
+            <label class="f" for="p-commune">Commune <span class="rq">*</span></label>
+            <input type="text" id="p-commune" placeholder="Votre ville" autocomplete="off"/>
+            <div class="ac-drop" id="p-commune-drop"></div>
+            <div class="hint">Commencez à taper, puis <b>choisissez votre commune dans la liste</b>.</div>
+            <div class="commune-ok" id="p-commune-ok">✓ Commune sélectionnée</div>
+          </div>
+          <div class="row" id="delaiRow">
+            <label class="f" for="p-urgence">Délai</label>
+            <select id="p-urgence">
+              <option value="normal">Pas pressé</option>
+              <option value="projet">Dès que possible</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="step-lbl"><span class="step-num">3</span> <span id="lbl3">Corps de métier</span></div>
+        <p class="step-sub" id="sub3">Sélectionnez un ou plusieurs métiers. Vous détaillerez chacun ci-dessous.</p>
+        <div class="search">
+          <span class="si">🔎</span>
+          <input type="text" id="p-search" placeholder="Rechercher un métier…" autocomplete="off"/>
+        </div>
+        <div class="chips" id="metierChips"><div class="lot-load" id="metierLoad">Chargement des métiers…</div></div>
+        <div class="selinfo" id="selInfo"></div>
+
+        <div id="lotsZone"></div>
+
+        <div class="divider"></div>
+        <div class="step-lbl"><span class="step-num">4</span> Votre compte Lokalist</div>
+        <p class="step-sub">Pour suivre vos devis dans l'app. Déjà un compte ? Entrez votre mot de passe habituel.</p>
+        <div class="row"><label class="f" for="p-nom">Votre nom <span class="rq">*</span></label>
+          <input type="text" id="p-nom" placeholder="Prénom Nom" maxlength="80"/></div>
+        <div class="row">
+          <label class="f" for="p-tel">Téléphone <span class="rq">*</span></label>
+          <input type="tel" id="p-tel" placeholder="06 12 34 56 78" autocomplete="tel" inputmode="tel"/>
+          <div class="hint reassure"><span class="ic">📞</span><span>Obligatoire — c'est ainsi que vous serez recontacté pour vos devis. Votre numéro n'est jamais communiqué directement aux artisans ni affiché publiquement.</span></div>
+        </div>
+        <div class="grid2">
+          <div class="row"><label class="f" for="p-email">Email <span class="rq">*</span></label>
+            <input type="email" id="p-email" placeholder="vous@email.fr" autocomplete="email"/></div>
+          <div class="row"><label class="f" for="p-pass">Mot de passe <span class="rq">*</span></label>
+            <input type="password" id="p-pass" placeholder="8 caractères minimum" autocomplete="current-password"/></div>
+        </div>
+        <div class="hint" style="margin:-4px 0 6px"><b>Vos identifiants sont les mêmes que sur l'application Lokalist.</b>&nbsp;<a href="#" id="p-forgot" style="color:var(--gd);text-decoration:underline">Mot de passe oublié ?</a></div>
+
+        <input type="text" id="p-hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true"/>
+
+        <label class="check"><input type="checkbox" id="p-optin"/>
+          <span class="txt">📧 Je veux aussi recevoir les <b>bons plans de ma commune</b> par email et SMS (zéro spam, désabonnable en 1 clic).</span></label>
+        <p class="rgpd">En déposant votre projet, vous acceptez les <a href="/cgu" target="_blank">CGU</a> et notre <a href="/confidentialite" target="_blank">politique de confidentialité</a>. Votre projet est vérifié par notre équipe avant d'être transmis aux artisans.</p>
+        <button class="submit" id="p-submit">📋 Déposer mon projet</button>
+        <p class="req-note"><span class="rq">*</span> Champs obligatoires</p>
+      </div>
+    </div>
+
+    <div id="done" class="done">
+      <div class="ic">🎉</div>
+      <h2>Projet reçu !</h2>
+      <p>Notre équipe vérifie votre projet, puis les artisans de votre secteur seront prévenus. Vous serez recontacté par ceux que ça intéresse.</p>
+      <p><b>Un email de confirmation vient de vous être envoyé.</b></p>
+      <p>Suivez les devis dans l'application Lokalist avec votre email et votre mot de passe.</p>
+      <a href="/" class="btn">Retour à l'accueil</a>
+    </div>
+  </div></div>
+
+  <aside class="side">
+    <div class="side-card">
+      <h3>⚡ Comment ça marche</h3>
+      <ol class="steps">
+        <li><span class="n">1</span><span class="st">Décrivez votre besoin en 2 minutes</span></li>
+        <li><span class="n">2</span><span class="st">Votre <b>compte Lokalist</b> est créé automatiquement</span></li>
+        <li><span class="n">3</span><span class="st">Les <b>pros locaux</b> intéressés vous envoient leurs devis</span></li>
+        <li><span class="n">4</span><span class="st">Vous <b>comparez et choisissez</b> dans l'app</span></li>
+      </ol>
+    </div>
+    <div class="promo">
+      <h3>Pourquoi Lokalist ?</h3>
+      <p>On fait vivre l'économie locale. Votre projet confié aux pros de votre secteur, vérifiés et proches de chez vous.</p>
+      <div class="badges"><span>Sans commission</span><span>100 % local</span><span>Sans engagement</span></div>
+    </div>
+  </aside>
+</div>
+
+<section class="faq" aria-labelledby="faq-titre">
+  <h2 id="faq-titre">Questions fréquentes</h2>
+  <p class="faq-sub">Tout ce qu'il faut savoir avant de déposer votre projet.</p>
+  <details class="qa" open><summary>Déposer un projet sur Lokalist, est-ce gratuit ? <span class="chev">+</span></summary><div class="ans">Oui, déposer un projet est 100 % gratuit et sans engagement. Vous décrivez votre besoin, puis les artisans intéressés de votre secteur vous envoient leurs devis.</div></details>
+  <details class="qa"><summary>Comment ça marche ? <span class="chev">+</span></summary><div class="ans">Décrivez votre besoin en quelques minutes. Un compte Lokalist est créé automatiquement, vous recevez un email de confirmation, puis les professionnels locaux intéressés vous envoient leurs devis. Vous suivez et comparez tout dans l'application Lokalist.</div></details>
+  <details class="qa"><summary>Qui répond à mon projet ? <span class="chev">+</span></summary><div class="ans">Des artisans et professionnels locaux vérifiés, proches de chez vous et correspondant au métier recherché. Votre numéro n'est jamais communiqué directement : ce sont eux qui manifestent leur intérêt, et vous gardez la main sur le contact.</div></details>
+  <details class="qa"><summary>Combien de devis vais-je recevoir ? <span class="chev">+</span></summary><div class="ans">Un nombre limité d'artisans peut répondre à chaque projet, pour vous garantir des devis de professionnels réellement disponibles et intéressés, sans être submergé d'appels.</div></details>
+</section>
+
+<script>
+(function(){
+  var API='https://lokalist-api-production.up.railway.app';
+  var MAX_PHOTOS=3;
+  var $=function(id){return document.getElementById(id);};
+  var val=function(id){return $(id)?$(id).value.trim():'';};
+  var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+
+  var ST={
+    famille:null, metiers:[], selection:[], lots:{}, schemaCache:{},
+    ville:{nom:'',cp:'',lat:null,lng:null}
+  };
+
+  function familleDe(cat){ return cat==='evenement'?'evenement':'travaux'; }
+  function normal(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function libelleDe(cle){ var m=ST.metiers.find(function(x){return x.metier===cle;}); return m?m.libelle:cle; }
+
+  function showErr(msg){ var a=$('alert'); a.textContent=msg; a.style.display='block'; window.scrollTo({top:0,behavior:'smooth'}); }
+  function hideErr(){ $('alert').style.display='none'; }
+
+  // ---- referentiel ----
+  async function chargerMetiers(){
+    try{
+      var r=await fetch(API+'/mp/metiers-public');
+      var rep=await r.json();
+      ST.metiers=Array.isArray(rep)?rep:(rep.metiers||[]);
+    }catch(e){ ST.metiers=[]; }
+    if($('metierLoad')) $('metierLoad').remove();
+    renderMetierChips();
+  }
+
+  function pickFam(f, el){
+    ST.famille=f;
+    if(el){ document.querySelectorAll('.fam').forEach(function(x){x.classList.remove('on');}); el.classList.add('on'); }
+    $('formBody').classList.add('active');
+    $('sub2').textContent = f==='evenement' ? 'Donnez-nous les infos clés de votre événement.' : 'Plus vous êtes précis, meilleurs seront les devis.';
+    $('lbl3').textContent = f==='evenement' ? 'Prestations' : 'Corps de métier';
+    $('delaiRow').style.display = f==='evenement' ? 'none' : '';
+    // reset selection si on change de famille
+    ST.selection=[]; ST.lots={};
+    $('p-search').value='';
+    renderMetierChips(); renderLots(); majSelInfo();
+    $('formBody').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+
+  function metiersAffiches(){
+    var q=normal(val('p-search'));
+    return ST.metiers.filter(function(m){
+      return familleDe(m.categorie)===ST.famille && normal(m.libelle).indexOf(q)>=0;
+    });
+  }
+
+  function renderMetierChips(){
+    var box=$('metierChips'); if(!box) return;
+    if(!ST.famille){ box.innerHTML=''; return; }
+    var list=metiersAffiches();
+    if(!list.length){ box.innerHTML='<div class="lot-load">Aucun métier ne correspond.</div>'; return; }
+    box.innerHTML=list.map(function(m){
+      var on=ST.selection.indexOf(m.metier)>=0;
+      return '<div class="chip'+(on?' on':'')+'" data-cle="'+esc(m.metier)+'">'+(on?'<span class="ck">✓</span> ':'')+esc(m.libelle)+'</div>';
+    }).join('');
+    Array.prototype.forEach.call(box.querySelectorAll('.chip'),function(c){
+      c.addEventListener('click',function(){ toggleMetier(c.getAttribute('data-cle')); });
+    });
+  }
+
+  function majSelInfo(){
+    var el=$('selInfo'); if(!el) return;
+    if(ST.selection.length){ el.textContent=ST.selection.length+' lot(s) sélectionné(s) — détaillez chacun ci-dessous.'; el.classList.add('show'); }
+    else el.classList.remove('show');
+  }
+
+  function toggleMetier(cle){
+    var i=ST.selection.indexOf(cle);
+    if(i>=0){ ST.selection.splice(i,1); delete ST.lots[cle]; }
+    else { ST.selection.push(cle); if(!ST.lots[cle]) ST.lots[cle]={valeurs:{},budget_min:'',budget_max:'',photos_base64:[],schema:null}; }
+    renderMetierChips(); renderLots(); majSelInfo();
+  }
+
+  async function ensureSchema(cle){
+    if(ST.schemaCache[cle]) return ST.schemaCache[cle];
+    var sc;
+    try{
+      var r=await fetch(API+'/mp/metiers-public/'+encodeURIComponent(cle));
+      var d=await r.json();
+      sc=(r.ok&&d&&Array.isArray(d.champs))?{libelle:d.libelle,categorie:d.categorie,photos:d.photos||'recommande',champs:d.champs}
+         :{libelle:libelleDe(cle),categorie:ST.famille,photos:'recommande',champs:[]};
+    }catch(e){ sc={libelle:libelleDe(cle),categorie:ST.famille,photos:'recommande',champs:[]}; }
+    ST.schemaCache[cle]=sc; return sc;
+  }
+
+  function renderLots(){
+    var zone=$('lotsZone'); if(!zone) return;
+    zone.innerHTML='';
+    ST.selection.forEach(function(cle,idx){
+      var wrap=document.createElement('div'); wrap.className='lot'; wrap.id='lot-'+cle;
+      wrap.innerHTML='<div class="lot-h"><div class="lot-t"><span class="b">'+(idx+1)+'</span>'+esc(libelleDe(cle))+'</div>'
+        +'<span class="lot-rm" data-cle="'+esc(cle)+'">Retirer</span></div>'
+        +'<div class="lot-body"><div class="lot-load">Chargement du formulaire…</div></div>';
+      zone.appendChild(wrap);
+      wrap.querySelector('.lot-rm').addEventListener('click',function(){ toggleMetier(cle); });
+      ensureSchema(cle).then(function(sc){
+        ST.lots[cle].schema=sc;
+        renderLotBody(cle, wrap.querySelector('.lot-body'), sc);
+      });
+    });
+  }
+
+  function renderLotBody(cle, body, sc){
+    var L=ST.lots[cle]; if(!L) return;
+    body.innerHTML='';
+    sc.champs.forEach(function(champ){
+      var row=document.createElement('div'); row.className='row';
+      var lab='<label class="f">'+esc(champ.label)+(champ.required?' <span class="rq">*</span>':'')+'</label>';
+      var cur=L.valeurs[champ.key];
+      if(champ.type==='select' && Array.isArray(champ.options)){
+        row.innerHTML=lab+'<div class="opts">'+champ.options.map(function(o){
+          return '<div class="opt-chip'+(cur===o?' on':'')+'" data-v="'+esc(o)+'">'+esc(o)+'</div>';
+        }).join('')+'</div>';
+        Array.prototype.forEach.call(row.querySelectorAll('.opt-chip'),function(oc){
+          oc.addEventListener('click',function(){ L.valeurs[champ.key]=oc.getAttribute('data-v'); renderLotBody(cle,body,sc); });
+        });
+      } else if(champ.type==='textarea'){
+        row.innerHTML=lab+'<textarea data-k="'+esc(champ.key)+'" placeholder="'+esc(champ.placeholder||'')+'"></textarea>';
+        var ta=row.querySelector('textarea'); ta.value=cur||''; ta.addEventListener('input',function(){ L.valeurs[champ.key]=ta.value; });
+      } else if(champ.type==='number'){
+        row.innerHTML=lab+'<input type="text" inputmode="numeric" data-k="'+esc(champ.key)+'" placeholder="'+esc(champ.placeholder||'Nombre')+'"/>';
+        var ni=row.querySelector('input'); ni.value=cur!=null?String(cur):''; ni.addEventListener('input',function(){ ni.value=ni.value.replace(/[^0-9.]/g,''); L.valeurs[champ.key]=ni.value; });
+      } else if(champ.type==='date'){
+        row.innerHTML=lab+'<input type="date" data-k="'+esc(champ.key)+'"/>';
+        var di=row.querySelector('input'); di.value=cur||''; di.addEventListener('input',function(){ L.valeurs[champ.key]=di.value; });
+      } else { // text
+        row.innerHTML=lab+'<input type="text" data-k="'+esc(champ.key)+'" placeholder="'+esc(champ.placeholder||'')+'"/>';
+        var ti=row.querySelector('input'); ti.value=cur||''; ti.addEventListener('input',function(){ L.valeurs[champ.key]=ti.value; });
+      }
+      body.appendChild(row);
+    });
+    // budget
+    var br=document.createElement('div'); br.className='row';
+    br.innerHTML='<label class="f">Budget indicatif <span class="opt">(€, optionnel)</span></label>'
+      +'<div class="budget"><input type="text" inputmode="numeric" data-b="min" placeholder="min"/><span style="color:var(--muted)">→</span><input type="text" inputmode="numeric" data-b="max" placeholder="max"/></div>';
+    var bmin=br.querySelector('[data-b=min]'), bmax=br.querySelector('[data-b=max]');
+    bmin.value=L.budget_min||''; bmax.value=L.budget_max||'';
+    bmin.addEventListener('input',function(){ bmin.value=bmin.value.replace(/[^0-9]/g,''); L.budget_min=bmin.value; });
+    bmax.addEventListener('input',function(){ bmax.value=bmax.value.replace(/[^0-9]/g,''); L.budget_max=bmax.value; });
+    body.appendChild(br);
+    // photos (si politique != masque)
+    if(sc.photos!=='masque'){
+      var pr=document.createElement('div'); pr.className='row';
+      pr.innerHTML='<label class="f">Photos <span class="opt">(optionnel, '+L.photos_base64.length+'/'+MAX_PHOTOS+')</span></label><div class="photos"></div>';
+      var pbox=pr.querySelector('.photos');
+      L.photos_base64.forEach(function(d,pi){
+        var th=document.createElement('div'); th.className='ph';
+        th.innerHTML='<img src="'+d+'" alt=""/><span class="x" data-i="'+pi+'">×</span>';
+        th.querySelector('.x').addEventListener('click',function(){ L.photos_base64.splice(pi,1); renderLotBody(cle,body,sc); });
+        pbox.appendChild(th);
+      });
+      if(L.photos_base64.length<MAX_PHOTOS){
+        var add=document.createElement('label'); add.className='ph-add'; add.innerHTML='+<input type="file" accept="image/*"/>';
+        add.querySelector('input').addEventListener('change',function(){
+          var f=this.files[0]; if(!f) return;
+          resizeToDataUrl(f,1200).then(function(d){ L.photos_base64.push(d); renderLotBody(cle,body,sc); }).catch(function(){});
+        });
+        pbox.appendChild(add);
+      }
+      body.appendChild(pr);
+    }
+  }
+
+  // ---- commune autocomplete (geo.api.gouv.fr) ----
+  var villeInput, villeDrop, villeTimer=null;
+  function initCommune(){
+    villeInput=$('p-commune'); villeDrop=$('p-commune-drop');
+    villeInput.addEventListener('input',function(){
+      ST.ville={nom:'',cp:'',lat:null,lng:null}; villeInput.classList.remove('valid-commune');
+      var ok=$('p-commune-ok'); if(ok) ok.style.display='none';
+      var q=villeInput.value.trim();
+      if(villeTimer) clearTimeout(villeTimer);
+      if(q.length<2){ villeDrop.style.display='none'; return; }
+      villeTimer=setTimeout(async function(){
+        try{
+          var r=await fetch('https://geo.api.gouv.fr/communes?nom='+encodeURIComponent(q)+'&fields=nom,codesPostaux,centre&boost=population&limit=8&format=json');
+          var arr=await r.json(); villeDrop._arr=Array.isArray(arr)?arr:[];
+          villeDrop.innerHTML=villeDrop._arr.map(function(c,i){
+            return '<div class="ac-item" data-i="'+i+'">'+esc(c.nom)+' <span style="color:var(--muted)">'+esc((c.codesPostaux&&c.codesPostaux[0])||'')+'</span></div>';
+          }).join('');
+          villeDrop.style.display=villeDrop._arr.length?'block':'none';
+        }catch(e){ villeDrop.style.display='none'; }
+      },300);
+    });
+    villeDrop.addEventListener('click',function(e){
+      var it=e.target.closest('.ac-item'); if(!it) return;
+      var c=villeDrop._arr[+it.dataset.i]; if(!c) return;
+      var co=c.centre&&c.centre.coordinates;
+      ST.ville={nom:c.nom,cp:((c.codesPostaux&&c.codesPostaux[0])||''),lat:co?co[1]:null,lng:co?co[0]:null};
+      villeInput.value=c.nom; villeInput.classList.add('valid-commune');
+      var ok=$('p-commune-ok'); if(ok) ok.style.display='block';
+      villeDrop.style.display='none';
+    });
+    document.addEventListener('click',function(e){ if(!e.target.closest('#p-commune')&&!e.target.closest('#p-commune-drop')) villeDrop.style.display='none'; });
+  }
+
+  function resizeToDataUrl(file,maxW){
+    return new Promise(function(resolve,reject){
+      var img=new Image();
+      img.onload=function(){
+        var scale=Math.min(1,maxW/img.width);
+        var w=Math.round(img.width*scale),h=Math.round(img.height*scale);
+        var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(cv.toDataURL('image/jpeg',0.82));
+      };
+      img.onerror=reject; img.src=URL.createObjectURL(file);
+    });
+  }
+
+  // ---- validation + payload ----
+  function validate(){
+    if(!ST.famille) return 'Choisissez d\'abord de quoi vous avez besoin.';
+    var titre=val('p-titre'), desc=val('p-desc');
+    if(!titre) return 'Indiquez un titre pour votre projet.';
+    if(!desc) return 'Décrivez votre projet.';
+    if(desc.length<20) return 'Ajoutez plus de détails (au moins 20 caractères) pour que les pros puissent bien chiffrer.';
+    if(!ST.ville.nom||!ST.ville.cp) return 'Choisissez votre commune dans la liste de suggestions.';
+    if(!ST.selection.length) return 'Sélectionnez au moins un métier.';
+    // champs requis par lot
+    for(var i=0;i<ST.selection.length;i++){
+      var cle=ST.selection[i], L=ST.lots[cle], sc=L&&L.schema;
+      if(!sc) return 'Patientez, le formulaire de « '+libelleDe(cle)+' » finit de charger.';
+      for(var j=0;j<sc.champs.length;j++){
+        var ch=sc.champs[j];
+        if(ch.required){ var v=L.valeurs[ch.key]; if(v==null||String(v).trim()==='') return '« '+libelleDe(cle)+' » : le champ « '+ch.label+' » est requis.'; }
+      }
+    }
+    var nom=val('p-nom'), email=val('p-email'), pass=$('p-pass').value;
+    if(!nom) return 'Indiquez votre nom.';
+    var tel=(val('p-tel')||'').replace(/[\s.]/g,'');
+    if(!/^(0[1-79])\d{8}$/.test(tel)) return 'Indiquez un num\u00e9ro de t\u00e9l\u00e9phone valide (ex : 06 12 34 56 78).';
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return 'Indiquez un email valide.';
+    if(pass.length<8) return 'Le mot de passe doit faire au moins 8 caractères.';
+    return null;
+  }
+
+  function buildBody(){
+    var lots=ST.selection.map(function(cle){
+      var L=ST.lots[cle];
+      return {
+        metier:cle, description:null, champs:L.valeurs||{},
+        budget_min:L.budget_min||null, budget_max:L.budget_max||null,
+        photos_base64:L.photos_base64||[]
+      };
+    });
+    var tel=(val('p-tel')||'').replace(/[\s.]/g,'');
+    return {
+      titre:val('p-titre'), categorie:ST.famille, description:val('p-desc'),
+      ville:ST.ville.nom, cp:ST.ville.cp, lat:ST.ville.lat, lng:ST.ville.lng,
+      urgence:val('p-urgence')||'normal', duree_jours:15, lots:lots,
+      nom:val('p-nom'), email:val('p-email'), password:$('p-pass').value,
+      telephone:tel, marketing_consent:$('p-optin')?$('p-optin').checked:false,
+      hp:$('p-hp')?$('p-hp').value:''
+    };
+  }
+
+  async function submit(){
+    hideErr();
+    var err=validate(); if(err){ return showErr(err); }
+    var btn=$('p-submit'); btn.disabled=true; var old=btn.textContent; btn.textContent='⏳ Envoi en cours…';
+    try{
+      var body=buildBody();
+      var r=await fetch(API+'/mp/projets/web',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+      var data=await r.json().catch(function(){return{};});
+      if(!r.ok){
+        btn.disabled=false; btn.textContent=old;
+        if(r.status===401||r.status===409) return showErr((data&&data.message)||'Un compte existe déjà : entrez votre mot de passe habituel pour redéposer.');
+        if(r.status===429) return showErr('Trop de dépôts récents. Réessayez dans un moment.');
+        return showErr((data&&data.message)||'Une erreur est survenue. Réessayez.');
+      }
+      try{ if(window.fbq) fbq('track','Lead'); }catch(e){}
+      $('form-zone').style.display='none'; $('done').style.display='block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }catch(e){ btn.disabled=false; btn.textContent=old; showErr('Erreur réseau. Vérifiez votre connexion et réessayez.'); }
+  }
+
+  function initForgot(){
+    var fg=$('p-forgot'); if(!fg) return;
+    fg.addEventListener('click',async function(e){
+      e.preventDefault();
+      var em=prompt('Entrez votre email pour recevoir un lien de réinitialisation :', val('p-email'));
+      if(!em) return;
+      try{ var r=await fetch(API+'/mp/reset-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em.trim()})}); await r.json().catch(function(){return{};});
+        alert('Si un compte existe pour cet email, un lien de réinitialisation vient d\'être envoyé. Vérifiez votre boîte mail.');
+      }catch(err){ alert('Erreur réseau, réessayez.'); }
+    });
+  }
+
+  function initSearch(){ var s=$('p-search'); if(s) s.addEventListener('input',renderMetierChips); }
+  function initSubmit(){ var b=$('p-submit'); if(b) b.addEventListener('click',submit); }
+
+  function boot(){ initCommune(); initForgot(); initSearch(); initSubmit(); chargerMetiers(); }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
+
+  // hooks tests (inoffensif en prod) + pickFam appele en inline
+  window.LK={ ST:ST, pickFam:pickFam, toggleMetier:toggleMetier, validate:validate, buildBody:buildBody,
+    chargerMetiers:chargerMetiers, renderMetierChips:renderMetierChips, renderLots:renderLots, _api:API };
+})();
+</script>
+</body>
+</html>
