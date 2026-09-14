@@ -4,6 +4,8 @@
 //  Contenu unique (vrais artisans de la base) -> pas de "thin content".
 //  Si 0 artisan : page renvoyee en noindex (jamais declaree a Google).
 
+export const config = { runtime: 'edge' };
+
 const SUPABASE_URL = 'https://kukathominhssogthplc.supabase.co';
 const SUPABASE_ANON  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt1a2F0aG9taW5oc3NvZ3RocGxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NTU2NDMsImV4cCI6MjA5MDQzMTY0M30.nrfnhLWA_N-d5EA0qMvSTgSvbebbqHvWuCwk4PQDxcg';
 const SITE_URL = 'https://lokalist.fr';
