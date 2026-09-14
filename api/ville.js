@@ -931,6 +931,9 @@ ${eventsLd}
   .voisine-chip { display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 14px;border-radius:12px;font-size:13px;font-weight:700;text-decoration:none;transition:all .12s; }
   .voisine-chip:hover { border-color:var(--primary);color:var(--primary-d); }
   .voisine-chip span { font-weight:600;color:var(--muted);font-size:12px; }
+    .metiers-liens { display:flex;flex-wrap:wrap;gap:9px;margin-top:4px; }
+    .metier-lien { display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);color:var(--text);padding:9px 15px;border-radius:12px;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .12s; }
+    .metier-lien:hover { border-color:var(--primary);color:var(--primary-d);background:var(--primary-l,#E1F5EE); }
   .section h2 { font-family:var(--disp);font-size:clamp(19px,2.4vw,24px);font-weight:800;letter-spacing:-.5px;display:flex;align-items:center;gap:9px;margin-bottom:16px; }
   .section h2 .s-emoji { font-size:.9em; }
   .section h2 .count { background:var(--primary-l);color:var(--primary-d);font-size:13px;font-weight:800;padding:2px 11px;border-radius:22px; }
