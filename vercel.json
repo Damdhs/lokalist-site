@@ -89,6 +89,10 @@
       "destination": "/api/sitemap-villes"
     },
     {
+      "source": "/sitemap-artisans.xml",
+      "destination": "/api/sitemap-artisans"
+    },
+    {
       "source": "/sitemap-contenus.xml",
       "destination": "/api/sitemap-contenus"
     },
