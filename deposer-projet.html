@@ -76,6 +76,8 @@
   input::placeholder,textarea::placeholder{color:#9DB0A8}
   input:focus,select:focus,textarea:focus{border-color:var(--g);background:var(--surf);box-shadow:0 0 0 4px rgba(29,158,117,.12)}
   input.valid-commune{border-color:var(--g)!important;background:var(--gl)!important}
+  .field-err{border-color:#E24B4A!important;background:#FEF2F2!important;box-shadow:0 0 0 4px rgba(226,75,74,.12)!important}
+  .lot.lot-err{border-color:#E24B4A;box-shadow:0 0 0 4px rgba(226,75,74,.10)}
   textarea{min-height:120px;resize:vertical}
   .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.5;display:flex;gap:6px;align-items:flex-start}
   .hint .ic{flex:0 0 auto;font-size:14px}
@@ -521,30 +523,46 @@ fbq('init','1203376311821134');fbq('track','PageView');
   }
 
   // ---- validation + payload ----
+  function fail(msg, el){ return { msg:msg, el:el||null }; }
   function validate(){
-    if(!ST.famille) return 'Choisissez d\'abord de quoi vous avez besoin.';
+    if(!ST.famille) return fail('Choisissez d\'abord de quoi vous avez besoin.');
     var titre=val('p-titre'), desc=val('p-desc');
-    if(!titre) return 'Indiquez un titre pour votre projet.';
-    if(!desc) return 'Décrivez votre projet.';
-    if(desc.length<20) return 'Ajoutez plus de détails (au moins 20 caractères) pour que les pros puissent bien chiffrer.';
-    if(!ST.ville.nom||!ST.ville.cp) return 'Choisissez votre commune dans la liste de suggestions.';
-    if(!ST.selection.length) return 'Sélectionnez au moins un métier.';
+    if(!titre) return fail('Indiquez un titre pour votre projet.', $('p-titre'));
+    if(!desc) return fail('Décrivez votre projet.', $('p-desc'));
+    if(desc.length<20) return fail('Ajoutez plus de détails (au moins 20 caractères) pour que les pros puissent bien chiffrer.', $('p-desc'));
+    if(!ST.ville.nom||!ST.ville.cp) return fail('Choisissez votre commune dans la liste de suggestions.', $('p-commune'));
+    if(!ST.selection.length) return fail('Sélectionnez au moins un métier.', $('metierChips'));
     // champs requis par lot
     for(var i=0;i<ST.selection.length;i++){
       var cle=ST.selection[i], L=ST.lots[cle], sc=L&&L.schema;
-      if(!sc) return 'Patientez, le formulaire de « '+libelleDe(cle)+' » finit de charger.';
+      if(!sc) return fail('Patientez, le formulaire de « '+libelleDe(cle)+' » finit de charger.', $('lot-'+cle));
       for(var j=0;j<sc.champs.length;j++){
         var ch=sc.champs[j];
-        if(ch.required){ var v=L.valeurs[ch.key]; if(v==null||String(v).trim()==='') return '« '+libelleDe(cle)+' » : le champ « '+ch.label+' » est requis.'; }
+        if(ch.required){ var v=L.valeurs[ch.key]; if(v==null||String(v).trim()===''){
+          var lotEl=$('lot-'+cle);
+          var champEl=lotEl?lotEl.querySelector('[data-k="'+ch.key+'"]'):null;
+          // pour un select (chips), pas d'input : on cible le bloc du lot
+          return fail('« '+libelleDe(cle)+' » : le champ « '+ch.label+' » est requis.', champEl||lotEl);
+        } }
       }
     }
     var nom=val('p-nom'), email=val('p-email'), pass=$('p-pass').value;
-    if(!nom) return 'Indiquez votre nom.';
+    if(!nom) return fail('Indiquez votre nom.', $('p-nom'));
     var tel=(val('p-tel')||'').replace(/[\s.]/g,'');
-    if(!/^(0[1-79])\d{8}$/.test(tel)) return 'Indiquez un num\u00e9ro de t\u00e9l\u00e9phone valide (ex : 06 12 34 56 78).';
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return 'Indiquez un email valide.';
-    if(pass.length<8) return 'Le mot de passe doit faire au moins 8 caractères.';
+    if(!/^(0[1-79])\d{8}$/.test(tel)) return fail('Indiquez un num\u00e9ro de t\u00e9l\u00e9phone valide (ex : 06 12 34 56 78).', $('p-tel'));
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail('Indiquez un email valide.', $('p-email'));
+    if(pass.length<8) return fail('Le mot de passe doit faire au moins 8 caractères.', $('p-pass'));
     return null;
+  }
+  function clearFieldErrs(){
+    Array.prototype.forEach.call(document.querySelectorAll('.field-err'),function(e){ e.classList.remove('field-err'); });
+    Array.prototype.forEach.call(document.querySelectorAll('.lot-err'),function(e){ e.classList.remove('lot-err'); });
+  }
+  function markField(el){
+    if(!el) return;
+    if(el.classList.contains('lot')) el.classList.add('lot-err'); else el.classList.add('field-err');
+    try{ el.scrollIntoView({behavior:'smooth',block:'center'}); }catch(e){}
+    if(typeof el.focus==='function' && (el.tagName==='INPUT'||el.tagName==='TEXTAREA'||el.tagName==='SELECT')){ try{ el.focus({preventScroll:true}); }catch(e){ try{el.focus();}catch(_){} } }
   }
 
   function buildBody(){
@@ -568,8 +586,8 @@ fbq('init','1203376311821134');fbq('track','PageView');
   }
 
   async function submit(){
-    hideErr();
-    var err=validate(); if(err){ return showErr(err); }
+    hideErr(); clearFieldErrs();
+    var err=validate(); if(err){ markField(err.el); return showErr(err.msg); }
     var btn=$('p-submit'); btn.disabled=true; var old=btn.textContent; btn.textContent='⏳ Envoi en cours…';
     try{
       var body=buildBody();
@@ -602,7 +620,8 @@ fbq('init','1203376311821134');fbq('track','PageView');
   function initSearch(){ var s=$('p-search'); if(s) s.addEventListener('input',renderMetierChips); }
   function initSubmit(){ var b=$('p-submit'); if(b) b.addEventListener('click',submit); }
 
-  function boot(){ initCommune(); initForgot(); initSearch(); initSubmit(); chargerMetiers(); }
+  function initClearOnType(){ document.addEventListener('input',function(e){ if(e.target && e.target.classList) e.target.classList.remove('field-err'); },true); }
+  function boot(){ initCommune(); initForgot(); initSearch(); initSubmit(); initClearOnType(); chargerMetiers(); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 
   // hooks tests (inoffensif en prod) + pickFam appele en inline
