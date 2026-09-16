@@ -8,3 +8,4 @@ Sitemap: https://lokalist.fr/sitemap.xml
 Sitemap: https://lokalist.fr/sitemap-villes.xml
 Sitemap: https://lokalist.fr/sitemap-contenus.xml
 Sitemap: https://lokalist.fr/sitemap-artisans.xml
+Sitemap: https://lokalist.fr/sitemap-commercants.xml

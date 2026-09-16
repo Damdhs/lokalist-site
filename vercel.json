@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/sitemap-commercants.xml",
+      "destination": "/api/sitemap-commercants"
+    },
+    {
       "source": "/commercants/:categorie/:ville",
       "destination": "/api/commercant-ville?categorie=:categorie&ville=:ville"
     },
