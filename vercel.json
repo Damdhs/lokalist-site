@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/application-mairie",
+      "destination": "/application-mairie.html"
+    },
+    {
       "source": "/sitemap-commercants.xml",
       "destination": "/api/sitemap-commercants"
     },
