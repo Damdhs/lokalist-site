@@ -1,366 +1,370 @@
-{
-  "rewrites": [
-    {
-      "source": "/application-mairie",
-      "destination": "/application-mairie.html"
-    },
-    {
-      "source": "/sitemap-commercants.xml",
-      "destination": "/api/sitemap-commercants"
-    },
-    {
-      "source": "/commercants/:categorie/:ville",
-      "destination": "/api/commercant-ville?categorie=:categorie&ville=:ville"
-    },
-    {
-      "source": "/application-commerce-local",
-      "destination": "/application-commerce-local.html"
-    },
-    {
-      "source": "/aide-agence",
-      "destination": "/aide-agence.html"
-    },
-    {
-      "source": "/aide-artisan",
-      "destination": "/aide-artisan.html"
-    },
-    {
-      "source": "/aide-commercant",
-      "destination": "/aide-commercant.html"
-    },
-    {
-      "source": "/aide-commercant-scan",
-      "destination": "/aide-commercant-scan.html"
-    },
-    {
-      "source": "/aide-courtier",
-      "destination": "/aide-courtier.html"
-    },
-    {
-      "source": "/aide-hebergeur",
-      "destination": "/aide-hebergeur.html"
-    },
-    {
-      "source": "/aide-mairie",
-      "destination": "/aide-mairie.html"
-    },
-    {
-      "source": "/application-agence-immobiliere",
-      "destination": "/application-agence-immobiliere.html"
-    },
-    {
-      "source": "/application-artisan",
-      "destination": "/application-artisan.html"
-    },
-    {
-      "source": "/application-courtier",
-      "destination": "/application-courtier.html"
-    },
-    {
-      "source": "/application-hebergeur",
-      "destination": "/application-hebergeur.html"
-    },
-    {
-      "source": "/carte-fidelite-commercant",
-      "destination": "/carte-fidelite-commercant.html"
-    },
-    {
-      "source": "/formulaire-mairie",
-      "destination": "/formulaire-mairie.html"
-    },
-    {
-      "source": "/kit-mairie",
-      "destination": "/kit-mairie.html"
-    },
-    {
-      "source": "/hebergement",
-      "destination": "/hebergement.html"
-    },
-    {
-      "source": "/rendez-vous",
-      "destination": "/rendez-vous.html"
-    },
-    {
-      "source": "/mobile-canvas",
-      "destination": "/mobile-canvas.html"
-    },
-    {
-      "source": "/i/:code",
-      "destination": "/i.html"
-    },
-    {
-      "source": "/supprimer-compte",
-      "destination": "/supprimer-compte.html"
-    },
-    {
-      "source": "/ambassadeurs",
-      "destination": "/ambassadeurs.html"
-    },
-    {
-      "source": "/villes",
-      "destination": "/api/villes"
-    },
-    {
-      "source": "/sitemap-villes.xml",
-      "destination": "/api/sitemap-villes"
-    },
-    {
-      "source": "/sitemap-artisans.xml",
-      "destination": "/api/sitemap-artisans"
-    },
-    {
-      "source": "/sitemap-contenus.xml",
-      "destination": "/api/sitemap-contenus"
-    },
-    {
-      "source": "/artisans/:metier/:ville",
-      "destination": "/api/artisan-ville?metier=:metier&ville=:ville"
-    },
-    {
-      "source": "/villes/:slug",
-      "destination": "/api/ville?slug=:slug"
-    },
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/mairies",
-      "destination": "/mairies.html"
-    },
-    {
-      "source": "/alternative-panneaupocket",
-      "destination": "/alternative-panneaupocket.html"
-    },
-    {
-      "source": "/commercants",
-      "destination": "/commercants.html"
-    },
-    {
-      "source": "/artisans",
-      "destination": "/artisans.html"
-    },
-    {
-      "source": "/agences",
-      "destination": "/agences.html"
-    },
-    {
-      "source": "/courtiers",
-      "destination": "/courtiers.html"
-    },
-    {
-      "source": "/loisirs",
-      "destination": "/loisirs.html"
-    },
-    {
-      "source": "/idees-sorties",
-      "destination": "/idees-sorties.html"
-    },
-    {
-      "source": "/proposer-un-evenement",
-      "destination": "/proposer-un-evenement.html"
-    },
-    {
-      "source": "/appels-offres",
-      "destination": "/appels-offres.html"
-    },
-    {
-      "source": "/tarifs",
-      "destination": "/tarifs.html"
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/mentions-legales",
-      "destination": "/mentions-legales.html"
-    },
-    {
-      "source": "/cgv",
-      "destination": "/cgv.html"
-    },
-    {
-      "source": "/cgu",
-      "destination": "/cgu.html"
-    },
-    {
-      "source": "/confidentialite",
-      "destination": "/confidentialite.html"
-    },
-    {
-      "source": "/cookies",
-      "destination": "/cookies.html"
-    },
-    {
-      "source": "/paiement/ok",
-      "destination": "/paiement-ok.html"
-    },
-    {
-      "source": "/paiement/annule",
-      "destination": "/paiement-annule.html"
-    },
-    {
-      "source": "/contact/",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/contact/:path*",
-      "destination": "/contact.html"
-    },
-    {
-      "source": "/devis/:token",
-      "destination": "/devis.html"
-    },
-    {
-      "source": "/annonce/:id",
-      "destination": "/api/annonce?id=:id"
-    },
-    {
-      "source": "/hebergement/:slug",
-      "destination": "/api/hebergement?slug=:slug"
-    },
-    {
-      "source": "/affichage/:slug",
-      "destination": "/api/affichage?slug=:slug"
-    },
-    {
-      "source": "/pro/:id",
-      "destination": "/api/pro?id=:id"
-    },
-    {
-      "source": "/artisan/:id",
-      "destination": "/api/artisan?id=:id"
-    },
-    {
-      "source": "/sortie/:id",
-      "destination": "/api/sortie?id=:id"
-    },
-    {
-      "source": "/offre/:id",
-      "destination": "/api/offre?id=:id"
-    },
-    {
-      "source": "/actu/:id",
-      "destination": "/api/actu?id=:id"
-    },
-    {
-      "source": "/agence/:id",
-      "destination": "/api/agence?id=:id"
-    },
-    {
-      "source": "/courtier/:id",
-      "destination": "/api/courtier?id=:id"
-    },
-    {
-      "source": "/mairie/:id.ics",
-      "destination": "/api/mairie?id=:id&format=ics"
-    },
-    {
-      "source": "/mairie/:id",
-      "destination": "/api/mairie?id=:id"
-    },
-    {
-      "source": "/evenement/:id.ics",
-      "destination": "/api/evenement?id=:id&format=ics"
-    },
-    {
-      "source": "/evenement/:id",
-      "destination": "/api/evenement?id=:id"
-    },
-    {
-      "source": "/contrats/:token",
-      "destination": "/signer-contrat.html"
-    },
-    {
-      "source": "/deposer-projet",
-      "destination": "/deposer-projet.html"
-    },
-    {
-      "source": "/mes-projets",
-      "destination": "/mes-projets.html"
-    },
-    {
-      "source": "/paiement/evenement-ok",
-      "destination": "/paiement-evenement-ok.html"
-    },
-    {
-      "source": "/app",
-      "destination": "/app.html"
-    },
-    {
-      "source": "/avis",
-      "destination": "/avis.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/signer-contrat.html",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "no-referrer"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "geolocation=(), microphone=(), camera=(), payment=()"
-        },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive, nosnippet"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        },
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://lokalist-api-production.up.railway.app; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
-        }
-      ]
-    },
-    {
-      "source": "/contrats/:path*",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "no-referrer"
-        },
-        {
-          "key": "Permissions-Policy",
-          "value": "geolocation=(), microphone=(), camera=(), payment=()"
-        },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive, nosnippet"
-        },
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, max-age=0"
-        },
-        {
-          "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://lokalist-api-production.up.railway.app; img-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
-        }
-      ]
-    }
-  ],
-  "buildCommand": "",
-  "outputDirectory": "."
+﻿{
+    "rewrites":  [
+                     {
+                         "source":  "/desinscription",
+                         "destination":  "/api/desinscription"
+                     },
+                     {
+                         "source":  "/application-mairie",
+                         "destination":  "/application-mairie.html"
+                     },
+                     {
+                         "source":  "/sitemap-commercants.xml",
+                         "destination":  "/api/sitemap-commercants"
+                     },
+                     {
+                         "source":  "/commercants/:categorie/:ville",
+                         "destination":  "/api/commercant-ville?categorie=:categorie\u0026ville=:ville"
+                     },
+                     {
+                         "source":  "/application-commerce-local",
+                         "destination":  "/application-commerce-local.html"
+                     },
+                     {
+                         "source":  "/aide-agence",
+                         "destination":  "/aide-agence.html"
+                     },
+                     {
+                         "source":  "/aide-artisan",
+                         "destination":  "/aide-artisan.html"
+                     },
+                     {
+                         "source":  "/aide-commercant",
+                         "destination":  "/aide-commercant.html"
+                     },
+                     {
+                         "source":  "/aide-commercant-scan",
+                         "destination":  "/aide-commercant-scan.html"
+                     },
+                     {
+                         "source":  "/aide-courtier",
+                         "destination":  "/aide-courtier.html"
+                     },
+                     {
+                         "source":  "/aide-hebergeur",
+                         "destination":  "/aide-hebergeur.html"
+                     },
+                     {
+                         "source":  "/aide-mairie",
+                         "destination":  "/aide-mairie.html"
+                     },
+                     {
+                         "source":  "/application-agence-immobiliere",
+                         "destination":  "/application-agence-immobiliere.html"
+                     },
+                     {
+                         "source":  "/application-artisan",
+                         "destination":  "/application-artisan.html"
+                     },
+                     {
+                         "source":  "/application-courtier",
+                         "destination":  "/application-courtier.html"
+                     },
+                     {
+                         "source":  "/application-hebergeur",
+                         "destination":  "/application-hebergeur.html"
+                     },
+                     {
+                         "source":  "/carte-fidelite-commercant",
+                         "destination":  "/carte-fidelite-commercant.html"
+                     },
+                     {
+                         "source":  "/formulaire-mairie",
+                         "destination":  "/formulaire-mairie.html"
+                     },
+                     {
+                         "source":  "/kit-mairie",
+                         "destination":  "/kit-mairie.html"
+                     },
+                     {
+                         "source":  "/hebergement",
+                         "destination":  "/hebergement.html"
+                     },
+                     {
+                         "source":  "/rendez-vous",
+                         "destination":  "/rendez-vous.html"
+                     },
+                     {
+                         "source":  "/mobile-canvas",
+                         "destination":  "/mobile-canvas.html"
+                     },
+                     {
+                         "source":  "/i/:code",
+                         "destination":  "/i.html"
+                     },
+                     {
+                         "source":  "/supprimer-compte",
+                         "destination":  "/supprimer-compte.html"
+                     },
+                     {
+                         "source":  "/ambassadeurs",
+                         "destination":  "/ambassadeurs.html"
+                     },
+                     {
+                         "source":  "/villes",
+                         "destination":  "/api/villes"
+                     },
+                     {
+                         "source":  "/sitemap-villes.xml",
+                         "destination":  "/api/sitemap-villes"
+                     },
+                     {
+                         "source":  "/sitemap-artisans.xml",
+                         "destination":  "/api/sitemap-artisans"
+                     },
+                     {
+                         "source":  "/sitemap-contenus.xml",
+                         "destination":  "/api/sitemap-contenus"
+                     },
+                     {
+                         "source":  "/artisans/:metier/:ville",
+                         "destination":  "/api/artisan-ville?metier=:metier\u0026ville=:ville"
+                     },
+                     {
+                         "source":  "/villes/:slug",
+                         "destination":  "/api/ville?slug=:slug"
+                     },
+                     {
+                         "source":  "/",
+                         "destination":  "/index.html"
+                     },
+                     {
+                         "source":  "/mairies",
+                         "destination":  "/mairies.html"
+                     },
+                     {
+                         "source":  "/alternative-panneaupocket",
+                         "destination":  "/alternative-panneaupocket.html"
+                     },
+                     {
+                         "source":  "/commercants",
+                         "destination":  "/commercants.html"
+                     },
+                     {
+                         "source":  "/artisans",
+                         "destination":  "/artisans.html"
+                     },
+                     {
+                         "source":  "/agences",
+                         "destination":  "/agences.html"
+                     },
+                     {
+                         "source":  "/courtiers",
+                         "destination":  "/courtiers.html"
+                     },
+                     {
+                         "source":  "/loisirs",
+                         "destination":  "/loisirs.html"
+                     },
+                     {
+                         "source":  "/idees-sorties",
+                         "destination":  "/idees-sorties.html"
+                     },
+                     {
+                         "source":  "/proposer-un-evenement",
+                         "destination":  "/proposer-un-evenement.html"
+                     },
+                     {
+                         "source":  "/appels-offres",
+                         "destination":  "/appels-offres.html"
+                     },
+                     {
+                         "source":  "/tarifs",
+                         "destination":  "/tarifs.html"
+                     },
+                     {
+                         "source":  "/contact",
+                         "destination":  "/contact.html"
+                     },
+                     {
+                         "source":  "/mentions-legales",
+                         "destination":  "/mentions-legales.html"
+                     },
+                     {
+                         "source":  "/cgv",
+                         "destination":  "/cgv.html"
+                     },
+                     {
+                         "source":  "/cgu",
+                         "destination":  "/cgu.html"
+                     },
+                     {
+                         "source":  "/confidentialite",
+                         "destination":  "/confidentialite.html"
+                     },
+                     {
+                         "source":  "/cookies",
+                         "destination":  "/cookies.html"
+                     },
+                     {
+                         "source":  "/paiement/ok",
+                         "destination":  "/paiement-ok.html"
+                     },
+                     {
+                         "source":  "/paiement/annule",
+                         "destination":  "/paiement-annule.html"
+                     },
+                     {
+                         "source":  "/contact/",
+                         "destination":  "/contact.html"
+                     },
+                     {
+                         "source":  "/contact/:path*",
+                         "destination":  "/contact.html"
+                     },
+                     {
+                         "source":  "/devis/:token",
+                         "destination":  "/devis.html"
+                     },
+                     {
+                         "source":  "/annonce/:id",
+                         "destination":  "/api/annonce?id=:id"
+                     },
+                     {
+                         "source":  "/hebergement/:slug",
+                         "destination":  "/api/hebergement?slug=:slug"
+                     },
+                     {
+                         "source":  "/affichage/:slug",
+                         "destination":  "/api/affichage?slug=:slug"
+                     },
+                     {
+                         "source":  "/pro/:id",
+                         "destination":  "/api/pro?id=:id"
+                     },
+                     {
+                         "source":  "/artisan/:id",
+                         "destination":  "/api/artisan?id=:id"
+                     },
+                     {
+                         "source":  "/sortie/:id",
+                         "destination":  "/api/sortie?id=:id"
+                     },
+                     {
+                         "source":  "/offre/:id",
+                         "destination":  "/api/offre?id=:id"
+                     },
+                     {
+                         "source":  "/actu/:id",
+                         "destination":  "/api/actu?id=:id"
+                     },
+                     {
+                         "source":  "/agence/:id",
+                         "destination":  "/api/agence?id=:id"
+                     },
+                     {
+                         "source":  "/courtier/:id",
+                         "destination":  "/api/courtier?id=:id"
+                     },
+                     {
+                         "source":  "/mairie/:id.ics",
+                         "destination":  "/api/mairie?id=:id\u0026format=ics"
+                     },
+                     {
+                         "source":  "/mairie/:id",
+                         "destination":  "/api/mairie?id=:id"
+                     },
+                     {
+                         "source":  "/evenement/:id.ics",
+                         "destination":  "/api/evenement?id=:id\u0026format=ics"
+                     },
+                     {
+                         "source":  "/evenement/:id",
+                         "destination":  "/api/evenement?id=:id"
+                     },
+                     {
+                         "source":  "/contrats/:token",
+                         "destination":  "/signer-contrat.html"
+                     },
+                     {
+                         "source":  "/deposer-projet",
+                         "destination":  "/deposer-projet.html"
+                     },
+                     {
+                         "source":  "/mes-projets",
+                         "destination":  "/mes-projets.html"
+                     },
+                     {
+                         "source":  "/paiement/evenement-ok",
+                         "destination":  "/paiement-evenement-ok.html"
+                     },
+                     {
+                         "source":  "/app",
+                         "destination":  "/app.html"
+                     },
+                     {
+                         "source":  "/avis",
+                         "destination":  "/avis.html"
+                     }
+                 ],
+    "headers":  [
+                    {
+                        "source":  "/signer-contrat.html",
+                        "headers":  [
+                                        {
+                                            "key":  "X-Frame-Options",
+                                            "value":  "DENY"
+                                        },
+                                        {
+                                            "key":  "X-Content-Type-Options",
+                                            "value":  "nosniff"
+                                        },
+                                        {
+                                            "key":  "Referrer-Policy",
+                                            "value":  "no-referrer"
+                                        },
+                                        {
+                                            "key":  "Permissions-Policy",
+                                            "value":  "geolocation=(), microphone=(), camera=(), payment=()"
+                                        },
+                                        {
+                                            "key":  "X-Robots-Tag",
+                                            "value":  "noindex, nofollow, noarchive, nosnippet"
+                                        },
+                                        {
+                                            "key":  "Cache-Control",
+                                            "value":  "no-store, no-cache, must-revalidate, max-age=0"
+                                        },
+                                        {
+                                            "key":  "Content-Security-Policy",
+                                            "value":  "default-src \u0027self\u0027; script-src \u0027self\u0027 \u0027unsafe-inline\u0027; style-src \u0027self\u0027 \u0027unsafe-inline\u0027 https://fonts.googleapis.com; font-src \u0027self\u0027 https://fonts.gstatic.com; connect-src \u0027self\u0027 https://lokalist-api-production.up.railway.app; img-src \u0027self\u0027 data:; frame-ancestors \u0027none\u0027; base-uri \u0027self\u0027; form-action \u0027self\u0027;"
+                                        }
+                                    ]
+                    },
+                    {
+                        "source":  "/contrats/:path*",
+                        "headers":  [
+                                        {
+                                            "key":  "X-Frame-Options",
+                                            "value":  "DENY"
+                                        },
+                                        {
+                                            "key":  "X-Content-Type-Options",
+                                            "value":  "nosniff"
+                                        },
+                                        {
+                                            "key":  "Referrer-Policy",
+                                            "value":  "no-referrer"
+                                        },
+                                        {
+                                            "key":  "Permissions-Policy",
+                                            "value":  "geolocation=(), microphone=(), camera=(), payment=()"
+                                        },
+                                        {
+                                            "key":  "X-Robots-Tag",
+                                            "value":  "noindex, nofollow, noarchive, nosnippet"
+                                        },
+                                        {
+                                            "key":  "Cache-Control",
+                                            "value":  "no-store, no-cache, must-revalidate, max-age=0"
+                                        },
+                                        {
+                                            "key":  "Content-Security-Policy",
+                                            "value":  "default-src \u0027self\u0027; script-src \u0027self\u0027 \u0027unsafe-inline\u0027; style-src \u0027self\u0027 \u0027unsafe-inline\u0027 https://fonts.googleapis.com; font-src \u0027self\u0027 https://fonts.gstatic.com; connect-src \u0027self\u0027 https://lokalist-api-production.up.railway.app; img-src \u0027self\u0027 data:; frame-ancestors \u0027none\u0027; base-uri \u0027self\u0027; form-action \u0027self\u0027;"
+                                        }
+                                    ]
+                    }
+                ],
+    "buildCommand":  "",
+    "outputDirectory":  "."
 }
