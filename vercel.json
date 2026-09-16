@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/commercants/:categorie/:ville",
+      "destination": "/api/commercant-ville?categorie=:categorie&ville=:ville"
+    },
+    {
       "source": "/application-commerce-local",
       "destination": "/application-commerce-local.html"
     },
