@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"/>
+<title>Application de commerce local — Lokalist, toute votre ville dans une appli</title>
+<meta name="description" content="Lokalist est l'application de commerce local qui réunit commerçants, artisans, mairies et habitants d'une même commune : fidélité, bons plans, devis d'artisans et services municipaux, partout en France. Gratuit pour les habitants."/>
+<link rel="canonical" href="https://lokalist.fr/application-commerce-local"/>
+<meta name="robots" content="index, follow"/>
+
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Lokalist"/>
+<meta property="og:title" content="Application de commerce local — Lokalist"/>
+<meta property="og:description" content="Commerçants, artisans, mairies et habitants réunis dans une seule application locale. Fidélité, bons plans, devis et vie locale, partout en France."/>
+<meta property="og:url" content="https://lokalist.fr/application-commerce-local"/>
+<meta property="og:image" content="https://lokalist.fr/og-lokalist.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,800&display=swap" rel="stylesheet"/>
+
+<!-- LOKALIST-GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GKPWXWK5FV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-GKPWXWK5FV');
+</script>
+<!-- /LOKALIST-GA4 -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lokalist",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Android, iOS",
+  "url": "https://lokalist.fr/application-commerce-local",
+  "description": "Application de commerce local qui réunit commerçants, artisans, mairies et habitants d'une même commune : programme de fidélité, bons plans, demandes de devis d'artisans et services municipaux, partout en France.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+  "publisher": { "@type": "Organization", "name": "Lokalist", "url": "https://lokalist.fr" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Qu'est-ce qu'une application de commerce local ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Une application de commerce local réunit au même endroit les commerçants, artisans et services d'une commune, et les met en relation avec les habitants. Lokalist ajoute un programme de fidélité, des bons plans, un agenda local, des demandes de devis d'artisans et un espace pour les mairies." } },
+    { "@type": "Question", "name": "Lokalist est-elle gratuite ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "L'application est gratuite pour les habitants. Les professionnels (commerçants, artisans, agences, courtiers) et les mairies souscrivent à une offre adaptée à leur activité." } },
+    { "@type": "Question", "name": "Comment un commerçant ou un artisan rejoint-il Lokalist ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Un professionnel peut demander à référencer son activité et prendre un rendez-vous de présentation depuis le site. Il gagne en visibilité auprès des habitants de sa ville et reçoit des demandes de sa zone." } },
+    { "@type": "Question", "name": "Comment une mairie peut-elle utiliser Lokalist ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Une mairie dispose d'un espace municipal : alertes, agenda, actualités, démarches et soutien aux commerçants locaux, réunis dans l'application que ses habitants utilisent déjà." } },
+    { "@type": "Question", "name": "Comment déposer un projet de travaux sur Lokalist ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Un particulier décrit son projet (plomberie, carrelage, peinture, rénovation…) et reçoit des devis d'artisans locaux vérifiés proches de chez lui." } },
+    { "@type": "Question", "name": "Lokalist couvre-t-elle toute la France ?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Lokalist est une plateforme nationale. Chaque commune s'active dès qu'elle compte de vrais commerçants, artisans ou une mairie partenaire, avec sa propre page locale." } }
+  ]
+}
+</script>
+
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --vert:#1D9E75; --vert-fonce:#0F6E56; --or:#EF9F27;
+    --encre:#0B1612; --texte:#1A2E26; --doux:#5C7268;
+    --fond:#F7F8F4; --carte:#ffffff; --bord:#D8E8E2;
+  }
+  body{font-family:'DM Sans',system-ui,-apple-system,sans-serif;background:var(--fond);color:var(--texte);line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+  img{max-width:100%}
+
+  header{padding:22px 0}
+  .brand{font-weight:800;font-size:23px;letter-spacing:-.5px}
+  .brand .g{color:var(--vert)} .brand .o{color:var(--or)}
+
+  .hero{padding:34px 0 10px;max-width:760px}
+  h1{font-size:clamp(28px,5vw,44px);font-weight:800;color:var(--encre);line-height:1.1;letter-spacing:-.5px;margin-bottom:16px}
+  .lede{font-size:clamp(16px,2.4vw,19px);color:var(--texte);margin-bottom:26px}
+  .lede b{font-weight:700}
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:14px}
+  .btn{display:inline-block;font-weight:700;padding:14px 22px;border-radius:13px;font-size:15px;transition:transform .12s ease}
+  .btn:active{transform:translateY(1px)}
+  .btn-p{background:var(--vert);color:#fff}
+  .btn-s{background:#fff;color:var(--vert-fonce);border:1px solid var(--bord)}
+  .note{font-size:13.5px;color:var(--doux)}
+
+  section{padding:38px 0}
+  h2{font-size:clamp(22px,3.4vw,28px);font-weight:800;color:var(--encre);line-height:1.2;letter-spacing:-.3px;margin-bottom:8px}
+  .sec-intro{color:var(--doux);max-width:640px;margin-bottom:24px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--carte);border:1px solid var(--bord);border-radius:18px;padding:22px;display:flex;flex-direction:column}
+  .card .ic{font-size:26px;margin-bottom:10px}
+  .card h3{font-size:18px;font-weight:800;color:var(--encre);margin-bottom:6px}
+  .card p{font-size:14.5px;color:var(--doux);margin-bottom:14px;flex:1}
+  .card .lien{font-weight:700;color:var(--vert-fonce);font-size:14.5px}
+
+  .steps{counter-reset:s;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .step{background:var(--carte);border:1px solid var(--bord);border-radius:18px;padding:22px}
+  .step::before{counter-increment:s;content:counter(s);display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:#E1F5EE;color:var(--vert-fonce);font-weight:800;margin-bottom:12px}
+  .step h3{font-size:17px;font-weight:800;color:var(--encre);margin-bottom:5px}
+  .step p{font-size:14.5px;color:var(--doux)}
+
+  .faq details{background:var(--carte);border:1px solid var(--bord);border-radius:14px;padding:4px 18px;margin-bottom:10px}
+  .faq summary{cursor:pointer;list-style:none;padding:14px 0;font-weight:700;color:var(--encre);font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:'+';color:var(--vert);font-weight:800;font-size:22px;line-height:1}
+  .faq details[open] summary::after{content:'–'}
+  .faq .rep{padding:0 0 16px;color:var(--texte);font-size:15px}
+
+  .band{background:var(--vert-fonce);color:#fff;border-radius:22px;padding:38px 28px;text-align:center;margin:20px 0}
+  .band h2{color:#fff}
+  .band p{color:#D8EFE7;max-width:560px;margin:8px auto 22px}
+  .band .btn-p{background:#fff;color:var(--vert-fonce)}
+  .band .btn-s{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+
+  footer{padding:30px 0 60px;border-top:1px solid var(--bord);margin-top:20px;color:var(--doux);font-size:14px}
+  footer .flinks{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:12px}
+  footer .flinks a{font-weight:600;color:var(--texte)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap"><a class="brand" href="https://lokalist.fr"><span class="g">lokal</span><span class="o">ist</span></a></div>
+</header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <h1>L'application de commerce local qui réunit toute votre ville</h1>
+    <p class="lede"><b>Lokalist rassemble les commerçants, artisans, mairies et habitants d'une même commune dans une seule application.</b> Fidélité, bons plans, demandes de devis d'artisans, agenda et services municipaux — la vie locale au même endroit, partout en France.</p>
+    <div class="cta-row">
+      <a class="btn btn-p" href="https://lokalist.fr/app">Télécharger l'application</a>
+      <a class="btn btn-s" href="https://lokalist.fr/rendez-vous?profil=commercant">Je suis un professionnel</a>
+      <a class="btn btn-s" href="https://lokalist.fr/mairies">Je suis une mairie</a>
+    </div>
+    <p class="note">Gratuit pour les habitants · commerçants, artisans, agences et mairies bienvenus.</p>
+  </div>
+</div>
+
+<div class="wrap">
+<section>
+  <h2>Une application, tous les acteurs de la commune</h2>
+  <p class="sec-intro">Le commerce local ne se limite pas aux boutiques : c'est aussi les artisans, les travaux, la mairie et les habitants qui les font vivre. Lokalist les réunit.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="ic">🏪</div>
+      <h3>Commerçants</h3>
+      <p>Gagnez en visibilité auprès des habitants de votre ville et fidélisez-les avec un programme de points et des offres.</p>
+      <a class="lien" href="https://lokalist.fr/commercants">Référencer mon commerce →</a>
+    </div>
+    <div class="card">
+      <div class="ic">🔧</div>
+      <h3>Artisans</h3>
+      <p>Recevez les demandes de projets de votre secteur, près de chez vous, et développez votre activité localement.</p>
+      <a class="lien" href="https://lokalist.fr/artisans">Rejoindre en tant qu'artisan →</a>
+    </div>
+    <div class="card">
+      <div class="ic">🛠️</div>
+      <h3>Travaux &amp; particuliers</h3>
+      <p>Un projet de plomberie, carrelage, peinture ou rénovation ? Décrivez-le et recevez des devis d'artisans locaux vérifiés.</p>
+      <a class="lien" href="https://lokalist.fr/deposer-projet">Déposer un projet →</a>
+    </div>
+    <div class="card">
+      <div class="ic">🏛️</div>
+      <h3>Mairies</h3>
+      <p>Offrez à vos habitants un espace municipal : alertes, agenda, actualités, démarches et soutien aux commerces locaux.</p>
+      <a class="lien" href="https://lokalist.fr/mairies">Découvrir l'espace mairie →</a>
+    </div>
+    <div class="card">
+      <div class="ic">📍</div>
+      <h3>Habitants</h3>
+      <p>Toute la vie locale dans votre poche : bons plans, fidélité, commerces, artisans et actus de votre commune.</p>
+      <a class="lien" href="https://lokalist.fr/app">Télécharger l'application →</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Comment ça marche</h2>
+  <p class="sec-intro">Trois étapes pour faire vivre le commerce de votre commune.</p>
+  <div class="steps">
+    <div class="step">
+      <h3>Téléchargez l'application</h3>
+      <p>Les habitants installent Lokalist et retrouvent les commerçants et artisans de leur ville.</p>
+    </div>
+    <div class="step">
+      <h3>Profitez du local</h3>
+      <p>Fidélité, bons plans, devis d'artisans, événements et infos de la mairie, réunis au même endroit.</p>
+    </div>
+    <div class="step">
+      <h3>Soutenez votre ville</h3>
+      <p>Chaque achat et chaque contact fait tourner l'économie de proximité, pas une plateforme lointaine.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faq">
+  <h2>Questions fréquentes</h2>
+  <p class="sec-intro">Ce que les habitants, les pros et les mairies demandent le plus souvent.</p>
+
+  <details open>
+    <summary>Qu'est-ce qu'une application de commerce local ?</summary>
+    <div class="rep">Une application de commerce local réunit au même endroit les commerçants, artisans et services d'une commune, et les met en relation avec les habitants. Lokalist y ajoute un programme de fidélité, des bons plans, un agenda local, des demandes de devis d'artisans et un espace pour les mairies.</div>
+  </details>
+  <details>
+    <summary>Lokalist est-elle gratuite ?</summary>
+    <div class="rep">L'application est gratuite pour les habitants. Les professionnels (commerçants, artisans, agences, courtiers) et les mairies souscrivent à une offre adaptée à leur activité.</div>
+  </details>
+  <details>
+    <summary>Comment un commerçant ou un artisan rejoint-il Lokalist ?</summary>
+    <div class="rep">Un professionnel demande à référencer son activité et prend un rendez-vous de présentation depuis le site. Il gagne en visibilité auprès des habitants de sa ville et reçoit des demandes de sa zone.</div>
+  </details>
+  <details>
+    <summary>Comment une mairie peut-elle utiliser Lokalist ?</summary>
+    <div class="rep">Une mairie dispose d'un espace municipal : alertes, agenda, actualités, démarches et soutien aux commerçants locaux, réunis dans l'application que ses habitants utilisent déjà.</div>
+  </details>
+  <details>
+    <summary>Comment déposer un projet de travaux sur Lokalist ?</summary>
+    <div class="rep">Un particulier décrit son projet (plomberie, carrelage, peinture, rénovation…) et reçoit des devis d'artisans locaux vérifiés proches de chez lui.</div>
+  </details>
+  <details>
+    <summary>Lokalist couvre-t-elle toute la France ?</summary>
+    <div class="rep">Lokalist est une plateforme nationale. Chaque commune s'active dès qu'elle compte de vrais commerçants, artisans ou une mairie partenaire, avec sa propre page locale.</div>
+  </details>
+</section>
+
+<div class="band">
+  <h2>Faites entrer votre ville dans Lokalist</h2>
+  <p>Habitant, commerçant, artisan ou élu : rejoignez l'écosystème local que votre commune utilise déjà.</p>
+  <div class="cta-row" style="justify-content:center">
+    <a class="btn btn-p" href="https://lokalist.fr/app">Télécharger l'application</a>
+    <a class="btn btn-s" href="https://lokalist.fr/rendez-vous?profil=commercant">Prendre rendez-vous</a>
+  </div>
+</div>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="flinks">
+      <a href="https://lokalist.fr">Accueil</a>
+      <a href="https://lokalist.fr/commercants">Commerçants</a>
+      <a href="https://lokalist.fr/artisans">Artisans</a>
+      <a href="https://lokalist.fr/deposer-projet">Déposer un projet</a>
+      <a href="https://lokalist.fr/mairies">Mairies</a>
+      <a href="https://lokalist.fr/villes">Toutes les villes</a>
+      <a href="https://lokalist.fr/contact">Contact</a>
+    </div>
+    <p>© Lokalist · La fidélité locale réinventée · Application de commerce local, partout en France.</p>
+  </div>
+</footer>
+
+</body>
+</html>

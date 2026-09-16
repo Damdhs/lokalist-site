@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/application-commerce-local",
+      "destination": "/application-commerce-local.html"
+    },
+    {
       "source": "/aide-agence",
       "destination": "/aide-agence.html"
     },
