@@ -242,6 +242,14 @@
       if(!res.ok){ var j={}; try{j=await res.json()}catch(e){}; throw new Error(j.error||('Erreur '+res.status)); }
       document.getElementById('form-view').style.display='none';
       document.getElementById('ok-view').style.display='block';
+        /* LOKALIST_SEO_LEAD_BEACON : attribution origine du lead (non bloquant) */
+        try {
+          var _q = new URLSearchParams(window.location.search);
+          var _ville = (_q.get('ville') || '').trim();
+          var _page = (_q.get('page') || _q.get('from') || document.referrer || window.location.pathname || '').trim();
+          var _profil = (_q.get('profil') || window.__profilLabel || '').toString().trim();
+          fetch(API + '/seo/lead', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ nom:nom, email:email, ville:_ville, page:_page, profil:_profil }) }).catch(function(){});
+        } catch(e){}
     }catch(err){
       showErr("Oups, l'envoi n'a pas fonctionné. Réessayez, ou appelez le 06 33 28 21 53.");
       btn.disabled=false; btn.textContent='Proposer ce créneau ?';
