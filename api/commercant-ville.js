@@ -182,6 +182,20 @@ export default async function handler(req) {
     } : null;
     var faqHtml = faq.length ? (`<h2>Questions fréquentes</h2><div class="faq">` + faq.map(function (f) { return `<details class="qa"><summary>` + escapeHtml(f.q) + `</summary><p>` + escapeHtml(f.a) + `</p></details>`; }).join("") + `</div>`) : "";
 
+    // [SEO+] Maillage interne : autres categories reellement peuplees dans la commune.
+    var maillageChips = "";
+    try {
+      var _seen = {}; var _liens = [];
+      (tous || []).forEach(function (c) {
+        var lib = String(c.categorie || '').trim();
+        var s = slugify(lib);
+        if (!s || s === catSlug || _seen[s]) return;
+        _seen[s] = 1;
+        _liens.push('<a class="chip" href="' + SITE_URL + '/commercants/' + s + '/' + villeSlug + '">' + emojiCommerce(lib) + ' ' + escapeHtml(lib) + '</a>');
+      });
+      maillageChips = _liens.join('');
+    } catch (e) { maillageChips = ""; }
+
     const head = `<title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(desc)}"/>
 <link rel="canonical" href="${canonical}"/>
@@ -218,6 +232,7 @@ ${faqHtml}
 <h2>Voir aussi \u00e0 ${escapeHtml(ville)}</h2>
 <div class="chips">
   <a class="chip" href="${SITE_URL}/villes/${villeSlug}">Tous les commerces de ${escapeHtml(ville)}</a>
+  ${maillageChips}
   <a class="chip" href="${SITE_URL}/commercants">Inscrire mon commerce</a>
 </div>`;
 

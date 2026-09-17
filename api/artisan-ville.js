@@ -190,6 +190,25 @@ export default async function handler(req) {
     } : null;
     var faqHtml = faq.length ? (`<h2>Questions fréquentes</h2><div class="faq">` + faq.map(function (f) { return `<details class="qa"><summary>` + escapeHtml(f.q) + `</summary><p>` + escapeHtml(f.a) + `</p></details>`; }).join("") + `</div>`) : "";
 
+    // [SEO+] Maillage interne : autres metiers reellement peuples dans la commune.
+    var maillageChips = "";
+    try {
+      var _villeArt = await sb('artisans?select=categorie_id&statut=eq.actif&suspendu_plainte=eq.false&demo=is.false&ville=ilike.' + vEnc);
+      var _catsAll = await sb('categories_artisans?select=id,nom,emoji');
+      var _catById = {}; (_catsAll || []).forEach(function (c) { _catById[c.id] = c; });
+      var _seen = {}; var _liens = [];
+      (_villeArt || []).forEach(function (a) {
+        var id = a.categorie_id;
+        if (!id || id === metier.id || _seen[id]) return;
+        if (!METIERS_AUTORISES.has(id)) return;
+        var c = _catById[id]; if (!c) return;
+        _seen[id] = 1;
+        var s = slugify(c.nom);
+        _liens.push('<a class="chip" href="' + SITE_URL + '/artisans/' + s + '/' + villeSlug + '">' + (c.emoji ? c.emoji + ' ' : '') + escapeHtml(c.nom) + '</a>');
+      });
+      maillageChips = _liens.join('');
+    } catch (e) { maillageChips = ""; }
+
     const head = `<title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(desc)}"/>
 <link rel="canonical" href="${canonical}"/>
@@ -223,6 +242,7 @@ ${faqHtml}
 <h2>Voir aussi à ${escapeHtml(ville)}</h2>
 <div class="chips">
   <a class="chip" href="${SITE_URL}/villes/${villeSlug}">Tous les pros de ${escapeHtml(ville)}</a>
+  ${maillageChips}
   <a class="chip" href="${SITE_URL}/deposer-projet">Déposer un projet</a>
 </div>`;
 
