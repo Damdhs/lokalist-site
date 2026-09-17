@@ -92,6 +92,11 @@ ${head}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chip{background:#fff;border:1px solid #D8E8E2;border-radius:20px;padding:6px 13px;font-size:13px;text-decoration:none;color:#1A2E26}
   .empty{background:#fff;border:1px solid #D8E8E2;border-radius:16px;padding:26px;text-align:center;color:#5C7268}
+  .faq{margin:0 0 34px}
+  .qa{background:#fff;border:1px solid #D8E8E2;border-radius:14px;padding:12px 16px;margin-bottom:10px}
+  .qa summary{font-weight:700;color:#0B1612;cursor:pointer;list-style:none}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa p{margin-top:8px;color:#3B5248;font-size:14.5px}
 </style>
 </head>
 <body>
@@ -162,6 +167,29 @@ export default async function handler(req) {
       } : {})
     };
 
+    // [SEO+] BreadcrumbList + FAQPage (GEO / rich results).
+    var _mA = metierNom.toLowerCase();
+    var jsonLdBreadcrumb = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": SITE_URL },
+        { "@type": "ListItem", "position": 2, "name": ville, "item": `${SITE_URL}/villes/${villeSlug}` },
+        { "@type": "ListItem", "position": 3, "name": `${metierNom} à ${ville}`, "item": canonical }
+      ]
+    };
+    var faq = vide ? [] : [
+      { q: `${metierNom} à ${ville} : comment trouver un artisan ?`, a: `Sur Lokalist, comparez les artisans en ${_mA} à ${ville}, consultez leurs avis et demandez un devis gratuit en quelques minutes.` },
+      { q: `Combien coûte une intervention en ${_mA} à ${ville} ?`, a: `Le tarif dépend de votre projet. Déposez votre demande sur Lokalist pour recevoir plusieurs devis gratuits d'artisans à ${ville} et comparer sans engagement.` },
+      { q: `Le devis d'un artisan en ${_mA} à ${ville} est-il gratuit ?`, a: `Oui : déposer un projet et recevoir des devis d'artisans à ${ville} est gratuit et sans engagement sur Lokalist.` }
+    ];
+    var jsonLdFaq = faq.length ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faq.map(function (f) { return { "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }; })
+    } : null;
+    var faqHtml = faq.length ? (`<h2>Questions fréquentes</h2><div class="faq">` + faq.map(function (f) { return `<details class="qa"><summary>` + escapeHtml(f.q) + `</summary><p>` + escapeHtml(f.a) + `</p></details>`; }).join("") + `</div>`) : "";
+
     const head = `<title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(desc)}"/>
 <link rel="canonical" href="${canonical}"/>
@@ -172,7 +200,9 @@ export default async function handler(req) {
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:image" content="${SITE_URL}/og-lokalist.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
+<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+${jsonLdBreadcrumb ? '<script type="application/ld+json">' + JSON.stringify(jsonLdBreadcrumb) + '</script>' : ''}
+${jsonLdFaq ? '<script type="application/ld+json">' + JSON.stringify(jsonLdFaq) + '</script>' : ''}`;
 
     const cards = artisans.map((a) => `<a class="card" href="${SITE_URL}/artisan/${a.id}">
   <div class="n">${escapeHtml(a.nom_entreprise || a.nom)}</div>
@@ -189,6 +219,7 @@ export default async function handler(req) {
 ${vide
   ? `<div class="empty">Soyez recontacté par des artisans locaux dès qu'ils rejoignent Lokalist.</div>`
   : `<div class="grid">${cards}</div>`}
+${faqHtml}
 <h2>Voir aussi à ${escapeHtml(ville)}</h2>
 <div class="chips">
   <a class="chip" href="${SITE_URL}/villes/${villeSlug}">Tous les pros de ${escapeHtml(ville)}</a>

@@ -83,6 +83,11 @@ ${head}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chip{background:#fff;border:1px solid #D8E8E2;border-radius:20px;padding:6px 13px;font-size:13px;text-decoration:none;color:#1A2E26}
   .empty{background:#fff;border:1px solid #D8E8E2;border-radius:16px;padding:26px;text-align:center;color:#5C7268}
+  .faq{margin:0 0 34px}
+  .qa{background:#fff;border:1px solid #D8E8E2;border-radius:14px;padding:12px 16px;margin-bottom:10px}
+  .qa summary{font-weight:700;color:#0B1612;cursor:pointer;list-style:none}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa p{margin-top:8px;color:#3B5248;font-size:14.5px}
 </style>
 </head>
 <body>
@@ -154,6 +159,29 @@ export default async function handler(req) {
       } : {})
     };
 
+    // [SEO+] BreadcrumbList + FAQPage (GEO / rich results).
+    var _cC = catNom.toLowerCase();
+    var jsonLdBreadcrumb = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Accueil", "item": SITE_URL },
+        { "@type": "ListItem", "position": 2, "name": ville, "item": `${SITE_URL}/villes/${villeSlug}` },
+        { "@type": "ListItem", "position": 3, "name": `${catNom} à ${ville}`, "item": canonical }
+      ]
+    };
+    var faq = vide ? [] : [
+      { q: `${catNom} à ${ville} : où trouver un commerce ?`, a: `Sur Lokalist, découvrez les commerces en ${_cC} à ${ville}, avec leurs adresses, avis et bons plans près de chez vous.` },
+      { q: `Peut-on cumuler des points de fidélité en ${_cC} à ${ville} ?`, a: `Oui : avec Lokalist vous cumulez des points de fidélité et profitez des offres des commerces à ${ville} qui participent au programme.` },
+      { q: `Comment voir les avis des commerces à ${ville} ?`, a: `Chaque fiche commerce sur Lokalist affiche sa note et ses avis clients. Installez l'application pour les consulter et en laisser.` }
+    ];
+    var jsonLdFaq = faq.length ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": faq.map(function (f) { return { "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }; })
+    } : null;
+    var faqHtml = faq.length ? (`<h2>Questions fréquentes</h2><div class="faq">` + faq.map(function (f) { return `<details class="qa"><summary>` + escapeHtml(f.q) + `</summary><p>` + escapeHtml(f.a) + `</p></details>`; }).join("") + `</div>`) : "";
+
     const head = `<title>${escapeHtml(title)}</title>
 <meta name="description" content="${escapeHtml(desc)}"/>
 <link rel="canonical" href="${canonical}"/>
@@ -164,7 +192,9 @@ export default async function handler(req) {
 <meta property="og:url" content="${canonical}"/>
 <meta property="og:image" content="${SITE_URL}/og-lokalist.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
-<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>`;
+<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>
+${jsonLdBreadcrumb ? '<script type="application/ld+json">' + JSON.stringify(jsonLdBreadcrumb) + '</script>' : ''}
+${jsonLdFaq ? '<script type="application/ld+json">' + JSON.stringify(jsonLdFaq) + '</script>' : ''}`;
 
     const cards = commercants.map((c) => {
       const note = (c.note_moyenne && c.nb_avis) ? `<span class="note">\u2605 ${Number(c.note_moyenne).toFixed(1)} (${c.nb_avis})</span>` : '';
@@ -184,6 +214,7 @@ export default async function handler(req) {
 ${vide
   ? `<div class="empty">Soyez averti d\u00e8s que des commerces de ${escapeHtml(ville)} rejoignent Lokalist.</div>`
   : `<div class="grid">${cards}</div>`}
+${faqHtml}
 <h2>Voir aussi \u00e0 ${escapeHtml(ville)}</h2>
 <div class="chips">
   <a class="chip" href="${SITE_URL}/villes/${villeSlug}">Tous les commerces de ${escapeHtml(ville)}</a>
