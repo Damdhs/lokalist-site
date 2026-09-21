@@ -257,6 +257,10 @@ fbq('track','PageView');
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 21h18"/><path d="M7 10V7a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/><path d="M12 5v5"/></svg>
         Hébergeur
       </button>
+      <button type="button" class="profile" data-profile="marchand"> <!-- MARCHAND_V1 -->
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18l-1 3H4z"/><path d="M4 12v8h16v-8"/><path d="M3 9l2-4h14l2 4"/><path d="M9 20v-5h6v5"/></svg>
+        Marchand
+      </button>
     </div>
   </section>
 
@@ -430,7 +434,8 @@ fbq('track','PageView');
   let selectedProfile = "";
   const PROFILE_LABELS = {
     commercant: "Commerçant", artisan: "Artisan", mairie: "Mairie",
-    agence: "Agence immobilière", courtier: "Courtier", hebergeur: "Hébergeur" /* HEBERGEUR_V1 */
+    agence: "Agence immobilière", courtier: "Courtier", hebergeur: "Hébergeur", /* HEBERGEUR_V1 */
+    marchand: "Marchand" /* MARCHAND_V1 */
   };
   const ETAB_LABELS = {
     commercant: "Nom de votre commerce",
@@ -438,7 +443,8 @@ fbq('track','PageView');
     mairie: "Nom de la commune",
     agence: "Nom de l'agence",
     courtier: "Cabinet / enseigne",
-    hebergeur: "Nom de votre établissement" /* HEBERGEUR_V1 */
+    hebergeur: "Nom de votre établissement", /* HEBERGEUR_V1 */
+    marchand: "Nom de votre stand / enseigne" /* MARCHAND_V1 */
   };
 
   /* ---- Contenu par profil (benefices + lien site) ---- */
@@ -516,6 +522,18 @@ fbq('track','PageView');
         "Loki, votre assistant IA qui oriente les visiteurs vers votre hébergement."
       ],
       link: "https://lokalist.fr"
+    },
+    marchand: { /* MARCHAND_V1 */
+      title: "Vous êtes marchand du marché",
+      intro: "Les habitants réservent vos produits avant le marché — vous voyez la demande monter avant même de vous déplacer.",
+      points: [
+        "Vos offres du marché (produit, prix, quantité) visibles par les habitants du secteur.",
+        "Ils réservent depuis l'appli et paient au stand : Lokalist ne touche jamais à l'argent, 0 % de commission.",
+        "Un simple scan au retrait valide la commande — fini les invendus et les allers pour rien.",
+        "Carte de fidélité intégrée (optionnelle) : au bout de X retraits, la récompense que vous choisissez.",
+        "Vous tournez sur plusieurs marchés et plusieurs dates : tout se pilote depuis votre téléphone."
+      ],
+      link: "https://lokalist.fr/mairies.html"
     }
   };
 
