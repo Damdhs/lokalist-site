@@ -250,6 +250,7 @@ fbq('track','PageView');
           <div class="form-group"><label>Nom *</label><input type="text" name="nom" placeholder="Votre nom" required/></div>
         </div>
         <div class="form-group"><label>Nom de votre entreprise *</label><input type="text" name="entreprise" placeholder="Ex: Dupont Plomberie" required/></div>
+        <div class="form-group" id="field-siret"><label>Numéro SIRET <span style="color:var(--muted);font-weight:400">— facilite votre inscription (14 chiffres)</span></label><input type="text" name="siret" inputmode="numeric" maxlength="17" placeholder="Ex: 804 561 819 000 25"/></div>
         <div class="form-group" id="field-ville"><label>Ville d'exercice *</label><input type="text" name="ville" placeholder="Ex: Fécamp" required/></div>
         <div class="form-row">
           <div class="form-group"><label>Email *</label><input type="email" name="email" placeholder="vous@exemple.fr" required/></div>
@@ -677,6 +678,7 @@ document.addEventListener('click',(e)=>{
       email: formData.get('email') || '',
       telephone: formData.get('telephone') || null,
       etablissement: formData.get('entreprise') || formData.get('commune') || null,
+      siret: formData.get('siret') || null, /* SIRET_V1 */
       activite: formData.get('categorie') || formData.get('type_loisir') || null,
       ville: formData.get('ville') || null,
       dispo_preferee: formData.get('disponibilite') || null,

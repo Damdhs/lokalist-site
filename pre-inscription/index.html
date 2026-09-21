@@ -323,6 +323,11 @@ fbq('track','PageView');
             <input type="text" id="etablissement" name="etablissement" autocomplete="organization" />
           </div>
 
+          <div class="field" id="field-siret"> <!-- SIRET_V1 -->
+            <label for="siret">Numéro SIRET <span style="color:#8AA69B;font-weight:400">— facilite votre inscription (14 chiffres)</span></label>
+            <input type="text" id="siret" name="siret" inputmode="numeric" maxlength="17" placeholder="Ex. 804 561 819 000 25" />
+          </div>
+
           <div class="row2">
             <div class="field">
               <label for="nom">Nom <span class="req">*</span></label>
@@ -621,6 +626,7 @@ fbq('track','PageView');
       email: email,
       telephone: tel,
       etablissement: document.getElementById("etablissement").value.trim(),
+      siret: (document.getElementById("siret") ? document.getElementById("siret").value.trim() : ''), /* SIRET_V1 */
       activite: document.getElementById("activite").value.trim(),
       ville: ville,
       code_postal: document.getElementById("code_postal").value.trim(),
